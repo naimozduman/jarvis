@@ -1,5 +1,23 @@
 # Integrations
 
+## Phase 1 status and future interface
+
+No provider SDK, network client, OAuth flow, webhook route, credential, or connected account is
+implemented in Phase 1. `packages/integrations/src/ports.ts` declares the provider-neutral
+`ConnectorPort` lifecycle boundary only. A future connector must verify its delivery, resolve a
+trusted owner, emit a canonical event, use encrypted-secret storage, go through policy/approval,
+append audit records, and reconcile state; it must not write JARVIS domain state directly.
+
+| Future interface | Planned phase | Phase 1 state |
+| --- | --- | --- |
+| Evolution API / WhatsApp | 3 | Replaceable connector port only. |
+| Gmail / Google Calendar | 5 | Connector ports only. |
+| Plaid, WHOOP, Iron & Intervals, food logging | 6 | Connector ports only. |
+| iOS / HealthKit | Later | Device/client and connector port boundary only. |
+| Hermes | Later | Restricted executor boundary only. |
+| Telegram / Poke | Later unless explicitly reprioritized | Channel identifiers/port boundary only. |
+| OpenAI reasoning | 2 | Deliberately absent from the integration package. |
+
 ## Shared connector contract
 
 Every connector implements:

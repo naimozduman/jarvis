@@ -1138,71 +1138,77 @@ Use pinned dependencies, required health checks, database migration gates, manua
 
 Exit criteria: CI passes on an empty vertical slice, deployment health endpoints respond, and no secrets are committed.
 
-### Phase 1: WhatsApp vertical slice
+### Phase 1: Core foundation
 
-- Deploy Evolution API with a dedicated number.
-- Receive one allowed user's text message.
-- Persist normalized event.
-- Call OpenAI with a strict response schema.
-- Persist decision.
-- Send reply through Evolution.
-- Schedule and send one proactive test reminder.
-- Restart services and verify session persistence.
-- Test reconnect and Telegram fallback.
+- Canonical PostgreSQL records and migrations for ownership, conversations, events, commitments,
+  reminders, daily state, approvals, actions, audit, constitution, and memory boundaries.
+- Durable jobs, idempotent event processing, deterministic policy/approval flow, and an owner-only
+  authentication boundary.
+- No provider connection, model reasoning, final control-center UI, or external executor.
 
-Exit criteria: stable two-way messaging for seven days, no silent message loss in test cases, and every event visible in the audit log.
+Exit criteria: a duplicate synthetic event has one durable, auditable result; no-response does not
+complete a commitment; and high-impact actions do not execute without explicit approval.
 
 ### Phase 2: Core brain
 
-- Onboarding questionnaire.
-- Constitution.
-- Structured memory.
-- Commitments and open loops.
-- Live day model.
-- Smart reminders.
-- Replanning.
-- Brain dashboard.
-- Approval engine.
+- Onboarding questionnaire and constitution handling.
+- Structured memory retrieval, context assembly, and reasoning.
+- Commitments and open loops, live day model, smart reminders, and replanning.
+- Behavioral engine, negotiation, and decision support behind the Phase 1 policy and audit system.
 
-Exit criteria: acceptance scenarios for accountability, ghosting, hard override, memory integrity, and replanning pass.
+Exit criteria: acceptance scenarios for accountability, ghosting, hard override, memory integrity,
+and replanning pass.
 
-### Phase 3: Google
+### Phase 3: WhatsApp vertical slice
+
+- Deploy Evolution API with a dedicated number.
+- Receive one allowed user's text message through normalized, idempotent event ingress.
+- Use the Phase 2 reasoning boundary with a strict response schema; persist the resulting decision.
+- Send a reply through a replaceable Evolution adapter.
+- Schedule and send one proactive test reminder through approved execution paths.
+- Restart services and verify session persistence.
+- Test reconnect and Telegram fallback.
+
+Exit criteria: stable two-way messaging for seven days, no silent message loss in test cases, and
+every event visible in the audit log.
+
+### Phase 4: Web control center
+
+- Owner-only control center and canonical views for Brain, Today, Commitments, Approvals, Activity,
+  Chat, connectors, and connection health.
+- Web chat mirror uses the same canonical conversation, policy, approval, and audit boundaries.
+
+Exit criteria: the web interface provides control and visibility without becoming a second source
+of truth or bypassing policy.
+
+### Phase 5: Gmail and Google Calendar
 
 - Self-service Google OAuth.
 - Gmail read-only triage and push synchronization.
 - Calendar read and write.
 - Connector health and reconnection.
 
-Exit criteria: new important emails create reviewed commitments and calendar items without duplicates.
+Exit criteria: new important emails create reviewed commitments and calendar items without
+duplicates.
 
-### Phase 4: Finance and WHOOP
+### Phase 6: Health, finance, training, nutrition, and additional connectors
 
-- Plaid Link in admin.
+- Plaid Link in the control center.
 - Chase and Mercury account allowlist.
 - Read-only finance summaries and alerts.
 - WHOOP OAuth, webhooks, and reconciliation.
+- Iron & Intervals service API, workout log capture, training-plan context, and nutrition service
+  API.
 
-Exit criteria: finance writes remain impossible, transfers reconcile correctly, and health context improves plan recommendations.
+Exit criteria: finance writes remain impossible, transfers reconcile correctly, and health context
+improves plan recommendations.
 
-### Phase 5: Training and nutrition
+### Later phases: native capabilities and restricted execution
 
-- Iron & Intervals service API.
-- Workout log capture from chat.
-- Training-plan context.
-- Nutrition service API.
-
-### Phase 6: Native iOS
-
-- SwiftUI chat.
-- HealthKit.
-- Push notifications.
-- Location and context reminders.
-- Share sheet, voice, camera, and Apple Maps.
-
-### Phase 7: Restricted executor
-
-- Add Hermes or another isolated executor only for tasks that lack usable APIs.
-- Require narrow task packets, temporary credentials, and approval for side effects.
+- SwiftUI chat, HealthKit, push notifications, location and context reminders, share sheet, voice,
+  camera, and Apple Maps.
+- Hermes or another isolated executor only for tasks that lack usable APIs, with narrow task
+  packets, temporary credentials, and approval for side effects.
 
 ## 24. Acceptance tests
 

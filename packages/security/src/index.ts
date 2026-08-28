@@ -1,14 +1,8 @@
-export const redactedValue = '[REDACTED]' as const;
-
-const sensitiveFieldName = /(authorization|cookie|credential|key|password|secret|token)/i;
-
-export function redactSensitiveFields(
-  fields: Readonly<Record<string, unknown>>,
-): Record<string, unknown> {
-  return Object.fromEntries(
-    Object.entries(fields).map(([name, value]) => [
-      name,
-      sensitiveFieldName.test(name) ? redactedValue : value,
-    ]),
-  );
-}
+export * from './approval.js';
+export * from './audit.js';
+export * from './authorization.js';
+export * from './idempotency.js';
+export * from './policy.js';
+export * from './redaction.js';
+export * from './tokens.js';
+export * from './vault.js';

@@ -1,0 +1,2 @@
+CREATE TYPE "jarvis"."event_source" AS ENUM('web', 'whatsapp', 'telegram', 'ios', 'poke', 'system', 'internal', 'gmail', 'google_calendar', 'plaid', 'whoop', 'iron_and_intervals', 'food_logging', 'healthkit', 'hermes');--> statement-breakpoint
+ALTER TABLE "jarvis"."events" ALTER COLUMN "source" SET DATA TYPE "jarvis"."event_source" USING "source"::text::"jarvis"."event_source";

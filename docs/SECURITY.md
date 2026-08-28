@@ -1,18 +1,25 @@
 # Security and privacy
 
+## Phase 1 implementation boundary
+
+Phase 1 implements the owner-scoped authorization contract, safe structured logging and redaction,
+correlation IDs, idempotency helpers, constant-time secret-token comparison, approval enforcement,
+append-oriented audit records, and an encrypted connector-secret storage interface. It does not
+enable an OAuth provider, passkey ceremony, social login, external connector, model, or external
+executor. Future implementations must plug into these boundaries rather than bypass them.
+
 ## Threat model
 
 JARVIS concentrates private data and tool access. Main threats include account takeover, stolen OAuth refresh tokens, exposed API keys, malicious email content, compromised third-party services, accidental external actions, duplicate actions after retries, insecure logs, and unofficial WhatsApp session loss.
 
 ## Identity
 
-- One production user.
-- Passkey-first authentication.
-- Public registration disabled.
-- Recovery process documented and tested.
-- Reauthentication for connector, export, purge, and high-impact approval operations.
-- Short-lived web sessions and secure cookies.
-- Device and session revocation screen.
+- One production owner in V1.
+- The Phase 1 authentication adapter fails closed until a real verifier is installed.
+- `owners`, `identities`, devices, passkey-credential records, sessions, and trusted clients are
+  the future passkey/WebAuthn extension point; no interactive passkey ceremony is active yet.
+- Public registration, social login, email-provider login, recovery UI, and device/session UI are
+  deferred with the web control center and deployment work.
 
 ## Authorization
 
@@ -20,13 +27,15 @@ Use explicit policies, not implied single-user trust.
 
 Risk levels:
 
-- read
-- internal_write
-- external_low
-- external_high
-- prohibited
+- `READ`
+- `LOW_RISK_INTERNAL`
+- `CONTROLLED_WRITE`
+- `HIGH_IMPACT`
 
-Every tool declares risk, scopes, data classes, idempotency behavior, and approval requirement.
+Unknown actions, risk mismatches, unauthenticated ownership, and finance writes are denied. Controlled
+writes require explicit approval by default. High-impact actions always require explicit approval,
+and Phase 1 has no high-impact executor. Every tool declares risk, scopes, data classes,
+idempotency behavior, and approval requirement.
 
 ## Token protection
 

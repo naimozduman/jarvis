@@ -19,6 +19,7 @@
     "noEmit": true,
     "paths": {
       "@jarvis/config": ["./packages/config/src/index.ts"],
+      "@jarvis/contracts": ["./packages/contracts/src/index.ts"],
       "@jarvis/database": ["./packages/database/src/index.ts"],
       "@jarvis/domain": ["./packages/domain/src/index.ts"],
       "@jarvis/integrations": ["./packages/integrations/src/index.ts"],

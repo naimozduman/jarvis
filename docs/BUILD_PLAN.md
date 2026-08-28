@@ -26,123 +26,105 @@ Tests:
 - Missing required production variables fail at startup.
 - No secret-like fixture appears in Git history.
 
-## Phase 1: WhatsApp vertical slice
+## Phase 1: Core data and operating-system foundation
 
 Deliverables:
 
-- Evolution staging deployment.
-- Dedicated number QR connection.
-- Evolution webhook receiver.
-- Normalized inbound message contract.
-- Sender allowlist.
-- Message ledger.
-- OpenAI response with strict schema.
-- Outbound Evolution adapter.
-- Proactive scheduled test message.
-- Web chat mirror.
-- Connection-health card.
-- Telegram fallback spike.
-
-Reliability tests:
-
-- Duplicate webhook.
-- Out-of-order status updates.
-- Rapid multi-message burst.
-- Voice note.
-- Image with caption.
-- LID sender identifier.
-- Evolution restart.
-- Worker restart during processing.
-- Outbound timeout with unknown result.
-- Reconnect after session loss.
+- Canonical PostgreSQL schema and reviewed migrations.
+- Owner, device, session, trusted-client, and encrypted-secret storage boundaries.
+- Conversations, messages, source links, canonical events, commitments, reminders, daily state,
+  approvals, actions, audit, constitution, and memory-boundary records.
+- Durable pg-boss job transport with a JARVIS lifecycle projection, bounded retries, and safe
+  concurrent claim behavior.
+- Deterministic provider-neutral event pipeline, policy engine, approval enforcement, and audit
+  chain.
+- Provider-free authentication abstraction, health/readiness semantics, and optional disposable
+  PostgreSQL integration tests.
 
 Exit gate:
 
-Seven-day staged soak with no unexplained missing inbound message in the test log.
+Duplicate synthetic delivery creates exactly one canonical event/job/action intent, no high-impact
+action executes, and all standard CI checks pass without a database or provider credential.
 
-## Phase 2: Core brain
+## Phase 2: Brain, memory, and behavioral engine
 
 Deliverables:
 
-- Questionnaire and constitution editor.
-- Facts, preferences, people, projects, commitments, open loops, observations, and hypotheses.
-- Context retrieval.
-- Decision hierarchy.
-- Negotiation engine.
-- Reminder rules and jobs.
-- Day plan and replanning.
-- Message scoring and daily budget.
-- Approval engine.
-- Brain, Today, Commitments, Approvals, and Activity screens.
+- Onboarding questionnaire and constitution editor.
+- Memory retrieval for facts, preferences, people, projects, commitments, open loops,
+  observations, and hypotheses.
+- Context assembly, decision hierarchy, negotiation, reminder intelligence, live-day replanning,
+  behavioral learning, message scoring, and daily budget.
+- Model reasoning only behind the Phase 1 policy, approval, event, and audit boundaries.
 
 Exit gate:
 
 All core acceptance cases in `docs/EVALS_AND_ACCEPTANCE.md` pass.
 
-## Phase 3: Google
+## Phase 3: WhatsApp and Evolution API vertical slice
 
 Deliverables:
 
-- Connector card and Google OAuth.
-- Gmail recent sync.
-- Gmail Pub/Sub notifications.
-- Daily Gmail watch renewal.
-- History reconciliation.
-- Email triage and extraction.
-- Calendar read/write.
-- Calendar watch renewal.
-- Incremental event sync.
-- Source-linked calendar changes and undo.
+- Evolution staging deployment, dedicated-number connection, sender allowlist, normalized webhook
+  ingress, message reconciliation, and replaceable transport adapter.
+- Provider-neutral inbound/outbound event and message handling through the Phase 1 pipeline.
+- Connection health, restart recovery, and a Telegram fallback decision/spike.
+
+Reliability tests:
+
+- Duplicate webhook, out-of-order status updates, multi-message bursts, media/caption handling,
+  LID identifiers, Evolution and worker restarts, unknown outbound result, and reconnect after
+  session loss.
+
+Exit gate:
+
+Seven-day staged soak with no unexplained missing inbound message in the test log.
+
+## Phase 4: Web control center
+
+Deliverables:
+
+- Owner-only web control center for Today, Chat, Brain, Connectors, Approvals, and Activity.
+- Web chat mirror and connection-health card using canonical API contracts.
+- Approval, audit, commitment, and plan-state views that do not bypass the policy engine.
+
+Exit gate:
+
+The owner can inspect canonical state and approve/reject eligible actions without a web route
+becoming an alternate source of truth.
+
+## Phase 5: Gmail and Google Calendar
+
+Deliverables:
+
+- Connector card, self-service Google OAuth, Gmail recent sync and push/reconciliation, email
+  triage/extraction, and Calendar read/write/watch/reconciliation.
+- Source-linked calendar changes and undo through policy and approval boundaries.
 
 Exit gate:
 
 No duplicate calendar events across webhook replay, full resync, or retry.
 
-## Phase 4: Finance and WHOOP
+## Phase 6: Health, finance, training, nutrition, and additional connectors
 
 Deliverables:
 
-- Plaid Link in the admin page.
-- Provider and account allowlists.
-- Transactions, balances, and liabilities.
-- Transfer reconciliation.
-- Read-only permission tests.
-- WHOOP OAuth, v2 webhook, signatures, fetch, and reconciliation.
-- Money and Health views.
+- Plaid account allowlists, read-only finance summaries, balances, liabilities, transfer
+  reconciliation, and finance permission tests.
+- WHOOP OAuth, signed webhook/reconciliation, health freshness/source handling, and health views.
+- Iron & Intervals interface, workout logging, training-plan context, food/nutrition interface, and
+  other connector boundaries.
 
 Exit gate:
 
-The codebase contains no finance write product or endpoint. Health and finance summaries cite freshness and source.
+The codebase contains no finance-write product or endpoint. Health and finance summaries cite
+freshness and source.
 
-## Phase 5: Internal apps
+## Later phases
 
-Deliverables:
-
-- Iron & Intervals service API.
-- Chat workout logging.
-- Training plan context.
-- Nutrition connector contract.
-
-## Phase 6: Native iOS
-
-Deliverables:
-
-- SwiftUI client.
-- Same conversation and backend.
-- HealthKit permission and sync.
-- Background delivery.
-- Push, share sheet, voice, location, and Apple Maps.
-
-## Phase 7: Restricted executor
-
-Deliverables:
-
-- Isolated Hermes service or equivalent.
-- Narrow task packet and result schema.
-- Temporary credentials.
-- Browser and terminal allowlists.
-- Approval for side effects.
-- Full activity trace.
+Native iOS, HealthKit, background delivery, push, share sheet, voice, camera, location, Apple Maps,
+Hermes or an equivalent isolated executor, external communication, and release hardening remain
+later work. Side-effecting execution remains approval-gated.
 
 ## Pull request rule
 

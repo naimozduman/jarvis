@@ -16,6 +16,17 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "lint": "eslint src --max-warnings=0",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "db:generate": "drizzle-kit generate --config drizzle.config.ts",
+    "db:check": "drizzle-kit check --config drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config drizzle.config.ts"
+  },
+  "dependencies": {
+    "@jarvis/contracts": "workspace:*",
+    "@jarvis/domain": "workspace:*",
+    "@jarvis/security": "workspace:*",
+    "drizzle-orm": "0.45.2",
+    "pg": "8.23.0",
+    "pg-boss": "12.28.1"
   }
 }

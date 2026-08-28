@@ -8,17 +8,24 @@ import { getApiLiveHealth, getApiReadinessHealth } from './health.js';
 
 export interface BuildApiOptions {
   readonly environment?: EnvironmentSource;
+  readonly readiness?: {
+    readonly databaseVerified?: boolean;
+    readonly queueStarted?: boolean;
+  };
 }
 
 export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
-  void loadApiEnvironment(options.environment ?? process.env);
+  const environment = loadApiEnvironment(options.environment ?? process.env);
 
   const app = Fastify({
     logger: false,
   });
 
   app.get('/health/live', async () => getApiLiveHealth());
-  app.get('/health/ready', async () => getApiReadinessHealth());
+  app.get('/health/ready', async (request, reply) => {
+    const health = getApiReadinessHealth(environment, options.readiness);
+    return reply.code(health.status === 'ok' ? 200 : 503).send(health);
+  });
 
   return app;
 }

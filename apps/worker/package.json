@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@jarvis/config": "workspace:*",
+    "@jarvis/contracts": "workspace:*",
     "@jarvis/database": "workspace:*",
     "@jarvis/integrations": "workspace:*",
-    "@jarvis/observability": "workspace:*",
-    "@jarvis/schemas": "workspace:*"
+    "@jarvis/observability": "workspace:*"
   }
 }

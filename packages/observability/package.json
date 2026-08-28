@@ -19,8 +19,8 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@jarvis/contracts": "workspace:*",
     "@jarvis/domain": "workspace:*",
-    "@jarvis/schemas": "workspace:*",
     "@jarvis/security": "workspace:*"
   }
 }

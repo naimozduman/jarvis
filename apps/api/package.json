@@ -18,9 +18,11 @@
   },
   "dependencies": {
     "@jarvis/config": "workspace:*",
+    "@jarvis/contracts": "workspace:*",
     "@jarvis/database": "workspace:*",
+    "@jarvis/domain": "workspace:*",
     "@jarvis/observability": "workspace:*",
-    "@jarvis/schemas": "workspace:*",
+    "@jarvis/security": "workspace:*",
     "fastify": "5.12.1"
   }
 }

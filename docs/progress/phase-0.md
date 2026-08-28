@@ -55,17 +55,14 @@ machines and CI use Turbo directly.
 
 ## Unresolved decisions
 
-1. `docs/PRD.md` and `docs/BUILD_PLAN.md` label the WhatsApp vertical slice as Phase 1, while
-   `BUILD_ORDER.md` and the next prompt place canonical data, jobs, auth, policy, and audit first.
-   The phase numbering needs documentation reconciliation before the later slice is reported
-   complete.
-2. `schemas`/`domain` are the requested Phase 0 package names, while the architecture separately
-   reserves `contracts`/`brain`. The current mapping is recorded in the ADR index; no duplicate
-   package is created before it has a real responsibility.
+1. Phase numbering is reconciled by ADR 0005. Phase 1 is the canonical internal operating-system
+   foundation; WhatsApp follows as Phase 3 after the Phase 2 brain boundary.
+2. The `schemas`/`domain` naming transition is resolved by ADR 0006 when Phase 1 establishes
+   `@jarvis/contracts`; `@jarvis/brain` remains deferred to Phase 2.
 3. Production infrastructure, retention, recovery, storage, monitoring, provider scopes, and
    encryption-key operations remain intentionally undecided and unconnected.
-4. The starter directory is not a Git worktree. A true Git-history secret scan and live CI run
-   require private repository initialization outside this provider-free repository change.
+4. A local Git repository was initialized and the completed Phase 0 state was checkpointed locally
+   as `256e8a0` before Phase 1 implementation. No remote repository was created or pushed.
 
 ## Exact next phase entry point
 

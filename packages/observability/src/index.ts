@@ -1,8 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
+import type { HealthCheckStatus, HealthResponse, ServiceName } from '@jarvis/contracts';
 import { foundationVersion } from '@jarvis/domain';
-import type { FoundationService } from '@jarvis/domain';
-import type { HealthCheckStatus, HealthResponse } from '@jarvis/schemas';
 import { redactSensitiveFields } from '@jarvis/security';
 
 export interface SafeLogRecord {
@@ -14,6 +13,14 @@ export interface SafeLogRecord {
 
 export function createCorrelationId(): string {
   return randomUUID();
+}
+
+export function resolveCorrelationId(candidate: string | undefined): string {
+  const validUuid =
+    candidate !== undefined &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(candidate);
+
+  return validUuid ? candidate : createCorrelationId();
 }
 
 export function createSafeLogRecord(
@@ -28,7 +35,7 @@ export function createSafeLogRecord(
   };
 }
 
-export function createLiveHealthResponse(service: FoundationService): HealthResponse {
+export function createLiveHealthResponse(service: ServiceName): HealthResponse {
   return {
     service,
     status: 'ok',
@@ -42,12 +49,12 @@ export function createLiveHealthResponse(service: FoundationService): HealthResp
 }
 
 export function createFoundationReadinessResponse(
-  service: FoundationService,
+  service: ServiceName,
   checks: Readonly<Record<string, HealthCheckStatus>>,
 ): HealthResponse {
   return {
     service,
-    status: 'ok',
+    status: Object.values(checks).some((check) => check === 'fail') ? 'not_ready' : 'ok',
     timestamp: new Date().toISOString(),
     version: foundationVersion,
     correlationId: createCorrelationId(),

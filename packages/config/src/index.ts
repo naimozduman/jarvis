@@ -12,8 +12,10 @@ const rawEnvironmentSchema = z.object({
   USER_TIMEZONE: z.string().trim().min(1).optional(),
   ALLOWED_USER_EMAIL: z.string().email().optional(),
   DATABASE_URL: z.string().url().optional(),
+  JARVIS_TEST_DATABASE_URL: z.string().url().optional(),
   ENCRYPTION_KEY_CURRENT: z.string().min(32).optional(),
   ENCRYPTION_KEY_VERSION: z.coerce.number().int().positive().default(1),
+  INTERNAL_SERVICE_TOKEN_PEPPER: z.string().min(32).optional(),
   API_PORT: z.coerce.number().int().min(1).max(65_535).default(4000),
   WORKER_HEALTH_PORT: z.coerce.number().int().min(1).max(65_535).default(4100),
   PROVIDER_INTEGRATIONS_ENABLED: z.literal('false').default('false'),
@@ -30,8 +32,10 @@ export interface RuntimeEnvironment {
   readonly userTimezone: string;
   readonly allowedUserEmail: string | undefined;
   readonly databaseUrl: string | undefined;
+  readonly testDatabaseUrl: string | undefined;
   readonly encryptionKeyCurrent: string | undefined;
   readonly encryptionKeyVersion: number;
+  readonly internalServiceTokenPepper: string | undefined;
   readonly apiPort: number;
   readonly workerHealthPort: number;
   readonly providerIntegrationsEnabled: false;
@@ -108,8 +112,10 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     userTimezone: parsed.USER_TIMEZONE ?? defaultUserTimezone,
     allowedUserEmail: parsed.ALLOWED_USER_EMAIL,
     databaseUrl: parsed.DATABASE_URL,
+    testDatabaseUrl: parsed.JARVIS_TEST_DATABASE_URL,
     encryptionKeyCurrent: parsed.ENCRYPTION_KEY_CURRENT,
     encryptionKeyVersion: parsed.ENCRYPTION_KEY_VERSION,
+    internalServiceTokenPepper: parsed.INTERNAL_SERVICE_TOKEN_PEPPER,
     apiPort: parsed.API_PORT,
     workerHealthPort: parsed.WORKER_HEALTH_PORT,
     providerIntegrationsEnabled: false,

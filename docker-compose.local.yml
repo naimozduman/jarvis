@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: evolution
       POSTGRES_USER: evolution
-      POSTGRES_PASSWORD: local-evolution-only
+      POSTGRES_PASSWORD: ${EVOLUTION_POSTGRES_PASSWORD:?Set only for a future local Evolution environment}
     volumes:
       - evolution_postgres:/var/lib/postgresql/data
     healthcheck:
@@ -36,7 +36,7 @@ services:
       AUTHENTICATION_API_KEY: ${EVOLUTION_API_KEY}
       DATABASE_ENABLED: 'true'
       DATABASE_PROVIDER: postgresql
-      DATABASE_CONNECTION_URI: postgresql://evolution:local-evolution-only@evolution-postgres:5432/evolution
+      DATABASE_CONNECTION_URI: ${EVOLUTION_DATABASE_CONNECTION_URI:?Set only for a future local Evolution environment}
       CACHE_REDIS_ENABLED: ${EVOLUTION_REDIS_ENABLED:-false}
       CACHE_REDIS_URI: redis://evolution-redis:6379/0
     ports:

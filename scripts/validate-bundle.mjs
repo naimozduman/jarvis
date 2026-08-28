@@ -11,7 +11,19 @@ const requiredFiles = [
   'docs/ARCHITECTURE.md',
   'docs/SECURITY.md',
   'docs/BUILD_PLAN.md',
+  'BUILD_ORDER.md',
   'docs/ADR/index.md',
+  'docs/ADR/0005-phase-sequence.md',
+  'docs/ADR/0006-contracts-boundary.md',
+  'docs/ADR/0007-postgres-durable-jobs.md',
+  'docs/DATA_MODEL.md',
+  'docs/EVENT_MODEL.md',
+  'docs/JOB_LIFECYCLE.md',
+  'docs/POLICY_MATRIX.md',
+  'docs/APPROVAL_MODEL.md',
+  'docs/AUDIT_MODEL.md',
+  'docs/AUTHENTICATION_BOUNDARY.md',
+  'docs/progress/phase-1.md',
   '.github/workflows/ci.yml',
   'apps/api/src/app.ts',
   'apps/api/src/health.ts',
@@ -25,6 +37,7 @@ const requiredWorkspaces = [
   'apps/web',
   'apps/worker',
   'packages/config',
+  'packages/contracts',
   'packages/schemas',
   'packages/database',
   'packages/domain',
@@ -45,8 +58,11 @@ const ignoredDirectories = new Set([
 ]);
 
 const forbiddenProviderImports = [
-  /(?:from|import\()\s*['"](?:openai|pg-boss|drizzle-orm|@neondatabase\/serverless)['"]/i,
-  /(?:from|import\()\s*['"](?:googleapis|plaid|telegram|whoop)['"]/i,
+  /(?:from|import\()\s*['"](?:openai|@neondatabase\/serverless|googleapis|@google\/|plaid|telegram|whoop|evolution-api|@evolution-api|baileys|@whiskeysockets\/baileys)['"]/i,
+];
+
+const databaseImplementationImports = [
+  /(?:from|import\()\s*['"](?:drizzle-orm(?:\/[^'"]*)?|pg-boss|pg)['"]/i,
 ];
 
 function pathFromRoot(path) {
@@ -139,7 +155,15 @@ for (const path of walk(root)) {
       for (const pattern of forbiddenProviderImports) {
         if (pattern.test(source)) {
           errors.push(
-            `provider implementation import is out of Phase 0 scope: ${pathFromRoot(path)}`,
+            `provider implementation import is out of Phase 1 scope: ${pathFromRoot(path)}`,
+          );
+        }
+      }
+
+      for (const pattern of databaseImplementationImports) {
+        if (pattern.test(source) && !pathFromRoot(path).startsWith('packages/database/')) {
+          errors.push(
+            `database implementation import is outside @jarvis/database: ${pathFromRoot(path)}`,
           );
         }
       }
@@ -157,6 +181,9 @@ if (existsSync(decisionIndexPath)) {
     '0002-evolution-transport',
     '0003-single-orchestrator',
     '0004-read-only-finance',
+    '0005-phase-sequence',
+    '0006-contracts-boundary',
+    '0007-postgres-durable-jobs',
   ]) {
     if (!decisionIndex.includes(decision)) {
       errors.push(`architecture decision index does not reference ${decision}`);

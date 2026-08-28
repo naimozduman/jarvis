@@ -1,22 +1,41 @@
-import { getDatabaseFoundationStatus } from '@jarvis/database';
+import type { RuntimeEnvironment } from '@jarvis/config';
+import { getDatabaseFoundationStatus, getQueueFoundationStatus } from '@jarvis/database';
+import { healthResponseSchema } from '@jarvis/contracts';
+import type { HealthResponse } from '@jarvis/contracts';
 import { getIntegrationFoundationStatus } from '@jarvis/integrations';
 import { createFoundationReadinessResponse, createLiveHealthResponse } from '@jarvis/observability';
-import { healthResponseSchema } from '@jarvis/schemas';
-import type { HealthResponse } from '@jarvis/schemas';
+
+export interface WorkerReadinessDependencies {
+  readonly databaseVerified?: boolean;
+  readonly queueStarted?: boolean;
+  readonly workerHeartbeatVerified?: boolean;
+}
 
 export function getWorkerLiveHealth(): HealthResponse {
   return healthResponseSchema.parse(createLiveHealthResponse('worker'));
 }
 
-export function getWorkerReadinessHealth(): HealthResponse {
-  const database = getDatabaseFoundationStatus();
+export function getWorkerReadinessHealth(
+  environment: Pick<RuntimeEnvironment, 'appEnvironment' | 'databaseUrl'>,
+  dependencies: WorkerReadinessDependencies = {},
+): HealthResponse {
+  const database = getDatabaseFoundationStatus({
+    appEnvironment: environment.appEnvironment,
+    databaseUrl: environment.databaseUrl,
+    verified: dependencies.databaseVerified,
+  });
+  const queue = getQueueFoundationStatus({
+    appEnvironment: environment.appEnvironment,
+    started: dependencies.queueStarted ?? false,
+    workerHeartbeatVerified: dependencies.workerHeartbeatVerified ?? false,
+  });
   const integrations = getIntegrationFoundationStatus();
 
   return healthResponseSchema.parse(
     createFoundationReadinessResponse('worker', {
       configuration: 'pass',
       database: database.status,
-      queue: 'not_initialized',
+      queue: queue.status,
       integrations: integrations.status,
     }),
   );

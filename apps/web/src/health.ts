@@ -1,6 +1,6 @@
 import { createLiveHealthResponse } from '@jarvis/observability';
-import { healthResponseSchema } from '@jarvis/schemas';
-import type { HealthResponse } from '@jarvis/schemas';
+import { healthResponseSchema } from '@jarvis/contracts';
+import type { HealthResponse } from '@jarvis/contracts';
 
 export function getWebHealth(): HealthResponse {
   return healthResponseSchema.parse(createLiveHealthResponse('web'));

@@ -51,7 +51,11 @@ Use $agent-evals to add regression cases.
 
 ## Build prompts
 
-Run `prompts/codex/00-bootstrap.md` through `06-hardening.md` in order. Start a clean Codex task for each phase. Make Codex write a progress report before starting the next phase.
+Run the phase prompts in the order defined by ADR 0005: `00-bootstrap.md`, `01-foundation.md`,
+`02-brain-memory-and-planning.md`, `03-whatsapp-vertical-slice.md`,
+`04-web-control-center.md`, `05-google-connectors.md`, `06-connectors-and-health.md`, then
+`07-hardening.md` when release work is in scope. Start a clean Codex task for each phase. Make
+Codex write a progress report before starting the next phase.
 
 ## Secrets
 

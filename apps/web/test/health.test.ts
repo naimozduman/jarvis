@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { GET } from '@jarvis/web';
-import { healthResponseSchema } from '@jarvis/schemas';
+import { healthResponseSchema } from '@jarvis/contracts';
 
 describe('web health route skeleton', () => {
   it('returns a provider-free health response', async () => {

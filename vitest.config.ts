@@ -9,6 +9,7 @@ export default defineConfig({
     alias: {
       '@jarvis/api': fromRoot('./apps/api/src/index.ts'),
       '@jarvis/config': fromRoot('./packages/config/src/index.ts'),
+      '@jarvis/contracts': fromRoot('./packages/contracts/src/index.ts'),
       '@jarvis/database': fromRoot('./packages/database/src/index.ts'),
       '@jarvis/domain': fromRoot('./packages/domain/src/index.ts'),
       '@jarvis/integrations': fromRoot('./packages/integrations/src/index.ts'),

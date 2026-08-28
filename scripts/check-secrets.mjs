@@ -26,6 +26,26 @@ const secretPatterns = [
     label: 'OpenAI-style key',
     expression: /(?:^|[^A-Za-z0-9_])sk-[A-Za-z0-9_-]{20,}/,
   },
+  {
+    label: 'GitHub token',
+    expression: /(?:^|[^A-Za-z0-9_])gh[pousr]_[A-Za-z0-9_]{30,}/,
+  },
+  {
+    label: 'AWS access key identifier',
+    expression: /(?:^|[^A-Za-z0-9_])AKIA[0-9A-Z]{16}(?:$|[^A-Za-z0-9_])/,
+  },
+  {
+    label: 'Slack token',
+    expression: /(?:^|[^A-Za-z0-9_])xox[baprs]-[A-Za-z0-9-]{20,}/,
+  },
+  {
+    label: 'credential-bearing database URL',
+    expression: /\b(?:postgres(?:ql)?|mysql):\/\/[^\s/:@]+:[^\s@/]+@/i,
+  },
+  {
+    label: 'long bearer token',
+    expression: /\bBearer\s+[A-Za-z0-9._-]{32,}/,
+  },
 ];
 
 function pathFromRoot(path) {
@@ -63,6 +83,8 @@ function isSecretShapedFile(path) {
   return (
     filename === '.env' ||
     filename.startsWith('.env.') ||
+    filename === '.envrc' ||
+    filename.endsWith('.env') ||
     ['.key', '.pem', '.p12'].includes(extname(path))
   );
 }
@@ -89,7 +111,8 @@ function scanWorkingTree() {
 }
 
 function scanGitHistory() {
-  const isRepository = spawnSync('git', ['rev-parse', '--is-inside-work-tree'], {
+  const safeGitPrefix = ['-c', `safe.directory=${root}`];
+  const isRepository = spawnSync('git', [...safeGitPrefix, 'rev-parse', '--is-inside-work-tree'], {
     cwd: root,
     encoding: 'utf8',
   });
@@ -99,7 +122,7 @@ function scanGitHistory() {
     return;
   }
 
-  const revisions = spawnSync('git', ['rev-list', '--all'], {
+  const revisions = spawnSync('git', [...safeGitPrefix, 'rev-list', '--all'], {
     cwd: root,
     encoding: 'utf8',
   });
@@ -109,13 +132,23 @@ function scanGitHistory() {
     return;
   }
 
-  const historyPattern = '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,}';
+  const historyPattern = [
+    '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----',
+    'sk-[A-Za-z0-9_-]{20,}',
+    'gh[pousr]_[A-Za-z0-9_]{30,}',
+    'AKIA[0-9A-Z]{16}',
+    'xox[baprs]-[A-Za-z0-9-]{20,}',
+  ].join('|');
 
   for (const revision of revisions.stdout.split(/\r?\n/).filter(Boolean)) {
-    const result = spawnSync('git', ['grep', '-I', '-n', '-E', historyPattern, revision], {
-      cwd: root,
-      encoding: 'utf8',
-    });
+    const result = spawnSync(
+      'git',
+      [...safeGitPrefix, 'grep', '-I', '-n', '-E', '-e', historyPattern, revision],
+      {
+        cwd: root,
+        encoding: 'utf8',
+      },
+    );
 
     if (result.status === 0) {
       errors.push(`possible secret material in Git revision ${revision}`);

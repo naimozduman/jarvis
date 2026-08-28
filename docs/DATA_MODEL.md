@@ -1,201 +1,128 @@
-# Data model
-
-## Modeling rules
-
-- Store immutable source events separately from mutable domain state.
-- Store UTC timestamps and the source timezone when relevant.
-- Every derived record keeps source references, confidence, and freshness.
-- Use soft deletion for recoverable application state. Use a separate purge workflow for user-requested erasure.
-- Encrypt provider tokens and selected sensitive payloads at the application layer.
-- Never use embeddings as the only copy of a memory.
-- Never infer completion from silence.
-
-## Core identity
-
-### users
-
-One row in production. Includes timezone, locale, status, onboarding version, and kill-switch state.
-
-### identities
-
-Maps the user to web, WhatsApp, Telegram, Google, Plaid, WHOOP, and future iOS identities. Store verified provider identifiers and allowlist state.
-
-### auth tables
-
-Better Auth users, sessions, accounts, verification records, passkeys, and recovery metadata.
-
-## Connector model
-
-### connectors
-
-One row per provider installation. Fields include provider, state, mode, scopes, status, last success, last error, health score, paused time, and metadata.
-
-### connector_accounts
-
-Provider resources selected by the user, such as Google account, calendar, Plaid Item, bank account, WHOOP user, Evolution instance, or Telegram chat.
-
-### connector_tokens
-
-Ciphertext, key version, token type, expiration, refresh status, scopes, rotation time, and revocation time. Never return ciphertext to the web client.
-
-### webhook_events
-
-Immutable provider envelopes. Unique constraint on provider, connection, external event ID, and event type where available. Store raw-body object reference or encrypted body according to retention policy.
-
-## Conversation model
-
-### conversations
-
-Canonical threads. V1 normally has one primary conversation plus system-specific threads.
-
-### messages
-
-Direction, channel, sender identity, text, reply-to message, provider IDs, delivery status, normalized type, transcript, correlation ID, created time, and source event.
-
-### attachments
-
-Object key, media type, size, hash, provider metadata, retention deadline, transcript link, and safety scan state.
-
-## Event model
-
-### events
-
-Normalized facts that happened. Examples: message received, calendar event changed, transaction posted, sleep updated, reminder fired, commitment completed, connector revoked.
-
-Required fields:
-
-- id
-- schema_version
-- type
-- source
-- source_record_id
-- occurred_at
-- received_at
-- user_id
-- correlation_id
-- idempotency_key
-- sensitivity
-- payload
-
-## Memory model
-
-### facts
-
-Stable user facts. Include value schema, confidence, source, validity dates, sensitivity, and confirmation status.
-
-### constitution_items
-
-Versioned rules and commitments. Include priority, flexibility, minimum acceptable version, exceptions, review date, active version, and explicit approval.
-
-### preferences
-
-Contextual user choices. Include evidence count, confidence, expiry or review date, and whether the user confirmed the preference.
-
-### people and relationships
-
-Separate person identity from relationship-specific context. Promises and boundaries link to the relationship, not only the person.
-
-### observations
-
-Detected patterns with evidence links and a minimum evidence threshold.
-
-### hypotheses
-
-Tentative explanations. Include supporting and contradicting evidence, confidence, next test, review time, and promotion status.
-
-### open_loops
-
-Unfinished thoughts. Include next review time, uncertainty, related domain, and question to ask.
-
-### memory_links
-
-Typed edges such as supports, contradicts, concerns, belongs_to, derived_from, supersedes, and duplicate_of.
-
-### memory_embeddings
-
-Chunk text, embedding vector, model, source record, and access classification. Retrieval always returns the source record as well.
-
-## Planning model
-
-### commitments
-
-Canonical obligations with status, priority, consequence, flexibility, minimum version, owner, due window, completion evidence, dependencies, and escalation policy.
-
-### commitment_history
-
-Append-only changes and reasons.
-
-### day_plans
-
-One versioned plan per local date. Fields include status, timezone, generated reason, current version, and source snapshot hash.
-
-### plan_blocks
-
-Start, end, duration, fixed or flexible, dependencies, location, required energy, minimum duration, source, and completion state.
-
-### reminder_rules
-
-Trigger, condition, escalation, quiet-hour behavior, grouping key, completion condition, and next scheduled run.
-
-### reminder_runs
-
-Every attempt, delivery result, response, snooze, escalation outcome, and next action.
-
-## Decision and action model
-
-### model_runs
-
-Model route, prompt version, input summary hash, token usage, latency, structured result, validation errors, and cost estimate.
-
-### proposed_actions
-
-Action type, parameters, risk level, evidence, expiration, idempotency key, and permission result.
-
-### approvals
-
-Pending, approved, rejected, expired, or canceled. Store exact action payload hash so approval cannot be reused for changed content.
-
-### tool_calls
-
-Tool, operation ID, request hash, external IDs, status, retry state, unknown-result flag, and reconciliation outcome.
-
-### audit_events
-
-Append-only user-visible activity. Keep it readable without exposing secrets.
-
-## Domain mirrors
-
-Domain mirrors support planning and search. Original providers remain sources of truth.
-
-- email_threads and email_messages
-- calendar_events and calendar_sync_state
-- finance_accounts, finance_transactions, finance_liabilities, finance_recurring_items
-- health_source_records and health_daily_summaries
-- training_plans, workout_links, and training_summaries
-- nutrition_daily_summaries
-
-## Database constraints
-
-- Unique provider event keys.
-- Unique outbound operation keys.
-- Unique calendar external event IDs per connector.
-- One active constitution version per logical item.
-- One current day-plan version per user and local date.
-- Check constraints for risk and approval states.
-- Foreign keys from derived records to source records where feasible.
-- Row-level owner predicates even though V1 has one user.
-
-## Retention categories
-
-| Category | Suggested default |
-|---|---|
-| Audit and commitment history | Indefinite until user purge |
-| Raw provider webhook bodies | 30 days, then retain normalized record |
-| Voice and media originals | 7 to 30 days unless pinned |
-| Voice transcripts | User-configurable |
-| Model input snapshots | Redacted summary only, 30 days |
-| Health source records | User-configurable, summaries indefinite |
-| Finance source records | Keep required history, never store credentials |
-| Deleted memory content | Remove from active retrieval immediately, purge through job |
-
-Final retention values require an ADR.
+# Canonical data model
+
+## Phase 1 implementation
+
+The typed Drizzle definitions are in `packages/database/src/schema/`; the reviewed migrations are
+`packages/database/drizzle/0000_large_prima.sql` and
+`packages/database/drizzle/0001_foamy_blue_shield.sql`. JARVIS tables live in the PostgreSQL
+`jarvis` schema. pg-boss owns its separate `pgboss` transport schema and is not managed by Drizzle.
+
+The model supports one operating owner in V1 without relying on a client-supplied owner ID. Every
+personal record is owner-scoped. A partial unique index permits one primary owner, while identity,
+device, session, and trusted-client relations leave a future multi-identity path open.
+
+## Invariants
+
+- PostgreSQL—not an LLM conversation or provider—is persistent truth.
+- UTC `timestamptz` is used for instants; source timezone is retained where scheduling needs it.
+- JSONB holds evolvable payload/metadata; queryable lifecycle state uses typed columns and enums.
+- Event payloads never flow into normal logs or audit metadata.
+- Meaningful mutation paths carry an owner and correlation ID and append an audit event.
+- Silence never completes a commitment; completion needs explicit evidence.
+- Constitution versions are explicit rows; memory, observation, and hypothesis paths cannot change
+  an active constitutional principle.
+- Phase 1 has no embeddings, vector search, model runs, provider account data, or provider client.
+
+## Identity and secret storage
+
+| Table | Purpose |
+| --- | --- |
+| `owners` | Identity root, normalized email, timezone, active state, and primary-owner marker. |
+| `identities` | Future identity/provider subject mapping with verification and allowlist state. |
+| `devices` | Device trust, revocation, public-key fingerprint, and last-seen metadata. |
+| `passkey_credentials` | WebAuthn-ready public credential boundary only; no registration/login flow. |
+| `auth_sessions` | Token digest, device reference, expiry, reauthentication, and revocation; never a raw session token. |
+| `trusted_clients` | Future web, iOS, service, and MCP client IDs, scopes, token digest, rotation, and revocation. |
+| `connector_accounts` | Future selected connector-account metadata only. |
+| `encrypted_connector_secrets` | Ciphertext envelope, algorithm, key version, nonce, expiry, rotation, and revocation only. |
+
+`owners`, not legacy `users`, is canonical. The existing static JSON event schema uses `userId` as a
+legacy transport field. A future adapter must resolve it to a verified owner server-side before an
+`events` record exists.
+
+## Conversations and messages
+
+| Table | Purpose |
+| --- | --- |
+| `conversations` | Canonical owner thread, channel, optional external identity, state, and safe metadata. |
+| `messages` | Channel, direction, external identity, reply reference, content type/content, delivery state, source event, timestamps, and correlation ID. |
+| `message_attachments` | Object-storage reference, media type, size, hash, retention/safety metadata; no storage provider is connected. |
+| `message_source_links` | Typed links from a message to an event or future source record. |
+
+The message-channel enum includes `web`, `whatsapp`, `telegram`, `ios`, `poke`, `system`, and
+`internal`. Event sources additionally include future connector identities such as `gmail`,
+`google_calendar`, `plaid`, `whoop`, `iron_and_intervals`, `food_logging`, `healthkit`, and `hermes`;
+that distinction lets a connector use the same event pipeline without pretending it is a chat
+channel. External message identity is unique per owner/channel when present; conversation order is
+indexed by occurrence time.
+
+## Events and durable jobs
+
+| Table | Purpose |
+| --- | --- |
+| `events` | Immutable envelope: type, source, source event ID, owner, idempotency key, occurrence/receipt time, payload hash, schema version, status, correlation/causation, and sensitivity. |
+| `event_processing_attempts` | Append-oriented worker attempts with safe error classification. |
+| `jobs` | JARVIS durable-job lifecycle projection, using the same UUID as pg-boss. |
+| `job_executions` | Per-worker lease/attempt history and sanitized outcome. |
+
+`events` is unique on `(owner_id, idempotency_key)` and, when available, on
+`(owner_id, source, event_type, source_event_id)`. `jobs` is unique on
+`(owner_id, job_type, idempotency_key)`. These constraints—not a queue delivery claim—enforce
+idempotency.
+
+## Commitments, reminders, and daily state
+
+| Area | Tables |
+| --- | --- |
+| Commitments | `commitments`, `commitment_status_history`, `commitment_deadlines`, `commitment_dependencies` |
+| Reminders | `reminders`, `reminder_triggers`, `reminder_attempts` |
+| Daily state | `day_plans`, `plan_blocks`, `plan_block_dependencies`, `replanning_history` |
+
+Commitments retain source, priority, consequence, flexibility, minimum acceptable version,
+completion-evidence reference, and follow-up state. Reminders support fixed, relative, contextual,
+conditional, persistent, and preparation triggers with escalation and next-eligible-delivery time.
+A partial unique index allows one active day plan per owner/local date; blocks encode fixed versus
+flexible scheduling, estimates, dependencies, and completion/movement state.
+
+## Actions, policy, approvals, and audit
+
+| Table | Purpose |
+| --- | --- |
+| `deterministic_decisions` | Provenance for Phase 1 deterministic handlers, explicitly not an LLM/model run. |
+| `policy_rule_overrides` | Owner-scoped safer-only policy configuration. |
+| `policy_evaluations` | Structured allow/approval/deny result, policy version, reason, and matched rules. |
+| `proposed_actions` | Canonical action, payload hash, risk, source, expiration, state, correlation, and idempotency. |
+| `approval_requests` | Exact action snapshot hash, risk, requested/expiry/resolution state, actor, and safe result. |
+| `action_executions` / `action_results` | Attempt/result lifecycle, future external reference ID, retries, and sanitized errors. |
+| `audit_events` | Append-only mutation history with actor, target, correlation/causation, state references, reason, source, and sanitized metadata. |
+
+The legacy static approval JSON schema uses `medium` and `high`. The runtime policy uses `READ`,
+`LOW_RISK_INTERNAL`, `CONTROLLED_WRITE`, and `HIGH_IMPACT`; a future transport adapter must version
+and map those values explicitly. The initial migration has a trigger rejecting `UPDATE` and `DELETE`
+against `jarvis.audit_events`. State references store entity IDs, versions, and content hashes rather
+than raw personal-record snapshots.
+
+## Constitution and memory boundaries
+
+| Area | Tables |
+| --- | --- |
+| Constitution | `constitution_items`, `constitution_item_versions` |
+| Memory root | `memory_records` |
+| Typed memory | `facts`, `preferences`, `people`, `relationships`, `projects`, `observations`, `hypotheses`, `open_loops`, `personality_traits` |
+
+Constitution version rows store the principle, category through the root item, priority, flexibility,
+source, active/current state, review date, explicit change reason, and exceptions. The schema
+enforces one current version per item and a unique version number. Each memory root holds source,
+source-event reference, confidence basis points, sensitivity, validity period, review time, and active
+state. Typed tables preserve fact/observation/hypothesis distinction. There is no vector or embedding
+table in Phase 1.
+
+## Migration workflow
+
+- Generate with `pnpm db:generate`; review and commit the SQL and Drizzle metadata.
+- Run `pnpm db:check` to validate the migration journal.
+- `pnpm db:migrate` requires `JARVIS_MIGRATIONS_DATABASE_URL` and never falls back to
+  `DATABASE_URL`.
+- `JARVIS_TEST_DATABASE_URL` is the only accepted URL for optional database integration tests.
+- Use forward expand/contract migrations for populated environments. The initial migration is only
+  safely reversible on an empty disposable database.

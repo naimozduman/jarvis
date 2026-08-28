@@ -1,12 +1,12 @@
 # Build order
 
-- [ ] Phase 0: Repository foundation and CI.
-- [ ] Phase 1: Canonical database, events, jobs, auth, policy, and audit.
-- [ ] Phase 2: Evolution WhatsApp vertical slice and web fallback.
-- [ ] Phase 3: Constitution, memory, live day, reminders, and evaluations.
-- [ ] Phase 4: Gmail and Google Calendar.
-- [ ] Phase 5: Plaid, WHOOP, Iron & Intervals, and nutrition interfaces.
-- [ ] Phase 6: Production hardening and release candidate.
-- [ ] Later: Telegram fallback, native iOS, Apple Health, location, voice, and restricted Hermes executor.
+- [x] Phase 0: Repository bootstrap and safety foundation.
+- [x] Phase 1: Core data, events, durable jobs, ownership/authentication boundary, policy, approvals, and audit.
+- [ ] Phase 2: Brain, constitution handling, memory retrieval, context assembly, reasoning, behavioral engine, and replanning.
+- [ ] Phase 3: WhatsApp and Evolution API vertical slice.
+- [ ] Phase 4: Web control center.
+- [ ] Phase 5: Gmail and Google Calendar.
+- [ ] Phase 6: Health, finance, training, nutrition, and additional connector interfaces.
+- [ ] Later: Native iOS, Apple Health, location, Hermes, external communication, and release hardening.
 
 Do not begin the next phase until the current phase has a written smoke result, updated docs, passing focused tests, and no unresolved critical security finding.

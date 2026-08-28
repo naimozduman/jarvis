@@ -6,7 +6,7 @@ These questions do not block the repository bootstrap. Answer them before the re
 
 - Final product and contact name.
 - Dedicated phone-number provider and recurring cost.
-- Whether Telegram ships with Phase 1 or immediately after it.
+- Whether Telegram ships with Phase 3 or immediately after the WhatsApp vertical slice.
 - Whether the web PWA sends push notifications before native iOS.
 
 ## Evolution

@@ -1,20 +1,38 @@
-import { getDatabaseFoundationStatus } from '@jarvis/database';
+import type { RuntimeEnvironment } from '@jarvis/config';
+import { getDatabaseFoundationStatus, getQueueFoundationStatus } from '@jarvis/database';
+import { healthResponseSchema } from '@jarvis/contracts';
+import type { HealthResponse } from '@jarvis/contracts';
 import { createFoundationReadinessResponse, createLiveHealthResponse } from '@jarvis/observability';
-import { healthResponseSchema } from '@jarvis/schemas';
-import type { HealthResponse } from '@jarvis/schemas';
+
+export interface ApiReadinessDependencies {
+  readonly databaseVerified?: boolean;
+  readonly queueStarted?: boolean;
+}
 
 export function getApiLiveHealth(): HealthResponse {
   return healthResponseSchema.parse(createLiveHealthResponse('api'));
 }
 
-export function getApiReadinessHealth(): HealthResponse {
-  const database = getDatabaseFoundationStatus();
+export function getApiReadinessHealth(
+  environment: Pick<RuntimeEnvironment, 'appEnvironment' | 'databaseUrl'>,
+  dependencies: ApiReadinessDependencies = {},
+): HealthResponse {
+  const database = getDatabaseFoundationStatus({
+    appEnvironment: environment.appEnvironment,
+    databaseUrl: environment.databaseUrl,
+    verified: dependencies.databaseVerified,
+  });
+  const queue = getQueueFoundationStatus({
+    appEnvironment: environment.appEnvironment,
+    started: dependencies.queueStarted ?? false,
+    workerHeartbeatVerified: false,
+  });
 
   return healthResponseSchema.parse(
     createFoundationReadinessResponse('api', {
       configuration: 'pass',
       database: database.status,
-      queue: 'not_initialized',
+      queue: queue.status,
     }),
   );
 }

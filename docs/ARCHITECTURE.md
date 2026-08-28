@@ -4,6 +4,16 @@
 
 JARVIS is one persistent system with several interfaces. WhatsApp, web, Telegram, and future iOS are channels. They do not own state.
 
+## Phase 1 present state
+
+The diagram below is the target architecture, not a statement that every component is active today.
+Phase 1 implements only the provider-neutral core: canonical PostgreSQL persistence, pg-boss job
+transport, deterministic event handling, ownership/authentication boundary, policy, approvals,
+audit, health/readiness contracts, and connector ports. The model/runtime brain is Phase 2; WhatsApp
+is Phase 3; the control-center UI is Phase 4; Gmail and Calendar are Phase 5; and health, finance,
+training, nutrition, and other connectors are Phase 6. No target-provider client or external account
+is connected in this phase.
+
 ```text
                          +-----------------------+
 WhatsApp -> Evolution -> |                       |
