@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "google",
+  "displayName": "Google Gmail and Calendar",
+  "category": "email",
+  "capabilities": [
+    "read",
+    "write_internal",
+    "webhook",
+    "poll",
+    "oauth",
+    "disconnect",
+    "reconcile"
+  ],
+  "auth": {
+    "type": "oauth2",
+    "requiredScopes": [
+      "minimum Gmail read scopes",
+      "minimum Calendar event scopes"
+    ],
+    "pkce": true,
+    "refreshTokens": true
+  },
+  "sync": {
+    "strategy": "webhook_and_reconcile",
+    "reconcileIntervalMinutes": 60,
+    "cursorType": "gmail-history-and-calendar-sync-token"
+  },
+  "dataSensitivity": "restricted",
+  "requiresApprovalForWrites": false,
+  "productionReady": false,
+  "notes": "Gmail is read-only in V1. Calendar may create and update internal events under explicit rules."
+}

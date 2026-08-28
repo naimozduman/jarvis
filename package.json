@@ -1,0 +1,41 @@
+{
+  "name": "jarvis-private-os",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.23.0",
+  "engines": {
+    "node": ">=24.19.0 <25",
+    "pnpm": ">=11.19.0 <12"
+  },
+  "scripts": {
+    "build": "node scripts/run-workspace-task.mjs build",
+    "lint": "node scripts/run-workspace-task.mjs lint",
+    "typecheck": "node scripts/run-workspace-task.mjs typecheck",
+    "type-check": "pnpm typecheck",
+    "test": "vitest run",
+    "unit-test": "pnpm test",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "bundle:validate": "node scripts/validate-bundle.mjs",
+    "bundle-validation": "pnpm bundle:validate",
+    "secrets:check": "node scripts/check-secrets.mjs",
+    "turbo:build": "turbo run build",
+    "turbo:lint": "turbo run lint",
+    "turbo:typecheck": "turbo run typecheck",
+    "ci": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm bundle:validate && pnpm secrets:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.13.3",
+    "eslint": "10.9.0",
+    "prettier": "3.9.6",
+    "turbo": "2.10.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.67.0",
+    "vitest": "4.1.10"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-win32-x64-msvc": "1.2.5"
+  }
+}

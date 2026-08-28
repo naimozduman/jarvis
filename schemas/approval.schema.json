@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.local/schemas/approval.schema.json",
+  "title": "JARVIS Approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "approvalId",
+    "userId",
+    "status",
+    "action",
+    "risk",
+    "createdAt",
+    "expiresAt",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "approvalId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "userId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected",
+        "expired",
+        "cancelled",
+        "executed",
+        "failed"
+      ]
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool",
+        "arguments",
+        "idempotencyKey"
+      ],
+      "properties": {
+        "tool": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "object"
+        },
+        "idempotencyKey": {
+          "type": "string"
+        },
+        "targetDisplay": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "risk": {
+      "type": "string",
+      "enum": [
+        "medium",
+        "high"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decidedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "executedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 2000
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 30
+    },
+    "decisionChannel": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "web",
+        "whatsapp",
+        "telegram",
+        "ios",
+        null
+      ]
+    },
+    "providerResultRef": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+services:
+  evolution-postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: evolution
+      POSTGRES_USER: evolution
+      POSTGRES_PASSWORD: local-evolution-only
+    volumes:
+      - evolution_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U evolution -d evolution']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  evolution-redis:
+    image: redis:7-alpine
+    profiles: ['redis']
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - evolution_redis:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  evolution-api:
+    # Replace this placeholder with the tested stable digest recorded by the release ADR.
+    image: evoapicloud/evolution-api:PIN_TESTED_STABLE_DIGEST
+    depends_on:
+      evolution-postgres:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: '8080'
+      AUTHENTICATION_API_KEY: ${EVOLUTION_API_KEY}
+      DATABASE_ENABLED: 'true'
+      DATABASE_PROVIDER: postgresql
+      DATABASE_CONNECTION_URI: postgresql://evolution:local-evolution-only@evolution-postgres:5432/evolution
+      CACHE_REDIS_ENABLED: ${EVOLUTION_REDIS_ENABLED:-false}
+      CACHE_REDIS_URI: redis://evolution-redis:6379/0
+    ports:
+      - '8080:8080'
+    volumes:
+      - evolution_instances:/evolution/instances
+    restart: unless-stopped
+
+volumes:
+  evolution_postgres:
+  evolution_redis:
+  evolution_instances:

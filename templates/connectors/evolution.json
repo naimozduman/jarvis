@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "evolution",
+  "displayName": "Evolution WhatsApp",
+  "category": "messaging",
+  "capabilities": [
+    "read",
+    "write_internal",
+    "webhook",
+    "disconnect",
+    "reconcile",
+    "media"
+  ],
+  "auth": {
+    "type": "api_key",
+    "requiredScopes": [],
+    "pkce": false,
+    "refreshTokens": false
+  },
+  "sync": {
+    "strategy": "webhook_and_reconcile",
+    "reconcileIntervalMinutes": 15,
+    "cursorType": "provider-message-window"
+  },
+  "dataSensitivity": "sensitive",
+  "requiresApprovalForWrites": false,
+  "productionReady": false,
+  "notes": "Unofficial Baileys route. Dedicated number, one replica, pinned stable digest, fallback channel required."
+}

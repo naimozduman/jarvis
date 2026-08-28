@@ -1,0 +1,98 @@
+# Integrations
+
+## Shared connector contract
+
+Every connector implements:
+
+- `beginConnection`
+- `completeConnection`
+- `refreshAuthorization`
+- `disconnect`
+- `syncInitial`
+- `syncIncremental`
+- `ingestWebhook`
+- `reconcile`
+- `getHealth`
+- `listSelectableResources`
+- `applySelection`
+
+Every connector provides an admin card and audit events.
+
+## Evolution WhatsApp
+
+Mode: dedicated JARVIS account through Evolution API and Baileys.
+
+V1 permissions: send to the single allowlisted user, receive from that user, download approved media, inspect connection state.
+
+Do not use Evolution's built-in chatbot or OpenAI integration. Webhook events go to JARVIS.
+
+Special controls:
+
+- Exact image tag and digest.
+- One replica.
+- Session volume.
+- Separate database.
+- Redis feature flag.
+- Sender allowlist.
+- LID and phone identifier mapping.
+- Webhook and outbound idempotency.
+- Connection and message reconciliation.
+
+## Telegram
+
+Mode: official Bot API.
+
+Purpose: direct fallback, approvals, operational alerts, and test channel. Use webhook secret validation. Restrict the bot to one chat ID.
+
+## Google
+
+### OAuth
+
+Use server-side OAuth with offline access and encrypted refresh tokens. The application owns its Google Cloud project and consent screen.
+
+### Gmail
+
+V1 scope: read-only. Start with recent synchronization. Use Pub/Sub notifications and `history.list`. Renew `watch` daily. Run periodic reconciliation because notifications may be delayed or dropped.
+
+### Calendar
+
+Use selected calendars. Store sync tokens. Create a separate notification channel with an opaque verification token. Replace channels before expiration. Notifications contain change signals, so fetch actual event changes before updating state.
+
+## Plaid
+
+Use Plaid Link inside the Connectors page. Eligible new US or Canada teams may begin on the current Trial plan with up to ten production Items. Confirm current plan and institution access during setup.
+
+Products:
+
+- Transactions.
+- Balance when needed.
+- Liabilities for credit card due data.
+- Recurring Transactions only if available on the selected plan and useful.
+
+Never request Transfer. Verify webhook signatures. Persist access tokens encrypted. Use update mode for broken Items. Default account selection to Chase and Mercury only.
+
+Provider abstraction allows later support for SimpleFIN, BankSync, a direct Mercury read-only adapter, or another aggregator after a coverage and security review.
+
+## WHOOP
+
+Use OAuth with offline scope. Use v2 webhooks and v2 fetch endpoints. Validate HMAC signatures against timestamp plus raw body. Acknowledge within one second and enqueue fetch work. Reconcile periodically.
+
+## Apple Health
+
+No web-only connector. Implement in `apps/ios` through HealthKit. Request individual data types and show permission freshness. Use observer queries and background delivery on device.
+
+## Iron & Intervals
+
+Use a narrow internal HTTP API with a service identity, explicit methods, idempotency, and audit. No shared database connection.
+
+## Nutrition app
+
+Use the same internal API pattern. Define the contract before implementation.
+
+## OpenAI
+
+Use the Responses API directly from the worker. The OpenAI API key stays on Railway. Do not call OpenAI from the browser. Use strict output schemas, bounded retries, prompt versions, cost tracking, and model-route configuration.
+
+## Hermes executor
+
+Optional later. Treat as a restricted worker for tasks without usable APIs. It receives one task packet and a minimal tool allowlist. It does not receive master database access, raw finance credentials, Google refresh tokens, or the constitution editor.

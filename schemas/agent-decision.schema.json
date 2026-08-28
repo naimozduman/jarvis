@@ -1,0 +1,294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.local/schemas/agent-decision.schema.json",
+  "title": "JARVIS Agent Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "decisionType",
+    "summary",
+    "confidence",
+    "evidence",
+    "actions",
+    "memoryCandidates",
+    "followUps",
+    "userMessage",
+    "uncertainties"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "decisionType": {
+      "type": "string",
+      "enum": [
+        "respond",
+        "plan",
+        "replan",
+        "remind",
+        "escalate",
+        "ask",
+        "triage",
+        "summarize",
+        "no_action",
+        "approval_required"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "reasoningSummary": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 4000
+    },
+    "evidence": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sourceType",
+          "sourceId",
+          "claim"
+        ],
+        "properties": {
+          "sourceType": {
+            "type": "string",
+            "enum": [
+              "constitution",
+              "event",
+              "message",
+              "calendar",
+              "email",
+              "finance",
+              "health",
+              "training",
+              "nutrition",
+              "memory",
+              "system"
+            ]
+          },
+          "sourceId": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "claim": {
+            "type": "string",
+            "maxLength": 1200
+          },
+          "freshAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "memoryCandidates": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "$ref": "memory-candidate.schema.json"
+      }
+    },
+    "followUps": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "dueAt",
+          "reason"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "reminder",
+              "check_in",
+              "reconcile",
+              "review",
+              "escalation",
+              "ask_again"
+            ]
+          },
+          "dueAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "relatedEntityId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "cancelWhen": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          }
+        }
+      }
+    },
+    "userMessage": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "channelPriority"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "maxLength": 8000
+        },
+        "channelPriority": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "whatsapp",
+              "web_chat",
+              "telegram",
+              "ios_push"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "urgency": {
+          "type": "string",
+          "enum": [
+            "low",
+            "normal",
+            "high",
+            "critical"
+          ]
+        },
+        "combineKey": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256
+        }
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "question",
+          "impact",
+          "blocking"
+        ],
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "impact": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "blocking": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actionId",
+        "tool",
+        "risk",
+        "requiresApproval",
+        "arguments",
+        "idempotencyKey",
+        "reason"
+      ],
+      "properties": {
+        "actionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "tool": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_.-]{2,160}$"
+        },
+        "risk": {
+          "type": "string",
+          "enum": [
+            "read",
+            "low",
+            "medium",
+            "high",
+            "forbidden"
+          ]
+        },
+        "requiresApproval": {
+          "type": "boolean"
+        },
+        "arguments": {
+          "type": "object"
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 512
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 1500
+        },
+        "expectedResult": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1000
+        }
+      }
+    }
+  }
+}

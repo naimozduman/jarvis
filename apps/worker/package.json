@@ -1,0 +1,26 @@
+{
+  "name": "@jarvis/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@jarvis/config": "workspace:*",
+    "@jarvis/database": "workspace:*",
+    "@jarvis/integrations": "workspace:*",
+    "@jarvis/observability": "workspace:*",
+    "@jarvis/schemas": "workspace:*"
+  }
+}

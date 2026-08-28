@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.local/schemas/day-plan.schema.json",
+  "title": "JARVIS Day Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "planId",
+    "userId",
+    "date",
+    "timezone",
+    "revision",
+    "blocks",
+    "openDecisions"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "planId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "userId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "timezone": {
+      "type": "string",
+      "minLength": 3
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "blockId",
+          "title",
+          "kind",
+          "startAt",
+          "endAt",
+          "flexibility",
+          "status",
+          "priority"
+        ],
+        "properties": {
+          "blockId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "event",
+              "task",
+              "workout",
+              "meal",
+              "travel",
+              "sleep",
+              "prayer",
+              "buffer",
+              "recovery",
+              "other"
+            ]
+          },
+          "startAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "flexibility": {
+            "type": "string",
+            "enum": [
+              "immovable",
+              "fixed",
+              "flexible",
+              "optional"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "active",
+              "completed",
+              "missed",
+              "moved",
+              "cancelled",
+              "blocked"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "minimumDurationMinutes": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "sourceRefs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dependencyIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "completionEvidence": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "openDecisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "question",
+          "blocking"
+        ],
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "blocking": {
+            "type": "boolean"
+          },
+          "dueAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
