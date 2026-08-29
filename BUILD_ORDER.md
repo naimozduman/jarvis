@@ -2,7 +2,7 @@
 
 - [x] Phase 0: Repository bootstrap and safety foundation.
 - [x] Phase 1: Core data, events, durable jobs, ownership/authentication boundary, policy, approvals, and audit.
-- [ ] Phase 2: Brain, constitution handling, memory retrieval, context assembly, reasoning, behavioral engine, and replanning.
+- [x] Phase 2: Brain, constitution handling, memory retrieval, context assembly, reasoning, behavioral engine, replanning, and provider-free invariant evaluation. See `docs/progress/phase-2.md` and `docs/BRAIN_EVALS.md`.
 - [ ] Phase 3: WhatsApp and Evolution API vertical slice.
 - [ ] Phase 4: Web control center.
 - [ ] Phase 5: Gmail and Google Calendar.

@@ -22,6 +22,7 @@ import {
   proposedActionStateEnum,
   standardColumns,
 } from './common.js';
+import { brainDecisions, brainRequests } from './brain.js';
 import { events } from './conversations-events.js';
 import { owners } from './identity.js';
 
@@ -83,6 +84,9 @@ export const proposedActions = jarvis.table(
     sourceDecisionId: uuid('source_decision_id').references(() => deterministicDecisions.id, {
       onDelete: 'set null',
     }),
+    sourceBrainDecisionId: uuid('source_brain_decision_id').references(() => brainDecisions.id, {
+      onDelete: 'set null',
+    }),
     state: proposedActionStateEnum('state').notNull().default('proposed'),
     expiresAt: timestamp('expires_at', { withTimezone: true }),
     correlationId: uuid('correlation_id').notNull(),
@@ -138,6 +142,9 @@ export const approvalRequests = jarvis.table(
     actorId: uuid('actor_id'),
     result: jsonb('result').$type<Record<string, unknown>>(),
     sourceDecisionId: uuid('source_decision_id').references(() => deterministicDecisions.id, {
+      onDelete: 'set null',
+    }),
+    sourceBrainDecisionId: uuid('source_brain_decision_id').references(() => brainDecisions.id, {
       onDelete: 'set null',
     }),
     correlationId: uuid('correlation_id').notNull(),
@@ -263,6 +270,9 @@ export const jobs = jarvis.table(
     correlationId: uuid('correlation_id').notNull(),
     causationId: uuid('causation_id'),
     sourceEventId: uuid('source_event_id').references(() => events.id, { onDelete: 'set null' }),
+    brainRequestId: uuid('brain_request_id').references(() => brainRequests.id, {
+      onDelete: 'set null',
+    }),
     proposedActionId: uuid('proposed_action_id').references(() => proposedActions.id, {
       onDelete: 'set null',
     }),

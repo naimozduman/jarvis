@@ -233,6 +233,194 @@ export interface ProcessEventResult {
   readonly approvalRequested: boolean;
 }
 
+export interface ProposedActionPipelineInput {
+  readonly action: ProposedAction;
+  /** Safe provenance label for audit; it is never model-provided free-form text. */
+  readonly source: 'brain' | 'internal';
+  readonly reason: string;
+}
+
+export interface ProcessProposedActionResult {
+  readonly actionId: string;
+  readonly duplicate: boolean;
+  readonly approvalRequested: boolean;
+  readonly denied: boolean;
+  readonly executed: boolean;
+  readonly evaluation: PolicyEvaluation;
+}
+
+/**
+ * Shared action boundary for deterministic handlers and the Phase 2 brain. The brain can supply a
+ * typed proposal, but it cannot persist state outside this transaction, evaluate policy itself, or
+ * call an executor directly. A duplicate idempotency key has no second policy/approval/execution.
+ */
+export async function processProposedAction(
+  dependencies: Pick<EventPipelineDependencies, 'store' | 'policy'>,
+  input: ProposedActionPipelineInput,
+): Promise<ProcessProposedActionResult> {
+  return dependencies.store.transaction(async (transaction) => {
+    const actionResult = await transaction.persistProposedAction(input.action);
+    const action = actionResult.action;
+
+    if (actionResult.duplicate) {
+      return {
+        actionId: action.id,
+        duplicate: true,
+        approvalRequested: false,
+        denied: false,
+        executed: false,
+        evaluation: {
+          allowed: false,
+          requiresApproval: false,
+          denied: false,
+          reason: 'The proposed action already exists for this owner and idempotency key.',
+          policyVersion: 'not_re_evaluated_duplicate',
+          matchedRules: ['action.idempotency.duplicate'],
+        },
+      };
+    }
+
+    await transaction.appendAudit(
+      auditMutation({
+        ownerId: action.ownerId,
+        actorType: input.source === 'brain' ? 'service' : 'worker',
+        actorId: null,
+        action: 'action.proposed',
+        targetType: 'proposed_action',
+        targetId: action.id,
+        correlationId: action.correlationId,
+        ...(action.causationId ? { causationId: action.causationId } : {}),
+        previousState: null,
+        resultingState: { entityType: 'proposed_action', entityId: action.id },
+        reason: input.reason,
+        source: input.source,
+        metadata: { actionType: action.actionType, riskClass: action.riskClass },
+      }),
+    );
+
+    const evaluation = dependencies.policy.evaluate(action);
+    await transaction.persistPolicyEvaluation({
+      proposedActionId: action.id,
+      evaluation,
+      correlationId: action.correlationId,
+    });
+    await transaction.appendAudit(
+      auditMutation({
+        ownerId: action.ownerId,
+        actorType: 'system',
+        actorId: null,
+        action: 'policy.evaluated',
+        targetType: 'proposed_action',
+        targetId: action.id,
+        correlationId: action.correlationId,
+        ...(action.causationId ? { causationId: action.causationId } : {}),
+        previousState: { entityType: 'proposed_action', entityId: action.id },
+        resultingState: { entityType: 'proposed_action', entityId: action.id },
+        reason: evaluation.reason,
+        source: 'internal',
+        metadata: {
+          allowed: evaluation.allowed,
+          denied: evaluation.denied,
+          policyVersion: evaluation.policyVersion,
+          requiresApproval: evaluation.requiresApproval,
+        },
+      }),
+    );
+
+    if (evaluation.requiresApproval) {
+      await transaction.createApproval({ proposedAction: action, evaluation });
+      await transaction.appendAudit(
+        auditMutation({
+          ownerId: action.ownerId,
+          actorType: 'system',
+          actorId: null,
+          action: 'approval.requested',
+          targetType: 'proposed_action',
+          targetId: action.id,
+          correlationId: action.correlationId,
+          ...(action.causationId ? { causationId: action.causationId } : {}),
+          previousState: { entityType: 'proposed_action', entityId: action.id },
+          resultingState: { entityType: 'proposed_action', entityId: action.id },
+          reason: evaluation.reason,
+          source: 'internal',
+          metadata: { riskClass: action.riskClass },
+        }),
+      );
+      return {
+        actionId: action.id,
+        duplicate: false,
+        approvalRequested: true,
+        denied: false,
+        executed: false,
+        evaluation,
+      };
+    }
+
+    if (evaluation.denied) {
+      await transaction.denyAction({ proposedAction: action, evaluation });
+      await transaction.appendAudit(
+        auditMutation({
+          ownerId: action.ownerId,
+          actorType: 'system',
+          actorId: null,
+          action: 'action.denied',
+          targetType: 'proposed_action',
+          targetId: action.id,
+          correlationId: action.correlationId,
+          ...(action.causationId ? { causationId: action.causationId } : {}),
+          previousState: { entityType: 'proposed_action', entityId: action.id },
+          resultingState: { entityType: 'proposed_action', entityId: action.id },
+          reason: evaluation.reason,
+          source: 'internal',
+          metadata: { policyVersion: evaluation.policyVersion },
+        }),
+      );
+      return {
+        actionId: action.id,
+        duplicate: false,
+        approvalRequested: false,
+        denied: true,
+        executed: false,
+        evaluation,
+      };
+    }
+
+    if (!evaluation.allowed) {
+      throw new Error('Policy evaluation must be allowed, denied, or require explicit approval.');
+    }
+
+    const execution = await transaction.executeInternalAction({
+      proposedAction: action,
+      evaluation,
+    });
+    await transaction.appendAudit(
+      auditMutation({
+        ownerId: action.ownerId,
+        actorType: 'worker',
+        actorId: null,
+        action: 'action.executed',
+        targetType: execution.targetType,
+        targetId: execution.targetId,
+        correlationId: action.correlationId,
+        ...(action.causationId ? { causationId: action.causationId } : {}),
+        previousState: execution.previousState,
+        resultingState: execution.resultingState,
+        reason: evaluation.reason,
+        source: 'internal',
+        metadata: { actionType: action.actionType, policyVersion: evaluation.policyVersion },
+      }),
+    );
+    return {
+      actionId: action.id,
+      duplicate: false,
+      approvalRequested: false,
+      denied: false,
+      executed: true,
+      evaluation,
+    };
+  });
+}
+
 /**
  * Executes deterministic Phase 1 handler logic only. It has no model or provider pathway. A
  * high-impact action is persisted for approval and never sent to an executor here.

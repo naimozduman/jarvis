@@ -1,7 +1,12 @@
 import { createHash, randomUUID } from 'node:crypto';
 
 import { and, eq, or } from 'drizzle-orm';
-import { canonicalJson, utcTimestampSchema, uuidSchema } from '@jarvis/contracts';
+import {
+  canonicalJson,
+  planProposalSchema,
+  utcTimestampSchema,
+  uuidSchema,
+} from '@jarvis/contracts';
 import type {
   ApprovalRequest,
   AuditEventInput,
@@ -29,10 +34,14 @@ import {
   auditEvents,
   commitmentStatusHistory,
   commitments,
+  dayPlans,
   events,
   jobs,
+  planBlocks,
+  planProposals,
   policyEvaluations,
   proposedActions,
+  replanningHistory,
   reminders,
 } from './schema/index.js';
 
@@ -98,6 +107,7 @@ function asProposedAction(row: typeof proposedActions.$inferSelect): ProposedAct
     idempotencyKey: row.idempotencyKey,
     sourceEventId: row.sourceEventId ?? undefined,
     sourceDecisionId: row.sourceDecisionId ?? undefined,
+    sourceBrainDecisionId: row.sourceBrainDecisionId ?? undefined,
     correlationId: row.correlationId,
     causationId: row.causationId ?? undefined,
     state: row.state,
@@ -246,6 +256,7 @@ class DrizzleEventTransaction implements EventTransaction {
         idempotencyKey: input.idempotencyKey,
         sourceEventId: input.sourceEventId,
         sourceDecisionId: input.sourceDecisionId,
+        sourceBrainDecisionId: input.sourceBrainDecisionId,
         state: input.state,
         expiresAt: input.expiresAt ? new Date(input.expiresAt) : undefined,
         correlationId: input.correlationId,
@@ -353,6 +364,8 @@ class DrizzleEventTransaction implements EventTransaction {
       requestedAt,
       expiresAt,
       state: approval.state,
+      sourceDecisionId: input.proposedAction.sourceDecisionId,
+      sourceBrainDecisionId: input.proposedAction.sourceBrainDecisionId,
       correlationId: input.proposedAction.correlationId,
     });
     await this.transaction
@@ -517,6 +530,138 @@ class DrizzleEventTransaction implements EventTransaction {
         targetId: reminderId,
         previousState: null,
         resultingState: { entityType: 'reminder', entityId: reminderId },
+      };
+    }
+
+    if (action.actionType === 'internal.plan.update') {
+      const dayPlanId = requiredUuid(action.payload, 'dayPlanId');
+      const planProposalId = requiredUuid(action.payload, 'planProposalId');
+      const [plan] = await this.transaction
+        .select({ id: dayPlans.id, revision: dayPlans.revision })
+        .from(dayPlans)
+        .where(and(eq(dayPlans.id, dayPlanId), eq(dayPlans.ownerId, action.ownerId)))
+        .limit(1);
+      if (!plan) {
+        throw new Error('A plan update cannot target a missing or foreign day plan.');
+      }
+      const [storedProposal] = await this.transaction
+        .select({
+          id: planProposals.id,
+          ownerId: planProposals.ownerId,
+          dayPlanId: planProposals.dayPlanId,
+          state: planProposals.state,
+          trigger: planProposals.trigger,
+          proposal: planProposals.proposal,
+        })
+        .from(planProposals)
+        .where(
+          and(
+            eq(planProposals.id, planProposalId),
+            eq(planProposals.ownerId, action.ownerId),
+            eq(planProposals.dayPlanId, dayPlanId),
+          ),
+        )
+        .limit(1);
+      if (!storedProposal || storedProposal.state !== 'validated') {
+        throw new Error('A plan update requires a validated, owner-scoped plan proposal.');
+      }
+      const parsedProposal = planProposalSchema.safeParse(storedProposal.proposal);
+      if (!parsedProposal.success || !parsedProposal.data.valid) {
+        throw new Error('A plan update requires a structurally valid plan proposal.');
+      }
+
+      for (const block of parsedProposal.data.proposedBlocks) {
+        const [existingBlock] = await this.transaction
+          .select({ ownerId: planBlocks.ownerId, dayPlanId: planBlocks.dayPlanId })
+          .from(planBlocks)
+          .where(eq(planBlocks.id, block.id))
+          .limit(1);
+        if (
+          existingBlock &&
+          (existingBlock.ownerId !== action.ownerId || existingBlock.dayPlanId !== dayPlanId)
+        ) {
+          throw new Error('A plan update cannot reuse a block owned by another identity or plan.');
+        }
+      }
+
+      for (const block of parsedProposal.data.proposedBlocks) {
+        await this.transaction
+          .insert(planBlocks)
+          .values({
+            id: block.id,
+            ownerId: action.ownerId,
+            dayPlanId,
+            commitmentId: block.commitmentId ?? undefined,
+            blockKind:
+              block.anchorClass === 'hard_external_anchor' || block.anchorClass === 'fixed'
+                ? 'fixed'
+                : 'flexible',
+            role: block.role,
+            anchorClass: block.anchorClass,
+            priority: block.priority,
+            completionState: block.completionState,
+            title: block.title,
+            startAt: block.startAt ? new Date(block.startAt) : undefined,
+            endAt: block.endAt ? new Date(block.endAt) : undefined,
+            earliestStartAt: block.earliestStartAt ? new Date(block.earliestStartAt) : undefined,
+            latestFinishAt: block.latestFinishAt ? new Date(block.latestFinishAt) : undefined,
+            estimatedDurationMinutes: block.estimatedDurationMinutes,
+            minimumDurationMinutes: block.minimumDurationMinutes ?? undefined,
+            source: 'brain_validated_plan',
+            reasonForPlacement: block.reasonForPlacement,
+            metadata: { planProposalId },
+            updatedAt: now,
+          })
+          .onConflictDoUpdate({
+            target: planBlocks.id,
+            set: {
+              commitmentId: block.commitmentId ?? null,
+              role: block.role,
+              anchorClass: block.anchorClass,
+              priority: block.priority,
+              completionState: block.completionState,
+              title: block.title,
+              startAt: block.startAt ? new Date(block.startAt) : null,
+              endAt: block.endAt ? new Date(block.endAt) : null,
+              earliestStartAt: block.earliestStartAt ? new Date(block.earliestStartAt) : null,
+              latestFinishAt: block.latestFinishAt ? new Date(block.latestFinishAt) : null,
+              estimatedDurationMinutes: block.estimatedDurationMinutes,
+              minimumDurationMinutes: block.minimumDurationMinutes ?? null,
+              source: 'brain_validated_plan',
+              reasonForPlacement: block.reasonForPlacement,
+              metadata: { planProposalId },
+              updatedAt: now,
+            },
+          });
+      }
+
+      const resultingRevision = plan.revision + 1;
+      await this.transaction
+        .update(dayPlans)
+        .set({ revision: resultingRevision, updatedAt: now })
+        .where(and(eq(dayPlans.id, dayPlanId), eq(dayPlans.ownerId, action.ownerId)));
+      await this.transaction
+        .update(planProposals)
+        .set({ state: 'applied', appliedAt: now, updatedAt: now })
+        .where(
+          and(eq(planProposals.id, planProposalId), eq(planProposals.ownerId, action.ownerId)),
+        );
+      await this.transaction.insert(replanningHistory).values({
+        ownerId: action.ownerId,
+        dayPlanId,
+        previousRevision: plan.revision,
+        resultingRevision,
+        trigger: storedProposal.trigger,
+        reason: 'A validated internal plan proposal was applied through the action pipeline.',
+        correlationId: action.correlationId,
+        source: 'brain_validated_plan',
+        metadata: { planProposalId },
+      });
+      return {
+        targetType: 'day_plan',
+        targetId: dayPlanId,
+        previousState: { entityType: 'day_plan', entityId: dayPlanId, version: plan.revision },
+        resultingState: { entityType: 'day_plan', entityId: dayPlanId, version: resultingRevision },
       };
     }
 

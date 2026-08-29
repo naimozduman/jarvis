@@ -93,6 +93,33 @@ importers:
         specifier: workspace:*
         version: link:../../packages/observability
 
+  packages/brain:
+    dependencies:
+      '@jarvis/config':
+        specifier: workspace:*
+        version: link:../config
+      '@jarvis/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@jarvis/database':
+        specifier: workspace:*
+        version: link:../database
+      '@jarvis/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@jarvis/observability':
+        specifier: workspace:*
+        version: link:../observability
+      '@jarvis/security':
+        specifier: workspace:*
+        version: link:../security
+      openai:
+        specifier: ^7.8.0
+        version: 7.8.0(zod@4.4.3)
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
+
   packages/config:
     dependencies:
       zod:
@@ -2169,6 +2196,33 @@ packages:
       }
     engines: { node: '>=14.0.0' }
 
+  openai@7.8.0:
+    resolution:
+      {
+        integrity: sha512-/2g9JzdnXNcjX1W/UlSNu+OdSFDAaAVt0n9Onom0kPenH54o59G2WrX/xjTnr26UHNSh6hxcAf58doGYRme2rw==,
+      }
+    engines: { node: '>=22.0.0' }
+    peerDependencies:
+      '@aws-sdk/credential-provider-node': '>=3.972.0 <4'
+      '@smithy/hash-node': '>=4.3.0 <5'
+      '@smithy/signature-v4': '>=5.4.0 <6'
+      undici: '>=5 <9'
+      ws: ^8.21.0
+      zod: ^3.25 || ^4.0
+    peerDependenciesMeta:
+      '@aws-sdk/credential-provider-node':
+        optional: true
+      '@smithy/hash-node':
+        optional: true
+      '@smithy/signature-v4':
+        optional: true
+      undici:
+        optional: true
+      ws:
+        optional: true
+      zod:
+        optional: true
+
   optionator@0.9.4:
     resolution:
       {
@@ -3767,6 +3821,10 @@ snapshots:
   obug@2.1.4: {}
 
   on-exit-leak-free@2.1.2: {}
+
+  openai@7.8.0(zod@4.4.3):
+    optionalDependencies:
+      zod: 4.4.3
 
   optionator@0.9.4:
     dependencies:

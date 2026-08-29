@@ -46,6 +46,8 @@ export const proposedActionSchema = z.object({
   idempotencyKey: z.string().trim().min(16).max(256),
   sourceEventId: uuidSchema.optional(),
   sourceDecisionId: uuidSchema.optional(),
+  /** Separate provenance for an untrusted-but-validated Phase 2 brain decision. */
+  sourceBrainDecisionId: uuidSchema.optional(),
   correlationId: correlationIdSchema,
   causationId: causationIdSchema.optional(),
   state: proposedActionStateSchema,

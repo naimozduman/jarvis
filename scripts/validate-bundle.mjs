@@ -24,6 +24,18 @@ const requiredFiles = [
   'docs/AUDIT_MODEL.md',
   'docs/AUTHENTICATION_BOUNDARY.md',
   'docs/progress/phase-1.md',
+  'docs/progress/phase-2.md',
+  'docs/BRAIN_ARCHITECTURE.md',
+  'docs/CONSTITUTION_ENGINE.md',
+  'docs/MEMORY_ENGINE.md',
+  'docs/CONTEXT_ASSEMBLY.md',
+  'docs/ACCOUNTABILITY_ENGINE.md',
+  'docs/BEHAVIOR_ENGINE.md',
+  'docs/REPLANNING_ENGINE.md',
+  'docs/REMINDER_ENGINE.md',
+  'docs/MODEL_RUNTIME.md',
+  'docs/PROMPT_ARCHITECTURE.md',
+  'docs/BRAIN_EVALS.md',
   '.github/workflows/ci.yml',
   'apps/api/src/app.ts',
   'apps/api/src/health.ts',
@@ -37,6 +49,7 @@ const requiredWorkspaces = [
   'apps/web',
   'apps/worker',
   'packages/config',
+  'packages/brain',
   'packages/contracts',
   'packages/schemas',
   'packages/database',
@@ -58,8 +71,11 @@ const ignoredDirectories = new Set([
 ]);
 
 const forbiddenProviderImports = [
-  /(?:from|import\()\s*['"](?:openai|@neondatabase\/serverless|googleapis|@google\/|plaid|telegram|whoop|evolution-api|@evolution-api|baileys|@whiskeysockets\/baileys)['"]/i,
+  /(?:from|import\()\s*['"](?:@neondatabase\/serverless|googleapis|@google\/|plaid|telegram|whoop|evolution-api|@evolution-api|baileys|@whiskeysockets\/baileys)['"]/i,
 ];
+
+const openAiProviderImport = /(?:from|import\()\s*['"]openai(?:\/[^'"]*)?['"]/i;
+const allowedOpenAiAdapter = 'packages/brain/src/model/openai-responses-gateway.ts';
 
 const databaseImplementationImports = [
   /(?:from|import\()\s*['"](?:drizzle-orm(?:\/[^'"]*)?|pg-boss|pg)['"]/i,
@@ -160,6 +176,12 @@ for (const path of walk(root)) {
         }
       }
 
+      if (openAiProviderImport.test(source) && pathFromRoot(path) !== allowedOpenAiAdapter) {
+        errors.push(
+          `OpenAI provider implementation import is only allowed in ${allowedOpenAiAdapter}: ${pathFromRoot(path)}`,
+        );
+      }
+
       for (const pattern of databaseImplementationImports) {
         if (pattern.test(source) && !pathFromRoot(path).startsWith('packages/database/')) {
           errors.push(
@@ -184,6 +206,9 @@ if (existsSync(decisionIndexPath)) {
     '0005-phase-sequence',
     '0006-contracts-boundary',
     '0007-postgres-durable-jobs',
+    '0008-stateless-model-runtime',
+    '0009-brain-action-intent-boundary',
+    '0010-deterministic-context-and-epistemic-memory',
   ]) {
     if (!decisionIndex.includes(decision)) {
       errors.push(`architecture decision index does not reference ${decision}`);

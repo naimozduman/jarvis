@@ -35,3 +35,6 @@ jobs:
 
       - name: Verify formatting, linting, types, tests, build, and safety checks
         run: pnpm run ci
+
+      - name: Run provider-free Phase 2 brain evaluations
+        run: pnpm brain:evals

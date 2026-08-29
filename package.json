@@ -19,6 +19,7 @@
     "format:write": "prettier --write .",
     "bundle:validate": "node scripts/validate-bundle.mjs",
     "bundle-validation": "pnpm bundle:validate",
+    "brain:evals": "pnpm --filter @jarvis/brain evals",
     "secrets:check": "node scripts/check-secrets.mjs",
     "db:generate": "pnpm --filter @jarvis/database db:generate",
     "db:check": "pnpm --filter @jarvis/database db:check",

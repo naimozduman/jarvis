@@ -50,16 +50,15 @@ action executes, and all standard CI checks pass without a database or provider 
 
 Deliverables:
 
-- Onboarding questionnaire and constitution editor.
-- Memory retrieval for facts, preferences, people, projects, commitments, open loops,
-  observations, and hypotheses.
-- Context assembly, decision hierarchy, negotiation, reminder intelligence, live-day replanning,
-  behavioral learning, message scoring, and daily budget.
-- Model reasoning only behind the Phase 1 policy, approval, event, and audit boundaries.
+- `@jarvis/brain` as a separate orchestration package with no direct database, provider, or executor authority.
+- Versioned prompt modules; deterministic owner-scoped context manifests; typed memory candidates; bounded personality delivery preferences; open loops; overrides; conflicts; onboarding review boundary; interventions; reminders; and live-day planning constraints.
+- Provider-neutral model gateway, deterministic fake gateway, optional stateless OpenAI Responses adapter, and configuration-based fast/standard/deep routing with budgets.
+- Strict model intent validation and a server-side materializer that verifies context evidence and assigns durable IDs.
+- Model reasoning only through the Phase 1 policy, approval, action execution, idempotency, and audit boundaries.
 
 Exit gate:
 
-All core acceptance cases in `docs/EVALS_AND_ACCEPTANCE.md` pass.
+All Phase 2 invariant cases in `docs/BRAIN_EVALS.md`, core acceptance cases in `docs/EVALS_AND_ACCEPTANCE.md`, and standard provider-free CI gates pass.
 
 ## Phase 3: WhatsApp and Evolution API vertical slice
 

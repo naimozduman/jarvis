@@ -85,6 +85,15 @@ export const memoryRecords = jarvis.table(
     validFrom: timestamp('valid_from', { withTimezone: true }),
     validTo: timestamp('valid_to', { withTimezone: true }),
     reviewAt: timestamp('review_at', { withTimezone: true }),
+    reviewedAt: timestamp('reviewed_at', { withTimezone: true }),
+    supersededByMemoryRecordId: uuid('superseded_by_memory_record_id'),
+    evidenceCount: integer('evidence_count').notNull().default(0),
+    positiveEvidenceCount: integer('positive_evidence_count').notNull().default(0),
+    negativeEvidenceCount: integer('negative_evidence_count').notNull().default(0),
+    relatedEntityIds: jsonb('related_entity_ids')
+      .$type<readonly string[]>()
+      .notNull()
+      .default(sql`'[]'::jsonb`),
     active: boolean('active').notNull().default(true),
     metadata: jsonb('metadata')
       .$type<Record<string, unknown>>()
@@ -231,6 +240,13 @@ export const openLoops = jarvis.table(
       .references(() => memoryRecords.id, { onDelete: 'restrict' }),
     description: text('description').notNull(),
     state: varchar('state', { length: 80 }).notNull().default('open'),
+    followUpAfter: timestamp('follow_up_after', { withTimezone: true }),
+    reviewAfter: timestamp('review_after', { withTimezone: true }),
+    uncertainty: varchar('uncertainty', { length: 80 }).notNull().default('unknown'),
+    relatedEntityType: varchar('related_entity_type', { length: 80 }),
+    relatedEntityId: uuid('related_entity_id'),
+    relatedCommitmentId: uuid('related_commitment_id'),
+    resolutionState: varchar('resolution_state', { length: 80 }).notNull().default('unresolved'),
   },
   (table) => [uniqueIndex('open_loops_memory_record_unique').on(table.memoryRecordId)],
 );
@@ -247,6 +263,14 @@ export const personalityTraits = jarvis.table(
       .references(() => memoryRecords.id, { onDelete: 'restrict' }),
     trait: varchar('trait', { length: 160 }).notNull(),
     value: varchar('value', { length: 512 }).notNull(),
+    currentEstimate: integer('current_estimate').notNull().default(50),
+    confidenceBasisPoints: integer('confidence_basis_points').notNull().default(0),
+    evidenceCount: integer('evidence_count').notNull().default(0),
+    positiveEvidenceCount: integer('positive_evidence_count').notNull().default(0),
+    negativeEvidenceCount: integer('negative_evidence_count').notNull().default(0),
+    frozen: boolean('frozen').notNull().default(false),
+    learningEnabled: boolean('learning_enabled').notNull().default(true),
+    lastReviewedAt: timestamp('last_reviewed_at', { withTimezone: true }),
   },
   (table) => [uniqueIndex('personality_traits_memory_record_unique').on(table.memoryRecordId)],
 );
