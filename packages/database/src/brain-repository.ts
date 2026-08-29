@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 
 import { and, desc, eq } from 'drizzle-orm';
 
+import { conversationResponseSchema } from '@jarvis/contracts';
 import type {
   BrainDecision,
   BrainEvidence,
@@ -14,6 +15,7 @@ import type {
   ModelRun,
   PlanProposal,
   ReminderProposal,
+  Channel,
 } from '@jarvis/contracts';
 
 import type { JarvisDatabase } from './client.js';
@@ -53,6 +55,7 @@ export interface PersistedConversationResponse {
   readonly sourceEventId: string | null;
   readonly correlationId: string;
   readonly occurredAt: string;
+  readonly channel: Channel;
   readonly response: ConversationResponse;
 }
 
@@ -64,7 +67,7 @@ export interface PersistedInboundConversationMessage {
   readonly correlationId: string;
   readonly occurredAt: string;
   readonly content: string;
-  readonly channel: 'internal' | 'web';
+  readonly channel: Channel;
   readonly metadata: Readonly<Record<string, unknown>>;
 }
 
@@ -113,6 +116,11 @@ export interface BrainRepository {
   }): Promise<void>;
   persistInboundMessage(input: PersistedInboundConversationMessage): Promise<void>;
   persistConversationResponse(input: PersistedConversationResponse): Promise<void>;
+  /** Rehydrates a previously persisted response after an idempotent worker retry. */
+  getConversationResponse(input: {
+    readonly ownerId: string;
+    readonly responseMessageId: string;
+  }): Promise<{ readonly id: string; readonly response: ConversationResponse } | undefined>;
   updateDecisionExecutionResult(input: {
     readonly ownerId: string;
     readonly decisionId: string;
@@ -509,7 +517,7 @@ export class DrizzleBrainRepository implements BrainRepository {
       id: input.id,
       ownerId: input.ownerId,
       conversationId: input.conversationId,
-      channel: 'internal',
+      channel: input.channel,
       direction: 'outbound',
       contentType: 'text/plain',
       content: input.response.message,
@@ -523,6 +531,29 @@ export class DrizzleBrainRepository implements BrainRepository {
         tone: input.response.tone,
       },
     });
+  }
+
+  public async getConversationResponse(input: {
+    readonly ownerId: string;
+    readonly responseMessageId: string;
+  }): Promise<{ readonly id: string; readonly response: ConversationResponse } | undefined> {
+    const [message] = await this.database
+      .select({ id: messages.id, content: messages.content, metadata: messages.metadata })
+      .from(messages)
+      .where(and(eq(messages.id, input.responseMessageId), eq(messages.ownerId, input.ownerId)))
+      .limit(1);
+    if (!message?.content) {
+      return undefined;
+    }
+    const response = conversationResponseSchema.safeParse({
+      message: message.content,
+      nextAction: message.metadata['nextAction'] ?? null,
+      tone: message.metadata['tone'],
+    });
+    if (!response.success) {
+      throw new Error('A persisted conversation response failed canonical schema validation.');
+    }
+    return { id: message.id, response: response.data };
   }
 
   public async updateDecisionExecutionResult(input: {

@@ -9,6 +9,7 @@ import type {
   InformationState,
   PlanBlock,
   ModelRun,
+  Channel,
 } from '@jarvis/contracts';
 import type { BrainRepository } from '@jarvis/database';
 import { processProposedAction } from '@jarvis/domain';
@@ -50,6 +51,8 @@ export interface ConversationTurnInput {
   readonly sourceEventId: string | null;
   readonly messageId?: string;
   readonly purpose?: BrainRequestPurpose;
+  /** Channel is canonical metadata only; Brain never gains a transport client. */
+  readonly channel?: Channel;
   /** Metadata is persisted locally but never forwarded wholesale to a model. */
   readonly channelMetadata: Readonly<Record<string, unknown>>;
   readonly currentState: ConversationCurrentState;
@@ -87,6 +90,7 @@ function failureResponse(input: {
     status: input.status,
     decisionId: null,
     conversationResponse: null,
+    responseMessageId: null,
     actionIds: [],
     approvalRequested: false,
     safeError: input.safeError,
@@ -102,6 +106,7 @@ export class ConversationTurnService {
 
   public async process(input: ConversationTurnInput): Promise<BrainResponse> {
     const purpose = input.purpose ?? 'conversation';
+    const channel = input.channel ?? 'internal';
     const messageId =
       input.messageId ??
       deterministicUuid(`brain-message:${input.ownerId}:${input.idempotencyKey}`);
@@ -127,7 +132,7 @@ export class ConversationTurnService {
       correlationId: input.correlationId,
       occurredAt: input.timestamp,
       content: input.message,
-      channel: 'internal',
+      channel,
       metadata: { ...input.channelMetadata },
     });
 
@@ -137,11 +142,19 @@ export class ConversationTurnService {
         ownerId: input.ownerId,
         requestId: persisted.request.id,
       });
+      // A canonical worker can crash after the response commits but before it projects its
+      // transport outbox. Rehydrate the deterministic response so that a replay may create the
+      // missing idempotent outbox row without a second model call or action.
+      const persistedResponse = await this.dependencies.repository.getConversationResponse({
+        ownerId: input.ownerId,
+        responseMessageId: deterministicUuid(`brain-response:${persisted.request.id}`),
+      });
       return {
         requestId: persisted.request.id,
         status: 'duplicate',
         decisionId: decision?.id ?? null,
-        conversationResponse: null,
+        conversationResponse: persistedResponse?.response ?? null,
+        responseMessageId: persistedResponse?.id ?? null,
         actionIds: [],
         approvalRequested: false,
         safeError: null,
@@ -439,14 +452,18 @@ export class ConversationTurnService {
       },
     });
 
-    if (materialized.decision.conversationResponse) {
+    const responseMessageId = materialized.decision.conversationResponse
+      ? deterministicUuid(`brain-response:${request.id}`)
+      : null;
+    if (materialized.decision.conversationResponse && responseMessageId) {
       await this.dependencies.repository.persistConversationResponse({
-        id: randomUUID(),
+        id: responseMessageId,
         ownerId: input.ownerId,
         conversationId: input.conversationId,
         sourceEventId: input.sourceEventId,
         correlationId: input.correlationId,
         occurredAt: input.timestamp,
+        channel,
         response: materialized.decision.conversationResponse,
       });
     }
@@ -462,6 +479,7 @@ export class ConversationTurnService {
       status: 'completed',
       decisionId,
       conversationResponse: materialized.decision.conversationResponse,
+      responseMessageId,
       actionIds,
       approvalRequested,
       safeError: actionProcessingError

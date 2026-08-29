@@ -240,6 +240,8 @@ export const brainResponseSchema = z
     ]),
     decisionId: uuidSchema.nullable(),
     conversationResponse: conversationResponseSchema.nullable(),
+    /** Canonical persisted response message. Delivery remains an outbox/transport concern. */
+    responseMessageId: uuidSchema.nullable(),
     actionIds: z.array(uuidSchema),
     approvalRequested: z.boolean(),
     safeError: z.string().trim().min(1).max(500).nullable(),

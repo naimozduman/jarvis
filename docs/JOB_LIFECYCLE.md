@@ -66,3 +66,9 @@ calendar reconciliation, daily planning, weekly reports, memory maintenance, fin
 synchronization, connector reconciliation, and retries. Registering one in a later phase requires
 a typed payload, idempotency strategy, policy boundary, audit behavior, failure classification, and
 reconciliation plan before its worker is started.
+
+## Phase 3 transport jobs
+
+Phase 3 adds `jarvis.transport.outbound.send`, `jarvis.transport.reconcile`, `jarvis.transport.connection.health`, and `jarvis.media.fetch`. An outbound job contains only a canonical delivery ID, owner scope, opaque connection/operation references, and content class. The worker reloads the persisted delivery intent from JARVIS state, obtains an outbox lease, rechecks deterministic policy/connection, and then calls the transport port.
+
+A connection loss becomes retryable/waiting work without deleting canonical state. A timeout after dispatch is reconciliation-required and must not produce an automatic duplicate send. Provider delivery updates advance canonical state monotonically and are auditable. See `OUTBOUND_DELIVERY.md` for states and guarantees.

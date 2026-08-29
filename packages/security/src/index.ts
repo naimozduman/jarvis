@@ -5,4 +5,5 @@ export * from './idempotency.js';
 export * from './policy.js';
 export * from './redaction.js';
 export * from './tokens.js';
+export * from './transport-policy.js';
 export * from './vault.js';

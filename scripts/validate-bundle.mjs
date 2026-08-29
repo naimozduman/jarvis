@@ -36,6 +36,16 @@ const requiredFiles = [
   'docs/MODEL_RUNTIME.md',
   'docs/PROMPT_ARCHITECTURE.md',
   'docs/BRAIN_EVALS.md',
+  'docs/WHATSAPP_ARCHITECTURE.md',
+  'docs/EVOLUTION_INTEGRATION.md',
+  'docs/EVOLUTION_VERSION_GATE.md',
+  'docs/WHATSAPP_SECURITY.md',
+  'docs/WHATSAPP_IDENTITY.md',
+  'docs/WHATSAPP_RECOVERY.md',
+  'docs/OUTBOUND_DELIVERY.md',
+  'docs/MEDIA_PIPELINE.md',
+  'docs/RAILWAY_PHASE3_PLAN.md',
+  'docs/progress/phase-3.md',
   '.github/workflows/ci.yml',
   'apps/api/src/app.ts',
   'apps/api/src/health.ts',
@@ -55,6 +65,7 @@ const requiredWorkspaces = [
   'packages/database',
   'packages/domain',
   'packages/integrations',
+  'packages/integrations-evolution',
   'packages/security',
   'packages/observability',
   'packages/testing',
@@ -73,6 +84,8 @@ const ignoredDirectories = new Set([
 const forbiddenProviderImports = [
   /(?:from|import\()\s*['"](?:@neondatabase\/serverless|googleapis|@google\/|plaid|telegram|whoop|evolution-api|@evolution-api|baileys|@whiskeysockets\/baileys)['"]/i,
 ];
+
+const allowedEvolutionAdapterRoot = 'packages/integrations-evolution/src/';
 
 const openAiProviderImport = /(?:from|import\()\s*['"]openai(?:\/[^'"]*)?['"]/i;
 const allowedOpenAiAdapter = 'packages/brain/src/model/openai-responses-gateway.ts';
@@ -170,9 +183,12 @@ for (const path of walk(root)) {
 
       for (const pattern of forbiddenProviderImports) {
         if (pattern.test(source)) {
-          errors.push(
-            `provider implementation import is out of Phase 1 scope: ${pathFromRoot(path)}`,
-          );
+          const relativePath = pathFromRoot(path);
+          if (!relativePath.startsWith(allowedEvolutionAdapterRoot)) {
+            errors.push(
+              `provider implementation import is outside the Evolution adapter boundary: ${relativePath}`,
+            );
+          }
         }
       }
 
@@ -209,6 +225,7 @@ if (existsSync(decisionIndexPath)) {
     '0008-stateless-model-runtime',
     '0009-brain-action-intent-boundary',
     '0010-deterministic-context-and-epistemic-memory',
+    '0011-evolution-version-gate-and-owner-only-transport',
   ]) {
     if (!decisionIndex.includes(decision)) {
       errors.push(`architecture decision index does not reference ${decision}`);

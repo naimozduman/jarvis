@@ -2,17 +2,52 @@ import { sql } from 'drizzle-orm';
 import { fromDrizzle, PgBoss } from 'pg-boss';
 import type { DrizzleTransactionLike, Job } from 'pg-boss';
 
-import type { DurableJobInput, JobErrorCategory } from '@jarvis/contracts';
+import type { DurableJobInput, JobErrorCategory, OutboundDeliveryIntent } from '@jarvis/contracts';
 
-export const phaseOneQueueNames = [
+export const jarvisQueueNames = [
   'jarvis.event.process',
   'jarvis.reminder.fire',
   'jarvis.reminder.follow-up',
   'jarvis.connector.reconcile',
+  'jarvis.transport.outbound.send',
+  'jarvis.transport.reconcile',
+  'jarvis.transport.connection.health',
+  'jarvis.media.fetch',
   'jarvis.dead-letter',
 ] as const;
 
-export type PhaseOneQueueName = (typeof phaseOneQueueNames)[number];
+export type JarvisQueueName = (typeof jarvisQueueNames)[number];
+/** @deprecated retained only for Phase 1 callers; the queue set is now additive. */
+export const phaseOneQueueNames = jarvisQueueNames;
+export type PhaseOneQueueName = JarvisQueueName;
+
+/**
+ * Creates a durable provider-neutral delivery job. The payload contains only an already-persisted
+ * intent and opaque target reference; it carries no credential, raw JID, or arbitrary model tool.
+ */
+export function createOutboundDeliveryJob(input: OutboundDeliveryIntent): DurableJobInput {
+  return {
+    id: input.id,
+    ownerId: input.ownerId,
+    jobType: 'jarvis.transport.outbound.send',
+    payload: {
+      deliveryId: input.id,
+      ownerId: input.ownerId,
+      connectionId: input.connectionId,
+      transport: input.transport,
+      operationKey: input.operationKey,
+      contentType: input.contentType,
+    },
+    priority: input.critical ? 10 : 0,
+    scheduledFor: input.createdAt,
+    availableAfter: input.createdAt,
+    maximumAttempts: input.critical ? 8 : 5,
+    correlationId: input.correlationId,
+    ...(input.causationId ? { causationId: input.causationId } : {}),
+    ...(input.sourceEventId ? { sourceEventId: input.sourceEventId } : {}),
+    idempotencyKey: `transport-job:${input.operationKey}`,
+  };
+}
 
 export interface TransactionalJobTransport {
   enqueue(transaction: DrizzleTransactionLike, job: DurableJobInput): Promise<void>;
@@ -82,7 +117,7 @@ export class PgBossDurableJobTransport implements TransactionalJobTransport {
 
     await this.boss.start();
 
-    for (const name of phaseOneQueueNames) {
+    for (const name of jarvisQueueNames) {
       const queueOptions = {
         deleteAfterSeconds: 0,
         expireInSeconds: 300,
@@ -141,7 +176,7 @@ export class PgBossDurableJobTransport implements TransactionalJobTransport {
   }
 
   public async registerWorker(
-    name: PhaseOneQueueName,
+    name: JarvisQueueName,
     handler: ClaimedJobHandler,
     lifecycleProjection?: DurableJobLifecycleProjection,
   ): Promise<string> {
@@ -210,6 +245,13 @@ export interface ClassifiedJobError {
 }
 
 export function classifyJobError(error: unknown): ClassifiedJobError {
+  if (error instanceof Error && error.name === 'TransportRetryableJobError') {
+    return {
+      category: 'transient_network',
+      disposition: 'retryable',
+      summary: 'A transport delivery is waiting for a retryable transport condition.',
+    };
+  }
   const message = error instanceof Error ? error.message : 'Unknown job failure.';
   const normalized = message.toLowerCase();
 

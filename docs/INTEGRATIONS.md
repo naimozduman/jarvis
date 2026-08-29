@@ -56,6 +56,12 @@ Special controls:
 - Webhook and outbound idempotency.
 - Connection and message reconciliation.
 
+### Phase 3 implementation status
+
+`@jarvis/integrations-evolution` now owns the concrete Evolution boundary. It sends only an already-persisted, owner-bound delivery through `MessagingTransport`; it has no Brain or canonical database dependency. Incoming traffic uses a verified per-instance JWT, strict schema parsing, sender normalization, and canonical ingress. V1 accepts direct owner messages only. Group, broadcast/newsletter, status, untrusted, malformed, protocol, history-sync, resend, and self-echo traffic is rejected before the Brain.
+
+Evolution `2.3.7`, `2.4.0-rc2`, `latest`, and floating branch images are not supported because of the Baileys `rc9` vulnerability. The source-build contingency is non-production-only and requires immutable digest evidence; see `EVOLUTION_VERSION_GATE.md`. No real Evolution instance or WhatsApp account is required in CI.
+
 ## Telegram
 
 Mode: official Bot API.

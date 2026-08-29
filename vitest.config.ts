@@ -14,6 +14,7 @@ export default defineConfig({
       '@jarvis/database': fromRoot('./packages/database/src/index.ts'),
       '@jarvis/domain': fromRoot('./packages/domain/src/index.ts'),
       '@jarvis/integrations': fromRoot('./packages/integrations/src/index.ts'),
+      '@jarvis/integrations-evolution': fromRoot('./packages/integrations-evolution/src/index.ts'),
       '@jarvis/observability': fromRoot('./packages/observability/src/index.ts'),
       '@jarvis/schemas': fromRoot('./packages/schemas/src/index.ts'),
       '@jarvis/security': fromRoot('./packages/security/src/index.ts'),

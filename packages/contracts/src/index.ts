@@ -7,6 +7,7 @@ export * from './health.js';
 export * from './identity.js';
 export * from './jobs.js';
 export * from './memory.js';
+export * from './messaging.js';
 export * from './model-runtime.js';
 export * from './onboarding.js';
 export * from './planning.js';

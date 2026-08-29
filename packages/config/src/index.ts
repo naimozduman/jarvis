@@ -1,6 +1,15 @@
 import { z } from 'zod';
 
 const applicationEnvironments = ['development', 'test', 'production'] as const;
+const booleanEnvironmentSchema = z.enum(['true', 'false']);
+
+/**
+ * This is the only non-release Evolution source revision that passed the Phase 3 Baileys gate at
+ * implementation time. It is intentionally limited to explicitly approved non-production
+ * validation; a new stable release needs a separate review and code/doc update.
+ */
+export const reviewedEvolutionSourceBuildId = 'e273b904d53f5726970fd6a244ed9caa61dfeb9a' as const;
+export const reviewedEvolutionBaileysVersion = '7.0.0-rc13' as const;
 
 export const applicationEnvironmentSchema = z.enum(applicationEnvironments);
 export type ApplicationEnvironment = z.infer<typeof applicationEnvironmentSchema>;
@@ -18,7 +27,47 @@ const rawEnvironmentSchema = z.object({
   INTERNAL_SERVICE_TOKEN_PEPPER: z.string().min(32).optional(),
   API_PORT: z.coerce.number().int().min(1).max(65_535).default(4000),
   WORKER_HEALTH_PORT: z.coerce.number().int().min(1).max(65_535).default(4100),
-  PROVIDER_INTEGRATIONS_ENABLED: z.literal('false').default('false'),
+  PROVIDER_INTEGRATIONS_ENABLED: booleanEnvironmentSchema.default('false'),
+  JARVIS_EVOLUTION_ENABLED: booleanEnvironmentSchema.default('false'),
+  JARVIS_OWNER_ID: z.uuid().optional(),
+  JARVIS_WHATSAPP_INSTANCE: z.string().trim().min(1).max(160).optional(),
+  JARVIS_OWNER_PHONE: z
+    .string()
+    .trim()
+    .regex(/^\+?[0-9][0-9(). -]{5,30}$/)
+    .optional(),
+  /** Optional pre-enrolled LID; provider-supplied alternate JIDs never authorize it. */
+  JARVIS_OWNER_WHATSAPP_LID: z
+    .string()
+    .trim()
+    .regex(/^[a-zA-Z0-9._:-]{1,256}@lid$/)
+    .optional(),
+  EVOLUTION_BASE_URL: z
+    .string()
+    .url()
+    .refine((value) => {
+      const protocol = new URL(value).protocol;
+      return protocol === 'http:' || protocol === 'https:';
+    })
+    .optional(),
+  /** Never log this credential. It is intentionally absent in provider-free CI. */
+  EVOLUTION_API_KEY: z.string().trim().min(16).max(1_024).optional(),
+  /** HS256 signing secret for Evolution's per-instance webhook JWT, never an API key. */
+  EVOLUTION_WEBHOOK_SECRET: z.string().trim().min(32).max(1_024).optional(),
+  EVOLUTION_PROVIDER_BUILD_ID: z.string().trim().min(12).max(256).optional(),
+  EVOLUTION_BAILEYS_VERSION: z.string().trim().min(1).max(80).optional(),
+  EVOLUTION_IMAGE_DIGEST: z
+    .string()
+    .trim()
+    .regex(/^sha256:[a-f0-9]{64}$/)
+    .optional(),
+  EVOLUTION_ALLOW_UNSTABLE_SOURCE_BUILD: booleanEnvironmentSchema.default('false'),
+  EVOLUTION_WEBHOOK_MAX_BODY_BYTES: z.coerce
+    .number()
+    .int()
+    .min(1_024)
+    .max(1_048_576)
+    .default(65_536),
   OPENAI_API_KEY: z.string().trim().min(1).optional(),
   JARVIS_OPENAI_FAST_MODEL: z.string().trim().min(1).max(160).default('gpt-5.6-luna'),
   JARVIS_OPENAI_STANDARD_MODEL: z.string().trim().min(1).max(160).default('gpt-5.6-terra'),
@@ -95,7 +144,8 @@ export interface RuntimeEnvironment {
   readonly internalServiceTokenPepper: string | undefined;
   readonly apiPort: number;
   readonly workerHealthPort: number;
-  readonly providerIntegrationsEnabled: false;
+  readonly providerIntegrationsEnabled: boolean;
+  readonly evolution: EvolutionRuntimeConfiguration;
   readonly openAi: OpenAiRuntimeConfiguration;
   readonly brain: BrainRuntimeConfiguration;
 }
@@ -139,12 +189,33 @@ export interface BrainRuntimeConfiguration {
   readonly dailyProactiveMessageMaximum: number;
 }
 
+export interface EvolutionRuntimeConfiguration {
+  /** False by default; no app startup path calls Evolution while disabled. */
+  readonly enabled: boolean;
+  readonly ownerId: string | undefined;
+  readonly whatsappInstance: string | undefined;
+  readonly ownerPhone: string | undefined;
+  /** Optional authenticated-admin-enrolled LID; never infer it from a webhook payload. */
+  readonly ownerWhatsAppLid: string | undefined;
+  readonly baseUrl: string | undefined;
+  /** Never log or expose this field. */
+  readonly apiKey: string | undefined;
+  /** Never log or expose this field. */
+  readonly webhookSecret: string | undefined;
+  readonly providerBuildId: string | undefined;
+  readonly baileysVersion: string | undefined;
+  readonly imageDigest: string | undefined;
+  readonly webhookMaxBodyBytes: number;
+  /** Only a deliberately approved development/test source build can be enabled at this phase. */
+  readonly unstableSourceBuildAllowed: boolean;
+}
+
 export interface WebEnvironment {
   readonly appEnvironment: ApplicationEnvironment;
   readonly appUrl: string;
   readonly apiUrl: string;
   readonly userTimezone: string;
-  readonly providerIntegrationsEnabled: false;
+  readonly providerIntegrationsEnabled: boolean;
 }
 
 export class EnvironmentValidationError extends Error {
@@ -199,7 +270,55 @@ function parseRuntimeEnvironment(source: EnvironmentSource): RuntimeEnvironment 
     throw new EnvironmentValidationError(['APP_ENV']);
   }
 
+  validateEvolutionConfiguration(parsed.data);
+
   return toRuntimeEnvironment(parsed.data);
+}
+
+function validateEvolutionConfiguration(parsed: ParsedEnvironment): void {
+  const enabled = parsed.JARVIS_EVOLUTION_ENABLED === 'true';
+  if (!enabled) {
+    return;
+  }
+
+  const missing = [
+    ['PROVIDER_INTEGRATIONS_ENABLED', parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true'],
+    ['JARVIS_OWNER_ID', Boolean(parsed.JARVIS_OWNER_ID)],
+    ['JARVIS_WHATSAPP_INSTANCE', Boolean(parsed.JARVIS_WHATSAPP_INSTANCE)],
+    ['JARVIS_OWNER_PHONE', Boolean(parsed.JARVIS_OWNER_PHONE)],
+    ['EVOLUTION_BASE_URL', Boolean(parsed.EVOLUTION_BASE_URL)],
+    ['EVOLUTION_API_KEY', Boolean(parsed.EVOLUTION_API_KEY)],
+    ['EVOLUTION_WEBHOOK_SECRET', Boolean(parsed.EVOLUTION_WEBHOOK_SECRET)],
+    ['EVOLUTION_PROVIDER_BUILD_ID', Boolean(parsed.EVOLUTION_PROVIDER_BUILD_ID)],
+    ['EVOLUTION_BAILEYS_VERSION', Boolean(parsed.EVOLUTION_BAILEYS_VERSION)],
+    ['EVOLUTION_IMAGE_DIGEST', Boolean(parsed.EVOLUTION_IMAGE_DIGEST)],
+  ]
+    .filter(([, present]) => !present)
+    .map(([field]) => field as string);
+
+  if (missing.length > 0) {
+    throw new EnvironmentValidationError(missing);
+  }
+
+  // Phase 3 intentionally supports only the audited development-source contingency. A stable
+  // production Evolution release must be independently reviewed and added explicitly rather than
+  // being accepted as an arbitrary string in environment configuration.
+  const invalidGateFields: string[] = [];
+  if (parsed.EVOLUTION_ALLOW_UNSTABLE_SOURCE_BUILD !== 'true') {
+    invalidGateFields.push('EVOLUTION_ALLOW_UNSTABLE_SOURCE_BUILD');
+  }
+  if (parsed.EVOLUTION_PROVIDER_BUILD_ID !== reviewedEvolutionSourceBuildId) {
+    invalidGateFields.push('EVOLUTION_PROVIDER_BUILD_ID');
+  }
+  if (parsed.EVOLUTION_BAILEYS_VERSION !== reviewedEvolutionBaileysVersion) {
+    invalidGateFields.push('EVOLUTION_BAILEYS_VERSION');
+  }
+  if (parsed.APP_ENV === 'production') {
+    invalidGateFields.push('JARVIS_EVOLUTION_ENABLED');
+  }
+  if (invalidGateFields.length > 0) {
+    throw new EnvironmentValidationError(invalidGateFields);
+  }
 }
 
 function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
@@ -265,6 +384,22 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     ]);
   }
 
+  const evolution = {
+    enabled: parsed.JARVIS_EVOLUTION_ENABLED === 'true',
+    ownerId: parsed.JARVIS_OWNER_ID,
+    whatsappInstance: parsed.JARVIS_WHATSAPP_INSTANCE,
+    ownerPhone: parsed.JARVIS_OWNER_PHONE,
+    ownerWhatsAppLid: parsed.JARVIS_OWNER_WHATSAPP_LID,
+    baseUrl: parsed.EVOLUTION_BASE_URL,
+    apiKey: parsed.EVOLUTION_API_KEY,
+    webhookSecret: parsed.EVOLUTION_WEBHOOK_SECRET,
+    providerBuildId: parsed.EVOLUTION_PROVIDER_BUILD_ID,
+    baileysVersion: parsed.EVOLUTION_BAILEYS_VERSION,
+    imageDigest: parsed.EVOLUTION_IMAGE_DIGEST,
+    webhookMaxBodyBytes: parsed.EVOLUTION_WEBHOOK_MAX_BODY_BYTES,
+    unstableSourceBuildAllowed: parsed.EVOLUTION_ALLOW_UNSTABLE_SOURCE_BUILD === 'true',
+  } satisfies EvolutionRuntimeConfiguration;
+
   return {
     appEnvironment: parsed.APP_ENV,
     appUrl: parsed.APP_URL ?? defaultAppUrl,
@@ -278,7 +413,8 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     internalServiceTokenPepper: parsed.INTERNAL_SERVICE_TOKEN_PEPPER,
     apiPort: parsed.API_PORT,
     workerHealthPort: parsed.WORKER_HEALTH_PORT,
-    providerIntegrationsEnabled: false,
+    providerIntegrationsEnabled: parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true',
+    evolution,
     openAi,
     brain,
   };

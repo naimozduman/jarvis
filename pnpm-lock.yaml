@@ -56,6 +56,9 @@ importers:
       '@jarvis/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@jarvis/integrations-evolution':
+        specifier: workspace:*
+        version: link:../../packages/integrations-evolution
       '@jarvis/observability':
         specifier: workspace:*
         version: link:../../packages/observability
@@ -77,6 +80,9 @@ importers:
 
   apps/worker:
     dependencies:
+      '@jarvis/brain':
+        specifier: workspace:*
+        version: link:../../packages/brain
       '@jarvis/config':
         specifier: workspace:*
         version: link:../../packages/config
@@ -89,6 +95,9 @@ importers:
       '@jarvis/integrations':
         specifier: workspace:*
         version: link:../../packages/integrations
+      '@jarvis/integrations-evolution':
+        specifier: workspace:*
+        version: link:../../packages/integrations-evolution
       '@jarvis/observability':
         specifier: workspace:*
         version: link:../../packages/observability
@@ -164,6 +173,15 @@ importers:
       '@jarvis/contracts':
         specifier: workspace:*
         version: link:../contracts
+
+  packages/integrations-evolution:
+    dependencies:
+      '@jarvis/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      zod:
+        specifier: 4.4.3
+        version: 4.4.3
 
   packages/observability:
     dependencies:

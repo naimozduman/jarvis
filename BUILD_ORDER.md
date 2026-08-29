@@ -3,7 +3,10 @@
 - [x] Phase 0: Repository bootstrap and safety foundation.
 - [x] Phase 1: Core data, events, durable jobs, ownership/authentication boundary, policy, approvals, and audit.
 - [x] Phase 2: Brain, constitution handling, memory retrieval, context assembly, reasoning, behavioral engine, replanning, and provider-free invariant evaluation. See `docs/progress/phase-2.md` and `docs/BRAIN_EVALS.md`.
-- [ ] Phase 3: WhatsApp and Evolution API vertical slice.
+- [ ] Phase 3: WhatsApp and Evolution API provider-free vertical slice is implemented and
+      verified, but Phase 3 is not closed: production Evolution build verification, immutable
+      digest evidence, deployment, and real pairing remain explicitly pending. Do not begin
+      Phase 4. See `docs/progress/phase-3.md` and `docs/EVOLUTION_VERSION_GATE.md`.
 - [ ] Phase 4: Web control center.
 - [ ] Phase 5: Gmail and Google Calendar.
 - [ ] Phase 6: Health, finance, training, nutrition, and additional connector interfaces.

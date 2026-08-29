@@ -20,6 +20,7 @@
     "bundle:validate": "node scripts/validate-bundle.mjs",
     "bundle-validation": "pnpm bundle:validate",
     "brain:evals": "pnpm --filter @jarvis/brain evals",
+    "transport:evals": "pnpm --filter @jarvis/integrations-evolution evals",
     "secrets:check": "node scripts/check-secrets.mjs",
     "db:generate": "pnpm --filter @jarvis/database db:generate",
     "db:check": "pnpm --filter @jarvis/database db:check",

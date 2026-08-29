@@ -143,6 +143,32 @@ export const actorTypeEnum = jarvis.enum('audit_actor_type', [
 
 export const sensitivityEnum = jarvis.enum('sensitivity', ['normal', 'sensitive', 'restricted']);
 
+export const messagingConnectionStateEnum = jarvis.enum('messaging_connection_state', [
+  'disabled',
+  'unconfigured',
+  'connecting',
+  'qr_required',
+  'connected',
+  'degraded',
+  'reconnecting',
+  'disconnected',
+  'logged_out',
+  'blocked',
+  'incompatible_dependency',
+  'license_required',
+  'unknown',
+]);
+
+export const outboundDeliveryStateEnum = jarvis.enum('outbound_delivery_state', [
+  'pending',
+  'leased',
+  'sent',
+  'delivered',
+  'read',
+  'failed_retryable',
+  'failed_terminal',
+]);
+
 export const memoryKindEnum = jarvis.enum('memory_kind', [
   'fact',
   'preference',

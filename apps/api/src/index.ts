@@ -5,4 +5,11 @@ export type {
   AuthenticatedEventIngressDependencies,
   AuthenticatedEventIngressRequest,
 } from './events.js';
+export { registerEvolutionWebhookRoute } from './evolution-webhook.js';
+export type {
+  EvolutionTransportRejectionRecorder,
+  EvolutionWebhookAcknowledgement,
+  EvolutionWebhookIngressDependencies,
+  RejectedEvolutionTransportEvent,
+} from './evolution-webhook.js';
 export { getApiLiveHealth, getApiReadinessHealth } from './health.js';

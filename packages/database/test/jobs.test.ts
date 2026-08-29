@@ -18,6 +18,13 @@ describe('durable-job retry behavior', () => {
       disposition: 'terminal',
       summary: 'Job input validation failed.',
     });
+    const waitingForTransport = new Error('Transport is disconnected.');
+    waitingForTransport.name = 'TransportRetryableJobError';
+    expect(classifyJobError(waitingForTransport)).toEqual({
+      category: 'transient_network',
+      disposition: 'retryable',
+      summary: 'A transport delivery is waiting for a retryable transport condition.',
+    });
   });
 
   it('uses bounded exponential retry delays rather than an infinite retry loop', () => {

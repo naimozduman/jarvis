@@ -68,3 +68,9 @@ and Hermes must each map their verified delivery into this envelope. They must n
 tables directly, bypass policy, or treat their own state as JARVIS truth. Their adapters will supply
 source identity, idempotency, schema versioning, source-specific verification, and reconciliation;
 the event pipeline stays provider-neutral.
+
+## Phase 3 verified transport ingress
+
+Evolution webhooks enter only at `POST /webhooks/evolution`. The API enforces request size and JSON content type, verifies the reviewed per-instance JWT convention, parses an allowlisted provider envelope, normalizes it into a provider-neutral transport event, binds owner scope from server configuration, and invokes this same canonical transaction. It returns `202` after a new durable receipt or `200` for a duplicate; it does not synchronously invoke the model, download media, or send an outbound message.
+
+The event idempotency key derives from trusted provider identifiers after normalization. Provider payload `ownerId` is not read. Rejected traffic receives a redacted transport-rejection record and does not become a canonical Brain event. History/protocol input is rejected rather than reclassified as an owner command.

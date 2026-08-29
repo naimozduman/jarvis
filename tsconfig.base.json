@@ -24,6 +24,7 @@
       "@jarvis/database": ["./packages/database/src/index.ts"],
       "@jarvis/domain": ["./packages/domain/src/index.ts"],
       "@jarvis/integrations": ["./packages/integrations/src/index.ts"],
+      "@jarvis/integrations-evolution": ["./packages/integrations-evolution/src/index.ts"],
       "@jarvis/observability": ["./packages/observability/src/index.ts"],
       "@jarvis/schemas": ["./packages/schemas/src/index.ts"],
       "@jarvis/security": ["./packages/security/src/index.ts"],

@@ -37,4 +37,35 @@ describe('loadApiEnvironment', () => {
       expect(error.message).not.toContain(suppliedValue);
     }
   });
+
+  it('keeps Evolution disabled by default and rejects vulnerable or production source-build activation', () => {
+    expect(loadApiEnvironment(createTestEnvironment()).evolution).toMatchObject({ enabled: false });
+
+    const base = {
+      APP_ENV: 'test',
+      PROVIDER_INTEGRATIONS_ENABLED: 'true',
+      JARVIS_EVOLUTION_ENABLED: 'true',
+      JARVIS_OWNER_ID: '00000000-0000-4000-8000-000000000001',
+      JARVIS_WHATSAPP_INSTANCE: 'jarvis-test-instance',
+      JARVIS_OWNER_PHONE: '+15551234567',
+      JARVIS_OWNER_WHATSAPP_LID: '123456789@lid',
+      EVOLUTION_BASE_URL: 'http://evolution.private',
+      EVOLUTION_API_KEY: 'test-only-api-material-not-a-deployment-credential',
+      EVOLUTION_WEBHOOK_SECRET: 'phase3-test-signing-material-not-a-deployment-credential',
+      EVOLUTION_PROVIDER_BUILD_ID: 'e273b904d53f5726970fd6a244ed9caa61dfeb9a',
+      EVOLUTION_BAILEYS_VERSION: '7.0.0-rc13',
+      EVOLUTION_IMAGE_DIGEST: `sha256:${'a'.repeat(64)}`,
+      EVOLUTION_ALLOW_UNSTABLE_SOURCE_BUILD: 'true',
+    } as const;
+    expect(loadApiEnvironment(base).evolution).toMatchObject({
+      enabled: true,
+      ownerWhatsAppLid: '123456789@lid',
+    });
+    expect(() => loadApiEnvironment({ ...base, EVOLUTION_BAILEYS_VERSION: '7.0.0-rc9' })).toThrow(
+      EnvironmentValidationError,
+    );
+    expect(() => loadApiEnvironment({ ...base, APP_ENV: 'production' })).toThrow(
+      EnvironmentValidationError,
+    );
+  });
 });

@@ -157,3 +157,17 @@ Every external dependency is expected to fail.
 - Model schema failure retries with bounded attempts, then falls back to a safe message or human review.
 - Connector revocation degrades affected features and never fabricates stale data.
 - Evolution failure routes status to web and Telegram.
+
+## Phase 3 WhatsApp transport implementation
+
+The Phase 3 vertical slice implements the WhatsApp path as a replaceable transport boundary:
+
+```text
+verified Evolution webhook -> normalized canonical event -> event job -> owner-text Brain turn
+-> persisted response / generic reminder intent -> deterministic owner delivery policy
+-> canonical outbox + pg-boss -> leased transport worker -> Evolution adapter
+```
+
+`@jarvis/integrations-evolution` is the only package that knows Evolution routes, webhook JWT behavior, JIDs, LIDs, or QR/session control. `apps/api` binds `ownerId` from trusted configuration, not from a provider JSON field. `apps/worker` calls a provider-neutral port only after a response is persisted and delivery has passed policy. The adapter cannot mutate canonical PostgreSQL or call the Brain, and the Brain cannot call Evolution.
+
+The new canonical tables hold normalized messages, redacted rejections, connection state history, outbound delivery state, and media-fetch metadata. Evolution Postgres, Redis, and session volume remain infrastructure state and are never a substitute for Neon canonical truth. Core readiness and transport health are deliberately separate. See `WHATSAPP_ARCHITECTURE.md` and `EVOLUTION_VERSION_GATE.md` for the active constraints.

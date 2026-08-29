@@ -1,6 +1,7 @@
 services:
   evolution-postgres:
-    image: postgres:17-alpine
+    profiles: ['evolution']
+    image: postgres:17.6-alpine
     environment:
       POSTGRES_DB: evolution
       POSTGRES_USER: evolution
@@ -14,8 +15,8 @@ services:
       retries: 20
 
   evolution-redis:
-    image: redis:7-alpine
-    profiles: ['redis']
+    profiles: ['evolution']
+    image: redis:7.4.2-alpine
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - evolution_redis:/data
@@ -26,24 +27,28 @@ services:
       retries: 20
 
   evolution-api:
-    # Replace this placeholder with the tested stable digest recorded by the release ADR.
-    image: evoapicloud/evolution-api:PIN_TESTED_STABLE_DIGEST
+    profiles: ['evolution']
+    # This impossible immutable reference is a fail-closed sentinel, not a selected image. Before
+    # running this profile, set EVOLUTION_SOURCE_IMAGE to a reviewed source-build `@sha256:` digest
+    # after completing docs/EVOLUTION_VERSION_GATE.md. Never use `latest` or a floating branch/tag.
+    image: ${EVOLUTION_SOURCE_IMAGE:-invalid.invalid/jarvis-evolution-unconfigured@sha256:0000000000000000000000000000000000000000000000000000000000000000}
     depends_on:
       evolution-postgres:
         condition: service_healthy
     environment:
       SERVER_PORT: '8080'
-      AUTHENTICATION_API_KEY: ${EVOLUTION_API_KEY}
+      AUTHENTICATION_API_KEY: ${EVOLUTION_API_KEY:?Set only after the Evolution version gate passes}
       DATABASE_ENABLED: 'true'
       DATABASE_PROVIDER: postgresql
       DATABASE_CONNECTION_URI: ${EVOLUTION_DATABASE_CONNECTION_URI:?Set only for a future local Evolution environment}
-      CACHE_REDIS_ENABLED: ${EVOLUTION_REDIS_ENABLED:-false}
+      CACHE_REDIS_ENABLED: 'true'
       CACHE_REDIS_URI: redis://evolution-redis:6379/0
     ports:
-      - '8080:8080'
+      # Local inspection only; Railway design uses private service networking instead.
+      - '127.0.0.1:8080:8080'
     volumes:
       - evolution_instances:/evolution/instances
-    restart: unless-stopped
+    restart: 'no'
 
 volumes:
   evolution_postgres:

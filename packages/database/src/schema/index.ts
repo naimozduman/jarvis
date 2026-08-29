@@ -5,3 +5,4 @@ export * from './common.js';
 export * from './constitution-memory.js';
 export * from './conversations-events.js';
 export * from './identity.js';
+export * from './messaging.js';

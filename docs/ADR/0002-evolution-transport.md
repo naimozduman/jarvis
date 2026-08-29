@@ -24,3 +24,12 @@ The product should live inside WhatsApp. Evolution API supports a Baileys-based 
 - WhatsApp provides the preferred V1 interface.
 - A transport ban, disconnect, or corrupted session does not erase the JARVIS brain.
 - The product needs connection monitoring, re-pairing instructions, message reconciliation, and channel failover.
+
+## Phase 3 security clarification
+
+This ADR's original stable-image wording is constrained by ADR 0011. Evolution stable `2.3.7` and
+reviewed `2.4.0-rc2` resolve vulnerable Baileys `7.0.0-rc.9` and are prohibited. Until a new stable
+patched release is independently reviewed, the only code-recognized contingency is a detached,
+non-production source build with immutable digest evidence. See
+[`EVOLUTION_VERSION_GATE.md`](../EVOLUTION_VERSION_GATE.md); do not infer permission to deploy from
+this historic ADR alone.

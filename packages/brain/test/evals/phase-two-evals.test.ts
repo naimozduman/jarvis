@@ -254,6 +254,16 @@ class InMemoryBrainRepository implements BrainRepository {
   public async persistConversationResponse(input: PersistedConversationResponse): Promise<void> {
     this.responses.push(input);
   }
+  public async getConversationResponse(input: {
+    readonly ownerId: string;
+    readonly responseMessageId: string;
+  }): Promise<{ readonly id: string; readonly response: ConversationResponse } | undefined> {
+    const response = this.responses.find(
+      (candidate) =>
+        candidate.ownerId === input.ownerId && candidate.id === input.responseMessageId,
+    );
+    return response ? { id: response.id, response: response.response } : undefined;
+  }
   public async updateDecisionExecutionResult(input: {
     readonly ownerId: string;
     readonly decisionId: string;
@@ -1074,9 +1084,11 @@ describe('Phase 2 invariant evaluations', () => {
 
   it('37: a duplicate brain request creates no second model call or action', async () => {
     const harness = conversationService(modelDecision({ proposedActions: [modelAction()] }));
-    await turn(harness.service);
+    const first = await turn(harness.service);
     const duplicate = await turn(harness.service);
     expect(duplicate.status).toBe('duplicate');
+    expect(duplicate.responseMessageId).toBe(first.responseMessageId);
+    expect(duplicate.conversationResponse).toEqual(first.conversationResponse);
     expect(harness.model.requests).toHaveLength(1);
     expect(harness.actionStore.actions).toHaveLength(1);
   });
