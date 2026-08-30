@@ -7,6 +7,13 @@ import type { HealthResponse } from '@jarvis/contracts';
 
 import { getWorkerLiveHealth, getWorkerReadinessHealth } from './health.js';
 
+interface WorkerReadinessState {
+  readonly databaseVerified?: boolean;
+  readonly queueStarted?: boolean;
+  readonly workerHeartbeatVerified?: boolean;
+  readonly modelConfigured?: boolean;
+}
+
 export interface WorkerHealthRouteResponse {
   readonly statusCode: 200 | 404 | 503;
   readonly body: HealthResponse | Readonly<{ error: 'not_found' }>;
@@ -14,11 +21,15 @@ export interface WorkerHealthRouteResponse {
 
 export interface WorkerHealthOptions {
   readonly environment?: EnvironmentSource;
-  readonly readiness?: {
-    readonly databaseVerified?: boolean;
-    readonly queueStarted?: boolean;
-    readonly workerHeartbeatVerified?: boolean;
-  };
+  readonly readiness?: WorkerReadinessState | (() => WorkerReadinessState);
+  readonly readinessProbe?: () => Promise<void>;
+}
+
+function resolveReadiness(readiness: WorkerHealthOptions['readiness']): WorkerReadinessState {
+  if (typeof readiness === 'function') {
+    return readiness();
+  }
+  return readiness ?? {};
 }
 
 export function resolveWorkerHealthRoute(
@@ -34,7 +45,7 @@ export function resolveWorkerHealthRoute(
         body: getWorkerLiveHealth(),
       };
     case '/health/ready': {
-      const health = getWorkerReadinessHealth(environment, options.readiness);
+      const health = getWorkerReadinessHealth(environment, resolveReadiness(options.readiness));
       return {
         statusCode: health.status === 'ok' ? 200 : 503,
         body: health,
@@ -50,15 +61,38 @@ export function resolveWorkerHealthRoute(
   }
 }
 
+/** Async counterpart used by the real runtime so readiness can re-probe PostgreSQL on demand. */
+export async function resolveWorkerHealthRouteAsync(
+  pathname: string,
+  options: WorkerHealthOptions = {},
+): Promise<WorkerHealthRouteResponse> {
+  if (pathname === '/health/ready') {
+    try {
+      await options.readinessProbe?.();
+    } catch {
+      // The runtime keeps a safe dependency state and health must not disclose raw DB failures.
+    }
+  }
+  return resolveWorkerHealthRoute(pathname, options);
+}
+
 export function createWorkerHealthServer(options: WorkerHealthOptions = {}): Server {
   return createServer((request, response) => {
-    const pathname = request.url?.split('?')[0] ?? '/';
-    const result = resolveWorkerHealthRoute(pathname, options);
+    void (async () => {
+      const pathname = request.url?.split('?')[0] ?? '/';
+      const result = await resolveWorkerHealthRouteAsync(pathname, options);
 
-    response.writeHead(result.statusCode, {
-      'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store',
+      response.writeHead(result.statusCode, {
+        'content-type': 'application/json; charset=utf-8',
+        'cache-control': 'no-store',
+      });
+      response.end(JSON.stringify(result.body));
+    })().catch(() => {
+      response.writeHead(503, {
+        'content-type': 'application/json; charset=utf-8',
+        'cache-control': 'no-store',
+      });
+      response.end(JSON.stringify({ error: 'service_unavailable' }));
     });
-    response.end(JSON.stringify(result.body));
   });
 }

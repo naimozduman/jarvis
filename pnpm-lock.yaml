@@ -44,6 +44,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@jarvis/brain':
+        specifier: workspace:*
+        version: link:../../packages/brain
       '@jarvis/config':
         specifier: workspace:*
         version: link:../../packages/config
@@ -92,6 +95,9 @@ importers:
       '@jarvis/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@jarvis/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
       '@jarvis/integrations':
         specifier: workspace:*
         version: link:../../packages/integrations
@@ -101,6 +107,9 @@ importers:
       '@jarvis/observability':
         specifier: workspace:*
         version: link:../../packages/observability
+      '@jarvis/security':
+        specifier: workspace:*
+        version: link:../../packages/security
 
   packages/brain:
     dependencies:

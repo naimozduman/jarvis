@@ -21,8 +21,10 @@
     "@jarvis/brain": "workspace:*",
     "@jarvis/contracts": "workspace:*",
     "@jarvis/database": "workspace:*",
+    "@jarvis/domain": "workspace:*",
     "@jarvis/integrations": "workspace:*",
     "@jarvis/integrations-evolution": "workspace:*",
-    "@jarvis/observability": "workspace:*"
+    "@jarvis/observability": "workspace:*",
+    "@jarvis/security": "workspace:*"
   }
 }

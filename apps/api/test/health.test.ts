@@ -51,6 +51,7 @@ describe('API health endpoints', () => {
       configuration: 'pass',
       database: 'not_initialized',
       queue: 'not_initialized',
+      model: 'not_initialized',
     });
   });
 
@@ -74,5 +75,49 @@ describe('API health endpoints', () => {
       status: 'not_ready',
       checks: { database: 'fail', queue: 'fail' },
     });
+  });
+
+  it('reports an Evolution health failure separately while the staging core remains ready', async () => {
+    app = buildApi({
+      environment: {
+        APP_ENV: 'staging',
+        DATABASE_URL: 'postgresql://staging.invalid/jarvis',
+      },
+      readiness: {
+        databaseVerified: true,
+        queueStarted: true,
+        modelConfigured: false,
+      },
+      evolutionTransportHealth: async () => {
+        throw new Error('provider response must never reach a health caller');
+      },
+    });
+
+    const readiness = await app.inject({ method: 'GET', url: '/health/ready' });
+    const corePayload = healthResponseSchema.parse(JSON.parse(readiness.payload));
+    const transport = await app.inject({ method: 'GET', url: '/health/transport/evolution' });
+    const transportPayload = JSON.parse(transport.payload) as {
+      readonly state: string;
+      readonly safeErrorCategory: string | null;
+    };
+
+    expect(readiness.statusCode).toBe(200);
+    expect(corePayload).toMatchObject({
+      status: 'ok',
+      checks: { database: 'pass', queue: 'pass', model: 'not_configured' },
+    });
+    expect(transport.statusCode).toBe(200);
+    expect(transportPayload).toEqual({
+      transport: 'evolution_whatsapp',
+      configured: true,
+      versionVerified: false,
+      reachable: false,
+      authenticated: false,
+      connected: false,
+      state: 'degraded',
+      safeErrorCategory: 'transport_health_unavailable',
+      checkedAt: expect.any(String),
+    });
+    expect(transport.payload).not.toContain('provider response');
   });
 });

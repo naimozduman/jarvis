@@ -1,39 +1,28 @@
-import type { Server } from 'node:http';
-
-import { loadWorkerEnvironment } from '@jarvis/config';
-
-import { createWorkerHealthServer } from './app.js';
-
-function listen(server: Server, port: number): Promise<void> {
-  return new Promise((resolve, reject) => {
-    server.once('error', reject);
-    server.listen(port, '0.0.0.0', () => {
-      server.off('error', reject);
-      resolve();
-    });
-  });
-}
+import { createWorkerRuntime } from './runtime.js';
 
 async function start(): Promise<void> {
-  let server: Server | undefined;
+  let runtime: Awaited<ReturnType<typeof createWorkerRuntime>> | undefined;
+  let shuttingDown = false;
 
   try {
-    const environment = loadWorkerEnvironment();
-    server = createWorkerHealthServer();
-    await listen(server, environment.workerHealthPort);
-
-    process.once('SIGTERM', () => {
-      server?.close((error) => {
-        if (error) {
-          console.error(`Worker shutdown failed: ${error.message}`);
-          process.exitCode = 1;
-        }
-      });
-    });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown startup error';
-    console.error(`Worker startup failed: ${message}`);
-    server?.close();
+    runtime = await createWorkerRuntime();
+    await runtime.start();
+    const shutdown = async (): Promise<void> => {
+      if (shuttingDown) {
+        return;
+      }
+      shuttingDown = true;
+      try {
+        await runtime?.stop();
+      } catch {
+        process.exitCode = 1;
+      }
+    };
+    process.once('SIGTERM', () => void shutdown());
+    process.once('SIGINT', () => void shutdown());
+  } catch {
+    await runtime?.stop();
+    console.error('Worker startup failed: startup_dependency');
     process.exitCode = 1;
   }
 }

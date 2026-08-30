@@ -10,6 +10,8 @@ export interface DatabaseRuntime {
   readonly pool: Pool;
   close(): Promise<void>;
   verifyConnection(): Promise<void>;
+  /** Checks the minimum canonical tables without applying, generating, or mutating migrations. */
+  verifySchemaCompatibility(): Promise<void>;
 }
 
 export interface DatabaseRuntimeOptions {
@@ -36,11 +38,23 @@ export function createDatabaseRuntime(options: DatabaseRuntimeOptions): Database
     async verifyConnection(): Promise<void> {
       await pool.query('select 1');
     },
+    async verifySchemaCompatibility(): Promise<void> {
+      const result = await pool.query<{
+        canonicalEvents: string | null;
+        durableJobs: string | null;
+      }>(
+        'select to_regclass(\'jarvis.events\') as "canonicalEvents", to_regclass(\'jarvis.jobs\') as "durableJobs"',
+      );
+      const row = result.rows[0];
+      if (!row?.canonicalEvents || !row.durableJobs) {
+        throw new Error('The required canonical JARVIS schema is not available.');
+      }
+    },
   };
 }
 
 export interface DatabaseReadinessInput {
-  readonly appEnvironment: 'development' | 'test' | 'production';
+  readonly appEnvironment: 'development' | 'test' | 'staging' | 'production';
   readonly databaseUrl: string | undefined;
   readonly verified: boolean | undefined;
 }
@@ -51,8 +65,9 @@ export interface DatabaseFoundationStatus {
 }
 
 /**
- * Production remains fail-closed until a database probe succeeded. Development and test can run
- * provider-free unit tests without a database, but report that durable persistence is deferred.
+ * Server environments remain fail-closed until a database probe succeeds. Development and test
+ * can run provider-free unit tests without a database, but report that durable persistence is
+ * deferred rather than pretending a transient in-memory store is canonical.
  */
 export function getDatabaseFoundationStatus(
   input: DatabaseReadinessInput,
@@ -64,7 +79,7 @@ export function getDatabaseFoundationStatus(
     };
   }
 
-  if (input.appEnvironment === 'production') {
+  if (input.appEnvironment === 'staging' || input.appEnvironment === 'production') {
     return {
       status: 'fail',
       detail: input.databaseUrl

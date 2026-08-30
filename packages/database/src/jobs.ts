@@ -337,23 +337,27 @@ export function resolveJobFailureState(
 }
 
 export interface QueueReadinessInput {
-  readonly appEnvironment: 'development' | 'test' | 'production';
+  readonly appEnvironment: 'development' | 'test' | 'staging' | 'production';
   readonly started: boolean;
   readonly workerHeartbeatVerified: boolean;
+  /** API processes need a queue enqueue path, whereas worker processes require a consumer too. */
+  readonly workerHeartbeatRequired?: boolean;
 }
 
 export function getQueueFoundationStatus(input: QueueReadinessInput): {
   readonly status: 'pass' | 'fail' | 'not_initialized';
   readonly detail: string;
 } {
-  if (input.started && input.workerHeartbeatVerified) {
+  const workerReady =
+    input.workerHeartbeatRequired === false ? true : input.workerHeartbeatVerified;
+  if (input.started && workerReady) {
     return {
       status: 'pass',
       detail: 'The durable queue and worker heartbeat are verified.',
     };
   }
 
-  if (input.appEnvironment === 'production') {
+  if (input.appEnvironment === 'staging' || input.appEnvironment === 'production') {
     return {
       status: 'fail',
       detail: 'The required durable queue or worker heartbeat has not been verified.',

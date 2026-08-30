@@ -1,7 +1,7 @@
 import type { RuntimeEnvironment } from '@jarvis/config';
 import { getDatabaseFoundationStatus, getQueueFoundationStatus } from '@jarvis/database';
 import { healthResponseSchema } from '@jarvis/contracts';
-import type { HealthResponse } from '@jarvis/contracts';
+import type { HealthCheckStatus, HealthResponse } from '@jarvis/contracts';
 import { getIntegrationFoundationStatus } from '@jarvis/integrations';
 import { createFoundationReadinessResponse, createLiveHealthResponse } from '@jarvis/observability';
 
@@ -9,6 +9,17 @@ export interface WorkerReadinessDependencies {
   readonly databaseVerified?: boolean;
   readonly queueStarted?: boolean;
   readonly workerHeartbeatVerified?: boolean;
+  readonly modelConfigured?: boolean;
+}
+
+function modelReadiness(configured: boolean | undefined): HealthCheckStatus {
+  if (configured === true) {
+    return 'pass';
+  }
+  if (configured === false) {
+    return 'not_configured';
+  }
+  return 'not_initialized';
 }
 
 export function getWorkerLiveHealth(): HealthResponse {
@@ -37,6 +48,7 @@ export function getWorkerReadinessHealth(
       database: database.status,
       queue: queue.status,
       integrations: integrations.status,
+      model: modelReadiness(dependencies.modelConfigured),
     }),
   );
 }

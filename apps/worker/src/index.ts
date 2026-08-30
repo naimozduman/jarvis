@@ -1,4 +1,8 @@
-export { createWorkerHealthServer, resolveWorkerHealthRoute } from './app.js';
+export {
+  createWorkerHealthServer,
+  resolveWorkerHealthRoute,
+  resolveWorkerHealthRouteAsync,
+} from './app.js';
 export type { WorkerHealthRouteResponse } from './app.js';
 export { getWorkerLiveHealth, getWorkerReadinessHealth } from './health.js';
 export {
@@ -21,3 +25,11 @@ export type {
   TransportEventProcessorOptions,
   TransportOutboundWorkerOptions,
 } from './transport-workflows.js';
+export { createWorkerRuntime } from './runtime.js';
+export type {
+  CreateWorkerRuntimeOptions,
+  WorkerEvolutionRuntime,
+  WorkerRuntime,
+  WorkerRuntimeFactories,
+  WorkerRuntimeServices,
+} from './runtime.js';

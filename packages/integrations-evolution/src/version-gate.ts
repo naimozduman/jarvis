@@ -20,7 +20,7 @@ export interface EvolutionVersionEvidence {
   readonly baileysVersion: string | undefined;
   readonly imageDigest: string | undefined;
   readonly unstableSourceBuildAllowed: boolean;
-  readonly appEnvironment: 'development' | 'test' | 'production';
+  readonly appEnvironment: 'development' | 'test' | 'staging' | 'production';
 }
 
 export interface EvolutionVersionGateResult {

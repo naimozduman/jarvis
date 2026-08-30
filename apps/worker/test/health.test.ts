@@ -33,6 +33,7 @@ describe('worker health endpoints', () => {
       database: 'not_initialized',
       integrations: 'not_initialized',
       queue: 'not_initialized',
+      model: 'not_initialized',
     });
   });
 

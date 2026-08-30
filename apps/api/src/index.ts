@@ -13,3 +13,13 @@ export type {
   RejectedEvolutionTransportEvent,
 } from './evolution-webhook.js';
 export { getApiLiveHealth, getApiReadinessHealth } from './health.js';
+export { registerStagingRuntimeRoutes } from './staging-runtime-routes.js';
+export type { StagingRuntimeRouteDependencies } from './staging-runtime-routes.js';
+export { createApiRuntime } from './runtime.js';
+export type {
+  ApiEvolutionRuntime,
+  ApiRuntime,
+  ApiRuntimeFactories,
+  ApiRuntimeServices,
+  CreateApiRuntimeOptions,
+} from './runtime.js';

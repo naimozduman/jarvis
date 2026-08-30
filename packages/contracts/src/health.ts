@@ -5,7 +5,16 @@ import { correlationIdSchema, utcTimestampSchema } from './common.js';
 export const foundationServices = ['web', 'api', 'worker'] as const;
 export const serviceNameSchema = z.enum(foundationServices);
 export const healthStatusSchema = z.enum(['ok', 'not_ready']);
-export const healthCheckStatusSchema = z.enum(['pass', 'fail', 'not_initialized']);
+/**
+ * `not_configured` is distinct from an unavailable dependency: optional model/transport features
+ * must never masquerade as healthy, but their absence does not make canonical JARVIS state dead.
+ */
+export const healthCheckStatusSchema = z.enum([
+  'pass',
+  'fail',
+  'not_initialized',
+  'not_configured',
+]);
 
 export const healthResponseSchema = z.object({
   service: serviceNameSchema,

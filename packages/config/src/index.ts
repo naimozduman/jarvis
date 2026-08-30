@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const applicationEnvironments = ['development', 'test', 'production'] as const;
+const applicationEnvironments = ['development', 'test', 'staging', 'production'] as const;
 const booleanEnvironmentSchema = z.enum(['true', 'false']);
 
 /**
@@ -25,8 +25,15 @@ const rawEnvironmentSchema = z.object({
   ENCRYPTION_KEY_CURRENT: z.string().min(32).optional(),
   ENCRYPTION_KEY_VERSION: z.coerce.number().int().positive().default(1),
   INTERNAL_SERVICE_TOKEN_PEPPER: z.string().min(32).optional(),
+  /** Railway assigns PORT at runtime; API_PORT/WORKER_HEALTH_PORT remain useful locally. */
+  PORT: z.coerce.number().int().min(1).max(65_535).optional(),
   API_PORT: z.coerce.number().int().min(1).max(65_535).default(4000),
   WORKER_HEALTH_PORT: z.coerce.number().int().min(1).max(65_535).default(4100),
+  /**
+   * Optional, staging-only bearer token for the narrow synthetic runtime probe route. It is not a
+   * user session, never has a development default, and is deliberately ignored outside staging.
+   */
+  STAGING_RUNTIME_TEST_TOKEN: z.string().trim().min(32).max(1_024).optional(),
   PROVIDER_INTEGRATIONS_ENABLED: booleanEnvironmentSchema.default('false'),
   JARVIS_EVOLUTION_ENABLED: booleanEnvironmentSchema.default('false'),
   JARVIS_OWNER_ID: z.uuid().optional(),
@@ -144,6 +151,7 @@ export interface RuntimeEnvironment {
   readonly internalServiceTokenPepper: string | undefined;
   readonly apiPort: number;
   readonly workerHealthPort: number;
+  readonly stagingRuntimeTestToken: string | undefined;
   readonly providerIntegrationsEnabled: boolean;
   readonly evolution: EvolutionRuntimeConfiguration;
   readonly openAi: OpenAiRuntimeConfiguration;
@@ -237,6 +245,13 @@ const productionRequiredKeys = [
   'ENCRYPTION_KEY_CURRENT',
 ] as const;
 
+/**
+ * Staging is a server environment, not a development alias. The API and worker must have a
+ * canonical Postgres connection at boot; the remaining production-only identity and encryption
+ * rollout requirements stay deliberately separate until their production controls are enabled.
+ */
+const stagingRequiredKeys = ['DATABASE_URL'] as const;
+
 const defaultAppUrl = 'http://localhost:3000';
 const defaultApiUrl = 'http://localhost:4000';
 const defaultUserTimezone = 'UTC';
@@ -255,12 +270,15 @@ function validationFields(error: z.ZodError): string[] {
 
 function parseRuntimeEnvironment(source: EnvironmentSource): RuntimeEnvironment {
   const parsed = rawEnvironmentSchema.safeParse(source);
-  const missingProductionFields =
+  const requiredKeys =
     source.APP_ENV === 'production'
-      ? productionRequiredKeys.filter((key) => !isPresent(source, key))
-      : [];
+      ? productionRequiredKeys
+      : source.APP_ENV === 'staging'
+        ? stagingRequiredKeys
+        : [];
+  const missingRequiredFields = requiredKeys.filter((key) => !isPresent(source, key));
   const invalidFields = parsed.success ? [] : validationFields(parsed.error);
-  const fields = [...missingProductionFields, ...invalidFields];
+  const fields = [...missingRequiredFields, ...invalidFields];
 
   if (fields.length > 0) {
     throw new EnvironmentValidationError(fields);
@@ -411,8 +429,9 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     encryptionKeyCurrent: parsed.ENCRYPTION_KEY_CURRENT,
     encryptionKeyVersion: parsed.ENCRYPTION_KEY_VERSION,
     internalServiceTokenPepper: parsed.INTERNAL_SERVICE_TOKEN_PEPPER,
-    apiPort: parsed.API_PORT,
-    workerHealthPort: parsed.WORKER_HEALTH_PORT,
+    apiPort: parsed.PORT ?? parsed.API_PORT,
+    workerHealthPort: parsed.PORT ?? parsed.WORKER_HEALTH_PORT,
+    stagingRuntimeTestToken: parsed.STAGING_RUNTIME_TEST_TOKEN,
     providerIntegrationsEnabled: parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true',
     evolution,
     openAi,

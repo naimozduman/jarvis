@@ -17,6 +17,7 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "@jarvis/brain": "workspace:*",
     "@jarvis/config": "workspace:*",
     "@jarvis/contracts": "workspace:*",
     "@jarvis/database": "workspace:*",

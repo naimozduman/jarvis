@@ -38,6 +38,23 @@ describe('loadApiEnvironment', () => {
     }
   });
 
+  it('treats staging as a server environment rather than a development alias', () => {
+    expect(() => loadApiEnvironment({ APP_ENV: 'staging' })).toThrow(EnvironmentValidationError);
+
+    const environment = loadApiEnvironment({
+      APP_ENV: 'staging',
+      DATABASE_URL: 'postgresql://staging.invalid/jarvis',
+      PORT: '4310',
+    });
+    expect(environment).toMatchObject({
+      appEnvironment: 'staging',
+      databaseUrl: 'postgresql://staging.invalid/jarvis',
+      apiPort: 4310,
+      workerHealthPort: 4310,
+    });
+    expect(environment.appEnvironment).not.toBe('development');
+  });
+
   it('keeps Evolution disabled by default and rejects vulnerable or production source-build activation', () => {
     expect(loadApiEnvironment(createTestEnvironment()).evolution).toMatchObject({ enabled: false });
 
@@ -64,6 +81,15 @@ describe('loadApiEnvironment', () => {
     expect(() => loadApiEnvironment({ ...base, EVOLUTION_BAILEYS_VERSION: '7.0.0-rc9' })).toThrow(
       EnvironmentValidationError,
     );
+    expect(
+      loadApiEnvironment({
+        ...base,
+        APP_ENV: 'staging',
+        DATABASE_URL: 'postgresql://staging.invalid/jarvis',
+      }).evolution,
+    ).toMatchObject({
+      enabled: true,
+    });
     expect(() => loadApiEnvironment({ ...base, APP_ENV: 'production' })).toThrow(
       EnvironmentValidationError,
     );
