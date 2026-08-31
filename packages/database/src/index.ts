@@ -1,5 +1,6 @@
 export * from './client.js';
 export * from './brain-repository.js';
+export * from './delivery-lifecycle.js';
 export * from './event-store.js';
 export * from './intervention-repository.js';
 export * from './job-lifecycle.js';

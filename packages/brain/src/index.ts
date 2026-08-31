@@ -18,6 +18,7 @@ export * from './model/model-router.js';
 export * from './model/not-configured-gateway.js';
 export * from './model/openai-responses-gateway.js';
 export * from './model/runtime.js';
+export * from './model/vercel-ai-gateway.js';
 export * from './onboarding/service.js';
 export * from './observability/telemetry.js';
 export * from './overrides/service.js';

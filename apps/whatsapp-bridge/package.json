@@ -1,0 +1,16 @@
+{
+  "name": "@jarvis/whatsapp-bridge",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@jarvis/contracts": "workspace:*",
+    "fastify": "5.12.1"
+  }
+}

@@ -43,6 +43,13 @@
       "when": 1787983540143,
       "tag": "0005_magenta_thor",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1788205493852,
+      "tag": "0006_massive_microchip",
+      "breakpoints": true
     }
   ]
 }

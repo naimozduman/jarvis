@@ -26,6 +26,7 @@
       "@jarvis/integrations": ["./packages/integrations/src/index.ts"],
       "@jarvis/integrations-evolution": ["./packages/integrations-evolution/src/index.ts"],
       "@jarvis/observability": ["./packages/observability/src/index.ts"],
+      "@jarvis/orchestration": ["./packages/orchestration/src/index.ts"],
       "@jarvis/schemas": ["./packages/schemas/src/index.ts"],
       "@jarvis/security": ["./packages/security/src/index.ts"],
       "@jarvis/testing": ["./packages/testing/src/index.ts"]

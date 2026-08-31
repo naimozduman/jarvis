@@ -11,6 +11,14 @@ import {
   type EvolutionWebhookIngressDependencies,
 } from './evolution-webhook.js';
 import {
+  registerOrchestrationRoutes,
+  type OrchestrationRouteDependencies,
+} from './orchestration-routes.js';
+import {
+  registerLocalBridgeRoutes,
+  type LocalBridgeRouteDependencies,
+} from './local-bridge-routes.js';
+import {
   registerStagingRuntimeRoutes,
   type StagingRuntimeRouteDependencies,
 } from './staging-runtime-routes.js';
@@ -32,6 +40,10 @@ export interface BuildApiOptions {
   readonly evolutionTransportHealth?: () => Promise<MessagingTransportHealth>;
   /** Narrow, authenticated staging-only route; absent from normal API construction. */
   readonly stagingRuntime?: StagingRuntimeRouteDependencies;
+  /** Narrow Convex-to-Vercel callback; absent from normal API construction. */
+  readonly orchestration?: OrchestrationRouteDependencies;
+  /** Authenticated local-only transport boundary; absent unless Vercel explicitly composes it. */
+  readonly localBridge?: LocalBridgeRouteDependencies;
 }
 
 function resolveReadiness(readiness: BuildApiOptions['readiness']): ApiReadinessState {
@@ -103,6 +115,8 @@ export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
   });
   registerEvolutionWebhookRoute(app, options.evolutionWebhook);
   registerStagingRuntimeRoutes(app, options.stagingRuntime);
+  registerOrchestrationRoutes(app, options.orchestration);
+  registerLocalBridgeRoutes(app, options.localBridge);
 
   return app;
 }

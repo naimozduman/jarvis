@@ -1,0 +1,29 @@
+{
+  "name": "@jarvis/orchestration",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@jarvis/brain": "workspace:*",
+    "@jarvis/config": "workspace:*",
+    "@jarvis/contracts": "workspace:*",
+    "@jarvis/database": "workspace:*",
+    "@jarvis/domain": "workspace:*",
+    "@jarvis/security": "workspace:*"
+  }
+}

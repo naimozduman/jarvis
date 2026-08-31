@@ -1,5 +1,10 @@
 # Railway Phase 3 deployment plan
 
+> **Historical status — abandoned / superseded by the zero-cost architecture.** This document is
+> retained as architectural history for the former Railway API/worker staging plan. Phase 3.6 does
+> not revive, deploy, or mutate this approach; the current runtime is documented in
+> [VERCEL_RUNTIME.md](VERCEL_RUNTIME.md) and [CONVEX_ORCHESTRATION.md](CONVEX_ORCHESTRATION.md).
+
 This is a design and readiness document only. Phase 3 does not deploy Railway, pair a phone, create secrets, or activate Evolution.
 
 ## Intended project layout

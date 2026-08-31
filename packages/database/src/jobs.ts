@@ -53,6 +53,21 @@ export interface TransactionalJobTransport {
   enqueue(transaction: DrizzleTransactionLike, job: DurableJobInput): Promise<void>;
 }
 
+/**
+ * Serverless orchestration writes the canonical job ledger in the same transaction as ingress,
+ * then signals Convex after commit. It deliberately does not pretend that a disposable Vercel
+ * process is a queue. The post-commit signal carries only the job's opaque identifiers.
+ */
+export class CanonicalOnlyDurableJobTransport implements TransactionalJobTransport {
+  public async enqueue(transaction: DrizzleTransactionLike, job: DurableJobInput): Promise<void> {
+    // The canonical transaction and durable job are intentionally persisted by the caller.
+    // This serverless transport performs no in-process enqueue and retains no runtime state.
+    void transaction;
+    void job;
+    return undefined;
+  }
+}
+
 export interface PgBossJobTransportOptions {
   readonly connectionString: string;
   readonly schema?: string;

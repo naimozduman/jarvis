@@ -46,17 +46,42 @@ const requiredFiles = [
   'docs/MEDIA_PIPELINE.md',
   'docs/RAILWAY_PHASE3_PLAN.md',
   'docs/progress/phase-3.md',
+  'docs/ZERO_COST_ARCHITECTURE.md',
+  'docs/CONVEX_ORCHESTRATION.md',
+  'docs/VERCEL_RUNTIME.md',
+  'docs/VERCEL_AI_GATEWAY.md',
+  'docs/LOCAL_WHATSAPP_BRIDGE.md',
+  'docs/OFFLINE_TRANSPORT.md',
+  'docs/progress/phase-3-6.md',
+  'docs/ADR/0012-zero-cost-stateless-runtime.md',
+  'docs/ADR/0013-opaque-convex-local-bridge.md',
+  'docs/ADR/0014-canonical-delivery-leases-and-expiry.md',
   '.github/workflows/ci.yml',
   'apps/api/src/app.ts',
   'apps/api/src/health.ts',
+  'apps/api/src/local-bridge-routes.ts',
+  'apps/api/src/orchestration-routes.ts',
+  'apps/api/src/vercel-runtime.ts',
+  'apps/whatsapp-bridge/src/bridge.ts',
+  'apps/whatsapp-bridge/src/server.ts',
+  'apps/whatsapp-bridge/src/vercel-api-client.ts',
   'apps/worker/src/app.ts',
   'apps/worker/src/health.ts',
   'apps/web/src/health.ts',
+  'packages/database/src/delivery-lifecycle.ts',
+  'packages/database/src/transport-repository.ts',
+  'packages/orchestration/src/canonical-job-executor.ts',
+  'packages/orchestration/src/canonical-transport-processor.ts',
+  'convex/http.ts',
+  'convex/schema.ts',
+  'convex/scheduler.ts',
+  'convex/transportSignals.ts',
 ];
 
 const requiredWorkspaces = [
   'apps/api',
   'apps/web',
+  'apps/whatsapp-bridge',
   'apps/worker',
   'packages/config',
   'packages/brain',
@@ -68,6 +93,7 @@ const requiredWorkspaces = [
   'packages/integrations-evolution',
   'packages/security',
   'packages/observability',
+  'packages/orchestration',
   'packages/testing',
 ];
 
@@ -88,7 +114,12 @@ const forbiddenProviderImports = [
 const allowedEvolutionAdapterRoot = 'packages/integrations-evolution/src/';
 
 const openAiProviderImport = /(?:from|import\()\s*['"]openai(?:\/[^'"]*)?['"]/i;
-const allowedOpenAiAdapter = 'packages/brain/src/model/openai-responses-gateway.ts';
+const allowedOpenAiAdapters = new Set([
+  'packages/brain/src/model/openai-responses-gateway.ts',
+  // The Gateway adapter uses the OpenAI-compatible SDK transport with a fixed Vercel base URL
+  // and OIDC credential; it never falls back to the direct OpenAI adapter.
+  'packages/brain/src/model/vercel-ai-gateway.ts',
+]);
 
 const databaseImplementationImports = [
   /(?:from|import\()\s*['"](?:drizzle-orm(?:\/[^'"]*)?|pg-boss|pg)['"]/i,
@@ -192,9 +223,9 @@ for (const path of walk(root)) {
         }
       }
 
-      if (openAiProviderImport.test(source) && pathFromRoot(path) !== allowedOpenAiAdapter) {
+      if (openAiProviderImport.test(source) && !allowedOpenAiAdapters.has(pathFromRoot(path))) {
         errors.push(
-          `OpenAI provider implementation import is only allowed in ${allowedOpenAiAdapter}: ${pathFromRoot(path)}`,
+          `OpenAI-compatible provider import is outside its approved adapter boundary: ${pathFromRoot(path)}`,
         );
       }
 
@@ -226,6 +257,9 @@ if (existsSync(decisionIndexPath)) {
     '0009-brain-action-intent-boundary',
     '0010-deterministic-context-and-epistemic-memory',
     '0011-evolution-version-gate-and-owner-only-transport',
+    '0012-zero-cost-stateless-runtime',
+    '0013-opaque-convex-local-bridge',
+    '0014-canonical-delivery-leases-and-expiry',
   ]) {
     if (!decisionIndex.includes(decision)) {
       errors.push(`architecture decision index does not reference ${decision}`);

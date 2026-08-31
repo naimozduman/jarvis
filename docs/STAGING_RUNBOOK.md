@@ -1,5 +1,9 @@
 # Staging runtime runbook
 
+> **Historical status — abandoned / superseded by the zero-cost architecture.** Keep this former
+> Railway runbook as evidence of the earlier staging design, but do not execute it as a Phase 3.6
+> deployment procedure. The current repository-side runtime boundary is documented separately.
+
 This runbook is preparation for the next reviewed Railway attempt. It does not authorize a Railway
 deployment, live OpenAI request, Evolution enablement, or WhatsApp pairing.
 

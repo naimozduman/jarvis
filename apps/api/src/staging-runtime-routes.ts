@@ -3,6 +3,7 @@ import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 
 import type { ApplicationEnvironment } from '@jarvis/config';
+import type { DurableJob, DurableJobInput } from '@jarvis/contracts';
 import type { EventPipelineDependencies } from '@jarvis/domain';
 import type { AuthenticationBoundary } from '@jarvis/security';
 import { OwnerAuthorizationError } from '@jarvis/security';
@@ -43,6 +44,10 @@ export interface StagingRuntimeRouteDependencies {
   /** Never logged or returned. Its absence means the route is not registered. */
   readonly accessToken: string | undefined;
   readonly pipeline: EventPipelineDependencies;
+  /** Serverless composition signals this opaque canonical job only after ingress committed. */
+  readonly signalCanonicalJob?: (job: DurableJob | DurableJobInput) => Promise<void>;
+  /** Allows an idempotent replay to repair a lost coordinator signal without creating a new job. */
+  readonly loadCanonicalJobForEvent?: (eventId: string) => Promise<DurableJob | undefined>;
   readonly now?: () => Date;
 }
 
@@ -145,6 +150,15 @@ export function registerStagingRuntimeRoutes(
           },
         },
       );
+      if (dependencies.signalCanonicalJob) {
+        const job = result.job ?? (await dependencies.loadCanonicalJobForEvent?.(result.event.id));
+        if (!job) {
+          // A committed event without its canonical job is an integrity failure. Do not return a
+          // false accepted response or invent an in-memory fallback.
+          throw new Error('Canonical event ingress has no durable job to signal.');
+        }
+        await dependencies.signalCanonicalJob(job);
+      }
       return reply.code(result.duplicate ? 200 : 202).send({
         accepted: true,
         duplicate: result.duplicate,

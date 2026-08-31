@@ -174,6 +174,16 @@ export const outboundMessageDeliveries = jarvis.table(
     state: outboundDeliveryStateEnum('state').notNull().default('pending'),
     providerMessageReference: varchar('provider_message_reference', { length: 512 }),
     attemptCount: integer('attempt_count').notNull().default(0),
+    maximumAttempts: integer('maximum_attempts').notNull().default(3),
+    /** Server-derived category; it governs expiry rather than inferring intent from silence. */
+    freshnessPolicy: varchar('freshness_policy', { length: 80 })
+      .notNull()
+      .default('conversation_response'),
+    availableAfter: timestamp('available_after', { withTimezone: true }).notNull().defaultNow(),
+    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+    /** Random lease capability returned only to the authenticated local bridge after Neon lease. */
+    leaseToken: varchar('lease_token', { length: 128 }),
+    leaseOwner: varchar('lease_owner', { length: 160 }),
     leaseExpiresAt: timestamp('lease_expires_at', { withTimezone: true }),
     requiresReconciliation: boolean('requires_reconciliation').notNull().default(false),
     acceptedAt: timestamp('accepted_at', { withTimezone: true }),
@@ -200,6 +210,11 @@ export const outboundMessageDeliveries = jarvis.table(
       table.connectionId,
       table.state,
       table.createdAt,
+    ),
+    index('outbound_message_deliveries_eligibility_index').on(
+      table.state,
+      table.availableAfter,
+      table.expiresAt,
     ),
     index('outbound_message_deliveries_message_index').on(table.messageId),
   ],

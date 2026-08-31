@@ -1,5 +1,9 @@
 # Railway staging deployment plan
 
+> **Historical status — abandoned / superseded by the zero-cost architecture.** The prior Railway
+> staging plan remains here for auditability. It is not an instruction to provision or configure
+> Railway; Phase 3.6 uses the Vercel/Convex/local-bridge boundary described in the Phase 3.6 docs.
+
 ## Status
 
 The intended Railway project remains `jarvis-core-staging`. Railway provisioning is currently

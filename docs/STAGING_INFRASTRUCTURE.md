@@ -1,5 +1,9 @@
 # Staging infrastructure readiness
 
+> **Historical status — abandoned / superseded by the zero-cost architecture.** This Phase 3.5A
+> Railway/pg-boss staging design is preserved as architectural history. It is not the current
+> deployment target and must not be provisioned from this document.
+
 ## Current state
 
 Phase 3.5A prepares the repository for staging deployment. It does not create, modify, or deploy

@@ -1,5 +1,11 @@
 # Architecture
 
+> **Phase 3.6 update.** The long-running Railway API/worker staging target below is retained as
+> historical design context and is **abandoned / superseded by the zero-cost architecture** for
+> the next runtime phase. Current execution uses a stateless Vercel API, opaque Convex scheduling,
+> canonical Neon records, and an operator-owned local WhatsApp bridge. No service is deployed by
+> this repository change.
+
 ## System boundary
 
 JARVIS is one persistent system with several interfaces. WhatsApp, web, Telegram, and future iOS are channels. They do not own state.

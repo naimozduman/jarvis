@@ -105,6 +105,8 @@ export interface IngestEventResult {
   readonly event: CanonicalEvent;
   readonly duplicate: boolean;
   readonly jobQueued: boolean;
+  /** Present only for a newly committed job; callers may signal it after the transaction commits. */
+  readonly job: DurableJobInput | undefined;
 }
 
 function auditMutation(input: Omit<AuditEventInput, 'id' | 'occurredAt'>): AuditEventInput {
@@ -176,6 +178,7 @@ export async function ingestCanonicalEvent(
         event: persisted.event,
         duplicate: true,
         jobQueued: false,
+        job: undefined,
       };
     }
 
@@ -223,6 +226,7 @@ export async function ingestCanonicalEvent(
       event: persisted.event,
       duplicate: false,
       jobQueued: true,
+      job,
     };
   });
 }

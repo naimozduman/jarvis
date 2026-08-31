@@ -1,5 +1,10 @@
 # Deployment
 
+> **Historical status — partially abandoned / superseded by the zero-cost architecture.** The
+> Railway target layout below is retained as architectural history. Phase 3.6 does not deploy it;
+> the current planned runtime is a stateless Vercel API, opaque Convex orchestration, canonical
+> Neon state, and a local-only WhatsApp bridge. See [VERCEL_RUNTIME.md](VERCEL_RUNTIME.md).
+
 ## Target layout
 
 ### Vercel

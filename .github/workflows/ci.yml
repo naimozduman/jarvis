@@ -38,3 +38,12 @@ jobs:
 
       - name: Run provider-free Phase 2 brain evaluations
         run: pnpm brain:evals
+
+      - name: Run provider-free transport evaluations
+        run: pnpm transport:evals
+
+      - name: Run provider-free orchestration evaluations
+        run: pnpm orchestration:evals
+
+      - name: Run provider-free local bridge evaluations
+        run: pnpm bridge:evals

@@ -1,5 +1,11 @@
 # Durable outbound delivery
 
+> **Phase 3.6 update.** The pg-boss worker flow described below is retained as historical
+> long-running-runtime context. The current zero-cost deployment target uses an opaque Convex
+> callback to a stateless Vercel handler, then a canonical Neon lease and local bridge. It has no
+> correctness dependency on a long-lived worker. See [OFFLINE_TRANSPORT.md](OFFLINE_TRANSPORT.md)
+> and [LOCAL_WHATSAPP_BRIDGE.md](LOCAL_WHATSAPP_BRIDGE.md).
+
 ## Lifecycle
 
 ```text

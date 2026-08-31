@@ -2,6 +2,13 @@ import { z } from 'zod';
 
 const applicationEnvironments = ['development', 'test', 'staging', 'production'] as const;
 const booleanEnvironmentSchema = z.enum(['true', 'false']);
+const modelProviderSchema = z.enum(['openai-responses', 'vercel-ai-gateway']);
+
+/**
+ * A deliberately non-provider model identifier used when a Vercel route has not been selected.
+ * It is never considered a free model and the Gateway adapter refuses to issue a request for it.
+ */
+export const unconfiguredGatewayModelId = 'not_configured' as const;
 
 /**
  * This is the only non-release Evolution source revision that passed the Phase 3 Baileys gate at
@@ -76,6 +83,48 @@ const rawEnvironmentSchema = z.object({
     .max(1_048_576)
     .default(65_536),
   OPENAI_API_KEY: z.string().trim().min(1).optional(),
+  /**
+   * Direct OpenAI remains a deliberately configured adapter. Zero-cost deployments select the
+   * Vercel AI Gateway adapter instead and never use this credential as a fallback.
+   */
+  JARVIS_MODEL_PROVIDER: modelProviderSchema.default('openai-responses'),
+  JARVIS_ZERO_COST_MODE: booleanEnvironmentSchema.default('false'),
+  /** Vercel injects this OIDC token for deployed server-side functions; never log it. */
+  VERCEL_OIDC_TOKEN: z.string().trim().min(1).optional(),
+  /**
+   * This project never consumes a Gateway API key. In zero-cost mode its presence is rejected so
+   * a manual paid-key route cannot silently become a fallback.
+   */
+  AI_GATEWAY_API_KEY: z.string().trim().min(1).optional(),
+  /**
+   * Comma-separated exact IDs emitted by the deployment-time public Gateway catalog verifier.
+   * A model name itself is not evidence of price. An absent list leaves the runtime explicitly
+   * not configured rather than allowing a potentially billable request.
+   */
+  JARVIS_ZERO_COST_VERIFIED_MODEL_IDS: z.string().trim().min(1).max(2_048).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_FAST_MODEL: z.string().trim().min(1).max(160).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_STANDARD_MODEL: z.string().trim().min(1).max(160).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_DEEP_MODEL: z.string().trim().min(1).max(160).optional(),
+  /** Opaque orchestration endpoint, not a canonical-state store. */
+  JARVIS_CONVEX_ORCHESTRATION_URL: z.string().url().optional(),
+  /** Vercel -> Convex command authentication. Never exposed to browser code. */
+  JARVIS_VERCEL_TO_CONVEX_SECRET: z.string().trim().min(32).max(1_024).optional(),
+  /** Convex -> Vercel callback authentication. Never exposed to browser code. */
+  JARVIS_CONVEX_TO_VERCEL_SECRET: z.string().trim().min(32).max(1_024).optional(),
+  /** Local bridge subscription credential; only the local process and Convex receive it. */
+  JARVIS_LOCAL_BRIDGE_TOKEN: z.string().trim().min(32).max(1_024).optional(),
+  /** Enables the Vercel-facing API boundary only; it never starts or configures Evolution. */
+  JARVIS_LOCAL_BRIDGE_ENABLED: booleanEnvironmentSchema.default('false'),
+  /** Trusted canonical scope used by the local bridge; never supplied by a request body. */
+  JARVIS_LOCAL_BRIDGE_OWNER_ID: z.uuid().optional(),
+  /** Trusted canonical connection scope used by bridge heartbeats. */
+  JARVIS_LOCAL_BRIDGE_CONNECTION_ID: z.uuid().optional(),
+  /** Opaque owner-target digest produced locally; Vercel never needs the raw telephone number. */
+  JARVIS_LOCAL_BRIDGE_OWNER_TARGET_REFERENCE: z
+    .string()
+    .trim()
+    .regex(/^evo:owner-target:[a-f0-9]{64}$/)
+    .optional(),
   JARVIS_OPENAI_FAST_MODEL: z.string().trim().min(1).max(160).default('gpt-5.6-luna'),
   JARVIS_OPENAI_STANDARD_MODEL: z.string().trim().min(1).max(160).default('gpt-5.6-terra'),
   JARVIS_OPENAI_DEEP_MODEL: z.string().trim().min(1).max(160).default('gpt-5.6-sol'),
@@ -154,6 +203,8 @@ export interface RuntimeEnvironment {
   readonly stagingRuntimeTestToken: string | undefined;
   readonly providerIntegrationsEnabled: boolean;
   readonly evolution: EvolutionRuntimeConfiguration;
+  readonly model: ModelRuntimeConfiguration;
+  readonly orchestration: OrchestrationRuntimeConfiguration;
   readonly openAi: OpenAiRuntimeConfiguration;
   readonly brain: BrainRuntimeConfiguration;
 }
@@ -183,6 +234,36 @@ export interface OpenAiRuntimeConfiguration {
   readonly fast: OpenAiModelRouteConfiguration;
   readonly standard: OpenAiModelRouteConfiguration;
   readonly deep: OpenAiModelRouteConfiguration;
+}
+
+/**
+ * Provider-neutral model route configuration. The Vercel AI Gateway adapter intentionally uses
+ * the same stateless Responses contract as the direct OpenAI adapter, while its credentials and
+ * cost policy remain separate.
+ */
+export interface ModelRuntimeConfiguration {
+  readonly provider: z.infer<typeof modelProviderSchema>;
+  readonly zeroCostMode: boolean;
+  /** Direct OpenAI credential only. It is undefined for the gateway adapter. */
+  readonly apiKey: string | undefined;
+  /** Vercel deployment OIDC token only. It is never required by provider-free CI. */
+  readonly oidcToken: string | undefined;
+  /** Exact model IDs proven free by the deployment-time catalog verifier, never inferred by name. */
+  readonly verifiedFreeModelIds: readonly string[];
+  readonly fast: OpenAiModelRouteConfiguration;
+  readonly standard: OpenAiModelRouteConfiguration;
+  readonly deep: OpenAiModelRouteConfiguration;
+}
+
+export interface OrchestrationRuntimeConfiguration {
+  readonly convexUrl: string | undefined;
+  readonly vercelToConvexSecret: string | undefined;
+  readonly convexToVercelSecret: string | undefined;
+  readonly localBridgeToken: string | undefined;
+  readonly localBridgeEnabled: boolean;
+  readonly localBridgeOwnerId: string | undefined;
+  readonly localBridgeConnectionId: string | undefined;
+  readonly localBridgeOwnerTargetReference: string | undefined;
 }
 
 export interface BrainRuntimeConfiguration {
@@ -289,8 +370,60 @@ function parseRuntimeEnvironment(source: EnvironmentSource): RuntimeEnvironment 
   }
 
   validateEvolutionConfiguration(parsed.data);
+  validateModelConfiguration(parsed.data);
+  validateLocalBridgeConfiguration(parsed.data);
 
   return toRuntimeEnvironment(parsed.data);
+}
+
+function validateModelConfiguration(parsed: ParsedEnvironment): void {
+  if (parsed.JARVIS_ZERO_COST_MODE !== 'true') {
+    return;
+  }
+
+  const invalid: string[] = [];
+  if (parsed.JARVIS_MODEL_PROVIDER !== 'vercel-ai-gateway') {
+    invalid.push('JARVIS_MODEL_PROVIDER');
+  }
+  if (parsed.OPENAI_API_KEY) {
+    invalid.push('OPENAI_API_KEY');
+  }
+  if (parsed.AI_GATEWAY_API_KEY) {
+    invalid.push('AI_GATEWAY_API_KEY');
+  }
+  if (invalid.length > 0) {
+    throw new EnvironmentValidationError(invalid);
+  }
+}
+
+function verifiedModelIds(value: string | undefined): readonly string[] {
+  if (!value) return [];
+  return [
+    ...new Set(
+      value
+        .split(',')
+        .map((model) => model.trim())
+        .filter(Boolean),
+    ),
+  ];
+}
+
+/**
+ * Answers only whether the trusted deployment verifier allowed this exact configured route. It
+ * intentionally does not inspect model names: suffixes, provider names, and rate cards are not
+ * proof that a provider still offers a no-charge route.
+ */
+export function isVerifiedZeroCostGatewayRoute(
+  configuration: ModelRuntimeConfiguration,
+  route: keyof Pick<ModelRuntimeConfiguration, 'fast' | 'standard' | 'deep'>,
+): boolean {
+  const model = configuration[route].model;
+  return (
+    configuration.provider === 'vercel-ai-gateway' &&
+    configuration.zeroCostMode &&
+    model !== unconfiguredGatewayModelId &&
+    configuration.verifiedFreeModelIds.includes(model)
+  );
 }
 
 function validateEvolutionConfiguration(parsed: ParsedEnvironment): void {
@@ -339,6 +472,28 @@ function validateEvolutionConfiguration(parsed: ParsedEnvironment): void {
   }
 }
 
+function validateLocalBridgeConfiguration(parsed: ParsedEnvironment): void {
+  if (parsed.JARVIS_LOCAL_BRIDGE_ENABLED !== 'true') return;
+  const invalid = [
+    ['PROVIDER_INTEGRATIONS_ENABLED', parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true'],
+    ['JARVIS_LOCAL_BRIDGE_TOKEN', Boolean(parsed.JARVIS_LOCAL_BRIDGE_TOKEN)],
+    ['JARVIS_LOCAL_BRIDGE_OWNER_ID', Boolean(parsed.JARVIS_LOCAL_BRIDGE_OWNER_ID)],
+    ['JARVIS_LOCAL_BRIDGE_CONNECTION_ID', Boolean(parsed.JARVIS_LOCAL_BRIDGE_CONNECTION_ID)],
+    [
+      'JARVIS_LOCAL_BRIDGE_OWNER_TARGET_REFERENCE',
+      Boolean(parsed.JARVIS_LOCAL_BRIDGE_OWNER_TARGET_REFERENCE),
+    ],
+    ['JARVIS_CONVEX_ORCHESTRATION_URL', Boolean(parsed.JARVIS_CONVEX_ORCHESTRATION_URL)],
+    ['JARVIS_VERCEL_TO_CONVEX_SECRET', Boolean(parsed.JARVIS_VERCEL_TO_CONVEX_SECRET)],
+    ['JARVIS_CONVEX_TO_VERCEL_SECRET', Boolean(parsed.JARVIS_CONVEX_TO_VERCEL_SECRET)],
+  ]
+    .filter(([, present]) => !present)
+    .map(([field]) => field as string);
+  if (invalid.length > 0) {
+    throw new EnvironmentValidationError(invalid);
+  }
+}
+
 function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
   const openAi = {
     apiKey: parsed.OPENAI_API_KEY,
@@ -382,6 +537,50 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
       },
     },
   } satisfies OpenAiRuntimeConfiguration;
+
+  const gatewayRoute = (model: string | undefined, route: OpenAiModelRouteConfiguration) => ({
+    ...route,
+    model: model ?? unconfiguredGatewayModelId,
+    // This rate card is never a price assertion. In zero-cost mode the adapter checks the exact
+    // deployment-verified catalog allow-list before issuing a request; without that evidence it
+    // returns not_configured and cannot reach a Gateway route.
+    rateCard: {
+      inputCostPerMillionUsd: 0,
+      cachedInputCostPerMillionUsd: 0,
+      outputCostPerMillionUsd: 0,
+    },
+  });
+  const model = {
+    provider: parsed.JARVIS_MODEL_PROVIDER,
+    zeroCostMode: parsed.JARVIS_ZERO_COST_MODE === 'true',
+    apiKey: parsed.JARVIS_MODEL_PROVIDER === 'openai-responses' ? parsed.OPENAI_API_KEY : undefined,
+    oidcToken:
+      parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway' ? parsed.VERCEL_OIDC_TOKEN : undefined,
+    verifiedFreeModelIds: verifiedModelIds(parsed.JARVIS_ZERO_COST_VERIFIED_MODEL_IDS),
+    fast:
+      parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway'
+        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_FAST_MODEL, openAi.fast)
+        : openAi.fast,
+    standard:
+      parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway'
+        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_STANDARD_MODEL, openAi.standard)
+        : openAi.standard,
+    deep:
+      parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway'
+        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_DEEP_MODEL, openAi.deep)
+        : openAi.deep,
+  } satisfies ModelRuntimeConfiguration;
+
+  const orchestration = {
+    convexUrl: parsed.JARVIS_CONVEX_ORCHESTRATION_URL,
+    vercelToConvexSecret: parsed.JARVIS_VERCEL_TO_CONVEX_SECRET,
+    convexToVercelSecret: parsed.JARVIS_CONVEX_TO_VERCEL_SECRET,
+    localBridgeToken: parsed.JARVIS_LOCAL_BRIDGE_TOKEN,
+    localBridgeEnabled: parsed.JARVIS_LOCAL_BRIDGE_ENABLED === 'true',
+    localBridgeOwnerId: parsed.JARVIS_LOCAL_BRIDGE_OWNER_ID,
+    localBridgeConnectionId: parsed.JARVIS_LOCAL_BRIDGE_CONNECTION_ID,
+    localBridgeOwnerTargetReference: parsed.JARVIS_LOCAL_BRIDGE_OWNER_TARGET_REFERENCE,
+  } satisfies OrchestrationRuntimeConfiguration;
 
   const brain = {
     maxContextRecords: parsed.JARVIS_BRAIN_MAX_CONTEXT_RECORDS,
@@ -434,6 +633,8 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     stagingRuntimeTestToken: parsed.STAGING_RUNTIME_TEST_TOKEN,
     providerIntegrationsEnabled: parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true',
     evolution,
+    model,
+    orchestration,
     openAi,
     brain,
   };

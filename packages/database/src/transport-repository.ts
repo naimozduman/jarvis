@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import { and, eq, or, sql } from 'drizzle-orm';
+import { and, eq, gt, lte, or, sql } from 'drizzle-orm';
 
 import type {
   MessagingConnectionState,
@@ -12,6 +12,13 @@ import type {
 } from '@jarvis/contracts';
 
 import type { JarvisDatabase } from './client.js';
+import {
+  calculateOutboundDeliveryRetryDelayMs,
+  deriveOutboundDeliveryFreshness,
+  evaluateLocalBridgeLeaseEligibility,
+  isOutboundDeliveryFresh,
+  localBridgeLeaseDurationMs,
+} from './delivery-lifecycle.js';
 import { createOutboundDeliveryJob, type TransactionalJobTransport } from './jobs.js';
 import {
   auditEvents,
@@ -45,6 +52,64 @@ export interface PersistedOutboundDelivery {
   readonly attemptCount: number;
   readonly requiresReconciliation: boolean;
   readonly correlationId: string;
+}
+
+export type LocalBridgeLeaseOutcome =
+  | {
+      readonly status: 'ready';
+      readonly intent: OutboundDeliveryIntent;
+      readonly leaseToken: string;
+      readonly leaseExpiresAt: string;
+    }
+  | { readonly status: 'expired' | 'already_handled' | 'unavailable' };
+
+export type LocalBridgeResultOutcome =
+  | {
+      readonly disposition:
+        'completed' | 'terminal' | 'already_handled' | 'lease_expired' | 'unavailable';
+    }
+  | { readonly disposition: 'retry_scheduled'; readonly retryAt: string }
+  | { readonly disposition: 'reconciliation_required' };
+
+/**
+ * Local bridge-specific canonical lifecycle. The lease token is an opaque, one-time capability;
+ * a repeated Convex signal cannot obtain a second payload or submit a stale result.
+ */
+export interface LocalBridgeDeliveryRepository {
+  acquireOutboundDeliveryLeaseForLocalBridge(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly now?: Date;
+    readonly leaseDurationMs?: number;
+  }): Promise<LocalBridgeLeaseOutcome>;
+  recordLocalBridgeDeliveryResult(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly leaseToken: string;
+    readonly result: MessagingSendResult;
+    readonly now?: Date;
+  }): Promise<LocalBridgeResultOutcome>;
+  recoverExpiredLocalBridgeLease(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly now?: Date;
+  }): Promise<boolean>;
+}
+
+export interface CanonicalTransportConnectionPolicy {
+  readonly versionVerified: boolean;
+  readonly outboundEnabled: boolean;
+  readonly state: MessagingConnectionState;
+}
+
+/** Read-only Neon projection used by the Vercel processor; it never probes Evolution. */
+export interface CanonicalTransportConnectionPolicyRepository {
+  loadCanonicalTransportConnectionPolicy(input: {
+    readonly ownerId: string;
+    readonly connectionId: string;
+  }): Promise<CanonicalTransportConnectionPolicy | undefined>;
 }
 
 export interface TransportStateRepository {
@@ -162,11 +227,22 @@ function booleanMetadata(value: Record<string, unknown>, key: string): boolean {
   return value[key] === true;
 }
 
+function isTerminalDeliveryState(state: MessagingDeliveryState): boolean {
+  return (
+    state === 'sent' || state === 'delivered' || state === 'read' || state === 'failed_terminal'
+  );
+}
+
 /**
  * Drizzle implementation of the canonical transport/outbox state. It never calls a provider and
  * stores only normalized content plus opaque transport references.
  */
-export class DrizzleTransportStateRepository implements TransportStateRepository {
+export class DrizzleTransportStateRepository
+  implements
+    TransportStateRepository,
+    LocalBridgeDeliveryRepository,
+    CanonicalTransportConnectionPolicyRepository
+{
   public constructor(private readonly database: JarvisDatabase) {}
 
   public async persistInboundMessage(input: {
@@ -295,6 +371,7 @@ export class DrizzleTransportStateRepository implements TransportStateRepository
     readonly delivery: PersistedOutboundDelivery;
     readonly duplicate: boolean;
   }> {
+    const freshness = deriveOutboundDeliveryFreshness(input);
     const [created] = await this.database
       .insert(outboundMessageDeliveries)
       .values({
@@ -310,6 +387,10 @@ export class DrizzleTransportStateRepository implements TransportStateRepository
         brainRequestId: input.brainRequestId ?? undefined,
         reminderId: input.reminderId ?? undefined,
         state: 'pending',
+        maximumAttempts: freshness.maximumAttempts,
+        freshnessPolicy: freshness.policy,
+        availableAfter: new Date(input.createdAt),
+        expiresAt: new Date(freshness.expiresAt),
         correlationId: input.correlationId,
         causationId: input.causationId ?? undefined,
         metadata: { contentType: input.contentType, critical: input.critical },
@@ -399,18 +480,24 @@ export class DrizzleTransportStateRepository implements TransportStateRepository
     readonly deliveryId: string;
     readonly leaseExpiresAt: string;
   }): Promise<PersistedOutboundDelivery | undefined> {
+    const now = new Date();
     const [leased] = await this.database
       .update(outboundMessageDeliveries)
       .set({
         state: 'leased',
         attemptCount: sql`${outboundMessageDeliveries.attemptCount} + 1`,
         leaseExpiresAt: new Date(input.leaseExpiresAt),
+        leaseToken: null,
+        leaseOwner: null,
         updatedAt: new Date(),
       })
       .where(
         and(
           eq(outboundMessageDeliveries.id, input.deliveryId),
           eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          gt(outboundMessageDeliveries.expiresAt, now),
+          lte(outboundMessageDeliveries.availableAfter, now),
+          sql`${outboundMessageDeliveries.attemptCount} < ${outboundMessageDeliveries.maximumAttempts}`,
           or(
             eq(outboundMessageDeliveries.state, 'pending'),
             and(
@@ -422,6 +509,410 @@ export class DrizzleTransportStateRepository implements TransportStateRepository
       )
       .returning();
     return leased ? asDelivery(leased) : undefined;
+  }
+
+  public async recoverExpiredLocalBridgeLease(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly now?: Date;
+  }): Promise<boolean> {
+    const now = input.now ?? new Date();
+    const [recovered] = await this.database
+      .update(outboundMessageDeliveries)
+      .set({
+        state: 'failed_retryable',
+        requiresReconciliation: true,
+        leaseToken: null,
+        leaseOwner: null,
+        leaseExpiresAt: null,
+        failedAt: now,
+        lastErrorCategory: 'local_bridge_lease_expired',
+        updatedAt: now,
+      })
+      .where(
+        and(
+          eq(outboundMessageDeliveries.id, input.deliveryId),
+          eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          eq(outboundMessageDeliveries.state, 'leased'),
+          lte(outboundMessageDeliveries.leaseExpiresAt, now),
+          gt(outboundMessageDeliveries.expiresAt, now),
+        ),
+      )
+      .returning({ id: outboundMessageDeliveries.id });
+    return Boolean(recovered);
+  }
+
+  public async acquireOutboundDeliveryLeaseForLocalBridge(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly now?: Date;
+    readonly leaseDurationMs?: number;
+  }): Promise<LocalBridgeLeaseOutcome> {
+    const now = input.now ?? new Date();
+    const leaseToken = randomUUID();
+    const leaseExpiresAt = new Date(
+      now.getTime() + Math.max(1_000, input.leaseDurationMs ?? localBridgeLeaseDurationMs),
+    );
+
+    // A transport that reconnects after a delivery window must not resurrect it. Expiry is a
+    // canonical terminal state and has no outbound side effect.
+    await this.database
+      .update(outboundMessageDeliveries)
+      .set({
+        state: 'failed_terminal',
+        requiresReconciliation: false,
+        leaseToken: null,
+        leaseOwner: null,
+        leaseExpiresAt: null,
+        failedAt: now,
+        lastErrorCategory: 'delivery_expired',
+        updatedAt: now,
+      })
+      .where(
+        and(
+          eq(outboundMessageDeliveries.id, input.deliveryId),
+          eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          lte(outboundMessageDeliveries.expiresAt, now),
+          or(
+            eq(outboundMessageDeliveries.state, 'pending'),
+            eq(outboundMessageDeliveries.state, 'failed_retryable'),
+            eq(outboundMessageDeliveries.state, 'leased'),
+          ),
+        ),
+      );
+    await this.recoverExpiredLocalBridgeLease({
+      ownerId: input.ownerId,
+      deliveryId: input.deliveryId,
+      now,
+    });
+
+    const [leased] = await this.database
+      .update(outboundMessageDeliveries)
+      .set({
+        state: 'leased',
+        attemptCount: sql`${outboundMessageDeliveries.attemptCount} + 1`,
+        leaseToken,
+        leaseOwner: input.bridgeId,
+        leaseExpiresAt,
+        updatedAt: now,
+      })
+      .where(
+        and(
+          eq(outboundMessageDeliveries.id, input.deliveryId),
+          eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          gt(outboundMessageDeliveries.expiresAt, now),
+          lte(outboundMessageDeliveries.availableAfter, now),
+          eq(outboundMessageDeliveries.requiresReconciliation, false),
+          sql`${outboundMessageDeliveries.attemptCount} < ${outboundMessageDeliveries.maximumAttempts}`,
+          or(
+            eq(outboundMessageDeliveries.state, 'pending'),
+            eq(outboundMessageDeliveries.state, 'failed_retryable'),
+          ),
+        ),
+      )
+      .returning({ id: outboundMessageDeliveries.id });
+
+    if (!leased) {
+      const [current] = await this.database
+        .select({
+          state: outboundMessageDeliveries.state,
+          availableAfter: outboundMessageDeliveries.availableAfter,
+          expiresAt: outboundMessageDeliveries.expiresAt,
+          attemptCount: outboundMessageDeliveries.attemptCount,
+          maximumAttempts: outboundMessageDeliveries.maximumAttempts,
+          requiresReconciliation: outboundMessageDeliveries.requiresReconciliation,
+          leaseExpiresAt: outboundMessageDeliveries.leaseExpiresAt,
+        })
+        .from(outboundMessageDeliveries)
+        .where(
+          and(
+            eq(outboundMessageDeliveries.id, input.deliveryId),
+            eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          ),
+        )
+        .limit(1);
+      if (!current) return { status: 'expired' };
+      const eligibility = evaluateLocalBridgeLeaseEligibility({ ...current, now });
+      return eligibility === 'expired'
+        ? { status: 'expired' }
+        : eligibility === 'already_handled'
+          ? { status: 'already_handled' }
+          : { status: 'unavailable' };
+    }
+
+    const [row] = await this.database
+      .select({
+        delivery: outboundMessageDeliveries,
+        content: messages.content,
+        conversationId: messages.conversationId,
+      })
+      .from(outboundMessageDeliveries)
+      .innerJoin(messages, eq(messages.id, outboundMessageDeliveries.messageId))
+      .where(
+        and(
+          eq(outboundMessageDeliveries.id, input.deliveryId),
+          eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          eq(outboundMessageDeliveries.state, 'leased'),
+          eq(outboundMessageDeliveries.leaseToken, leaseToken),
+          eq(outboundMessageDeliveries.leaseOwner, input.bridgeId),
+          eq(messages.ownerId, input.ownerId),
+        ),
+      )
+      .limit(1);
+    if (!row) {
+      return { status: 'unavailable' };
+    }
+    const contentKind = outboundContentType(row.delivery.metadata['contentType']);
+    const content = row.content ?? null;
+    if (
+      !contentKind ||
+      (contentKind === 'text' && !content) ||
+      row.delivery.transport !== 'evolution_whatsapp' ||
+      !row.conversationId
+    ) {
+      // No malformed row may result in a provider send. Preserve it for operator review rather
+      // than leaking a partial payload to the local process.
+      await this.database
+        .update(outboundMessageDeliveries)
+        .set({
+          state: 'failed_terminal',
+          leaseToken: null,
+          leaseOwner: null,
+          leaseExpiresAt: null,
+          failedAt: now,
+          lastErrorCategory: 'canonical_delivery_invalid',
+          updatedAt: now,
+        })
+        .where(
+          and(
+            eq(outboundMessageDeliveries.id, input.deliveryId),
+            eq(outboundMessageDeliveries.leaseToken, leaseToken),
+          ),
+        );
+      return { status: 'unavailable' };
+    }
+    return {
+      status: 'ready',
+      leaseToken,
+      leaseExpiresAt: leaseExpiresAt.toISOString(),
+      intent: {
+        id: row.delivery.id,
+        ownerId: row.delivery.ownerId,
+        messageId: row.delivery.messageId,
+        conversationId: row.conversationId,
+        connectionId: row.delivery.connectionId,
+        transport: 'evolution_whatsapp',
+        targetReference: row.delivery.targetReference,
+        operationKey: row.delivery.operationKey,
+        contentType: contentKind,
+        content,
+        mediaObjectReference: row.delivery.mediaObjectReference ?? null,
+        sourceEventId: row.delivery.sourceEventId ?? null,
+        brainRequestId: row.delivery.brainRequestId ?? null,
+        reminderId: row.delivery.reminderId ?? null,
+        critical: booleanMetadata(row.delivery.metadata, 'critical'),
+        correlationId: row.delivery.correlationId,
+        causationId: row.delivery.causationId ?? null,
+        createdAt: row.delivery.createdAt.toISOString(),
+      },
+    };
+  }
+
+  public async recordLocalBridgeDeliveryResult(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly leaseToken: string;
+    readonly result: MessagingSendResult;
+    readonly now?: Date;
+  }): Promise<LocalBridgeResultOutcome> {
+    const now = input.now ?? new Date();
+    return this.database.transaction(async (transaction) => {
+      const [current] = await transaction
+        .select()
+        .from(outboundMessageDeliveries)
+        .where(
+          and(
+            eq(outboundMessageDeliveries.id, input.deliveryId),
+            eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          ),
+        )
+        .limit(1);
+      if (!current) return { disposition: 'unavailable' };
+      if (isTerminalDeliveryState(current.state)) return { disposition: 'already_handled' };
+      if (current.state === 'failed_retryable') {
+        // Replayed result callbacks are expected when Vercel could commit Neon but could not yet
+        // repair the scheduled opaque signal. Re-emitting the same schedule is safe because
+        // Convex deduplicates a pending signal by delivery ID.
+        return current.requiresReconciliation
+          ? { disposition: 'reconciliation_required' }
+          : { disposition: 'retry_scheduled', retryAt: current.availableAfter.toISOString() };
+      }
+      if (
+        current.state !== 'leased' ||
+        current.leaseToken !== input.leaseToken ||
+        current.leaseOwner !== input.bridgeId
+      ) {
+        return { disposition: 'unavailable' };
+      }
+      if (!current.leaseExpiresAt || current.leaseExpiresAt <= now) {
+        await transaction
+          .update(outboundMessageDeliveries)
+          .set({
+            state: 'failed_retryable',
+            requiresReconciliation: true,
+            leaseToken: null,
+            leaseOwner: null,
+            leaseExpiresAt: null,
+            failedAt: now,
+            lastErrorCategory: 'local_bridge_lease_expired',
+            updatedAt: now,
+          })
+          .where(
+            and(
+              eq(outboundMessageDeliveries.id, input.deliveryId),
+              eq(outboundMessageDeliveries.leaseToken, input.leaseToken),
+            ),
+          );
+        return { disposition: 'lease_expired' };
+      }
+      if (!isOutboundDeliveryFresh({ expiresAt: current.expiresAt, now })) {
+        await transaction
+          .update(outboundMessageDeliveries)
+          .set({
+            state: 'failed_terminal',
+            requiresReconciliation: false,
+            leaseToken: null,
+            leaseOwner: null,
+            leaseExpiresAt: null,
+            failedAt: now,
+            lastErrorCategory: 'delivery_expired',
+            updatedAt: now,
+          })
+          .where(
+            and(
+              eq(outboundMessageDeliveries.id, input.deliveryId),
+              eq(outboundMessageDeliveries.leaseToken, input.leaseToken),
+            ),
+          );
+        return { disposition: 'terminal' };
+      }
+
+      const guardedLease = and(
+        eq(outboundMessageDeliveries.id, input.deliveryId),
+        eq(outboundMessageDeliveries.ownerId, input.ownerId),
+        eq(outboundMessageDeliveries.state, 'leased'),
+        eq(outboundMessageDeliveries.leaseToken, input.leaseToken),
+        eq(outboundMessageDeliveries.leaseOwner, input.bridgeId),
+        gt(outboundMessageDeliveries.leaseExpiresAt, now),
+      );
+      if (input.result.disposition === 'accepted') {
+        const [updated] = await transaction
+          .update(outboundMessageDeliveries)
+          .set({
+            state: 'sent',
+            providerMessageReference: input.result.providerMessageReference,
+            requiresReconciliation: false,
+            acceptedAt: input.result.acceptedAt ? new Date(input.result.acceptedAt) : now,
+            failedAt: null,
+            lastErrorCategory: null,
+            leaseToken: null,
+            leaseOwner: null,
+            leaseExpiresAt: null,
+            updatedAt: now,
+          })
+          .where(guardedLease)
+          .returning({ id: outboundMessageDeliveries.id });
+        return updated ? { disposition: 'completed' } : { disposition: 'unavailable' };
+      }
+
+      if (input.result.disposition === 'retryable_failure') {
+        if (input.result.requiresReconciliation) {
+          const [updated] = await transaction
+            .update(outboundMessageDeliveries)
+            .set({
+              state: 'failed_retryable',
+              requiresReconciliation: true,
+              providerMessageReference: input.result.providerMessageReference,
+              failedAt: now,
+              lastErrorCategory: input.result.errorCategory ?? 'transport_uncertain',
+              leaseToken: null,
+              leaseOwner: null,
+              leaseExpiresAt: null,
+              updatedAt: now,
+            })
+            .where(guardedLease)
+            .returning({ id: outboundMessageDeliveries.id });
+          return updated
+            ? { disposition: 'reconciliation_required' }
+            : { disposition: 'unavailable' };
+        }
+        const retryAt = new Date(
+          now.getTime() + calculateOutboundDeliveryRetryDelayMs(current.attemptCount),
+        );
+        if (
+          current.attemptCount >= current.maximumAttempts ||
+          !isOutboundDeliveryFresh({ expiresAt: current.expiresAt, now: retryAt })
+        ) {
+          const [updated] = await transaction
+            .update(outboundMessageDeliveries)
+            .set({
+              state: 'failed_terminal',
+              requiresReconciliation: false,
+              providerMessageReference: input.result.providerMessageReference,
+              failedAt: now,
+              lastErrorCategory:
+                current.attemptCount >= current.maximumAttempts
+                  ? 'delivery_attempt_limit'
+                  : 'delivery_expired',
+              leaseToken: null,
+              leaseOwner: null,
+              leaseExpiresAt: null,
+              updatedAt: now,
+            })
+            .where(guardedLease)
+            .returning({ id: outboundMessageDeliveries.id });
+          return updated ? { disposition: 'terminal' } : { disposition: 'unavailable' };
+        }
+        const [updated] = await transaction
+          .update(outboundMessageDeliveries)
+          .set({
+            state: 'failed_retryable',
+            requiresReconciliation: false,
+            providerMessageReference: input.result.providerMessageReference,
+            availableAfter: retryAt,
+            failedAt: now,
+            lastErrorCategory: input.result.errorCategory ?? 'transport_retryable',
+            leaseToken: null,
+            leaseOwner: null,
+            leaseExpiresAt: null,
+            updatedAt: now,
+          })
+          .where(guardedLease)
+          .returning({ id: outboundMessageDeliveries.id });
+        return updated
+          ? { disposition: 'retry_scheduled', retryAt: retryAt.toISOString() }
+          : { disposition: 'unavailable' };
+      }
+
+      const [updated] = await transaction
+        .update(outboundMessageDeliveries)
+        .set({
+          state: 'failed_terminal',
+          requiresReconciliation: input.result.requiresReconciliation,
+          providerMessageReference: input.result.providerMessageReference,
+          failedAt: now,
+          lastErrorCategory: input.result.errorCategory ?? 'transport_terminal',
+          leaseToken: null,
+          leaseOwner: null,
+          leaseExpiresAt: null,
+          updatedAt: now,
+        })
+        .where(guardedLease)
+        .returning({ id: outboundMessageDeliveries.id });
+      return updated ? { disposition: 'terminal' } : { disposition: 'unavailable' };
+    });
   }
 
   public async recordSendResult(input: {
@@ -445,6 +936,8 @@ export class DrizzleTransportStateRepository implements TransportStateRepository
         acceptedAt: input.result.acceptedAt ? new Date(input.result.acceptedAt) : null,
         failedAt: state.startsWith('failed') ? new Date(input.occurredAt) : null,
         lastErrorCategory: input.result.errorCategory ?? null,
+        leaseToken: null,
+        leaseOwner: null,
         leaseExpiresAt: null,
         updatedAt: new Date(),
       })
@@ -569,6 +1062,27 @@ export class DrizzleTransportStateRepository implements TransportStateRepository
       });
     });
   }
+
+  public async loadCanonicalTransportConnectionPolicy(input: {
+    readonly ownerId: string;
+    readonly connectionId: string;
+  }): Promise<CanonicalTransportConnectionPolicy | undefined> {
+    const [connection] = await this.database
+      .select({
+        versionVerified: messagingTransportConnections.versionVerified,
+        outboundEnabled: messagingTransportConnections.outboundEnabled,
+        state: messagingTransportConnections.state,
+      })
+      .from(messagingTransportConnections)
+      .where(
+        and(
+          eq(messagingTransportConnections.id, input.connectionId),
+          eq(messagingTransportConnections.ownerId, input.ownerId),
+        ),
+      )
+      .limit(1);
+    return connection;
+  }
 }
 
 /**
@@ -587,6 +1101,7 @@ export class DrizzleDurableDeliveryOutbox {
     readonly duplicate: boolean;
   }> {
     return this.database.transaction(async (transaction) => {
+      const freshness = deriveOutboundDeliveryFreshness(input);
       const [created] = await transaction
         .insert(outboundMessageDeliveries)
         .values({
@@ -602,6 +1117,10 @@ export class DrizzleDurableDeliveryOutbox {
           brainRequestId: input.brainRequestId ?? undefined,
           reminderId: input.reminderId ?? undefined,
           state: 'pending',
+          maximumAttempts: freshness.maximumAttempts,
+          freshnessPolicy: freshness.policy,
+          availableAfter: new Date(input.createdAt),
+          expiresAt: new Date(freshness.expiresAt),
           correlationId: input.correlationId,
           causationId: input.causationId ?? undefined,
           createdAt: new Date(input.createdAt),

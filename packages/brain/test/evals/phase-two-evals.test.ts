@@ -1212,7 +1212,7 @@ describe('Phase 2 invariant evaluations', () => {
       APP_ENV: 'test',
       JARVIS_BRAIN_DAILY_MODEL_SPEND_LIMIT_USD: '0.00001',
     });
-    const guard = new ModelBudgetGuard(environment.openAi, environment.brain);
+    const guard = new ModelBudgetGuard(environment.model, environment.brain);
     expect(
       guard.evaluate('standard', {
         callsAlreadyMade: 0,

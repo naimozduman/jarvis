@@ -16,6 +16,7 @@ export default defineConfig({
       '@jarvis/integrations': fromRoot('./packages/integrations/src/index.ts'),
       '@jarvis/integrations-evolution': fromRoot('./packages/integrations-evolution/src/index.ts'),
       '@jarvis/observability': fromRoot('./packages/observability/src/index.ts'),
+      '@jarvis/orchestration': fromRoot('./packages/orchestration/src/index.ts'),
       '@jarvis/schemas': fromRoot('./packages/schemas/src/index.ts'),
       '@jarvis/security': fromRoot('./packages/security/src/index.ts'),
       '@jarvis/testing': fromRoot('./packages/testing/src/index.ts'),
@@ -25,7 +26,7 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
-    include: ['apps/**/*.test.ts', 'packages/**/*.test.ts'],
+    include: ['apps/**/*.test.ts', 'packages/**/*.test.ts', 'scripts/**/*.test.mjs'],
     passWithNoTests: false,
   },
 });

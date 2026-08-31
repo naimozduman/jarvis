@@ -14,7 +14,7 @@
     "build": "tsc --project tsconfig.build.json",
     "lint": "eslint src --max-warnings=0",
     "typecheck": "tsc --project tsconfig.json --noEmit",
-    "start": "node dist/server.js"
+    "start": "node dist/local-server.js"
   },
   "dependencies": {
     "@jarvis/brain": "workspace:*",
@@ -24,6 +24,7 @@
     "@jarvis/domain": "workspace:*",
     "@jarvis/integrations-evolution": "workspace:*",
     "@jarvis/observability": "workspace:*",
+    "@jarvis/orchestration": "workspace:*",
     "@jarvis/security": "workspace:*",
     "fastify": "5.12.1"
   }

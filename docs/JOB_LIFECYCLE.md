@@ -1,5 +1,11 @@
 # Durable job lifecycle
 
+> **Phase 3.6 update.** This document retains the pg-boss lifecycle for the historical
+> long-running runtime. The serverless deployment target does not start pg-boss: Convex wakes an
+> authenticated Vercel callback, which rehydrates and leases the canonical Neon job. See
+> [CONVEX_ORCHESTRATION.md](CONVEX_ORCHESTRATION.md) and
+> [VERCEL_RUNTIME.md](VERCEL_RUNTIME.md).
+
 ## Contract
 
 JARVIS owns a `jarvis.jobs` lifecycle projection and uses pg-boss as its only physical

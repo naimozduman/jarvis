@@ -151,7 +151,7 @@ function composeBrain(input: {
 }): ConversationTurnService {
   return new ConversationTurnService({
     repository: new DrizzleBrainRepository(input.database),
-    gateway: createConfiguredModelGateway(input.environment.openAi),
+    gateway: createConfiguredModelGateway(input.environment.model),
     contextAssembler: new ContextAssembler({
       maxContextRecords: input.environment.brain.maxContextRecords,
       maxRecentMessages: input.environment.brain.maxRecentMessages,
@@ -162,7 +162,7 @@ function composeBrain(input: {
     deepEscalationEnabled: input.environment.brain.deepEscalationEnabled,
     maxRecentMessages: input.environment.brain.maxRecentMessages,
     interventionService: new InterventionService(new DrizzleInterventionRepository(input.database)),
-    modelBudgetGuard: new ModelBudgetGuard(input.environment.openAi, input.environment.brain),
+    modelBudgetGuard: new ModelBudgetGuard(input.environment.model, input.environment.brain),
   });
 }
 
@@ -523,7 +523,10 @@ export async function createWorkerRuntime(
         databaseVerified: readiness.databaseVerified,
         queueStarted: readiness.queueStarted,
         workerHeartbeatVerified: readiness.workerHandlersRegistered,
-        modelConfigured: Boolean(environment.openAi.apiKey),
+        modelConfigured:
+          environment.model.provider === 'vercel-ai-gateway'
+            ? Boolean(environment.model.oidcToken)
+            : Boolean(environment.model.apiKey),
       }),
       readinessProbe: probeDatabase,
     });

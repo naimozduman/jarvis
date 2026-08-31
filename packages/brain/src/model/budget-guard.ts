@@ -1,4 +1,4 @@
-import type { BrainRuntimeConfiguration, OpenAiRuntimeConfiguration } from '@jarvis/config';
+import type { BrainRuntimeConfiguration, ModelRuntimeConfiguration } from '@jarvis/config';
 import type { ModelRoute } from '@jarvis/contracts';
 
 export interface ModelBudgetUsage {
@@ -17,7 +17,7 @@ export interface ModelBudgetDecision {
 /** Conservative preflight budget guard; a model call is never used to answer a budget question. */
 export class ModelBudgetGuard {
   public constructor(
-    private readonly models: OpenAiRuntimeConfiguration,
+    private readonly models: ModelRuntimeConfiguration,
     private readonly limits: BrainRuntimeConfiguration,
   ) {}
 

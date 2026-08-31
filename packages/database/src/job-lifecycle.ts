@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
-import { and, eq } from 'drizzle-orm';
+import { and, eq, gt } from 'drizzle-orm';
+import type { DurableJob } from '@jarvis/contracts';
 import { createSafeAuditEvent } from '@jarvis/security';
 import type { ClassifiedJobError, DurableJobLifecycleProjection } from './jobs.js';
 import { resolveJobFailureState } from './jobs.js';
@@ -20,15 +21,48 @@ interface JobProjectionRow {
     'queued' | 'leased' | 'retry_wait' | 'completed' | 'terminal_failed' | 'cancelled';
   readonly attemptCount: number;
   readonly maximumAttempts: number;
+  readonly availableAfter: Date;
   readonly leaseExpiresAt: Date | null;
 }
 
 function isLeaseable(job: JobProjectionRow, now: Date): boolean {
   return (
-    job.status === 'queued' ||
-    job.status === 'retry_wait' ||
-    (job.status === 'leased' && job.leaseExpiresAt !== null && job.leaseExpiresAt < now)
+    job.availableAfter <= now &&
+    (job.status === 'queued' ||
+      job.status === 'retry_wait' ||
+      (job.status === 'leased' && job.leaseExpiresAt !== null && job.leaseExpiresAt < now))
   );
+}
+
+function asDurableJob(row: typeof jobs.$inferSelect): DurableJob {
+  return {
+    id: row.id,
+    ownerId: row.ownerId,
+    jobType: row.jobType,
+    payload: row.payload,
+    status: row.status,
+    priority: row.priority,
+    scheduledFor: row.scheduledFor.toISOString(),
+    availableAfter: row.availableAfter.toISOString(),
+    attemptCount: row.attemptCount,
+    maximumAttempts: row.maximumAttempts,
+    leaseOwner: row.leaseOwner,
+    leaseExpiresAt: row.leaseExpiresAt?.toISOString() ?? null,
+    lastErrorCategory: row.lastErrorCategory,
+    lastErrorSummary: row.lastErrorSummary,
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
+    completedAt: row.completedAt?.toISOString() ?? null,
+    correlationId: row.correlationId,
+    ...(row.causationId ? { causationId: row.causationId } : {}),
+    ...(row.sourceEventId ? { sourceEventId: row.sourceEventId } : {}),
+    idempotencyKey: row.idempotencyKey,
+  };
+}
+
+export interface CanonicalJobRepository {
+  load(input: { readonly jobId: string }): Promise<DurableJob | undefined>;
+  loadForSourceEvent(input: { readonly sourceEventId: string }): Promise<DurableJob | undefined>;
 }
 
 async function appendJobAudit(
@@ -78,12 +112,30 @@ async function appendJobAudit(
 }
 
 /**
- * Keeps JARVIS-owned job lifecycle/audit records in sync with a pg-boss worker. pg-boss remains
- * the only physical claimant; this projection has optimistic concurrency protection so a stale
- * lease cannot overwrite a newer retry attempt.
+ * Keeps JARVIS-owned job lifecycle/audit records consistent for a physical pg-boss worker or a
+ * stateless orchestration callback. The canonical Postgres row is always the concurrency source;
+ * a stale callback cannot overwrite a newer lease or retry attempt.
  */
-export class DrizzleDurableJobLifecycleProjection implements DurableJobLifecycleProjection {
+export class DrizzleDurableJobLifecycleProjection
+  implements DurableJobLifecycleProjection, CanonicalJobRepository
+{
   public constructor(private readonly database: JarvisDatabase) {}
+
+  public async load(input: { readonly jobId: string }): Promise<DurableJob | undefined> {
+    const [job] = await this.database.select().from(jobs).where(eq(jobs.id, input.jobId)).limit(1);
+    return job ? asDurableJob(job) : undefined;
+  }
+
+  public async loadForSourceEvent(input: {
+    readonly sourceEventId: string;
+  }): Promise<DurableJob | undefined> {
+    const [job] = await this.database
+      .select()
+      .from(jobs)
+      .where(eq(jobs.sourceEventId, input.sourceEventId))
+      .limit(1);
+    return job ? asDurableJob(job) : undefined;
+  }
 
   public async recordLease(input: {
     readonly jobId: string;
@@ -127,7 +179,7 @@ export class DrizzleDurableJobLifecycleProjection implements DurableJobLifecycle
       await appendJobAudit(transaction, {
         job,
         action: 'job.leased',
-        reason: 'pg-boss assigned this job to a durable worker lease.',
+        reason: 'A trusted runtime acquired this canonical durable-job lease.',
         metadata: { attemptNumber, workerId: input.workerId },
       });
 
@@ -152,7 +204,14 @@ export class DrizzleDurableJobLifecycleProjection implements DurableJobLifecycle
           completedAt: now,
           updatedAt: now,
         })
-        .where(and(eq(jobs.id, input.jobId), eq(jobs.leaseOwner, input.workerId)))
+        .where(
+          and(
+            eq(jobs.id, input.jobId),
+            eq(jobs.leaseOwner, input.workerId),
+            eq(jobs.attemptCount, input.attemptNumber),
+            gt(jobs.leaseExpiresAt, now),
+          ),
+        )
         .returning({ id: jobs.id });
 
       if (!updated) {
@@ -211,7 +270,14 @@ export class DrizzleDurableJobLifecycleProjection implements DurableJobLifecycle
           ...(next.status === 'terminal_failed' ? { completedAt: now } : {}),
           updatedAt: now,
         })
-        .where(and(eq(jobs.id, input.jobId), eq(jobs.leaseOwner, input.workerId)))
+        .where(
+          and(
+            eq(jobs.id, input.jobId),
+            eq(jobs.leaseOwner, input.workerId),
+            eq(jobs.attemptCount, input.attemptNumber),
+            gt(jobs.leaseExpiresAt, now),
+          ),
+        )
         .returning({ id: jobs.id });
 
       if (!updated) {
@@ -261,6 +327,7 @@ export class DrizzleDurableJobLifecycleProjection implements DurableJobLifecycle
         status: jobs.status,
         attemptCount: jobs.attemptCount,
         maximumAttempts: jobs.maximumAttempts,
+        availableAfter: jobs.availableAfter,
         leaseExpiresAt: jobs.leaseExpiresAt,
       })
       .from(jobs)
