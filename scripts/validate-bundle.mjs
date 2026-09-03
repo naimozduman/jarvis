@@ -1,6 +1,8 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
-import { dirname, extname, join, relative, resolve } from 'node:path';
+import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { parseConfigFileTextToJson } from 'typescript';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
@@ -61,7 +63,9 @@ const requiredFiles = [
   'apps/api/src/health.ts',
   'apps/api/src/local-bridge-routes.ts',
   'apps/api/src/orchestration-routes.ts',
+  'apps/api/src/vercel-entrypoint.ts',
   'apps/api/src/vercel-runtime.ts',
+  'apps/api/api/[...route].ts',
   'apps/whatsapp-bridge/src/bridge.ts',
   'apps/whatsapp-bridge/src/server.ts',
   'apps/whatsapp-bridge/src/vercel-api-client.ts',
@@ -154,8 +158,17 @@ function readText(path) {
 }
 
 function validateJson(path) {
+  const source = readText(path);
   try {
-    JSON.parse(readText(path));
+    const fileName = basename(path);
+    if (fileName === 'tsconfig.json' || fileName.startsWith('tsconfig.')) {
+      const parsed = parseConfigFileTextToJson(path, source);
+      if (parsed.error) {
+        throw new Error(parsed.error.messageText.toString());
+      }
+      return;
+    }
+    JSON.parse(source);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown JSON parsing error';
     errors.push(`invalid JSON in ${pathFromRoot(path)}: ${message}`);

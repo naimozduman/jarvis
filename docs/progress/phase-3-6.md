@@ -5,9 +5,10 @@
 Repository-side Phase 3.6 implementation is complete. Provider-free source, test, bundle, secret,
 and schema checks have finished; the inherited pnpm workspace-link layout blocks only the
 package-manager-driven emitted API build/audit/CI commands described below. This worktree remains
-intentionally uncommitted. It has not deployed, configured, or invoked
-Convex cloud, Vercel, Neon, Vercel AI Gateway, Evolution, or WhatsApp. No migration has been
-applied and no WhatsApp pairing has been attempted.
+intentionally uncommitted. The historical repository-only status is superseded by the Phase 3.6B
+checkpoint below: a Convex development deployment and the manually completed Neon staging migration
+now exist, while Vercel deployment, runtime/secret configuration, model inference, Evolution, and
+WhatsApp pairing remain unperformed.
 
 The former Railway staging design is **abandoned / superseded by the zero-cost architecture**. Its
 documents are retained as historical architecture records rather than deleted.
@@ -90,16 +91,65 @@ remain blocked by this pre-existing workspace layout even though their provider-
 checks above were run directly. Resolve it only after preserving/reviewing this uncommitted
 worktree through an approved clean-link/reinstall or relocation plan.
 
+## Phase 3.6B provider checkpoint — 2026-09-02
+
+- The current-workspace preflight for this continuation confirmed both `HEAD` and `origin/main` at
+  `2879d6b73e5bd82b5cccb52e97e96808395a1f8b`. Existing uncommitted Convex compatibility fixes and
+  progress documentation were preserved; no clone, reset, OneDrive checkout, or migration rerun was
+  used.
+- The reviewed Convex development deployment was created on the authenticated Free target. The
+  supported code generation completed and `health:get` returned the expected healthy result. No
+  production deployment was created.
+- The operator confirmed that the reviewed `jarvis` migration completed on the explicitly named
+  `jarvis-staging` Neon target. The temporary migrations-only connection variable was removed; it
+  was not copied into any application configuration.
+- The `jarvis-web` project was created on the authenticated Vercel Hobby team. It has no
+  deployments. Its only project environment configuration is the zero-cost-mode flag and the
+  OIDC-only Vercel AI Gateway provider selection, stored as ordinary Config values in Development,
+  Preview, and Production. There is no `OPENAI_API_KEY`, `AI_GATEWAY_API_KEY`, model route,
+  verified-model allow-list, or manually supplied OIDC token.
+- The former literal-zero-price predicate was corrected. It was wrong because Vercel Free Tier
+  eligibility is current catalog metadata, while an eligible model can retain nonzero provider list
+  pricing against included credits. The new verifier accepts only exact `data[].tags` value `free`,
+  fails closed on a changed/malformed schema, and emits an auditable machine-readable ID list.
+- The corrected public catalog query returned HTTP 200 and **15** exact Free Tier IDs, including
+  seven language candidates. `minimax/minimax-m2.7` and `minimax/minimax-m3` have nonzero listed
+  prices yet current `free` tags, proving the corrected semantics. Candidate logical routes are
+  `fast=minimax/minimax-m2.7`, `standard=minimax/minimax-m3`, and
+  `deep=minimax/minimax-m3`; none is configured and no inference was made. Public metadata does
+  not prove per-model structured-output compatibility, so that remains a later explicit gate.
+- The repository now contains a Vercel `/api/*` Web-Handler Fastify entrypoint, a canonical
+  included-credit safety guard, and focused tests. Option B was chosen: `jarvis-web` remains
+  reserved for the future control center and the single `jarvis-api-staging` Hobby project was
+  created as the clean API boundary. It has zero deployments, no domain, no framework binding, and
+  no project configuration; its root remains to be set to `apps/api` only during a later deployment
+  review.
+- Current local verification after the corrected verifier/entrypoint changes passed
+  `format:check`, lint (16 packages), typecheck (16 packages), tests (159 passed, 1 skipped), build
+  (16 packages), bundle validation (404 files), all four eval suites (49 Brain, 9 transport, 17
+  orchestration, and 16 bridge cases), Convex code generation, and production dependency audit (no
+  known vulnerabilities). The normal `db:check` wrapper still encounters the documented Windows
+  `uv_os_get_passwd` `ENOMEM` environment defect; the identical Drizzle check succeeded via the
+  process-local identity workaround and did not contact Neon. `secrets:check` and therefore `ci`
+  previously stopped only because a pre-existing ignored `.env.local` was correctly detected as
+  secret-shaped. During the 2026-09-03 pre-deployment checkpoint, that file was preserved outside
+  the Git worktree without inspecting, printing, changing, or exposing its contents; it no longer
+  blocks the repository secret scan.
+- No payment, card, upgrade, paid resource, or WhatsApp pairing action was performed.
+
 ## Remaining Phase 3.6B operator actions
 
 1. Review the uncommitted repository changes; do not commit or deploy from this task.
-2. Provide/approve an existing safe Convex deployment, then run supported code generation and
-   review generated APIs.
-3. Create/configure Vercel only after review, with server-only Neon connection, callback secrets,
-   Vercel OIDC, and zero-cost verifier output. Do not use a gateway API key or a direct paid
-   fallback in zero-cost mode.
-4. Apply the reviewed forward Drizzle migration only to an explicitly confirmed Neon target through
-   the guarded migration process.
+2. Review the already-created empty `jarvis-api-staging` Hobby project and point its root at
+   `apps/api` only when the later deployment review is approved. Stop if Vercel asks for payment, a
+   card, an upgrade, or paid usage; do not deploy at that step.
+3. Provide or separately approve a server-only pooled Neon _application_ connection and the callback
+   secret composition required for the Vercel/Convex boundary. Do not reuse the removed
+   migrations-only connection variable or expose any secret in source, logs, or client code.
+4. Re-run the exact public catalog verifier immediately before deployment. Only then may exact
+   Gateway model IDs, the verified allow-list, conservative rate cards, and a current account usage
+   snapshot be configured after a separately approved structured-output probe; no paid fallback,
+   static Gateway key, purchased credits, or auto top-up is permitted.
 5. Compose the local bridge with a reviewed Convex subscription, Vercel API client, and pinned
    Evolution port only after the existing Evolution security gate is satisfied.
 6. Keep WhatsApp unpaired until a separately approved operator procedure authorizes it.

@@ -40,11 +40,29 @@ function modelConfigured(environment: RuntimeEnvironment): boolean {
     return Boolean(environment.model.apiKey);
   }
   if (!environment.model.oidcToken) return false;
+  const freeTierCreditGuard = environment.model.freeTierCreditGuard;
+  const snapshotAt = freeTierCreditGuard.reportedMonthlyUsageAsOf;
+  const snapshotDate = snapshotAt ? new Date(snapshotAt) : undefined;
+  const snapshotIsCurrentMonth =
+    freeTierCreditGuard.reportedMonthlyUsageUsd !== undefined &&
+    snapshotDate !== undefined &&
+    !Number.isNaN(snapshotDate.getTime()) &&
+    snapshotDate.getTime() <= Date.now() &&
+    snapshotDate.getUTCFullYear() === new Date().getUTCFullYear() &&
+    snapshotDate.getUTCMonth() === new Date().getUTCMonth();
+  const hasCompleteRateCard = (route: 'fast' | 'standard' | 'deep') => {
+    const rateCard = environment.model[route].rateCard;
+    return rateCard.inputCostPerMillionUsd !== null && rateCard.outputCostPerMillionUsd !== null;
+  };
   return (
     !environment.model.zeroCostMode ||
     (isVerifiedZeroCostGatewayRoute(environment.model, 'fast') &&
       isVerifiedZeroCostGatewayRoute(environment.model, 'standard') &&
-      isVerifiedZeroCostGatewayRoute(environment.model, 'deep'))
+      isVerifiedZeroCostGatewayRoute(environment.model, 'deep') &&
+      hasCompleteRateCard('fast') &&
+      hasCompleteRateCard('standard') &&
+      hasCompleteRateCard('deep') &&
+      snapshotIsCurrentMonth)
   );
 }
 

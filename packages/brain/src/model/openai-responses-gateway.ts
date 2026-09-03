@@ -33,6 +33,13 @@ function estimatedCostUsd(
   const cachedInputTokens = Math.max(0, usage.input_tokens_details.cached_tokens);
   const standardInputTokens = Math.max(0, usage.input_tokens - cachedInputTokens);
   const rateCard = route.rateCard;
+  if (
+    rateCard.inputCostPerMillionUsd === null ||
+    rateCard.cachedInputCostPerMillionUsd === null ||
+    rateCard.outputCostPerMillionUsd === null
+  ) {
+    return null;
+  }
 
   return Number(
     (
@@ -75,6 +82,7 @@ function incompleteResult(
     id: randomUUID(),
     ownerId: request.request.ownerId,
     brainRequestId: request.request.id,
+    provider: 'openai-responses',
     route: request.route,
     configuredModelId: configuration.model,
     actualModelId: null,
@@ -174,6 +182,7 @@ export class OpenAiResponsesModelGateway implements ModelGateway {
         id: randomUUID(),
         ownerId: request.request.ownerId,
         brainRequestId: request.request.id,
+        provider: 'openai-responses',
         route: request.route,
         configuredModelId: configuredRoute.model,
         actualModelId: response.model ?? configuredRoute.model,

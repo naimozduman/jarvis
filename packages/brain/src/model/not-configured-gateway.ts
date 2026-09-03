@@ -15,6 +15,7 @@ export class NotConfiguredModelGateway implements ModelGateway {
         id: randomUUID(),
         ownerId: request.request.ownerId,
         brainRequestId: request.request.id,
+        provider: 'not_configured',
         route: request.route,
         configuredModelId: 'not_configured',
         actualModelId: null,

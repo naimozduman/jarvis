@@ -149,8 +149,9 @@ function composeBrain(input: {
   readonly database: JarvisDatabase;
   readonly pipeline: Pick<EventPipelineDependencies, 'store' | 'policy'>;
 }): ConversationTurnService {
+  const repository = new DrizzleBrainRepository(input.database);
   return new ConversationTurnService({
-    repository: new DrizzleBrainRepository(input.database),
+    repository,
     gateway: createConfiguredModelGateway(input.environment.model),
     contextAssembler: new ContextAssembler({
       maxContextRecords: input.environment.brain.maxContextRecords,
@@ -163,6 +164,7 @@ function composeBrain(input: {
     maxRecentMessages: input.environment.brain.maxRecentMessages,
     interventionService: new InterventionService(new DrizzleInterventionRepository(input.database)),
     modelBudgetGuard: new ModelBudgetGuard(input.environment.model, input.environment.brain),
+    zeroCostCreditAccounting: repository,
   });
 }
 

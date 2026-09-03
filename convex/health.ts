@@ -5,5 +5,5 @@ import { v } from 'convex/values';
 export const get = query({
   args: {},
   returns: v.object({ service: v.literal('jarvis-orchestration'), status: v.literal('ok') }),
-  handler: async () => ({ service: 'jarvis-orchestration', status: 'ok' as const }),
+  handler: () => ({ service: 'jarvis-orchestration' as const, status: 'ok' as const }),
 });

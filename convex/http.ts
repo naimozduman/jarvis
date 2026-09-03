@@ -1,25 +1,15 @@
-'use node';
-
-import { timingSafeEqual } from 'node:crypto';
-
 import { httpRouter } from 'convex/server';
 
 import { internal } from './_generated/api';
 import { env, httpAction } from './_generated/server';
+import { hasValidBearerSecret } from './secret_comparison.js';
 
 const http = httpRouter();
 
-function authorized(request: Request): boolean {
-  const expected = env.JARVIS_VERCEL_TO_CONVEX_SECRET;
-  const received = request.headers.get('authorization');
-  if (!expected || !received?.startsWith('Bearer ')) {
-    return false;
-  }
-  const expectedBuffer = Buffer.from(expected, 'utf8');
-  const receivedBuffer = Buffer.from(received.slice('Bearer '.length).trim(), 'utf8');
-  return (
-    expectedBuffer.length === receivedBuffer.length &&
-    timingSafeEqual(expectedBuffer, receivedBuffer)
+async function authorized(request: Request): Promise<boolean> {
+  return hasValidBearerSecret(
+    env.JARVIS_VERCEL_TO_CONVEX_SECRET,
+    request.headers.get('authorization'),
   );
 }
 
@@ -52,7 +42,7 @@ http.route({
   path: '/internal/schedule',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
-    if (!authorized(request)) return json(401, { error: 'unauthorized' });
+    if (!(await authorized(request))) return json(401, { error: 'unauthorized' });
     const body = record(await request.json().catch(() => undefined));
     if (!body) return json(400, { error: 'invalid_request' });
     const jobId = stringField(body, 'jobId');
@@ -95,7 +85,7 @@ http.route({
   path: '/internal/cancel',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
-    if (!authorized(request)) return json(401, { error: 'unauthorized' });
+    if (!(await authorized(request))) return json(401, { error: 'unauthorized' });
     const body = record(await request.json().catch(() => undefined));
     const jobId = body ? stringField(body, 'jobId') : undefined;
     const generation = body ? numberField(body, 'generation') : undefined;
@@ -115,7 +105,7 @@ http.route({
   path: '/internal/transport-signal',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
-    if (!authorized(request)) return json(401, { error: 'unauthorized' });
+    if (!(await authorized(request))) return json(401, { error: 'unauthorized' });
     const body = record(await request.json().catch(() => undefined));
     const deliveryId = body ? stringField(body, 'deliveryId') : undefined;
     const createdAt = body ? numberField(body, 'createdAt') : undefined;
@@ -138,7 +128,7 @@ http.route({
   path: '/internal/transport-signal/schedule',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
-    if (!authorized(request)) return json(401, { error: 'unauthorized' });
+    if (!(await authorized(request))) return json(401, { error: 'unauthorized' });
     const body = record(await request.json().catch(() => undefined));
     const deliveryId = body ? stringField(body, 'deliveryId') : undefined;
     const scheduledAt = body ? numberField(body, 'scheduledAt') : undefined;
@@ -161,7 +151,7 @@ http.route({
   path: '/internal/transport-signal/ack',
   method: 'POST',
   handler: httpAction(async (ctx, request) => {
-    if (!authorized(request)) return json(401, { error: 'unauthorized' });
+    if (!(await authorized(request))) return json(401, { error: 'unauthorized' });
     const body = record(await request.json().catch(() => undefined));
     const deliveryId = body ? stringField(body, 'deliveryId') : undefined;
     const sequence = body ? numberField(body, 'sequence') : undefined;

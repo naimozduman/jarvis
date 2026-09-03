@@ -13,12 +13,19 @@ export const modelGatewayStatusSchema = z.enum([
   'refused',
   'invalid_model_output',
 ]);
+export const modelProviderSchema = z.enum([
+  'openai-responses',
+  'vercel-ai-gateway',
+  'fake',
+  'not_configured',
+]);
 
 export const modelRunSchema = z
   .object({
     id: uuidSchema,
     ownerId: uuidSchema,
     brainRequestId: uuidSchema,
+    provider: modelProviderSchema,
     route: modelRouteSchema,
     configuredModelId: z.string().trim().min(1).max(160),
     actualModelId: z.string().trim().min(1).max(160).nullable(),

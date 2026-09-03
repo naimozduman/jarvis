@@ -15,6 +15,37 @@ import type { ModelGateway, ModelGatewayRequest, ModelGatewayResult } from './ga
 
 const vercelAiGatewayResponsesUrl = 'https://ai-gateway.vercel.sh/v1';
 
+export interface VercelAiGatewayClient {
+  readonly responses: Pick<OpenAI['responses'], 'parse'>;
+}
+
+function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+/**
+ * Vercel AI Gateway may include an exact request receipt at
+ * `providerMetadata.gateway.cost` (or OpenResponses' snake_case equivalent). JARVIS records only
+ * a finite non-negative receipt from that exact provider namespace; token pricing and names are
+ * never substituted when the receipt is absent.
+ */
+export function reportedGatewayCostUsd(response: unknown): number | null {
+  if (!isRecord(response)) return null;
+  const metadata =
+    (isRecord(response.providerMetadata) && response.providerMetadata) ||
+    (isRecord(response.provider_metadata) && response.provider_metadata);
+  const gateway = metadata && isRecord(metadata.gateway) ? metadata.gateway : undefined;
+  const cost = gateway?.cost;
+  if (typeof cost === 'number' && Number.isFinite(cost) && cost >= 0) {
+    return cost;
+  }
+  if (typeof cost === 'string' && /^\d+(?:\.\d+)?$/.test(cost)) {
+    const parsed = Number(cost);
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
+  }
+  return null;
+}
+
 function routeConfiguration(
   configuration: ModelRuntimeConfiguration,
   route: ModelRoute,
@@ -22,7 +53,10 @@ function routeConfiguration(
   return configuration[route];
 }
 
-function errorCategory(error: unknown): string {
+export function vercelGatewayErrorCategory(error: unknown): string {
+  if (isRecord(error) && error.status === 429) {
+    return 'rate_limited';
+  }
   if (error instanceof OpenAI.RateLimitError) {
     return 'rate_limited';
   }
@@ -53,6 +87,7 @@ function incompleteResult(
     id: randomUUID(),
     ownerId: request.request.ownerId,
     brainRequestId: request.request.id,
+    provider: 'vercel-ai-gateway',
     route: request.route,
     configuredModelId: configuration.model,
     actualModelId: null,
@@ -77,15 +112,20 @@ function incompleteResult(
  * `store: false` boundary used by the direct adapter.
  */
 export class VercelAiGatewayModelGateway implements ModelGateway {
-  private readonly client: OpenAI | null;
+  private readonly client: VercelAiGatewayClient | null;
 
-  public constructor(private readonly configuration: ModelRuntimeConfiguration) {
-    this.client = configuration.oidcToken
-      ? new OpenAI({
-          apiKey: configuration.oidcToken,
-          baseURL: vercelAiGatewayResponsesUrl,
-        })
-      : null;
+  public constructor(
+    private readonly configuration: ModelRuntimeConfiguration,
+    client?: VercelAiGatewayClient,
+  ) {
+    this.client =
+      client ??
+      (configuration.oidcToken
+        ? new OpenAI({
+            apiKey: configuration.oidcToken,
+            baseURL: vercelAiGatewayResponsesUrl,
+          })
+        : null);
   }
 
   public async decide(request: ModelGatewayRequest): Promise<ModelGatewayResult> {
@@ -166,6 +206,7 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
         id: randomUUID(),
         ownerId: request.request.ownerId,
         brainRequestId: request.request.id,
+        provider: 'vercel-ai-gateway',
         route: request.route,
         configuredModelId: configuredRoute.model,
         actualModelId: response.model ?? configuredRoute.model,
@@ -176,21 +217,25 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
         outputTokens: usage?.output_tokens ?? null,
         reasoningTokens: usage?.output_tokens_details.reasoning_tokens ?? null,
         cachedInputTokens: usage?.input_tokens_details.cached_tokens ?? null,
-        // A zero-cost request reaches this branch only after the exact model ID passed the
-        // deployment-time public catalog verification. No model-name heuristic is accepted.
-        estimatedCostUsd: this.configuration.zeroCostMode ? 0 : null,
+        // This is a provider-reported receipt when one exists. An absent receipt remains null;
+        // the canonical Free Tier safety guard then refuses another model call rather than using
+        // list pricing, a guessed zero, auto top-up, BYOK, or a fallback model.
+        estimatedCostUsd: reportedGatewayCostUsd(response),
         errorCategory: null,
         createdAt: new Date().toISOString(),
       };
       return { status: 'completed', decision: parsed.data, run };
     } catch (error) {
+      const category = vercelGatewayErrorCategory(error);
       return incompleteResult(
         'unavailable',
-        'The model provider could not complete this request. No state was changed by the provider.',
+        category === 'rate_limited'
+          ? 'The Vercel AI Gateway Free Tier is rate-limited or its included quota is unavailable. JARVIS did not select a fallback model.'
+          : 'The model provider could not complete this request. No state was changed by the provider.',
         request,
         configuredRoute,
         startedAtMs,
-        errorCategory(error),
+        category,
       );
     }
   }

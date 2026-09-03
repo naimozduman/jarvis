@@ -89,6 +89,18 @@ const rawEnvironmentSchema = z.object({
    */
   JARVIS_MODEL_PROVIDER: modelProviderSchema.default('openai-responses'),
   JARVIS_ZERO_COST_MODE: booleanEnvironmentSchema.default('false'),
+  /**
+   * The conservative JARVIS-side ceiling for Vercel's current $5 monthly Free Tier allowance.
+   * The schema caps this at $4 so configuration retains at least a 20% reserve; the documented
+   * default is $3 to leave a larger reconciliation and provider-accounting margin.
+   */
+  JARVIS_ZERO_COST_MONTHLY_CREDIT_GUARD_USD: z.coerce.number().min(0).max(4).default(3),
+  /**
+   * A server-only, operator-observed Vercel Free Tier usage snapshot. Its absence does not make
+   * configuration invalid, but it makes a zero-cost model request fail closed at runtime.
+   */
+  JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_USD: z.coerce.number().min(0).optional(),
+  JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_AS_OF: z.string().datetime({ offset: true }).optional(),
   /** Vercel injects this OIDC token for deployed server-side functions; never log it. */
   VERCEL_OIDC_TOKEN: z.string().trim().min(1).optional(),
   /**
@@ -105,6 +117,16 @@ const rawEnvironmentSchema = z.object({
   JARVIS_VERCEL_AI_GATEWAY_FAST_MODEL: z.string().trim().min(1).max(160).optional(),
   JARVIS_VERCEL_AI_GATEWAY_STANDARD_MODEL: z.string().trim().min(1).max(160).optional(),
   JARVIS_VERCEL_AI_GATEWAY_DEEP_MODEL: z.string().trim().min(1).max(160).optional(),
+  /**
+   * These are a conservative catalog-price rate card for the application-side credit guard, not
+   * eligibility evidence. A configured zero-cost route with an incomplete rate card fails closed.
+   */
+  JARVIS_VERCEL_AI_GATEWAY_FAST_INPUT_COST_PER_MILLION: z.coerce.number().min(0).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_FAST_OUTPUT_COST_PER_MILLION: z.coerce.number().min(0).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_STANDARD_INPUT_COST_PER_MILLION: z.coerce.number().min(0).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_STANDARD_OUTPUT_COST_PER_MILLION: z.coerce.number().min(0).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_DEEP_INPUT_COST_PER_MILLION: z.coerce.number().min(0).optional(),
+  JARVIS_VERCEL_AI_GATEWAY_DEEP_OUTPUT_COST_PER_MILLION: z.coerce.number().min(0).optional(),
   /** Opaque orchestration endpoint, not a canonical-state store. */
   JARVIS_CONVEX_ORCHESTRATION_URL: z.string().url().optional(),
   /** Vercel -> Convex command authentication. Never exposed to browser code. */
@@ -213,9 +235,11 @@ export type ModelReasoningEffort = 'none' | 'low' | 'medium' | 'high' | 'xhigh' 
 export type ModelVerbosity = 'low' | 'medium' | 'high';
 
 export interface ModelRateCard {
-  readonly inputCostPerMillionUsd: number;
-  readonly cachedInputCostPerMillionUsd: number;
-  readonly outputCostPerMillionUsd: number;
+  /** `null` means JARVIS has no verified rate bound and must not make a zero-cost request. */
+  readonly inputCostPerMillionUsd: number | null;
+  /** Kept for direct OpenAI estimates; zero-cost guarding uses the full input rate conservatively. */
+  readonly cachedInputCostPerMillionUsd: number | null;
+  readonly outputCostPerMillionUsd: number | null;
 }
 
 export interface OpenAiModelRouteConfiguration {
@@ -237,6 +261,17 @@ export interface OpenAiRuntimeConfiguration {
 }
 
 /**
+ * A conservative, server-only Free Tier accounting boundary. The Vercel dashboard snapshot is a
+ * starting amount for the current monthly period; completed JARVIS calls are added only when the
+ * Gateway reports an exact cost. Missing, stale-period, or incomplete accounting blocks calls.
+ */
+export interface ZeroCostFreeTierCreditGuardConfiguration {
+  readonly monthlyCreditGuardUsd: number;
+  readonly reportedMonthlyUsageUsd: number | undefined;
+  readonly reportedMonthlyUsageAsOf: string | undefined;
+}
+
+/**
  * Provider-neutral model route configuration. The Vercel AI Gateway adapter intentionally uses
  * the same stateless Responses contract as the direct OpenAI adapter, while its credentials and
  * cost policy remain separate.
@@ -250,6 +285,7 @@ export interface ModelRuntimeConfiguration {
   readonly oidcToken: string | undefined;
   /** Exact model IDs proven free by the deployment-time catalog verifier, never inferred by name. */
   readonly verifiedFreeModelIds: readonly string[];
+  readonly freeTierCreditGuard: ZeroCostFreeTierCreditGuardConfiguration;
   readonly fast: OpenAiModelRouteConfiguration;
   readonly standard: OpenAiModelRouteConfiguration;
   readonly deep: OpenAiModelRouteConfiguration;
@@ -391,8 +427,59 @@ function validateModelConfiguration(parsed: ParsedEnvironment): void {
   if (parsed.AI_GATEWAY_API_KEY) {
     invalid.push('AI_GATEWAY_API_KEY');
   }
+  const snapshotFields = [
+    [
+      'JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_USD',
+      parsed.JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_USD,
+    ],
+    [
+      'JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_AS_OF',
+      parsed.JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_AS_OF,
+    ],
+  ] as const;
+  if (
+    snapshotFields.some(([, value]) => value === undefined) &&
+    snapshotFields.some(([, value]) => value !== undefined)
+  ) {
+    invalid.push(...snapshotFields.map(([field]) => field));
+  }
+  const gatewayRateFields = [
+    [
+      'JARVIS_VERCEL_AI_GATEWAY_FAST_INPUT_COST_PER_MILLION',
+      parsed.JARVIS_VERCEL_AI_GATEWAY_FAST_INPUT_COST_PER_MILLION,
+    ],
+    [
+      'JARVIS_VERCEL_AI_GATEWAY_FAST_OUTPUT_COST_PER_MILLION',
+      parsed.JARVIS_VERCEL_AI_GATEWAY_FAST_OUTPUT_COST_PER_MILLION,
+    ],
+    [
+      'JARVIS_VERCEL_AI_GATEWAY_STANDARD_INPUT_COST_PER_MILLION',
+      parsed.JARVIS_VERCEL_AI_GATEWAY_STANDARD_INPUT_COST_PER_MILLION,
+    ],
+    [
+      'JARVIS_VERCEL_AI_GATEWAY_STANDARD_OUTPUT_COST_PER_MILLION',
+      parsed.JARVIS_VERCEL_AI_GATEWAY_STANDARD_OUTPUT_COST_PER_MILLION,
+    ],
+    [
+      'JARVIS_VERCEL_AI_GATEWAY_DEEP_INPUT_COST_PER_MILLION',
+      parsed.JARVIS_VERCEL_AI_GATEWAY_DEEP_INPUT_COST_PER_MILLION,
+    ],
+    [
+      'JARVIS_VERCEL_AI_GATEWAY_DEEP_OUTPUT_COST_PER_MILLION',
+      parsed.JARVIS_VERCEL_AI_GATEWAY_DEEP_OUTPUT_COST_PER_MILLION,
+    ],
+  ] as const;
+  for (let index = 0; index < gatewayRateFields.length; index += 2) {
+    const routeFields = gatewayRateFields.slice(index, index + 2);
+    if (
+      routeFields.some(([, value]) => value === undefined) &&
+      routeFields.some(([, value]) => value !== undefined)
+    ) {
+      invalid.push(...routeFields.map(([field]) => field));
+    }
+  }
   if (invalid.length > 0) {
-    throw new EnvironmentValidationError(invalid);
+    throw new EnvironmentValidationError([...new Set(invalid)]);
   }
 }
 
@@ -538,16 +625,19 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     },
   } satisfies OpenAiRuntimeConfiguration;
 
-  const gatewayRoute = (model: string | undefined, route: OpenAiModelRouteConfiguration) => ({
+  const gatewayRoute = (
+    model: string | undefined,
+    route: OpenAiModelRouteConfiguration,
+    rateCard: Pick<ModelRateCard, 'inputCostPerMillionUsd' | 'outputCostPerMillionUsd'>,
+  ) => ({
     ...route,
     model: model ?? unconfiguredGatewayModelId,
-    // This rate card is never a price assertion. In zero-cost mode the adapter checks the exact
-    // deployment-verified catalog allow-list before issuing a request; without that evidence it
-    // returns not_configured and cannot reach a Gateway route.
+    // A `null` value is intentionally not a zero-price claim. It tells the Free Tier safety guard
+    // that a catalog-derived upper bound is missing, so the request must remain unavailable.
     rateCard: {
-      inputCostPerMillionUsd: 0,
-      cachedInputCostPerMillionUsd: 0,
-      outputCostPerMillionUsd: 0,
+      inputCostPerMillionUsd: rateCard.inputCostPerMillionUsd,
+      cachedInputCostPerMillionUsd: null,
+      outputCostPerMillionUsd: rateCard.outputCostPerMillionUsd,
     },
   });
   const model = {
@@ -557,17 +647,37 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     oidcToken:
       parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway' ? parsed.VERCEL_OIDC_TOKEN : undefined,
     verifiedFreeModelIds: verifiedModelIds(parsed.JARVIS_ZERO_COST_VERIFIED_MODEL_IDS),
+    freeTierCreditGuard: {
+      monthlyCreditGuardUsd: parsed.JARVIS_ZERO_COST_MONTHLY_CREDIT_GUARD_USD,
+      reportedMonthlyUsageUsd: parsed.JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_USD,
+      reportedMonthlyUsageAsOf: parsed.JARVIS_ZERO_COST_REPORTED_MONTHLY_USAGE_AS_OF,
+    },
     fast:
       parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway'
-        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_FAST_MODEL, openAi.fast)
+        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_FAST_MODEL, openAi.fast, {
+            inputCostPerMillionUsd:
+              parsed.JARVIS_VERCEL_AI_GATEWAY_FAST_INPUT_COST_PER_MILLION ?? null,
+            outputCostPerMillionUsd:
+              parsed.JARVIS_VERCEL_AI_GATEWAY_FAST_OUTPUT_COST_PER_MILLION ?? null,
+          })
         : openAi.fast,
     standard:
       parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway'
-        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_STANDARD_MODEL, openAi.standard)
+        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_STANDARD_MODEL, openAi.standard, {
+            inputCostPerMillionUsd:
+              parsed.JARVIS_VERCEL_AI_GATEWAY_STANDARD_INPUT_COST_PER_MILLION ?? null,
+            outputCostPerMillionUsd:
+              parsed.JARVIS_VERCEL_AI_GATEWAY_STANDARD_OUTPUT_COST_PER_MILLION ?? null,
+          })
         : openAi.standard,
     deep:
       parsed.JARVIS_MODEL_PROVIDER === 'vercel-ai-gateway'
-        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_DEEP_MODEL, openAi.deep)
+        ? gatewayRoute(parsed.JARVIS_VERCEL_AI_GATEWAY_DEEP_MODEL, openAi.deep, {
+            inputCostPerMillionUsd:
+              parsed.JARVIS_VERCEL_AI_GATEWAY_DEEP_INPUT_COST_PER_MILLION ?? null,
+            outputCostPerMillionUsd:
+              parsed.JARVIS_VERCEL_AI_GATEWAY_DEEP_OUTPUT_COST_PER_MILLION ?? null,
+          })
         : openAi.deep,
   } satisfies ModelRuntimeConfiguration;
 

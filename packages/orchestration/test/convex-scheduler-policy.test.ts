@@ -4,7 +4,7 @@ import {
   acceptsDispatchClaim,
   acceptsSchedule,
   canScheduleCallbackRetry,
-} from '../../../convex/scheduler-policy.js';
+} from '../../../convex/scheduler_policy.js';
 
 const coordinator = {
   generation: 2,

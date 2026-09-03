@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-import { and, desc, eq } from 'drizzle-orm';
+import { and, desc, eq, gt } from 'drizzle-orm';
 
 import { conversationResponseSchema } from '@jarvis/contracts';
 import type {
@@ -174,6 +174,19 @@ function safeMessageContextRecord(row: typeof messages.$inferSelect): ContextRec
 }
 
 /**
+ * `model_runs.estimated_cost_usd` has eight fractional decimal places. Preserve the safety guard
+ * by rounding a provider receipt upward at that storage boundary; rounding to nearest could make
+ * a series of very small Gateway charges look cheaper than Vercel reported.
+ */
+function conservativeReportedCostUsd(value: number | null): string | undefined {
+  if (value === null) return undefined;
+  if (!Number.isFinite(value) || value < 0) {
+    throw new Error('A model cost receipt must be a finite non-negative number.');
+  }
+  return (Math.ceil(value * 100_000_000) / 100_000_000).toFixed(8);
+}
+
+/**
  * Initial Drizzle implementation for the durable brain lifecycle. Context retrieval starts with
  * recent canonical messages; the ContextAssembler combines these with explicit service-provided
  * constitution, memory, commitment, and day-plan sources so the adapter never performs broad,
@@ -313,12 +326,7 @@ export class DrizzleBrainRepository implements BrainRepository {
       id: run.id,
       ownerId: run.ownerId,
       brainRequestId: run.brainRequestId,
-      provider:
-        run.configuredModelId === 'fake-model'
-          ? 'fake'
-          : run.status === 'not_configured'
-            ? 'not_configured'
-            : 'openai',
+      provider: run.provider,
       route: run.route,
       configuredModelId: run.configuredModelId,
       actualModelId: run.actualModelId ?? undefined,
@@ -329,11 +337,51 @@ export class DrizzleBrainRepository implements BrainRepository {
       outputTokens: run.outputTokens ?? undefined,
       reasoningTokens: run.reasoningTokens ?? undefined,
       cachedInputTokens: run.cachedInputTokens ?? undefined,
-      estimatedCostUsd: run.estimatedCostUsd?.toFixed(8),
+      estimatedCostUsd: conservativeReportedCostUsd(run.estimatedCostUsd),
       errorCategory: run.errorCategory ?? undefined,
       createdAt: new Date(run.createdAt),
       updatedAt: new Date(run.createdAt),
     });
+  }
+
+  /**
+   * Returns only exact Gateway receipts after an operator's Vercel dashboard snapshot. A completed
+   * Gateway invocation without a receipt is intentionally observable as unknown, which causes the
+   * application-side Free Tier guard to stop before another inference request.
+   */
+  public async loadZeroCostCreditAccounting(input: {
+    readonly ownerId: string;
+    readonly afterExclusive: string;
+  }): Promise<{
+    readonly reportedCostUsdSinceSnapshot: number;
+    readonly hasUnknownCompletedCost: boolean;
+  }> {
+    const afterExclusive = new Date(input.afterExclusive);
+    if (Number.isNaN(afterExclusive.getTime())) {
+      throw new Error('A Free Tier credit accounting snapshot timestamp is invalid.');
+    }
+    const rows = await this.database
+      .select({ estimatedCostUsd: modelRuns.estimatedCostUsd })
+      .from(modelRuns)
+      .where(
+        and(
+          eq(modelRuns.ownerId, input.ownerId),
+          eq(modelRuns.provider, 'vercel-ai-gateway'),
+          eq(modelRuns.status, 'completed'),
+          gt(modelRuns.createdAt, afterExclusive),
+        ),
+      );
+    let reportedCostUsdSinceSnapshot = 0;
+    let hasUnknownCompletedCost = false;
+    for (const row of rows) {
+      const cost = row.estimatedCostUsd === null ? Number.NaN : Number(row.estimatedCostUsd);
+      if (!Number.isFinite(cost) || cost < 0) {
+        hasUnknownCompletedCost = true;
+        continue;
+      }
+      reportedCostUsdSinceSnapshot += cost;
+    }
+    return { reportedCostUsdSinceSnapshot, hasUnknownCompletedCost };
   }
 
   public async persistDecision(input: PersistedBrainDecision): Promise<void> {

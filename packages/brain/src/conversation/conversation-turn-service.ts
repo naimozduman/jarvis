@@ -18,7 +18,11 @@ import type { EventPipelineDependencies } from '@jarvis/domain';
 import type { InterventionService } from '../behavior/intervention-service.js';
 import type { ContextAssembler } from '../context/assembler.js';
 import type { ModelGateway } from '../model/gateway.js';
-import type { ModelBudgetGuard } from '../model/budget-guard.js';
+import type {
+  ModelBudgetGuard,
+  ZeroCostCreditAccounting,
+  ZeroCostCreditAccountingSource,
+} from '../model/budget-guard.js';
 import { selectModelRoute } from '../model/model-router.js';
 import type { PromptAssembler } from '../prompts/assembler.js';
 import { mapModelActions } from './action-mapper.js';
@@ -69,6 +73,8 @@ export interface ConversationTurnDependencies {
   readonly maxRecentMessages: number;
   readonly interventionService: InterventionService;
   readonly modelBudgetGuard?: ModelBudgetGuard;
+  /** Optional outside zero-cost Vercel composition; absence fails closed when that mode is active. */
+  readonly zeroCostCreditAccounting?: ZeroCostCreditAccountingSource;
   readonly telemetry?: BrainTelemetrySink;
 }
 
@@ -221,23 +227,45 @@ export class ConversationTurnService {
       deepEscalationEnabled: this.dependencies.deepEscalationEnabled,
       remainingDeepCalls: input.currentState.remainingDeepCalls,
     });
-    const budgetDecision = this.dependencies.modelBudgetGuard?.evaluate(route, {
+    let zeroCostCreditAccounting: ZeroCostCreditAccounting | undefined;
+    const budgetGuard = this.dependencies.modelBudgetGuard;
+    const accountingSnapshotAsOf = budgetGuard?.zeroCostCreditAccountingSnapshotAsOf();
+    if (
+      budgetGuard?.requiresZeroCostCreditAccounting() &&
+      accountingSnapshotAsOf &&
+      this.dependencies.zeroCostCreditAccounting
+    ) {
+      try {
+        zeroCostCreditAccounting =
+          await this.dependencies.zeroCostCreditAccounting.loadZeroCostCreditAccounting({
+            ownerId: input.ownerId,
+            afterExclusive: accountingSnapshotAsOf,
+          });
+      } catch {
+        // The guard below interprets an unavailable canonical ledger as an explicit no-request
+        // result. Never estimate from process memory or make a provider call to find out.
+        zeroCostCreditAccounting = undefined;
+      }
+    }
+    const budgetDecision = budgetGuard?.evaluate(route, {
       callsAlreadyMade: input.currentState.callsAlreadyMade ?? 0,
       dailySpendEstimateUsd: input.currentState.dailyModelSpendEstimateUsd ?? 0,
       dailyDeepCallsUsed: input.currentState.dailyDeepCallsUsed ?? 0,
       approximatePromptTokens: context.manifest.promptTokenEstimate,
+      ...(zeroCostCreditAccounting ? { zeroCostCreditAccounting } : {}),
     });
     if (budgetDecision && !budgetDecision.allowed) {
+      const unavailable = budgetDecision.failureStatus === 'provider_unavailable';
       await this.dependencies.repository.updateRequestState({
         ownerId: input.ownerId,
         requestId: request.id,
         state: 'failed',
-        safeErrorCategory: 'model_budget_exhausted',
+        safeErrorCategory: unavailable ? 'free_tier_unavailable' : 'model_budget_exhausted',
         completedAt: input.timestamp,
       });
       const response = failureResponse({
         requestId: request.id,
-        status: 'failed',
+        status: unavailable ? 'provider_unavailable' : 'failed',
         safeError: budgetDecision.reason,
       });
       await this.emitTelemetry({
@@ -249,7 +277,7 @@ export class ConversationTurnService {
         validationSuccess: false,
         policyResult: 'not_applicable',
         actionCount: 0,
-        errorCategory: 'model_budget_exhausted',
+        errorCategory: unavailable ? 'free_tier_unavailable' : 'model_budget_exhausted',
       });
       return response;
     }

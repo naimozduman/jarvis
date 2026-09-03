@@ -1,6 +1,25 @@
 import { pathToFileURL } from 'node:url';
 
+/**
+ * Vercel documents this unauthenticated endpoint as the source of its current model metadata.
+ * The current Free Tier model listing is represented in that metadata by the exact `free` tag.
+ * Pricing is deliberately not part of this proof: Free Tier models retain provider list pricing
+ * because requests consume the included monthly AI Gateway credits at those rates.
+ */
 export const catalogUrl = 'https://ai-gateway.vercel.sh/v1/models';
+export const freeTierEligibilitySignal = Object.freeze({
+  source: catalogUrl,
+  field: 'data[].tags',
+  requiredValue: 'free',
+});
+
+function isRecord(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function exactModelId(value) {
+  return typeof value === 'string' && value.trim().length > 0 ? value : undefined;
+}
 
 export function configuredModelsFromEnvironment(environment = process.env) {
   return [
@@ -13,73 +32,104 @@ export function configuredModelsFromEnvironment(environment = process.env) {
     .filter((model) => model.length > 0);
 }
 
+/**
+ * Accept only the currently documented Models API envelope. Supporting guessed alternate fields
+ * such as `models` would turn an upstream schema change into a potentially paid model request.
+ */
 export function catalogModels(payload) {
-  if (Array.isArray(payload)) {
-    return payload;
+  if (!isRecord(payload) || payload.object !== 'list' || !Array.isArray(payload.data)) {
+    return undefined;
   }
-  if (payload && typeof payload === 'object') {
-    const record = payload;
-    if (Array.isArray(record.data)) {
-      return record.data;
-    }
-    if (Array.isArray(record.models)) {
-      return record.models;
-    }
-  }
-  return [];
+  return payload.data;
 }
 
-export function hasZeroPrice(model) {
-  const candidates = ['pricing', 'price', 'prices', 'cost']
-    .filter((key) => Object.prototype.hasOwnProperty.call(model, key))
-    .map((key) => model[key]);
-  if (candidates.length === 0) return false;
+/**
+ * Returns the provider's eligibility result for one model. This is intentionally stricter than
+ * checking for a model-name suffix, provider, zero price, or an arbitrary marketing label.
+ */
+export function freeTierEligibilityForModel(model) {
+  if (!isRecord(model) || !exactModelId(model.id)) {
+    return { eligible: false, failure: 'model metadata is malformed' };
+  }
+  if (!Object.hasOwn(model, 'tags')) {
+    return {
+      eligible: false,
+      failure: 'missing Vercel Free Tier eligibility field `tags`',
+    };
+  }
+  if (!Array.isArray(model.tags) || !model.tags.every((tag) => typeof tag === 'string')) {
+    return {
+      eligible: false,
+      failure: 'Vercel Free Tier eligibility field `tags` is malformed',
+    };
+  }
+  if (!model.tags.includes(freeTierEligibilitySignal.requiredValue)) {
+    return {
+      eligible: false,
+      failure: 'not currently marked Free Tier eligible by Vercel metadata',
+    };
+  }
+  return { eligible: true };
+}
 
-  let valueCount = 0;
-  const explicitlyZero = (value) => {
-    if (typeof value === 'number') {
-      valueCount += 1;
-      return Number.isFinite(value) && value === 0;
-    }
-    if (Array.isArray(value)) {
-      return value.length > 0 && value.every(explicitlyZero);
-    }
-    if (value && typeof value === 'object') {
-      const entries = Object.values(value);
-      return entries.length > 0 && entries.every(explicitlyZero);
-    }
-    // A string price, `null`, or a missing nested rate is not evidence of a zero-cost route.
-    return false;
-  };
-  return candidates.every(explicitlyZero) && valueCount > 0;
+/**
+ * A report of only exact model IDs that public Vercel metadata currently proves Free Tier
+ * eligible. Invalid or missing metadata never appears in this output.
+ */
+export function inspectFreeTierCatalog(payload) {
+  const models = catalogModels(payload);
+  if (!models) {
+    return {
+      catalogVerified: false,
+      freeTierEligibleModelIds: [],
+      failures: ['the public Vercel AI Gateway catalog has an unsupported schema'],
+    };
+  }
+
+  const freeTierEligibleModelIds = [
+    ...new Set(
+      models.flatMap((model) => {
+        const id = isRecord(model) ? exactModelId(model.id) : undefined;
+        return id && freeTierEligibilityForModel(model).eligible ? [id] : [];
+      }),
+    ),
+  ].sort((left, right) => left.localeCompare(right));
+  return { catalogVerified: true, freeTierEligibleModelIds, failures: [] };
 }
 
 export function verifyConfiguredModels(configuredModels, payload) {
-  const models = catalogModels(payload);
-  if (configuredModels.length === 0) {
+  const catalog = inspectFreeTierCatalog(payload);
+  if (!catalog.catalogVerified) {
     return {
+      ...catalog,
+      verifiedModelIds: [],
+    };
+  }
+
+  const uniqueConfiguredModels = [...new Set(configuredModels)];
+  if (uniqueConfiguredModels.length === 0) {
+    return {
+      ...catalog,
       verifiedModelIds: [],
       failures: ['no Vercel AI Gateway model is configured'],
     };
   }
-  const failures = configuredModels.flatMap((configuredModel) => {
+
+  const models = catalogModels(payload);
+  // `catalog.catalogVerified` above proves this is the documented array shape.
+  const failures = uniqueConfiguredModels.flatMap((configuredModel) => {
     const match = models.find(
-      (candidate) => candidate && typeof candidate === 'object' && candidate.id === configuredModel,
+      (candidate) => isRecord(candidate) && candidate.id === configuredModel,
     );
     if (!match) {
       return [`${configuredModel}: not present in the public catalog`];
     }
-    const tags = Array.isArray(match.tags) ? match.tags : [];
-    if (!tags.includes('free')) {
-      return [`${configuredModel}: not currently tagged free`];
-    }
-    if (!hasZeroPrice(match)) {
-      return [`${configuredModel}: catalog pricing is not verified as zero`];
-    }
-    return [];
+    const eligibility = freeTierEligibilityForModel(match);
+    return eligibility.eligible ? [] : [`${configuredModel}: ${eligibility.failure}`];
   });
   return {
-    verifiedModelIds: failures.length === 0 ? [...new Set(configuredModels)] : [],
+    ...catalog,
+    verifiedModelIds: failures.length === 0 ? uniqueConfiguredModels : [],
     failures,
   };
 }
@@ -90,7 +140,14 @@ export async function verifyFromPublicCatalog({
 } = {}) {
   const configuredModels = configuredModelsFromEnvironment(environment);
   if (environment.JARVIS_ZERO_COST_MODE !== 'true') {
-    return { skipped: true, verifiedModelIds: [], failures: [] };
+    return {
+      skipped: true,
+      catalogVerified: false,
+      configuredModelIds: configuredModels,
+      freeTierEligibleModelIds: [],
+      verifiedModelIds: [],
+      failures: [],
+    };
   }
   let response;
   try {
@@ -101,6 +158,9 @@ export async function verifyFromPublicCatalog({
   } catch {
     return {
       skipped: false,
+      catalogVerified: false,
+      configuredModelIds: configuredModels,
+      freeTierEligibleModelIds: [],
       verifiedModelIds: [],
       failures: ['the public Vercel AI Gateway catalog could not be reached'],
     };
@@ -108,30 +168,68 @@ export async function verifyFromPublicCatalog({
   if (!response.ok) {
     return {
       skipped: false,
+      catalogVerified: false,
+      configuredModelIds: configuredModels,
+      freeTierEligibleModelIds: [],
       verifiedModelIds: [],
       failures: [`the public Vercel AI Gateway catalog returned HTTP ${response.status}`],
     };
   }
-  return { skipped: false, ...verifyConfiguredModels(configuredModels, await response.json()) };
+  let payload;
+  try {
+    payload = await response.json();
+  } catch {
+    return {
+      skipped: false,
+      catalogVerified: false,
+      configuredModelIds: configuredModels,
+      freeTierEligibleModelIds: [],
+      verifiedModelIds: [],
+      failures: ['the public Vercel AI Gateway catalog returned invalid JSON'],
+    };
+  }
+  return {
+    skipped: false,
+    configuredModelIds: configuredModels,
+    ...verifyConfiguredModels(configuredModels, payload),
+  };
+}
+
+function auditReport(result) {
+  return {
+    schemaVersion: 1,
+    catalogUrl,
+    freeTierEligibilitySignal,
+    catalogVerified: result.catalogVerified,
+    configuredModelIds: result.configuredModelIds,
+    freeTierEligibleModelIds: result.freeTierEligibleModelIds,
+    verifiedConfiguredModelIds: result.verifiedModelIds,
+    failures: result.failures,
+  };
 }
 
 async function main() {
+  const catalogOnly = process.argv.includes('--catalog-only');
   const result = await verifyFromPublicCatalog();
   if (result.skipped) {
     console.log(
-      'Zero-cost model verification skipped because JARVIS_ZERO_COST_MODE is not enabled.',
+      JSON.stringify({
+        schemaVersion: 1,
+        catalogUrl,
+        freeTierEligibilitySignal,
+        skipped: true,
+        reason: 'JARVIS_ZERO_COST_MODE is not enabled.',
+      }),
     );
     return;
   }
-  if (result.failures.length > 0) {
-    console.error(`Zero-cost AI Gateway verification failed: ${result.failures.join('; ')}`);
+
+  // This is intentionally machine-readable so a deployment review can retain the exact provider
+  // eligibility source, full verified public list, configured list, and failures together.
+  console.log(JSON.stringify(auditReport(result)));
+  if (!result.catalogVerified || (!catalogOnly && result.failures.length > 0)) {
     process.exitCode = 1;
-    return;
   }
-  console.log(
-    `Verified ${result.verifiedModelIds.length} configured Vercel AI Gateway free model(s).`,
-  );
-  console.log(`JARVIS_ZERO_COST_VERIFIED_MODEL_IDS=${result.verifiedModelIds.join(',')}`);
 }
 
 if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {

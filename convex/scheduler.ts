@@ -6,7 +6,7 @@ import {
   acceptsDispatchClaim,
   acceptsSchedule,
   canScheduleCallbackRetry,
-} from './scheduler-policy.js';
+} from './scheduler_policy.js';
 
 const triggerType = v.union(
   v.literal('canonical_job'),
@@ -44,7 +44,8 @@ export const scheduleJob = internalMutation({
     const existing = await ctx.db
       .query('scheduledJobs')
       .withIndex('by_jobId', (query) => query.eq('jobId', args.jobId))
-      .unique();
+      .unique()
+      .then((value) => value ?? undefined);
     if (!acceptsSchedule(existing, args.generation)) {
       return { accepted: false, generation: existing?.generation ?? args.generation };
     }
@@ -85,7 +86,8 @@ export const cancelScheduledJob = internalMutation({
     const existing = await ctx.db
       .query('scheduledJobs')
       .withIndex('by_jobId', (query) => query.eq('jobId', args.jobId))
-      .unique();
+      .unique()
+      .then((value) => value ?? undefined);
     if (!existing || existing.generation > args.generation) {
       return { cancelled: false };
     }
@@ -117,8 +119,9 @@ export const claimDispatch = internalMutation({
     const existing = await ctx.db
       .query('scheduledJobs')
       .withIndex('by_jobId', (query) => query.eq('jobId', args.jobId))
-      .unique();
-    if (!acceptsDispatchClaim(existing, args)) {
+      .unique()
+      .then((value) => value ?? undefined);
+    if (!existing || !acceptsDispatchClaim(existing, args)) {
       return null;
     }
     const attempt = existing.dispatchAttempts + 1;
