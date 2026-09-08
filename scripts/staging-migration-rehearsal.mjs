@@ -20,6 +20,7 @@ const REHEARSAL_TARGET = Object.freeze({
   directHost: 'localhost',
   pooledHost: 'localhost-pooler.invalid',
 });
+const REHEARSAL_MISMATCH_HOST = 'jarvis-rehearsal-mismatch.local';
 const REHEARSAL_PORT = '55432';
 
 function requireEnvironmentValue(name) {
@@ -409,12 +410,12 @@ export async function runStagingMigrationRehearsal({ applicationRoot = process.c
   await assertSnapshotUnchanged(applicationRoot, connectionString, baseline);
 
   const wrongHostnameUrl = new URL(connectionString);
-  wrongHostnameUrl.hostname = '127.0.0.1';
+  wrongHostnameUrl.hostname = REHEARSAL_MISMATCH_HOST;
   await expectGateFailure('wrong_certificate_hostname', 'tls_transport_unverified', () =>
     runMigrationRelease({
       applicationRoot,
       connectionString: wrongHostnameUrl.toString(),
-      targetPolicy: rehearsalPolicy(certificateAuthorityPath, '127.0.0.1'),
+      targetPolicy: rehearsalPolicy(certificateAuthorityPath, REHEARSAL_MISMATCH_HOST),
       runMigration: migrationMustNotStart,
     }),
   );

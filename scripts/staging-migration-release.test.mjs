@@ -360,6 +360,8 @@ test('keeps the hosted rehearsal isolated to its branch and local-only PostgreSQ
     /postgres:18\.6@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280/,
   );
   assert.match(workflow, /--publish '127\.0\.0\.1:55432:5432'/);
+  assert.match(workflow, /rehearsal_mismatch_host='jarvis-rehearsal-mismatch\.local'/);
+  assert.match(workflow, /sudo tee -a \/etc\/hosts/);
   assert.match(
     workflow,
     /postgres_data_directory="\$\(cat "\$rehearsal_root\/pgdata-path\.log"\)"/,
@@ -371,6 +373,17 @@ test('keeps the hosted rehearsal isolated to its branch and local-only PostgreSQ
   assert.doesNotMatch(workflow, /^\s*environment:/m);
   assert.doesNotMatch(workflow, /\b(vercel|convex|neon)\b/i);
   assert.doesNotMatch(workflow, /JARVIS_STAGING_MIGRATIONS_DATABASE_URL/);
+
+  const rehearsalScript = await readFile(
+    resolve(automationRoot, 'scripts/staging-migration-rehearsal.mjs'),
+    'utf8',
+  );
+  assert.match(
+    rehearsalScript,
+    /const REHEARSAL_MISMATCH_HOST = 'jarvis-rehearsal-mismatch\.local';/,
+  );
+  assert.match(rehearsalScript, /wrongHostnameUrl\.hostname = REHEARSAL_MISMATCH_HOST;/);
+  assert.doesNotMatch(rehearsalScript, /wrongHostnameUrl\.hostname = '127\.0\.0\.1';/);
 });
 
 test('runs synthetic preflight, migration, and postflight without exposing diagnostics', async () => {

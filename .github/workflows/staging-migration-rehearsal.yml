@@ -93,8 +93,13 @@ jobs:
 
           rehearsal_root="$(mktemp -d "$RUNNER_TEMP/jarvis-staging-migration-rehearsal.XXXXXX")"
           postgres_container="jarvis-staging-migration-rehearsal-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          rehearsal_mismatch_host='jarvis-rehearsal-mismatch.local'
+          rehearsal_hosts_marker='# jarvis-staging-migration-rehearsal'
 
           cleanup() {
+            if [[ -n "${rehearsal_hosts_marker:-}" ]]; then
+              sudo sed -i "\\|${rehearsal_hosts_marker}|d" /etc/hosts >/dev/null 2>&1 || true
+            fi
             docker rm --force "$postgres_container" >/dev/null 2>&1 || true
             rm -rf "$rehearsal_root"
             unset JARVIS_REHEARSAL_DATABASE_URL JARVIS_REHEARSAL_PASSWORD POSTGRES_PASSWORD
@@ -109,6 +114,18 @@ jobs:
               return 1
             fi
           }
+
+          if ! printf '127.0.0.1 %s %s\n' "$rehearsal_mismatch_host" "$rehearsal_hosts_marker" |
+            sudo tee -a /etc/hosts >"$rehearsal_root/mismatch-host.log" 2>&1; then
+            printf 'rehearsal: setup_failed:hostname_mismatch_mapping\n' >&2
+            exit 1
+          fi
+          if ! getent ahostsv4 "$rehearsal_mismatch_host" |
+            awk '$1 == "127.0.0.1" { found=1 } END { exit found ? 0 : 1 }' \
+              >"$rehearsal_root/mismatch-host-resolution.log" 2>&1; then
+            printf 'rehearsal: setup_failed:hostname_mismatch_resolution\n' >&2
+            exit 1
+          fi
 
           wait_for_postgres() {
             for _ in $(seq 1 30); do
