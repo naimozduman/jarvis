@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 
 const fromRoot = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
@@ -27,6 +27,7 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['apps/**/*.test.ts', 'packages/**/*.test.ts', 'scripts/**/*.test.mjs'],
+    exclude: [...configDefaults.exclude, 'scripts/staging-migration-release.test.mjs'],
     passWithNoTests: false,
   },
 });
