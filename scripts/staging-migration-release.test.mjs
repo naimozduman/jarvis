@@ -360,6 +360,11 @@ test('keeps the hosted rehearsal isolated to its branch and local-only PostgreSQ
     /postgres:18\.6@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280/,
   );
   assert.match(workflow, /--publish '127\.0\.0\.1:55432:5432'/);
+  assert.match(
+    workflow,
+    /postgres_data_directory="\$\(cat "\$rehearsal_root\/pgdata-path\.log"\)"/,
+  );
+  assert.doesNotMatch(workflow, /\/var\/lib\/postgresql\/data/);
   assert.match(workflow, /JARVIS_REHEARSAL_DATABASE_URL/);
   assert.doesNotMatch(workflow, /\$\{\{\s*secrets\./);
   assert.doesNotMatch(workflow, /^\s*id-token:/m);

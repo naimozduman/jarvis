@@ -185,10 +185,22 @@ jobs:
             "$POSTGRES_IMAGE"
           wait_for_postgres
 
-          run_quietly copy_ca docker cp "$rehearsal_root/tls/ca.crt" "$postgres_container:/var/lib/postgresql/data/ca.crt"
-          run_quietly copy_server_certificate docker cp "$rehearsal_root/tls/server.crt" "$postgres_container:/var/lib/postgresql/data/server.crt"
-          run_quietly copy_server_key docker cp "$rehearsal_root/tls/server.key" "$postgres_container:/var/lib/postgresql/data/server.key"
-          run_quietly copy_hba docker cp "$rehearsal_root/pg_hba.conf" "$postgres_container:/var/lib/postgresql/data/pg_hba.conf"
+          if ! docker exec -u postgres "$postgres_container" sh -c 'test -n "$PGDATA" && test -d "$PGDATA" && printf "%s" "$PGDATA"' >"$rehearsal_root/pgdata-path.log" 2>&1; then
+            printf 'rehearsal: setup_failed:postgres_data_directory_discovery\n' >&2
+            exit 1
+          fi
+          postgres_data_directory="$(cat "$rehearsal_root/pgdata-path.log")"
+          case "$postgres_data_directory" in
+            /var/lib/postgresql/*) ;;
+            *)
+              printf 'rehearsal: setup_failed:postgres_data_directory_unexpected\n' >&2
+              exit 1
+              ;;
+          esac
+          run_quietly copy_ca docker cp "$rehearsal_root/tls/ca.crt" "$postgres_container:$postgres_data_directory/ca.crt"
+          run_quietly copy_server_certificate docker cp "$rehearsal_root/tls/server.crt" "$postgres_container:$postgres_data_directory/server.crt"
+          run_quietly copy_server_key docker cp "$rehearsal_root/tls/server.key" "$postgres_container:$postgres_data_directory/server.key"
+          run_quietly copy_hba docker cp "$rehearsal_root/pg_hba.conf" "$postgres_container:$postgres_data_directory/pg_hba.conf"
           run_quietly copy_tls_config docker cp "$rehearsal_root/tls.conf" "$postgres_container:/tmp/jarvis-rehearsal-tls.conf"
           run_quietly secure_tls_files docker exec -u root "$postgres_container" sh -c \
             'chown postgres:postgres "$PGDATA/ca.crt" "$PGDATA/server.crt" "$PGDATA/server.key" "$PGDATA/pg_hba.conf" /tmp/jarvis-rehearsal-tls.conf && chmod 0600 "$PGDATA/server.key" && chmod 0644 "$PGDATA/ca.crt" "$PGDATA/server.crt" "$PGDATA/pg_hba.conf" /tmp/jarvis-rehearsal-tls.conf'
