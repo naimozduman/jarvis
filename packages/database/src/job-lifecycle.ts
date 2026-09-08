@@ -660,13 +660,25 @@ export class DrizzleDurableJobLifecycleProjection
 
   private async databaseNow(transaction: DatabaseTransaction, jobId: string): Promise<Date> {
     const [clock] = await transaction
-      .select({ currentTime: sql<Date>`clock_timestamp()` })
+      // PostgreSQL raw expressions bypass the schema column decoder, so node-postgres may return
+      // this timestamp as text even though persisted timestamp columns are decoded as Dates.
+      .select({ currentTime: sql<unknown>`clock_timestamp()` })
       .from(jobs)
       .where(eq(jobs.id, jobId))
       .limit(1);
     if (!clock) {
       throw new Error('The canonical job disappeared while its lease failure was recorded.');
     }
-    return clock.currentTime;
+    const currentTime = clock.currentTime;
+    const serverNow =
+      currentTime instanceof Date
+        ? new Date(currentTime.getTime())
+        : typeof currentTime === 'string'
+          ? new Date(currentTime)
+          : undefined;
+    if (!serverNow || Number.isNaN(serverNow.getTime())) {
+      throw new Error('The canonical database clock returned an invalid timestamp.');
+    }
+    return serverNow;
   }
 }

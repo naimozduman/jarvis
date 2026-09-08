@@ -43,7 +43,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 5432:5432
+          - '127.0.0.1:5432:5432'
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -101,6 +101,10 @@ jobs:
           set -euo pipefail
           docker inspect --format '{{.Config.Image}}' "$POSTGRES_CONTAINER"
           docker exec "$POSTGRES_CONTAINER" postgres --version
+          docker exec "$POSTGRES_CONTAINER" psql -X -At -U postgres -d postgres -c \
+            "select bool_and(auth_method = 'scram-sha-256') from pg_hba_file_rules where type = 'host';" \
+            | grep -Fx 't'
+          printf 'Host TCP authentication verified as SCRAM.\n'
 
       - name: Create isolated primary and secondary database roles
         env:
