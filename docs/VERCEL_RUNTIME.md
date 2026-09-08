@@ -2,6 +2,14 @@
 
 ## Project boundary decision
 
+The Phase 3.6B provisioning descriptions below are historical. As of 2026-09-07,
+`jarvis-api-staging` has a live Production deployment with green non-model readiness. The
+Phase 3.6C.2 identified missing canonical generation enforcement and generic job expiry. The
+Phase 3.6C.3 repository repair now supplies the reviewed code and expand migration, but the cloud
+release gate remains incomplete until that migration and the revision-aware code are deployed and
+the failed cloud scenarios are rerun. See [the gate report](progress/phase-3-6c-2.md) and
+[ADR 0015](ADR/0015-canonical-job-generation-and-expiry.md).
+
 Phase 3.6B selects **option B**:
 
 - Preserve the existing Hobby project **`jarvis-web`** for the later control-center web app. It
@@ -20,7 +28,8 @@ planned, and this repository work has not deployed either project.
 `createVercelApiRuntime` is an explicit, disposable serverless composition. Each invocation opens
 the canonical Neon-backed repositories it needs, validates the schema/connection, serves the
 request, and closes resources through the runtime boundary. It does not start an HTTP listener,
-pg-boss worker, timer, local filesystem store, sticky-process cache, or Evolution client.
+pg-boss worker, timer, local filesystem store, sticky-process cache, or Evolution client. The
+separate Vercel Fastify entrypoint is responsible only for the listener Vercel captures.
 
 ```text
 request / Convex callback
@@ -30,29 +39,48 @@ request / Convex callback
   -> response
 ```
 
-Every correctness decision is reconstructible from Neon: job status and generation, job leases,
+Canonical execution decisions are reconstructed from Neon: job status, job leases,
 event processing, delivery availability, expiry, bridge lease capability, retry time, connection
 presence, and delivery completion. Process memory may optimize nothing essential and cannot be a
-source of truth.
+source of truth. The reviewed Phase 3.6C.3 code persists and atomically checks a Neon-owned
+dispatch generation at lease acquisition, completion, and failure. Convex receives that opaque
+generation but never creates a canonical revision. The nullable `execution_deadline` is an
+explicit latest-start boundary for a job; it is distinct from a worker lease, outbound delivery
+freshness, and a commitment deadline. Generic work remains durable by default. These changes are
+repository evidence only until the reviewed migration and all runtime revisions are deployed.
 
 ## Deployable Fastify entrypoint
 
-The API remains Fastify; it is not rewritten as a Next.js API. The Vercel Web-Handler entrypoint is
-`apps/api/api/[...route].ts`:
+The API remains Fastify; it is not rewritten as a Next.js API. Vercel's supported Fastify backend
+entrypoint is `apps/api/server.ts`. It is the sole file that matches Vercel's filename-and-Fastify
+import entrypoint detection; the reusable inner application composition lives in
+`apps/api/src/http-app.ts` specifically to avoid a competing `src/app.ts` entrypoint. The
+entrypoint follows Vercel's Fastify contract and calls `app.listen({ port: 3000 })` after
+registering the adapter:
 
 ```text
-Vercel /api/* Web Handler
-  -> createVercelFetchHandler()
+Vercel Fastify application entrypoint
+  -> server.ts Fastify app
+  -> registerVercelFastifyAdapter()
   -> createVercelApiRuntime()
-  -> Fastify app.inject(canonical path)
-  -> Response, then runtime.stop()
+  -> inner Fastify app.inject(canonical path)
+  -> response, then runtime.stop()
 ```
 
-It maps the Vercel function prefix back to the existing Fastify surface. For example,
+Vercel captures the outer Fastify listener and runs the application as one Function. The adapter
+preserves the established `/api/*` public prefix while mapping it back to the existing canonical
+Fastify surface. For example,
 `/api/health/ready` invokes Fastify `/health/ready`, and
 `/api/internal/orchestration/jobs/:jobId/run` invokes the existing authenticated callback route.
-The adapter uses Fastify's in-process injection API; it never binds a TCP port or starts a
-permanent local listener. Vercel owns HTTP delivery.
+The adapter uses Fastify's in-process injection API. Apart from the entrypoint's required captured
+listener, it never starts a TCP listener, a worker, or a durable scheduler. Vercel owns HTTP
+delivery.
+
+`/api/health/live` validates only the safe application configuration and Fastify entrypoint; it
+does not wait for Neon. `/api/health/ready` composes the request-scoped canonical runtime and
+verifies Neon. Its pool uses a five-second initial-connect deadline so a missing or unreachable
+runtime credential fails closed as a sanitized unavailable response rather than consuming the
+Function's full duration.
 
 This is a supported Node.js Vercel Function pattern. See
 [Fastify on Vercel](https://vercel.com/docs/frameworks/backend/fastify) and
@@ -117,18 +145,27 @@ credential value is present in source or documentation. See Neon's
 | Vercel → Convex command boundary | `JARVIS_VERCEL_TO_CONVEX_SECRET` | Yes, when Vercel emits commands |
 | Local bridge → Vercel API | `JARVIS_LOCAL_BRIDGE_TOKEN` | No; bridge and WhatsApp remain disabled |
 
-These are independent server-only values. They are neither printed nor committed, and no value is
-configured by this repository pass.
+These are independent server-only values. They are neither printed nor committed. The operator
+configured the cloud values before the Phase 3.6C.2 tests; that test pass read Convex environment
+names only and did not change configuration.
 
 ## Deployment status and next gate
 
-The existing `jarvis-web` Hobby project is preserved. The separate `jarvis-api-staging` Hobby project
-now exists but has not configured `DATABASE_URL`, callback secrets, model routes, allow-lists, rate
-cards, usage snapshots, purchased credits, or auto top-up. Neither project has deployed a Vercel
-function, and no model inference request has been made.
+The `jarvis-api-staging` Production deployment `dpl_E8PqY4DrfsGoVNvTSnbRCure6AKS` is READY, with
+`apps/api` as its root and the Fastify framework. Its stable alias is
+`https://jarvis-api-staging.vercel.app`. The alias serves application health and authenticated
+callbacks directly; the immutable deployment URL is protected by Vercel authentication.
 
-The later deployment order is: set the existing API project's root to `apps/api`; stop on any
-payment/upgrade prompt; add only the server-only pooled staging credential and Convex callback
-secret; rerun catalog verification; set only proven route/accounting values after a separately
-approved structured-output probe; deploy; then exercise health and the protected synthetic route.
-WhatsApp pairing remains outside this sequence.
+On 2026-09-07, liveness and readiness returned HTTP 200 with configuration, database, and queue
+passing and model `not_configured`. An authenticated Convex callback, its duplicate, and a
+canonically cancelled job were exercised against Neon with synthetic fixtures only. The
+Convex callback base must include `/api` because its dispatcher appends `/internal/...`; the
+successful cloud callback verifies that the operator's configured path resolves correctly.
+
+The next gate is review of the Phase 3.6C.3 canonical-generation/expiry repair, then its ordered
+cloud release: apply the reviewed Neon expand migration, deploy revision-aware Vercel and Convex
+code, reconcile pending canonical rows into opaque schedules, and rerun stale-generation,
+duplicate, cancellation, and expiry scenarios. The requested runtime commit and push remain on
+hold until all required non-AI checks pass. This repair did not change `DATABASE_URL`, apply a
+cloud migration, configure model IDs, call AI Gateway or OpenAI, enable BYOK, purchase credits,
+enable auto-top-up, start Evolution, or pair WhatsApp.

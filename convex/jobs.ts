@@ -14,7 +14,9 @@ const triggerType = v.union(
 );
 
 type CallbackResult =
-  | { readonly disposition: 'completed' | 'already_completed' | 'stale' | 'cancelled' }
+  | {
+      readonly disposition: 'completed' | 'already_completed' | 'stale' | 'cancelled' | 'expired';
+    }
   | { readonly disposition: 'retry_allowed'; readonly retryAt: number }
   | { readonly disposition: 'retry_not_allowed' };
 
@@ -28,6 +30,7 @@ function callbackResult(value: unknown): CallbackResult | undefined {
     record.disposition === 'already_completed' ||
     record.disposition === 'stale' ||
     record.disposition === 'cancelled' ||
+    record.disposition === 'expired' ||
     record.disposition === 'retry_not_allowed'
   ) {
     return { disposition: record.disposition };

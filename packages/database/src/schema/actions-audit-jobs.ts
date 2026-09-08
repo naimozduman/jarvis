@@ -258,6 +258,8 @@ export const jobs = jarvis.table(
     priority: integer('priority').notNull().default(0),
     scheduledFor: timestamp('scheduled_for', { withTimezone: true }).notNull(),
     availableAfter: timestamp('available_after', { withTimezone: true }).notNull(),
+    executionDeadline: timestamp('execution_deadline', { withTimezone: true }),
+    dispatchGeneration: integer('dispatch_generation').notNull().default(1),
     attemptCount: integer('attempt_count').notNull().default(0),
     maximumAttempts: integer('maximum_attempts').notNull().default(5),
     leaseOwner: varchar('lease_owner', { length: 160 }),
@@ -290,6 +292,12 @@ export const jobs = jarvis.table(
       table.priority,
       table.createdAt,
     ),
+    index('jobs_lease_eligibility_index').on(
+      table.status,
+      table.availableAfter,
+      table.executionDeadline,
+      table.dispatchGeneration,
+    ),
     index('jobs_owner_type_status_index').on(table.ownerId, table.jobType, table.status),
     check('jobs_priority_range', sql`${table.priority} between -100 and 100`),
     check(
@@ -297,6 +305,7 @@ export const jobs = jarvis.table(
       sql`${table.attemptCount} >= 0 and ${table.attemptCount} <= ${table.maximumAttempts}`,
     ),
     check('jobs_maximum_attempts_range', sql`${table.maximumAttempts} between 1 and 20`),
+    check('jobs_dispatch_generation_positive', sql`${table.dispatchGeneration} >= 1`),
   ],
 );
 
@@ -312,6 +321,7 @@ export const jobExecutions = jarvis.table(
       .references(() => jobs.id, { onDelete: 'restrict' }),
     workerId: varchar('worker_id', { length: 160 }).notNull(),
     attemptNumber: integer('attempt_number').notNull(),
+    dispatchGeneration: integer('dispatch_generation').notNull().default(1),
     status: varchar('status', { length: 32 }).notNull(),
     leasedAt: timestamp('leased_at', { withTimezone: true }).notNull(),
     leaseExpiresAt: timestamp('lease_expires_at', { withTimezone: true }),
@@ -321,7 +331,12 @@ export const jobExecutions = jarvis.table(
     correlationId: uuid('correlation_id').notNull(),
   },
   (table) => [
-    uniqueIndex('job_executions_job_attempt_unique').on(table.jobId, table.attemptNumber),
+    uniqueIndex('job_executions_job_generation_attempt_unique').on(
+      table.jobId,
+      table.dispatchGeneration,
+      table.attemptNumber,
+    ),
     index('job_executions_worker_active_index').on(table.workerId, table.leaseExpiresAt),
+    check('job_executions_dispatch_generation_positive', sql`${table.dispatchGeneration} >= 1`),
   ],
 );

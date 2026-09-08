@@ -4,6 +4,7 @@ import {
   calculateRetryDelaySeconds,
   classifyJobError,
   resolveJobFailureState,
+  shouldPropagatePhysicalRetry,
 } from '@jarvis/database';
 
 describe('durable-job retry behavior', () => {
@@ -49,5 +50,23 @@ describe('durable-job retry behavior', () => {
       status: 'terminal_failed',
       retryDelaySeconds: undefined,
     });
+  });
+
+  it('does not let pg-boss retry a canonical failure that became terminal at its latest-start deadline', () => {
+    const transient = classifyJobError(new Error('connection reset by peer'));
+
+    expect(
+      shouldPropagatePhysicalRetry(transient, {
+        status: 'retry_wait',
+        retryAt: '2026-09-07T12:00:02.000Z',
+      }),
+    ).toBe(true);
+    expect(
+      shouldPropagatePhysicalRetry(transient, {
+        status: 'terminal_failed',
+        retryAt: null,
+      }),
+    ).toBe(false);
+    expect(shouldPropagatePhysicalRetry(transient, undefined)).toBe(true);
   });
 });

@@ -11,6 +11,7 @@ import {
 } from '@jarvis/brain';
 import { loadWorkerEnvironment } from '@jarvis/config';
 import type { EnvironmentSource, RuntimeEnvironment } from '@jarvis/config';
+import { initialJobDispatchGeneration } from '@jarvis/contracts';
 import type { CanonicalEvent, DurableJobInput, ProposedAction } from '@jarvis/contracts';
 import {
   createDatabaseRuntime,
@@ -129,6 +130,8 @@ function createEventProcessingJob(event: {
     priority: 0,
     scheduledFor: event.receivedAt,
     availableAfter: event.receivedAt,
+    executionDeadline: null,
+    dispatchGeneration: initialJobDispatchGeneration,
     maximumAttempts: 5,
     correlationId: event.correlationId,
     sourceEventId: event.id,

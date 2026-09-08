@@ -1148,7 +1148,10 @@ export class DrizzleDurableDeliveryOutbox {
         return { deliveryId: existing.id, duplicate: true };
       }
 
-      const job = createOutboundDeliveryJob(input);
+      const job = createOutboundDeliveryJob(input, freshness.expiresAt);
+      if (job.executionDeadline === null) {
+        throw new Error('The outbound delivery job must retain its canonical execution deadline.');
+      }
       await transaction.insert(jobs).values({
         id: job.id,
         ownerId: job.ownerId,
@@ -1158,6 +1161,8 @@ export class DrizzleDurableDeliveryOutbox {
         priority: job.priority,
         scheduledFor: new Date(job.scheduledFor),
         availableAfter: new Date(job.availableAfter),
+        executionDeadline: new Date(job.executionDeadline),
+        dispatchGeneration: job.dispatchGeneration,
         maximumAttempts: job.maximumAttempts,
         correlationId: job.correlationId,
         causationId: job.causationId,

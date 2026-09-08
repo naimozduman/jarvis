@@ -12,6 +12,7 @@ import {
 } from '@jarvis/brain';
 import { loadApiEnvironment } from '@jarvis/config';
 import type { EnvironmentSource, RuntimeEnvironment } from '@jarvis/config';
+import { initialJobDispatchGeneration } from '@jarvis/contracts';
 import type { DurableJobInput, ProposedAction } from '@jarvis/contracts';
 import {
   createDatabaseRuntime,
@@ -43,7 +44,7 @@ import {
 import { createSafeLogRecord } from '@jarvis/observability';
 import { evaluatePolicy } from '@jarvis/security';
 
-import { buildApi } from './app.js';
+import { buildApi } from './http-app.js';
 import type { EvolutionWebhookIngressDependencies } from './evolution-webhook.js';
 
 export interface ApiRuntimeServices {
@@ -115,6 +116,8 @@ function createEventProcessingJob(event: {
     priority: 0,
     scheduledFor: event.receivedAt,
     availableAfter: event.receivedAt,
+    executionDeadline: null,
+    dispatchGeneration: initialJobDispatchGeneration,
     maximumAttempts: 5,
     correlationId: event.correlationId,
     sourceEventId: event.id,

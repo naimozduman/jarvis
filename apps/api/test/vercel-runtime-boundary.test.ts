@@ -7,6 +7,7 @@ describe('Vercel runtime serverless boundary', () => {
     const source = await readFile(new URL('../src/vercel-runtime.ts', import.meta.url), 'utf8');
 
     expect(source).toContain('CanonicalOnlyDurableJobTransport');
+    expect(source).toContain('connectionTimeoutMillis: 5_000');
     for (const forbidden of [
       'PgBossDurableJobTransport',
       'EvolutionClient',

@@ -2,6 +2,7 @@ import { httpRouter } from 'convex/server';
 
 import { internal } from './_generated/api';
 import { env, httpAction } from './_generated/server';
+import { isCanonicalDispatchGeneration } from './scheduler_policy.js';
 import { hasValidBearerSecret } from './secret_comparison.js';
 
 const http = httpRouter();
@@ -57,6 +58,7 @@ http.route({
       !triggerType ||
       !scheduledAt ||
       generation === undefined ||
+      !isCanonicalDispatchGeneration(generation) ||
       maximumDispatchAttempts === undefined ||
       !['canonical_job', 'retry', 'reminder', 'follow_up', 'transport_delivery'].includes(
         triggerType,
@@ -89,7 +91,9 @@ http.route({
     const body = record(await request.json().catch(() => undefined));
     const jobId = body ? stringField(body, 'jobId') : undefined;
     const generation = body ? numberField(body, 'generation') : undefined;
-    if (!jobId || generation === undefined) return json(400, { error: 'invalid_request' });
+    if (!jobId || generation === undefined || !isCanonicalDispatchGeneration(generation)) {
+      return json(400, { error: 'invalid_request' });
+    }
     try {
       return json(
         200,

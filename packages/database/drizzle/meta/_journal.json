@@ -50,6 +50,20 @@
       "when": 1788205493852,
       "tag": "0006_massive_microchip",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1788820573397,
+      "tag": "0007_nasty_spyke",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1788823135219,
+      "tag": "0008_striped_dreadnoughts",
+      "breakpoints": true
     }
   ]
 }

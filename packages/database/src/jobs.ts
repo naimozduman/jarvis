@@ -2,7 +2,13 @@ import { sql } from 'drizzle-orm';
 import { fromDrizzle, PgBoss } from 'pg-boss';
 import type { DrizzleTransactionLike, Job } from 'pg-boss';
 
-import type { DurableJobInput, JobErrorCategory, OutboundDeliveryIntent } from '@jarvis/contracts';
+import type {
+  DurableJob,
+  DurableJobInput,
+  JobErrorCategory,
+  OutboundDeliveryIntent,
+} from '@jarvis/contracts';
+import { initialJobDispatchGeneration, maximumJobDispatchGeneration } from '@jarvis/contracts';
 
 export const jarvisQueueNames = [
   'jarvis.event.process',
@@ -25,7 +31,10 @@ export type PhaseOneQueueName = JarvisQueueName;
  * Creates a durable provider-neutral delivery job. The payload contains only an already-persisted
  * intent and opaque target reference; it carries no credential, raw JID, or arbitrary model tool.
  */
-export function createOutboundDeliveryJob(input: OutboundDeliveryIntent): DurableJobInput {
+export function createOutboundDeliveryJob(
+  input: OutboundDeliveryIntent,
+  executionDeadline: string,
+): DurableJobInput {
   return {
     id: input.id,
     ownerId: input.ownerId,
@@ -41,6 +50,10 @@ export function createOutboundDeliveryJob(input: OutboundDeliveryIntent): Durabl
     priority: input.critical ? 10 : 0,
     scheduledFor: input.createdAt,
     availableAfter: input.createdAt,
+    // This is an execution latest-start deadline. The delivery row separately retains the
+    // delivery-freshness policy and uncertain-send reconciliation boundary from ADR 0014.
+    executionDeadline,
+    dispatchGeneration: initialJobDispatchGeneration,
     maximumAttempts: input.critical ? 8 : 5,
     correlationId: input.correlationId,
     ...(input.causationId ? { causationId: input.causationId } : {}),
@@ -91,20 +104,79 @@ export type ClaimedJobHandler = (job: ClaimedDurableJob) => Promise<void>;
 export interface DurableJobLifecycleProjection {
   recordLease(input: {
     readonly jobId: string;
+    readonly expectedGeneration: number;
+    /** The stateless callback supplies this; physical workers rely on their canonical job ID. */
+    readonly expectedCorrelationId?: string;
     readonly workerId: string;
-    readonly leaseExpiresAt: Date;
-  }): Promise<{ readonly attemptNumber: number }>;
+    /** The database, not the caller's wall clock, establishes the resulting expiry instant. */
+    readonly leaseDurationMilliseconds: number;
+  }): Promise<CanonicalJobLeaseResult>;
   recordCompletion(input: {
     readonly jobId: string;
+    readonly expectedGeneration: number;
     readonly workerId: string;
     readonly attemptNumber: number;
   }): Promise<void>;
   recordFailure(input: {
     readonly jobId: string;
+    readonly expectedGeneration: number;
     readonly workerId: string;
     readonly attemptNumber: number;
     readonly classification: ClassifiedJobError;
-  }): Promise<void>;
+  }): Promise<CanonicalJobFailureResult>;
+}
+
+export type CanonicalJobLeaseResult =
+  | {
+      readonly disposition: 'claimed';
+      readonly attemptNumber: number;
+      /** The only payload snapshot an executor may pass to a handler. */
+      readonly job: DurableJob;
+    }
+  | {
+      readonly disposition: 'already_completed' | 'stale' | 'cancelled' | 'expired';
+    };
+
+export interface CanonicalJobFailureResult {
+  readonly status: 'retry_wait' | 'terminal_failed';
+  /** Present only when the canonical row committed a retry state. */
+  readonly retryAt: string | null;
+}
+
+/**
+ * pg-boss may retry a physical message only when Neon committed the corresponding canonical
+ * retry. A terminal result, including latest-start expiry, is already durable and must be
+ * acknowledged without asking the physical queue to create another execution attempt.
+ */
+export function shouldPropagatePhysicalRetry(
+  classification: ClassifiedJobError,
+  canonicalFailure: CanonicalJobFailureResult | undefined,
+): boolean {
+  return (
+    classification.disposition === 'retryable' &&
+    (canonicalFailure === undefined || canonicalFailure.status === 'retry_wait')
+  );
+}
+
+const physicalDispatchGenerationKey = '__jarvisCanonicalDispatchGeneration';
+
+function physicalJobData(job: DurableJobInput): Record<string, unknown> {
+  return {
+    ...job.payload,
+    // This is a pg-boss envelope field, not a user payload. The worker validates it and still
+    // uses the canonical row returned from recordLease as the handler payload.
+    [physicalDispatchGenerationKey]: job.dispatchGeneration,
+  };
+}
+
+function physicalDispatchGeneration(data: Readonly<Record<string, unknown>>): number | undefined {
+  const value = data[physicalDispatchGenerationKey];
+  return typeof value === 'number' &&
+    Number.isInteger(value) &&
+    value >= 1 &&
+    value <= maximumJobDispatchGeneration
+    ? value
+    : undefined;
 }
 
 /**
@@ -170,7 +242,7 @@ export class PgBossDurableJobTransport implements TransactionalJobTransport {
       throw new Error('The pg-boss durable-job transport is not initialized.');
     }
 
-    const queuedId = await this.boss.send(job.jobType, job.payload, {
+    const queuedId = await this.boss.send(job.jobType, physicalJobData(job), {
       db: fromDrizzle(transaction, sql),
       deadLetter: 'jarvis.dead-letter',
       deleteAfterSeconds: 0,
@@ -208,40 +280,58 @@ export class PgBossDurableJobTransport implements TransactionalJobTransport {
       },
       async (jobs: Job<Record<string, unknown>>[]) => {
         for (const job of jobs) {
+          const expectedGeneration = physicalDispatchGeneration(job.data);
+          if (lifecycleProjection && expectedGeneration === undefined) {
+            // A pre-revision physical message cannot invent a generation. It is intentionally
+            // acknowledged without execution; reconciliation must republish from the Neon row.
+            continue;
+          }
+
           const lease = lifecycleProjection
             ? await lifecycleProjection.recordLease({
                 jobId: job.id,
+                expectedGeneration: expectedGeneration!,
                 workerId: this.workerId,
-                leaseExpiresAt: new Date(Date.now() + job.expireInSeconds * 1_000),
+                leaseDurationMilliseconds: job.expireInSeconds * 1_000,
               })
             : undefined;
+
+          if (lease && lease.disposition !== 'claimed') {
+            // Canonical terminal/ineligible outcomes are already represented by Neon. Returning
+            // normally prevents pg-boss from inventing a retry around a stale/cancelled/expired
+            // revision. Database errors still throw and remain visible as infrastructure errors.
+            continue;
+          }
+          const claimedLease = lease?.disposition === 'claimed' ? lease : undefined;
 
           try {
             await handler({
               id: job.id,
               name: job.name,
-              data: job.data,
+              data: claimedLease?.job.payload ?? job.data,
               signal: job.signal,
             });
-            if (lease) {
+            if (claimedLease) {
               await lifecycleProjection?.recordCompletion({
                 jobId: job.id,
+                expectedGeneration: claimedLease.job.dispatchGeneration,
                 workerId: this.workerId,
-                attemptNumber: lease.attemptNumber,
+                attemptNumber: claimedLease.attemptNumber,
               });
             }
           } catch (error) {
             const classification = classifyJobError(error);
-            if (lease) {
-              await lifecycleProjection?.recordFailure({
-                jobId: job.id,
-                workerId: this.workerId,
-                attemptNumber: lease.attemptNumber,
-                classification,
-              });
-            }
+            const canonicalFailure = claimedLease
+              ? await lifecycleProjection?.recordFailure({
+                  jobId: job.id,
+                  expectedGeneration: claimedLease.job.dispatchGeneration,
+                  workerId: this.workerId,
+                  attemptNumber: claimedLease.attemptNumber,
+                  classification,
+                })
+              : undefined;
 
-            if (classification.disposition === 'retryable') {
+            if (shouldPropagatePhysicalRetry(classification, canonicalFailure)) {
               throw error;
             }
           }

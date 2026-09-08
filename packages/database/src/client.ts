@@ -17,6 +17,8 @@ export interface DatabaseRuntime {
 export interface DatabaseRuntimeOptions {
   readonly connectionString: string;
   readonly maxConnections?: number;
+  /** Optional bounded initial-connect window for request-scoped serverless runtimes. */
+  readonly connectionTimeoutMillis?: number;
 }
 
 /**
@@ -27,6 +29,9 @@ export function createDatabaseRuntime(options: DatabaseRuntimeOptions): Database
   const pool = new Pool({
     connectionString: options.connectionString,
     max: options.maxConnections ?? 10,
+    ...(options.connectionTimeoutMillis === undefined
+      ? {}
+      : { connectionTimeoutMillis: options.connectionTimeoutMillis }),
   });
 
   return {

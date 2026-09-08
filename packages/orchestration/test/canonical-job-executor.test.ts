@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
 import type { DurableJob } from '@jarvis/contracts';
-import type { CanonicalJobRepository, DurableJobLifecycleProjection } from '@jarvis/database';
+import type {
+  CanonicalJobFailureResult,
+  CanonicalJobLeaseResult,
+  DurableJobLifecycleProjection,
+} from '@jarvis/database';
 import { StatelessCanonicalJobExecutor } from '@jarvis/orchestration';
 
 const ownerId = '00000000-0000-4000-8000-000000000001';
@@ -19,6 +23,8 @@ function job(overrides: Partial<DurableJob> = {}): DurableJob {
     priority: 0,
     scheduledFor: now.toISOString(),
     availableAfter: now.toISOString(),
+    executionDeadline: null,
+    dispatchGeneration: 2,
     attemptCount: 0,
     maximumAttempts: 3,
     leaseOwner: null,
@@ -39,14 +45,41 @@ class FakeLifecycle implements DurableJobLifecycleProjection {
   public completed = false;
   public failed = false;
   public status: DurableJob['status'] = 'queued';
+  public readonly leaseInputs: Array<{
+    readonly expectedGeneration: number;
+    readonly expectedCorrelationId: string | undefined;
+  }> = [];
 
-  public async recordLease(): Promise<{ readonly attemptNumber: number }> {
+  public constructor(private readonly source: DurableJob) {}
+
+  public async recordLease(input: {
+    readonly expectedGeneration: number;
+    readonly expectedCorrelationId?: string;
+  }): Promise<CanonicalJobLeaseResult> {
+    this.leaseInputs.push({
+      expectedGeneration: input.expectedGeneration,
+      expectedCorrelationId: input.expectedCorrelationId,
+    });
+    if (
+      input.expectedGeneration !== this.source.dispatchGeneration ||
+      input.expectedCorrelationId !== this.source.correlationId
+    ) {
+      return { disposition: 'stale' };
+    }
+    if (this.status === 'completed') return { disposition: 'already_completed' };
+    if (this.status === 'cancelled' || this.status === 'terminal_failed') {
+      return { disposition: 'cancelled' };
+    }
     if (this.status !== 'queued' && this.status !== 'retry_wait') {
-      throw new Error('concurrency: lease unavailable');
+      return { disposition: 'stale' };
     }
     this.status = 'leased';
     this.attempts += 1;
-    return { attemptNumber: this.attempts };
+    return {
+      disposition: 'claimed',
+      attemptNumber: this.attempts,
+      job: { ...this.source, status: 'leased', attemptCount: this.attempts },
+    };
   }
 
   public async recordCompletion(): Promise<void> {
@@ -55,42 +88,34 @@ class FakeLifecycle implements DurableJobLifecycleProjection {
     this.completed = true;
   }
 
-  public async recordFailure(): Promise<void> {
+  public async recordFailure(): Promise<CanonicalJobFailureResult> {
     if (this.status !== 'leased') throw new Error('concurrency: stale failure');
     this.status = 'retry_wait';
     this.failed = true;
-  }
-}
-
-class FakeJobs implements CanonicalJobRepository {
-  public constructor(
-    private readonly source: DurableJob,
-    private readonly lifecycle: FakeLifecycle,
-  ) {}
-
-  public async load(): Promise<DurableJob> {
-    return { ...this.source, status: this.lifecycle.status, attemptCount: this.lifecycle.attempts };
-  }
-
-  public async loadForSourceEvent(): Promise<DurableJob | undefined> {
-    return undefined;
+    return {
+      status: 'retry_wait',
+      retryAt: new Date(now.getTime() + 2_000).toISOString(),
+    };
   }
 }
 
 function executor(
-  input: { readonly lifecycle?: FakeLifecycle; readonly handler?: () => Promise<void> } = {},
+  input: {
+    readonly lifecycle?: FakeLifecycle;
+    readonly source?: DurableJob;
+    readonly handler?: (claimed: DurableJob) => Promise<void>;
+  } = {},
 ) {
-  const lifecycle = input.lifecycle ?? new FakeLifecycle();
+  const source = input.source ?? job();
+  const lifecycle = input.lifecycle ?? new FakeLifecycle(source);
   let executions = 0;
   const instance = new StatelessCanonicalJobExecutor({
-    jobs: new FakeJobs(job(), lifecycle),
     lifecycle,
     workerId: 'test-vercel-callback',
-    now: () => now,
     handler: {
-      async execute() {
+      async execute(claimed) {
         executions += 1;
-        await input.handler?.();
+        await input.handler?.(claimed);
       },
     },
   });
@@ -104,42 +129,65 @@ function executor(
 }
 
 describe('stateless canonical job executor', () => {
-  it('runs a scheduled job once and treats a duplicate trigger as already completed', async () => {
+  it('runs a matching canonical generation once and treats a duplicate as already completed', async () => {
     const harness = executor();
-    await expect(harness.instance.run({ jobId, correlationId })).resolves.toEqual({
+    await expect(harness.instance.run({ jobId, correlationId, generation: 2 })).resolves.toEqual({
       disposition: 'completed',
     });
-    await expect(harness.instance.run({ jobId, correlationId })).resolves.toEqual({
+    await expect(harness.instance.run({ jobId, correlationId, generation: 2 })).resolves.toEqual({
       disposition: 'already_completed',
     });
     expect(harness.executions).toBe(1);
   });
 
-  it('rejects stale correlation IDs and a cancelled canonical job without invoking its handler', async () => {
-    const stale = executor();
-    await expect(
-      stale.instance.run({ jobId, correlationId: 'wrong-correlation' }),
-    ).resolves.toEqual({
+  it('rejects a stale generation while the canonical job is otherwise queued and available', async () => {
+    const harness = executor();
+    await expect(harness.instance.run({ jobId, correlationId, generation: 1 })).resolves.toEqual({
       disposition: 'stale',
     });
+    expect(harness.executions).toBe(0);
+    expect(harness.lifecycle.leaseInputs).toEqual([
+      { expectedGeneration: 1, expectedCorrelationId: correlationId },
+    ]);
+  });
+
+  it('rejects a stale correlation ID and a cancelled canonical job without invoking its handler', async () => {
+    const stale = executor();
+    await expect(
+      stale.instance.run({ jobId, correlationId: 'wrong-correlation', generation: 2 }),
+    ).resolves.toEqual({ disposition: 'stale' });
     expect(stale.executions).toBe(0);
 
-    const cancelledLifecycle = new FakeLifecycle();
+    const cancelledLifecycle = new FakeLifecycle(job());
     cancelledLifecycle.status = 'cancelled';
     const cancelled = executor({ lifecycle: cancelledLifecycle });
-    await expect(cancelled.instance.run({ jobId, correlationId })).resolves.toEqual({
+    await expect(cancelled.instance.run({ jobId, correlationId, generation: 2 })).resolves.toEqual({
       disposition: 'cancelled',
     });
     expect(cancelled.executions).toBe(0);
   });
 
-  it('classifies a retryable execution error and returns bounded retry scheduling information', async () => {
+  it('uses the canonical snapshot returned by the lease rather than a pre-lease payload', async () => {
+    const replacement = job({ payload: { eventId: 'replacement-event', ownerId } });
+    const harness = executor({
+      source: replacement,
+      handler: async (claimed) => {
+        expect(claimed.payload).toEqual({ eventId: 'replacement-event', ownerId });
+      },
+    });
+
+    await expect(harness.instance.run({ jobId, correlationId, generation: 2 })).resolves.toEqual({
+      disposition: 'completed',
+    });
+  });
+
+  it('classifies a retryable execution error from the canonical failure result', async () => {
     const harness = executor({
       handler: async () => {
         throw new Error('connection reset by peer');
       },
     });
-    await expect(harness.instance.run({ jobId, correlationId })).resolves.toEqual({
+    await expect(harness.instance.run({ jobId, correlationId, generation: 2 })).resolves.toEqual({
       disposition: 'retry_allowed',
       retryAt: now.getTime() + 2_000,
     });

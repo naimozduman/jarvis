@@ -4,6 +4,8 @@ import {
   acceptsDispatchClaim,
   acceptsSchedule,
   canScheduleCallbackRetry,
+  isCanonicalDispatchGeneration,
+  terminalDispatchSettlement,
 } from '../../../convex/scheduler_policy.js';
 
 const coordinator = {
@@ -16,6 +18,14 @@ const coordinator = {
 };
 
 describe('Convex opaque scheduler policy', () => {
+  it('accepts only the positive integer generations that Neon can authoritatively persist', () => {
+    expect(isCanonicalDispatchGeneration(1)).toBe(true);
+    expect(isCanonicalDispatchGeneration(2_147_483_647)).toBe(true);
+    expect(isCanonicalDispatchGeneration(0)).toBe(false);
+    expect(isCanonicalDispatchGeneration(1.5)).toBe(false);
+    expect(isCanonicalDispatchGeneration(2_147_483_648)).toBe(false);
+  });
+
   it('accepts a scheduled canonical job once and rejects a duplicate trigger', () => {
     expect(acceptsSchedule(undefined, 1)).toBe(true);
     expect(acceptsSchedule(coordinator, 2)).toBe(false);
@@ -33,6 +43,7 @@ describe('Convex opaque scheduler policy', () => {
         { generation: 2, correlationId: coordinator.correlationId, triggerType: 'canonical_job' },
       ),
     ).toBe(false);
+    expect(acceptsSchedule({ ...coordinator, state: 'cancelled' }, 2)).toBe(false);
   });
 
   it('requires exact generation/correlation and only schedules bounded retries', () => {
@@ -52,5 +63,21 @@ describe('Convex opaque scheduler policy', () => {
     ).toBe(false);
     expect(canScheduleCallbackRetry(coordinator)).toBe(true);
     expect(canScheduleCallbackRetry({ ...coordinator, dispatchAttempts: 3 })).toBe(false);
+  });
+
+  it('treats duplicate, stale, cancelled, and expired callback outcomes as safe terminal state', () => {
+    expect(terminalDispatchSettlement('completed')).toEqual({ state: 'dispatched' });
+    expect(terminalDispatchSettlement('already_completed')).toEqual({ state: 'dispatched' });
+    expect(terminalDispatchSettlement('stale')).toEqual({ state: 'dispatched' });
+    expect(terminalDispatchSettlement('cancelled')).toEqual({ state: 'cancelled' });
+    expect(terminalDispatchSettlement('expired')).toEqual({
+      state: 'expired',
+      lastSafeErrorCategory: 'expired',
+    });
+    expect(terminalDispatchSettlement('retry_not_allowed')).toEqual({ state: 'dispatched' });
+    expect(terminalDispatchSettlement('callback_unconfirmed')).toEqual({
+      state: 'failed',
+      lastSafeErrorCategory: 'callback_unconfirmed',
+    });
   });
 });

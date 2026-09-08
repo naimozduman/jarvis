@@ -20,6 +20,7 @@ import type {
 import { ingestCanonicalEvent } from '@jarvis/domain';
 import type { DurableJob, DurableJobInput } from '@jarvis/contracts';
 import type { EventPipelineDependencies } from '@jarvis/domain';
+import { canonicalJobSignal } from '@jarvis/orchestration';
 import type { OrchestrationPublisher } from '@jarvis/orchestration';
 
 function digest(value: string): Buffer {
@@ -289,14 +290,7 @@ export function registerLocalBridgeRoutes(
           ? await dependencies.loadCanonicalJobForEvent?.(ingested.event.id)
           : undefined);
       if (canonicalJob) {
-        await dependencies.orchestration!.scheduleJob({
-          jobId: canonicalJob.id,
-          correlationId: canonicalJob.correlationId,
-          triggerType: 'canonical_job',
-          scheduledAt: canonicalJob.availableAfter,
-          generation: 1,
-          maximumDispatchAttempts: canonicalJob.maximumAttempts,
-        });
+        await dependencies.orchestration!.scheduleJob(canonicalJobSignal(canonicalJob));
       }
       return reply
         .header('cache-control', 'no-store')

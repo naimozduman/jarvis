@@ -1,0 +1,147 @@
+name: Phase 3.6C PostgreSQL integration verification
+
+on:
+  push:
+    branches:
+      - verify/phase-3-6c-postgres
+  workflow_dispatch:
+    inputs:
+      actions_budget_reviewed:
+        description: Confirm that the repository owner reviewed available GitHub Actions spending first.
+        required: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phase-3-6c-postgres-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-database:
+    if: github.event_name == 'push' || inputs.actions_budget_reviewed
+    name: Run real PostgreSQL 18 integration suite
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        # The official postgres:18.6 OCI image index was verified before this workflow run.
+        image: postgres:18.6@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280
+        env:
+          POSTGRES_USER: postgres
+          # The service bootstrap credential is distinct for every GitHub Actions run. It is
+          # used only while creating the two unprivileged application test roles below.
+          POSTGRES_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}-${{ github.sha }}
+          POSTGRES_DB: postgres
+          # Loopback clients use SCRAM password authentication. Local container administration
+          # uses its Unix socket only to create the least-privileged application roles.
+          POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+        options: >-
+          --health-cmd "pg_isready -U postgres -d postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up pnpm and Node
+        uses: pnpm/setup@00e6b8420246ccf1cdb9825b4a0e59d1ec4072ab # v2.0.0
+        with:
+          version: 11.23.0
+          runtime: node@24.19.0
+          cache: true
+          cache-dependency-path: pnpm-lock.yaml
+          install: false
+
+      - name: Record the exact tested commit and toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          printf 'tested_commit=%s\n' "$GITHUB_SHA"
+          node --version
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run provider-free repository verification
+        run: pnpm run ci
+
+      - name: Run provider-free brain evaluations
+        run: pnpm brain:evals
+
+      - name: Run provider-free transport evaluations
+        run: pnpm transport:evals
+
+      - name: Run provider-free orchestration evaluations
+        run: pnpm orchestration:evals
+
+      - name: Run provider-free bridge evaluations
+        run: pnpm bridge:evals
+
+      - name: Validate the Drizzle migration package
+        run: pnpm db:check
+
+      - name: Audit production dependencies
+        run: pnpm audit --prod
+
+      - name: Check Convex TypeScript without deployment
+        run: ./node_modules/.bin/tsc -p convex/tsconfig.json --noEmit
+
+      - name: Record PostgreSQL service identity
+        env:
+          POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker inspect --format '{{.Config.Image}}' "$POSTGRES_CONTAINER"
+          docker exec "$POSTGRES_CONTAINER" postgres --version
+
+      - name: Create isolated primary and secondary database roles
+        env:
+          POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          trap 'rm -f "$RUNNER_TEMP/jarvis-c36c5-roles.sql"' EXIT
+          node --input-type=module <<'NODE'
+          import { randomBytes } from 'node:crypto';
+          import { appendFileSync, writeFileSync } from 'node:fs';
+
+          const primaryPassword = randomBytes(24).toString('hex');
+          const secondaryPassword = randomBytes(24).toString('hex');
+          const primaryRole = 'jarvis_c36c5_primary';
+          const secondaryRole = 'jarvis_c36c5_secondary';
+          const database = 'jarvis_c36c5_test';
+
+          console.log(`::add-mask::${primaryPassword}`);
+          console.log(`::add-mask::${secondaryPassword}`);
+
+          const sql = [
+            `CREATE ROLE ${primaryRole} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD '${primaryPassword}';`,
+            `CREATE ROLE ${secondaryRole} LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD '${secondaryPassword}';`,
+            `CREATE DATABASE ${database} OWNER ${primaryRole};`,
+            `REVOKE ALL ON DATABASE ${database} FROM PUBLIC;`,
+            `GRANT CONNECT ON DATABASE ${database} TO ${primaryRole};`,
+            `GRANT CONNECT ON DATABASE ${database} TO ${secondaryRole};`,
+          ].join('\n');
+          writeFileSync(`${process.env.RUNNER_TEMP}/jarvis-c36c5-roles.sql`, `${sql}\n`, {
+            mode: 0o600,
+          });
+          const databaseUrl = (role, password) =>
+            ['postgresql', '://', role, ':', password, '@127.0.0.1:5432/', database].join('');
+          appendFileSync(
+            process.env.GITHUB_ENV,
+            `JARVIS_TEST_DATABASE_URL=${databaseUrl(primaryRole, primaryPassword)}\n` +
+              `JARVIS_TEST_DATABASE_SECONDARY_URL=${databaseUrl(secondaryRole, secondaryPassword)}\n`,
+          );
+          NODE
+          docker exec -i "$POSTGRES_CONTAINER" psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres < "$RUNNER_TEMP/jarvis-c36c5-roles.sql"
+
+      - name: Run isolated real PostgreSQL integration suite
+        run: pnpm test:db

@@ -27,7 +27,7 @@ import {
 } from '@jarvis/orchestration';
 import { createSafeLogRecord } from '@jarvis/observability';
 
-import { buildApi } from './app.js';
+import { buildApi } from './http-app.js';
 
 export interface VercelApiRuntime {
   readonly environment: RuntimeEnvironment;
@@ -88,6 +88,9 @@ export async function createVercelApiRuntime(
     database = createDatabaseRuntime({
       connectionString: environment.databaseUrl,
       maxConnections: 4,
+      // A serverless invocation must fail closed promptly when Neon is unavailable instead of
+      // consuming the Function's full duration while an initial TCP connection is pending.
+      connectionTimeoutMillis: 5_000,
     });
     await database.verifyConnection();
     await database.verifySchemaCompatibility();
@@ -129,19 +132,15 @@ export async function createVercelApiRuntime(
       brain,
       ...(transportProcessor ? { transportProcessor } : {}),
       scheduleOutboundJob: async (input) => {
-        await orchestration.scheduleJob({
-          jobId: input.deliveryId,
-          correlationId: input.correlationId,
-          triggerType: 'transport_delivery',
-          scheduledAt: input.createdAt,
-          generation: 1,
-          maximumDispatchAttempts: 5,
-        });
+        const canonicalJob = await jobs.load({ jobId: input.deliveryId });
+        if (!canonicalJob) {
+          throw new Error('The committed outbound delivery is missing its canonical job record.');
+        }
+        await orchestration.scheduleJob(canonicalJobSignal(canonicalJob));
       },
       publishTransportSignal: async (input) => orchestration.publishTransportSignal(input),
     });
     const executor = new StatelessCanonicalJobExecutor({
-      jobs,
       lifecycle: jobs,
       handler,
       workerId: 'vercel-orchestration',

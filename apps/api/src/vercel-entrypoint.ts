@@ -1,10 +1,14 @@
 import type { OutgoingHttpHeaders } from 'node:http';
 
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+
+import { loadApiEnvironment } from '@jarvis/config';
+
+import { getApiLiveHealth } from './health.js';
 import type { VercelApiRuntime } from './vercel-runtime.js';
 import { createVercelApiRuntime } from './vercel-runtime.js';
 
 export type VercelRuntimeFactory = () => Promise<Pick<VercelApiRuntime, 'app' | 'stop'>>;
-export type VercelFetchHandler = (request: Request) => Promise<Response>;
 
 /** The documented HTTP methods accepted by Fastify's in-process injection implementation. */
 type InjectableHttpMethod =
@@ -23,10 +27,14 @@ type InjectableHttpMethod =
   | 'OPTIONS'
   | 'options';
 
-function fastifyPath(request: Request): string {
-  const url = new URL(request.url);
-  // The Vercel Function itself is mounted beneath `/api`; the already-reviewed Fastify routes
-  // intentionally retain their canonical paths such as `/health/ready` and `/internal/...`.
+type InjectablePayload = Buffer | Readonly<Record<string, unknown>> | string;
+
+/**
+ * Keeps the existing public `/api/*` boundary while the Vercel Fastify entrypoint captures its
+ * listener. The inner Fastify application continues to own its canonical route names.
+ */
+export function fastifyPath(rawUrl: string): string {
+  const url = new URL(rawUrl, 'https://jarvis.vercel.invalid');
   const pathname =
     url.pathname === '/api'
       ? '/'
@@ -36,61 +44,65 @@ function fastifyPath(request: Request): string {
   return `${pathname}${url.search}`;
 }
 
-function responseHeaders(headers: OutgoingHttpHeaders): Headers {
-  const result = new Headers();
+function applyResponseHeaders(reply: FastifyReply, headers: OutgoingHttpHeaders): void {
   for (const [name, value] of Object.entries(headers)) {
-    if (typeof value === 'string') {
-      result.append(name, value);
-    } else if (Array.isArray(value)) {
-      for (const item of value) {
-        result.append(name, item);
-      }
+    if (value !== undefined) {
+      reply.header(name, value);
     }
   }
-  return result;
 }
 
-function unavailableResponse(): Response {
-  return Response.json(
-    { status: 'unavailable', error: 'The stateless API runtime is unavailable.' },
-    {
-      status: 503,
-      headers: { 'cache-control': 'no-store' },
-    },
-  );
+function requestPayload(request: FastifyRequest): InjectablePayload | undefined {
+  if (request.body === undefined) return undefined;
+  return request.body as InjectablePayload;
+}
+
+function sendUnavailable(reply: FastifyReply): FastifyReply {
+  return reply
+    .header('cache-control', 'no-store')
+    .code(503)
+    .send({ status: 'unavailable', error: 'The stateless API runtime is unavailable.' });
 }
 
 /**
- * Vercel-supported Web-Handler adapter for the existing Fastify API. It deliberately calls
- * Fastify's in-process `inject` interface instead of binding a listener: Vercel owns HTTP,
- * every request uses the reviewed Neon/callback composition, and no worker or durable scheduler
- * can be started by this entrypoint.
+ * Registers the supported Fastify-backend adapter on Vercel's application entrypoint. The outer
+ * app is a route shell only: each `/api/*` invocation composes the canonical Neon runtime,
+ * forwards the request in process, and always disposes it. Its entrypoint listener is captured by
+ * Vercel; this adapter never starts a worker, timer, or Evolution client.
  */
-export function createVercelFetchHandler(
+export function registerVercelFastifyAdapter(
+  app: FastifyInstance,
   createRuntime: VercelRuntimeFactory = createVercelApiRuntime,
-): VercelFetchHandler {
-  return async (request) => {
+): FastifyInstance {
+  // Liveness proves the Fastify entrypoint and validated non-secret configuration without
+  // coupling the probe to a remote dependency. Readiness below remains responsible for Neon.
+  app.get('/api/health/live', async (_request, reply) => {
+    try {
+      loadApiEnvironment(process.env);
+      return reply.code(200).send(getApiLiveHealth());
+    } catch {
+      return sendUnavailable(reply);
+    }
+  });
+  app.all('/api/*', async (request, reply) => {
     let runtime: Pick<VercelApiRuntime, 'app' | 'stop'> | undefined;
     try {
       runtime = await createRuntime();
       await runtime.app.ready();
-      const injection = {
+      const payload = requestPayload(request);
+      const response = await runtime.app.inject({
         method: request.method as InjectableHttpMethod,
-        url: fastifyPath(request),
-        headers: Object.fromEntries(request.headers.entries()),
-        ...(request.body ? { payload: Buffer.from(await request.arrayBuffer()) } : {}),
-      };
-      const response = await runtime.app.inject(injection);
-      return new Response(Uint8Array.from(response.rawPayload).buffer, {
-        status: response.statusCode,
-        headers: responseHeaders(response.headers),
+        url: fastifyPath(request.raw.url ?? request.url),
+        headers: request.headers,
+        ...(payload === undefined ? {} : { payload }),
       });
+      applyResponseHeaders(reply, response.headers);
+      return reply.code(response.statusCode).send(response.rawPayload);
     } catch {
-      return unavailableResponse();
+      return sendUnavailable(reply);
     } finally {
       await runtime?.stop().catch(() => undefined);
     }
-  };
+  });
+  return app;
 }
-
-export { fastifyPath };

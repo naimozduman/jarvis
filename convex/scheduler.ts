@@ -6,6 +6,8 @@ import {
   acceptsDispatchClaim,
   acceptsSchedule,
   canScheduleCallbackRetry,
+  isCanonicalDispatchGeneration,
+  terminalDispatchSettlement,
 } from './scheduler_policy.js';
 
 const triggerType = v.union(
@@ -21,6 +23,7 @@ const dispatchDisposition = v.union(
   v.literal('already_completed'),
   v.literal('stale'),
   v.literal('cancelled'),
+  v.literal('expired'),
   v.literal('retry_allowed'),
   v.literal('retry_not_allowed'),
   v.literal('callback_unconfirmed'),
@@ -41,6 +44,9 @@ export const scheduleJob = internalMutation({
   },
   returns: v.object({ accepted: v.boolean(), generation: v.number() }),
   handler: async (ctx, args) => {
+    if (!isCanonicalDispatchGeneration(args.generation)) {
+      throw new Error('validation: canonical dispatch generation is invalid.');
+    }
     const existing = await ctx.db
       .query('scheduledJobs')
       .withIndex('by_jobId', (query) => query.eq('jobId', args.jobId))
@@ -83,6 +89,9 @@ export const cancelScheduledJob = internalMutation({
   args: { jobId: v.string(), generation: v.number() },
   returns: v.object({ cancelled: v.boolean() }),
   handler: async (ctx, args) => {
+    if (!isCanonicalDispatchGeneration(args.generation)) {
+      throw new Error('validation: canonical dispatch generation is invalid.');
+    }
     const existing = await ctx.db
       .query('scheduledJobs')
       .withIndex('by_jobId', (query) => query.eq('jobId', args.jobId))
@@ -116,6 +125,9 @@ export const claimDispatch = internalMutation({
     }),
   ),
   handler: async (ctx, args) => {
+    if (!isCanonicalDispatchGeneration(args.generation)) {
+      return null;
+    }
     const existing = await ctx.db
       .query('scheduledJobs')
       .withIndex('by_jobId', (query) => query.eq('jobId', args.jobId))
@@ -158,6 +170,9 @@ export const recordDispatchResult = internalMutation({
   },
   returns: v.object({ recorded: v.boolean(), retryScheduled: v.boolean() }),
   handler: async (ctx, args) => {
+    if (!isCanonicalDispatchGeneration(args.generation)) {
+      return { recorded: false, retryScheduled: false };
+    }
     const existing = await ctx.db
       .query('scheduledJobs')
       .withIndex('by_jobId', (query) => query.eq('jobId', args.jobId))
@@ -192,11 +207,12 @@ export const recordDispatchResult = internalMutation({
       });
       return { recorded: true, retryScheduled: true };
     }
-    const state = args.disposition === 'cancelled' ? 'cancelled' : 'dispatched';
+    const settlement = terminalDispatchSettlement(args.disposition);
     await ctx.db.patch(existing._id, {
-      state,
-      lastSafeErrorCategory:
-        args.disposition === 'callback_unconfirmed' ? 'callback_unconfirmed' : undefined,
+      state: settlement.state,
+      ...(settlement.lastSafeErrorCategory
+        ? { lastSafeErrorCategory: settlement.lastSafeErrorCategory }
+        : { lastSafeErrorCategory: undefined }),
     });
     return { recorded: true, retryScheduled: false };
   },

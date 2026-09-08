@@ -150,7 +150,9 @@ export function registerEvolutionWebhookRoute(
       }
 
       const mapped = dependencies.mapper.map(parsed);
-      if (!mapped.accepted) {
+      // Use an explicit literal comparison so every TypeScript compiler used by the
+      // local and serverless build paths discriminates the rejection union correctly.
+      if (mapped.accepted === false) {
         await dependencies.rejectionRecorder.record({
           ownerId: dependencies.ownerId,
           eventType: parsed.event,

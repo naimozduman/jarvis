@@ -2,6 +2,7 @@ import { createHash, timingSafeEqual } from 'node:crypto';
 
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 
+import { maximumJobDispatchGeneration } from '@jarvis/contracts';
 import type {
   CanonicalJobExecutionResult,
   StatelessCanonicalJobExecutor,
@@ -47,7 +48,8 @@ function body(
     !triggerTypes.has(record.triggerType) ||
     typeof record.generation !== 'number' ||
     !Number.isInteger(record.generation) ||
-    record.generation < 1
+    record.generation < 1 ||
+    record.generation > maximumJobDispatchGeneration
   ) {
     return undefined;
   }
@@ -105,6 +107,7 @@ export function registerOrchestrationRoutes(
       const result = await executor.run({
         jobId,
         correlationId: parsed.correlationId,
+        generation: parsed.generation,
       });
       const response = responseFor(result);
       return reply.header('cache-control', 'no-store').code(response.status).send(response.body);

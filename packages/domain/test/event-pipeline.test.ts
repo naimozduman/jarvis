@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { describe, expect, it } from 'vitest';
 
-import { incomingEventEnvelopeSchema } from '@jarvis/contracts';
+import { incomingEventEnvelopeSchema, initialJobDispatchGeneration } from '@jarvis/contracts';
 import type { CanonicalEvent, ProposedAction } from '@jarvis/contracts';
 import {
   createDeterministicPhaseOneHandlers,
@@ -34,6 +34,8 @@ function createDependencies(store: InMemoryEventStore): EventPipelineDependencie
         priority: 10,
         scheduledFor: event.receivedAt,
         availableAfter: event.receivedAt,
+        executionDeadline: null,
+        dispatchGeneration: initialJobDispatchGeneration,
         maximumAttempts: 5,
         correlationId: event.correlationId,
         sourceEventId: event.id,

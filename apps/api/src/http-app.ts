@@ -83,6 +83,10 @@ function unavailableEvolutionTransportHealth(): MessagingTransportHealth {
   };
 }
 
+/**
+ * Composes canonical in-process Fastify routes. This library filename intentionally avoids
+ * Vercel's Fastify entrypoint candidates; apps/api/server.ts is the sole deployable entrypoint.
+ */
 export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
   const environment = loadApiEnvironment(options.environment ?? process.env);
 

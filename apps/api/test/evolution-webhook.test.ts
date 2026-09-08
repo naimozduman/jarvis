@@ -3,6 +3,7 @@ import { createHmac, randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 
 import { buildApi } from '@jarvis/api';
+import { initialJobDispatchGeneration } from '@jarvis/contracts';
 import { createDeterministicPhaseOneHandlers } from '@jarvis/domain';
 import {
   EvolutionMessageMapper,
@@ -69,6 +70,8 @@ function webhookApp(store: InMemoryEventStore, rejections: Array<Record<string, 
             priority: 0,
             scheduledFor: event.receivedAt,
             availableAfter: event.receivedAt,
+            executionDeadline: null,
+            dispatchGeneration: initialJobDispatchGeneration,
             maximumAttempts: 5,
             correlationId: event.correlationId,
             sourceEventId: event.id,

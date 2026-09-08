@@ -62,13 +62,22 @@ indexed by occurrence time.
 | --- | --- |
 | `events` | Immutable envelope: type, source, source event ID, owner, idempotency key, occurrence/receipt time, payload hash, schema version, status, correlation/causation, and sensitivity. |
 | `event_processing_attempts` | Append-oriented worker attempts with safe error classification. |
-| `jobs` | JARVIS durable-job lifecycle projection, using the same UUID as pg-boss. |
-| `job_executions` | Per-worker lease/attempt history and sanitized outcome. |
+| `jobs` | JARVIS durable-job lifecycle projection, using the same UUID as pg-boss, with canonical dispatch generation and optional latest-start execution deadline. |
+| `job_executions` | Per-worker lease/attempt history, canonical dispatch generation, and sanitized outcome; unique per job, generation, and attempt. |
 
 `events` is unique on `(owner_id, idempotency_key)` and, when available, on
 `(owner_id, source, event_type, source_event_id)`. `jobs` is unique on
 `(owner_id, job_type, idempotency_key)`. These constraints—not a queue delivery claim—enforce
 idempotency.
+
+`jobs.dispatch_generation` is a Neon-owned positive revision that begins at one. A normal retry
+keeps its generation and advances only the attempt count; a pending reschedule, replacement, or
+cancellation advances generation and invalidates earlier opaque callbacks. `execution_deadline` is
+nullable. A null deadline means durable work remains eligible until handled. A non-null deadline is
+the latest instant a new database lease may begin and is checked against database time; it neither
+expires an existing lease nor completes/cancels a commitment. Outbound delivery freshness remains
+on `outbound_message_deliveries`; reminder expiration requires future evaluator policy rather than
+an inferred completion. See [ADR 0015](ADR/0015-canonical-job-generation-and-expiry.md).
 
 ## Commitments, reminders, and daily state
 
@@ -123,6 +132,9 @@ table in Phase 1.
 - Run `pnpm db:check` to validate the migration journal.
 - `pnpm db:migrate` requires `JARVIS_MIGRATIONS_DATABASE_URL` and never falls back to
   `DATABASE_URL`.
-- `JARVIS_TEST_DATABASE_URL` is the only accepted URL for optional database integration tests.
+- `JARVIS_TEST_DATABASE_URL` and `JARVIS_TEST_DATABASE_SECONDARY_URL` are the only accepted
+  primary and secondary URLs for database integration tests. `pnpm test:db` requires both so its
+  real concurrency coverage cannot silently skip; the ordinary provider-free test suite may skip
+  the gated integration file when no test database is configured.
 - Use forward expand/contract migrations for populated environments. The initial migration is only
   safely reversible on an empty disposable database.

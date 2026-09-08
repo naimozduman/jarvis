@@ -8,6 +8,7 @@ import {
 } from '@jarvis/brain';
 import type { ConversationCurrentState } from '@jarvis/brain';
 import type { RuntimeEnvironment } from '@jarvis/config';
+import { initialJobDispatchGeneration } from '@jarvis/contracts';
 import type {
   CanonicalEvent,
   DurableJob,
@@ -64,6 +65,8 @@ export function createCanonicalEventProcessingJob(event: {
     priority: 0,
     scheduledFor: event.receivedAt,
     availableAfter: event.receivedAt,
+    executionDeadline: null,
+    dispatchGeneration: initialJobDispatchGeneration,
     maximumAttempts: 5,
     correlationId: event.correlationId,
     sourceEventId: event.id,

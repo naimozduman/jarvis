@@ -26,6 +26,7 @@ export default defineSchema({
       v.literal('dispatching'),
       v.literal('dispatched'),
       v.literal('cancelled'),
+      v.literal('expired'),
       v.literal('failed'),
     ),
     dispatchAttempts: v.number(),

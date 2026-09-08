@@ -11,6 +11,7 @@ import {
   PromptAssembler,
 } from '@jarvis/brain';
 import { buildApi } from '@jarvis/api';
+import { initialJobDispatchGeneration } from '@jarvis/contracts';
 import type {
   BrainRequest,
   ClarificationRequest,
@@ -370,7 +371,9 @@ class MinimalBrainRepository implements BrainRepository {
     }
   }
 
-  public async persistContextManifest(_manifest: ContextManifest): Promise<void> {}
+  public async persistContextManifest(manifest: ContextManifest): Promise<void> {
+    void manifest;
+  }
   public async persistModelRun(run: ModelRun): Promise<void> {
     this.modelRuns.push(run);
   }
@@ -388,17 +391,21 @@ class MinimalBrainRepository implements BrainRepository {
     void input.correlationId;
     this.planProposals.push(input.proposal);
   }
-  public async persistReminderProposal(_input: {
+  public async persistReminderProposal(input: {
     readonly proposal: ReminderProposal;
     readonly sourceBrainDecisionId: string;
     readonly correlationId: string;
-  }): Promise<void> {}
-  public async persistClarification(_input: {
+  }): Promise<void> {
+    void input;
+  }
+  public async persistClarification(input: {
     readonly ownerId: string;
     readonly brainRequestId: string;
     readonly clarification: ClarificationRequest;
     readonly correlationId: string;
-  }): Promise<void> {}
+  }): Promise<void> {
+    void input;
+  }
   public async persistInboundMessage(input: PersistedInboundConversationMessage): Promise<void> {
     if (!this.inbound.some((message) => message.id === input.id)) this.inbound.push(input);
   }
@@ -426,11 +433,12 @@ class MinimalBrainRepository implements BrainRepository {
     );
     return decision ? { id: decision.id, decisionType: decision.decision.decisionType } : undefined;
   }
-  public async listContextRecords(_input: {
+  public async listContextRecords(input: {
     readonly ownerId: string;
     readonly conversationId: string | null;
     readonly maximumRecentMessages: number;
   }): Promise<readonly ContextRecord[]> {
+    void input;
     return [];
   }
 }
@@ -568,6 +576,8 @@ describe('transport worker vertical slice', () => {
               priority: 0,
               scheduledFor: event.receivedAt,
               availableAfter: event.receivedAt,
+              executionDeadline: null,
+              dispatchGeneration: initialJobDispatchGeneration,
               maximumAttempts: 5,
               correlationId: event.correlationId,
               sourceEventId: event.id,

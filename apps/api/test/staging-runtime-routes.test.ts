@@ -1,8 +1,9 @@
 import { randomUUID } from 'node:crypto';
 
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { buildApi } from '@jarvis/api';
+import { initialJobDispatchGeneration } from '@jarvis/contracts';
 import { createDeterministicPhaseOneHandlers } from '@jarvis/domain';
 import { evaluatePolicy } from '@jarvis/security';
 import { InMemoryEventStore } from '@jarvis/testing';
@@ -46,6 +47,8 @@ describe('staging synthetic runtime route', () => {
               priority: 0,
               scheduledFor: event.receivedAt,
               availableAfter: event.receivedAt,
+              executionDeadline: null,
+              dispatchGeneration: initialJobDispatchGeneration,
               maximumAttempts: 5,
               correlationId: event.correlationId,
               sourceEventId: event.id,
@@ -97,5 +100,91 @@ describe('staging synthetic runtime route', () => {
       source: 'internal',
     });
     expect(store.jobs).toHaveLength(1);
+  });
+
+  it('keeps the committed canonical job recoverable when opaque publication fails', async () => {
+    const store = new InMemoryEventStore();
+    const signalCanonicalJob = vi
+      .fn(async () => undefined)
+      .mockRejectedValueOnce(new Error('opaque coordinator unavailable'));
+    app = buildApi({
+      environment: {
+        APP_ENV: 'staging',
+        DATABASE_URL: 'postgresql://staging.invalid/jarvis',
+      },
+      stagingRuntime: {
+        appEnvironment: 'staging',
+        ownerId,
+        accessToken: stagingToken,
+        pipeline: {
+          store,
+          handlers: createDeterministicPhaseOneHandlers(),
+          policy: {
+            evaluate(action) {
+              return evaluatePolicy(action, { ownerAuthorized: true });
+            },
+          },
+          createJob(event) {
+            return {
+              id: randomUUID(),
+              ownerId: event.ownerId,
+              jobType: 'jarvis.event.process',
+              payload: { eventId: event.id, ownerId: event.ownerId },
+              priority: 0,
+              scheduledFor: event.receivedAt,
+              availableAfter: event.receivedAt,
+              executionDeadline: null,
+              dispatchGeneration: initialJobDispatchGeneration,
+              maximumAttempts: 5,
+              correlationId: event.correlationId,
+              sourceEventId: event.id,
+              idempotencyKey: `event-process:${event.id}`,
+            };
+          },
+        },
+        signalCanonicalJob,
+        async loadCanonicalJobForEvent() {
+          const [canonical] = store.jobs;
+          if (!canonical) return undefined;
+          return {
+            ...canonical,
+            status: 'queued',
+            attemptCount: 0,
+            leaseOwner: null,
+            leaseExpiresAt: null,
+            lastErrorCategory: null,
+            lastErrorSummary: null,
+            createdAt: '2026-08-30T12:00:00.000Z',
+            updatedAt: '2026-08-30T12:00:00.000Z',
+            completedAt: null,
+          };
+        },
+        now: () => new Date('2026-08-30T12:00:00.000Z'),
+      },
+    });
+
+    const request = () =>
+      app!.inject({
+        method: 'POST',
+        url: '/internal/staging/synthetic-turn',
+        headers: { authorization: `Bearer ${stagingToken}` },
+        payload: {
+          message: 'Recover the same canonical job after a publication outage.',
+          idempotencyKey: 'staging-route-handoff-recovery-0001',
+        },
+      });
+
+    const first = await request();
+    const replay = await request();
+
+    expect(first.statusCode).toBe(503);
+    expect(replay.statusCode).toBe(200);
+    expect(store.events).toHaveLength(1);
+    expect(store.jobs).toHaveLength(1);
+    expect(signalCanonicalJob).toHaveBeenCalledTimes(2);
+    expect(signalCanonicalJob.mock.calls[1]?.[0]).toMatchObject({
+      id: store.jobs[0]?.id,
+      dispatchGeneration: initialJobDispatchGeneration,
+    });
   });
 });

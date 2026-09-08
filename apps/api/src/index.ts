@@ -1,5 +1,5 @@
-export { buildApi } from './app.js';
-export type { BuildApiOptions } from './app.js';
+export { buildApi } from './http-app.js';
+export type { BuildApiOptions } from './http-app.js';
 export { ingestAuthenticatedEvent } from './events.js';
 export type {
   AuthenticatedEventIngressDependencies,

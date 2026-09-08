@@ -186,6 +186,8 @@ class DrizzleEventTransaction implements EventTransaction {
       priority: input.priority,
       scheduledFor: new Date(input.scheduledFor),
       availableAfter: new Date(input.availableAfter),
+      executionDeadline: input.executionDeadline ? new Date(input.executionDeadline) : null,
+      dispatchGeneration: input.dispatchGeneration,
       maximumAttempts: input.maximumAttempts,
       correlationId: input.correlationId,
       causationId: input.causationId,

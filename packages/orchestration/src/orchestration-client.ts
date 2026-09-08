@@ -128,8 +128,15 @@ export class ConvexHttpOrchestrationPublisher implements OrchestrationPublisher 
   }
 }
 
+/**
+ * Produces the opaque coordinator signal from a Neon-owned snapshot. Callers must reload this
+ * canonical row after any revision; this helper never invents a generation on Convex's behalf.
+ */
 export function canonicalJobSignal(
-  job: Pick<DurableJob, 'id' | 'correlationId' | 'jobType' | 'availableAfter' | 'maximumAttempts'>,
+  job: Pick<
+    DurableJob,
+    'id' | 'correlationId' | 'jobType' | 'availableAfter' | 'maximumAttempts' | 'dispatchGeneration'
+  >,
 ): OrchestrationJobSignal {
   const triggerType: OrchestrationTriggerType =
     job.jobType === 'jarvis.transport.outbound.send'
@@ -144,7 +151,7 @@ export function canonicalJobSignal(
     correlationId: job.correlationId,
     triggerType,
     scheduledAt: job.availableAfter,
-    generation: 1,
+    generation: job.dispatchGeneration,
     maximumDispatchAttempts: job.maximumAttempts,
   };
 }

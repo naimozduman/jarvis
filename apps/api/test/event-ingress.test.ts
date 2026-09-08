@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 
 import { ingestAuthenticatedEvent } from '@jarvis/api';
+import { initialJobDispatchGeneration } from '@jarvis/contracts';
 import { createDeterministicPhaseOneHandlers } from '@jarvis/domain';
 import { evaluatePolicy } from '@jarvis/security';
 import type { AuthenticationBoundary } from '@jarvis/security';
@@ -48,6 +49,8 @@ describe('authenticated event ingress', () => {
             priority: 0,
             scheduledFor: event.receivedAt,
             availableAfter: event.receivedAt,
+            executionDeadline: null,
+            dispatchGeneration: initialJobDispatchGeneration,
             maximumAttempts: 5,
             correlationId: event.correlationId,
             sourceEventId: event.id,
