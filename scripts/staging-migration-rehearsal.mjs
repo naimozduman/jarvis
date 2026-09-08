@@ -41,6 +41,30 @@ function equalArrays(left, right) {
   return left.length === right.length && left.every((value, index) => value === right[index]);
 }
 
+const EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS = Object.freeze([
+  'job_id',
+  'dispatch_generation',
+  'attempt_number',
+]);
+
+export function isExpectedExecutionHistoryIndex(index) {
+  return (
+    index?.generation_attempt_index_is_unique === true &&
+    index.generation_attempt_index_is_valid === true &&
+    index.generation_attempt_index_key_count ===
+      EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS.length &&
+    index.generation_attempt_index_attribute_count ===
+      EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS.length &&
+    index.generation_attempt_index_has_predicate === false &&
+    index.generation_attempt_index_has_expressions === false &&
+    Array.isArray(index.generation_attempt_index_key_columns) &&
+    equalArrays(
+      index.generation_attempt_index_key_columns,
+      EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS,
+    )
+  );
+}
+
 function rehearsalPolicy(certificateAuthorityPath, hostname = REHEARSAL_TARGET.directHost) {
   return createFixedMigrationTargetPolicy({
     target: { ...REHEARSAL_TARGET, directHost: hostname },
@@ -289,10 +313,30 @@ async function verifyFinalState(applicationRoot, connectionString, expectedMigra
           where dispatch_generation = 1 and execution_deadline is null) as safe_jobs,
         (select count(*)::integer from jarvis.job_executions
           where dispatch_generation = 1) as safe_executions,
-        coalesce((
-          select indexdef from pg_indexes
-          where schemaname = 'jarvis' and indexname = 'job_executions_job_generation_attempt_unique'
-        ), '') as generation_attempt_index
+        index_record.indisunique as generation_attempt_index_is_unique,
+        index_record.indisvalid as generation_attempt_index_is_valid,
+        index_record.indnkeyatts::integer as generation_attempt_index_key_count,
+        index_record.indnatts::integer as generation_attempt_index_attribute_count,
+        (index_record.indpred is not null) as generation_attempt_index_has_predicate,
+        (index_record.indexprs is not null) as generation_attempt_index_has_expressions,
+        array(
+          select attribute.attname
+          from unnest(index_record.indkey::smallint[]) with ordinality
+            as key_column(attnum, ordinality)
+          left join pg_attribute as attribute
+            on attribute.attrelid = table_relation.oid and attribute.attnum = key_column.attnum
+          where key_column.ordinality <= index_record.indnkeyatts
+          order by key_column.ordinality
+        ) as generation_attempt_index_key_columns
+      from pg_index as index_record
+      join pg_class as index_relation on index_relation.oid = index_record.indexrelid
+      join pg_namespace as index_namespace on index_namespace.oid = index_relation.relnamespace
+      join pg_class as table_relation on table_relation.oid = index_record.indrelid
+      join pg_namespace as table_namespace on table_namespace.oid = table_relation.relnamespace
+      where index_namespace.nspname = 'jarvis'
+        and table_namespace.nspname = 'jarvis'
+        and table_relation.relname = 'job_executions'
+        and index_relation.relname = 'job_executions_job_generation_attempt_unique'
     `);
     requireCondition(rows.rows.length === 1, 'rehearsal_final_schema_unexpected');
     requireCondition(
@@ -304,9 +348,7 @@ async function verifyFinalState(applicationRoot, connectionString, expectedMigra
       'rehearsal_default_unexpected',
     );
     requireCondition(
-      /\("job_id", "dispatch_generation", "attempt_number"\)/.test(
-        rows.rows[0].generation_attempt_index,
-      ),
+      isExpectedExecutionHistoryIndex(rows.rows[0]),
       'rehearsal_execution_history_index_unexpected',
     );
   });

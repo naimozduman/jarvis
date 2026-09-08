@@ -18,6 +18,7 @@ import {
   runStagingMigration,
   validateMigrationConnectionString,
 } from './staging-migration-release.mjs';
+import { isExpectedExecutionHistoryIndex } from './staging-migration-rehearsal.mjs';
 
 const applicationRoot = resolve(process.cwd());
 const automationRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -133,6 +134,19 @@ function createClient({
 
       throw new Error('unexpected synthetic query');
     },
+  };
+}
+
+function expectedExecutionHistoryIndex(overrides = {}) {
+  return {
+    generation_attempt_index_is_unique: true,
+    generation_attempt_index_is_valid: true,
+    generation_attempt_index_key_count: 3,
+    generation_attempt_index_attribute_count: 3,
+    generation_attempt_index_has_predicate: false,
+    generation_attempt_index_has_expressions: false,
+    generation_attempt_index_key_columns: ['job_id', 'dispatch_generation', 'attempt_number'],
+    ...overrides,
   };
 }
 
@@ -384,6 +398,58 @@ test('keeps the hosted rehearsal isolated to its branch and local-only PostgreSQ
   );
   assert.match(rehearsalScript, /wrongHostnameUrl\.hostname = REHEARSAL_MISMATCH_HOST;/);
   assert.doesNotMatch(rehearsalScript, /wrongHostnameUrl\.hostname = '127\.0\.0\.1';/);
+  assert.match(rehearsalScript, /from pg_index as index_record/);
+  assert.match(rehearsalScript, /index_record\.indisvalid/);
+  assert.match(rehearsalScript, /index_record\.indnkeyatts::integer/);
+  assert.match(rehearsalScript, /index_record\.indnatts::integer/);
+  assert.match(rehearsalScript, /key_column\.ordinality <= index_record\.indnkeyatts/);
+  assert.match(rehearsalScript, /index_record\.indpred is not null/);
+  assert.match(rehearsalScript, /index_record\.indexprs is not null/);
+  assert.match(rehearsalScript, /generation_attempt_index_key_columns/);
+  assert.doesNotMatch(rehearsalScript, /generation_attempt_index\)\.test/);
+});
+
+test('requires the exact structural job execution history index', () => {
+  assert.equal(isExpectedExecutionHistoryIndex(expectedExecutionHistoryIndex()), true);
+
+  for (const [name, overrides] of [
+    [
+      'old two-column index',
+      {
+        generation_attempt_index_key_count: 2,
+        generation_attempt_index_attribute_count: 2,
+        generation_attempt_index_key_columns: ['job_id', 'attempt_number'],
+      },
+    ],
+    [
+      'incorrect key columns',
+      { generation_attempt_index_key_columns: ['job_id', 'dispatch_generation', 'worker_id'] },
+    ],
+    [
+      'incorrect key order',
+      {
+        generation_attempt_index_key_columns: ['dispatch_generation', 'job_id', 'attempt_number'],
+      },
+    ],
+    ['nonunique index', { generation_attempt_index_is_unique: false }],
+    ['invalid index', { generation_attempt_index_is_valid: false }],
+    [
+      'included column masquerading as a key',
+      {
+        generation_attempt_index_key_count: 2,
+        generation_attempt_index_attribute_count: 3,
+        generation_attempt_index_key_columns: ['job_id', 'dispatch_generation'],
+      },
+    ],
+    ['partial index', { generation_attempt_index_has_predicate: true }],
+    ['expression index', { generation_attempt_index_has_expressions: true }],
+  ]) {
+    assert.equal(
+      isExpectedExecutionHistoryIndex(expectedExecutionHistoryIndex(overrides)),
+      false,
+      name,
+    );
+  }
 });
 
 test('runs synthetic preflight, migration, and postflight without exposing diagnostics', async () => {
