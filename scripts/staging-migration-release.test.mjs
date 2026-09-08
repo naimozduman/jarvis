@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
 import { readFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
 import { test } from 'node:test';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import {
   APPROVED_APPLICATION_SHA,
@@ -18,7 +19,10 @@ import {
   runStagingMigration,
   validateMigrationConnectionString,
 } from './staging-migration-release.mjs';
-import { isExpectedExecutionHistoryIndex } from './staging-migration-rehearsal.mjs';
+import {
+  describeExecutionHistoryIndex,
+  isExpectedExecutionHistoryIndex,
+} from './staging-migration-rehearsal.mjs';
 
 const applicationRoot = resolve(process.cwd());
 const automationRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -139,15 +143,25 @@ function createClient({
 
 function expectedExecutionHistoryIndex(overrides = {}) {
   return {
+    generation_attempt_index_found: true,
     generation_attempt_index_is_unique: true,
     generation_attempt_index_is_valid: true,
     generation_attempt_index_key_count: 3,
     generation_attempt_index_attribute_count: 3,
     generation_attempt_index_has_predicate: false,
     generation_attempt_index_has_expressions: false,
+    generation_attempt_index_key_columns_database_type: 'text[]',
     generation_attempt_index_key_columns: ['job_id', 'dispatch_generation', 'attempt_number'],
     ...overrides,
   };
+}
+
+function parseDatabaseWorkspaceArray(oid, serializedArray) {
+  const requireFromDatabaseWorkspace = createRequire(
+    pathToFileURL(resolve(applicationRoot, 'packages/database/package.json')).href,
+  );
+  const { types } = requireFromDatabaseWorkspace('pg');
+  return types.getTypeParser(oid, 'text')(serializedArray);
 }
 
 test('accepts only the approved direct, role-bound, TLS-verified target', () => {
@@ -405,14 +419,41 @@ test('keeps the hosted rehearsal isolated to its branch and local-only PostgreSQ
   assert.match(rehearsalScript, /key_column\.ordinality <= index_record\.indnkeyatts/);
   assert.match(rehearsalScript, /index_record\.indpred is not null/);
   assert.match(rehearsalScript, /index_record\.indexprs is not null/);
+  assert.match(rehearsalScript, /attribute\.attname::text/);
+  assert.match(rehearsalScript, /generation_attempt_index_key_columns_database_type/);
+  assert.match(rehearsalScript, /index_column_array_driver_probe/);
+  assert.match(rehearsalScript, /execution_history_index_diagnostic/);
+  assert.match(rehearsalScript, /failedPredicates/);
   assert.match(rehearsalScript, /generation_attempt_index_key_columns/);
+  assert.ok(
+    rehearsalScript.indexOf('await verifyColumnNameArrayDriverBoundary') <
+      rehearsalScript.indexOf('const wrongRole'),
+  );
+  assert.doesNotMatch(rehearsalScript, /setTypeParser/);
   assert.doesNotMatch(rehearsalScript, /generation_attempt_index\)\.test/);
+});
+
+test('uses the database workspace driver to distinguish name[] from text[]', () => {
+  const syntheticColumnNames = '{"job_id","dispatch_generation","attempt_number"}';
+  const uncastResult = parseDatabaseWorkspaceArray(1003, syntheticColumnNames);
+  const correctedResult = parseDatabaseWorkspaceArray(1009, syntheticColumnNames);
+
+  assert.equal(typeof uncastResult, 'string');
+  assert.equal(Array.isArray(uncastResult), false);
+  assert.equal(uncastResult, syntheticColumnNames);
+  assert.equal(typeof correctedResult, 'object');
+  assert.equal(Array.isArray(correctedResult), true);
+  assert.deepEqual(correctedResult, ['job_id', 'dispatch_generation', 'attempt_number']);
 });
 
 test('requires the exact structural job execution history index', () => {
   assert.equal(isExpectedExecutionHistoryIndex(expectedExecutionHistoryIndex()), true);
+  assert.deepEqual(
+    describeExecutionHistoryIndex(expectedExecutionHistoryIndex()).failedPredicates,
+    [],
+  );
 
-  for (const [name, overrides] of [
+  for (const [name, overrides, failedPredicate] of [
     [
       'old two-column index',
       {
@@ -420,19 +461,22 @@ test('requires the exact structural job execution history index', () => {
         generation_attempt_index_attribute_count: 2,
         generation_attempt_index_key_columns: ['job_id', 'attempt_number'],
       },
+      'key_attribute_count',
     ],
     [
       'incorrect key columns',
       { generation_attempt_index_key_columns: ['job_id', 'dispatch_generation', 'worker_id'] },
+      'key_columns_order',
     ],
     [
       'incorrect key order',
       {
         generation_attempt_index_key_columns: ['dispatch_generation', 'job_id', 'attempt_number'],
       },
+      'key_columns_order',
     ],
-    ['nonunique index', { generation_attempt_index_is_unique: false }],
-    ['invalid index', { generation_attempt_index_is_valid: false }],
+    ['nonunique index', { generation_attempt_index_is_unique: false }, 'is_unique'],
+    ['invalid index', { generation_attempt_index_is_valid: false }, 'is_valid'],
     [
       'included column masquerading as a key',
       {
@@ -440,14 +484,24 @@ test('requires the exact structural job execution history index', () => {
         generation_attempt_index_attribute_count: 3,
         generation_attempt_index_key_columns: ['job_id', 'dispatch_generation'],
       },
+      'key_attribute_count',
     ],
-    ['partial index', { generation_attempt_index_has_predicate: true }],
-    ['expression index', { generation_attempt_index_has_expressions: true }],
+    ['partial index', { generation_attempt_index_has_predicate: true }, 'no_predicate'],
+    ['expression index', { generation_attempt_index_has_expressions: true }, 'no_expressions'],
+    [
+      'uncast name array',
+      {
+        generation_attempt_index_key_columns_database_type: 'name[]',
+        generation_attempt_index_key_columns: '{"job_id","dispatch_generation","attempt_number"}',
+      },
+      'key_columns_database_type',
+    ],
   ]) {
-    assert.equal(
-      isExpectedExecutionHistoryIndex(expectedExecutionHistoryIndex(overrides)),
-      false,
-      name,
+    const index = expectedExecutionHistoryIndex(overrides);
+    assert.equal(isExpectedExecutionHistoryIndex(index), false, name);
+    assert.ok(
+      describeExecutionHistoryIndex(index).failedPredicates.includes(failedPredicate),
+      `${name} should identify ${failedPredicate}`,
     );
   }
 });

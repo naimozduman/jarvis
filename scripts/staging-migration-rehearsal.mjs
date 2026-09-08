@@ -47,22 +47,47 @@ const EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS = Object.freeze([
   'attempt_number',
 ]);
 
+export function describeExecutionHistoryIndex(index) {
+  const keyColumns = index?.generation_attempt_index_key_columns;
+  const expectedColumnCount = EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS.length;
+  const predicates = [
+    ['index_found', index?.generation_attempt_index_found === true],
+    ['is_unique', index?.generation_attempt_index_is_unique === true],
+    ['is_valid', index?.generation_attempt_index_is_valid === true],
+    ['key_attribute_count', index?.generation_attempt_index_key_count === expectedColumnCount],
+    ['attribute_count', index?.generation_attempt_index_attribute_count === expectedColumnCount],
+    ['no_predicate', index?.generation_attempt_index_has_predicate === false],
+    ['no_expressions', index?.generation_attempt_index_has_expressions === false],
+    [
+      'key_columns_database_type',
+      index?.generation_attempt_index_key_columns_database_type === 'text[]',
+    ],
+    ['key_columns_is_array', Array.isArray(keyColumns)],
+    [
+      'key_columns_order',
+      Array.isArray(keyColumns) &&
+        equalArrays(keyColumns, EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS),
+    ],
+  ];
+
+  return {
+    indexFound: index?.generation_attempt_index_found === true,
+    isUnique: index?.generation_attempt_index_is_unique ?? null,
+    isValid: index?.generation_attempt_index_is_valid ?? null,
+    keyAttributeCount: index?.generation_attempt_index_key_count ?? null,
+    attributeCount: index?.generation_attempt_index_attribute_count ?? null,
+    hasPredicate: index?.generation_attempt_index_has_predicate ?? null,
+    hasExpressions: index?.generation_attempt_index_has_expressions ?? null,
+    keyColumnsDatabaseType: index?.generation_attempt_index_key_columns_database_type ?? null,
+    keyColumnsJavaScriptType: typeof keyColumns,
+    keyColumnsIsArray: Array.isArray(keyColumns),
+    expectedColumnNames: [...EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS],
+    failedPredicates: predicates.filter(([, accepted]) => !accepted).map(([name]) => name),
+  };
+}
+
 export function isExpectedExecutionHistoryIndex(index) {
-  return (
-    index?.generation_attempt_index_is_unique === true &&
-    index.generation_attempt_index_is_valid === true &&
-    index.generation_attempt_index_key_count ===
-      EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS.length &&
-    index.generation_attempt_index_attribute_count ===
-      EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS.length &&
-    index.generation_attempt_index_has_predicate === false &&
-    index.generation_attempt_index_has_expressions === false &&
-    Array.isArray(index.generation_attempt_index_key_columns) &&
-    equalArrays(
-      index.generation_attempt_index_key_columns,
-      EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS,
-    )
-  );
+  return describeExecutionHistoryIndex(index).failedPredicates.length === 0;
 }
 
 function rehearsalPolicy(certificateAuthorityPath, hostname = REHEARSAL_TARGET.directHost) {
@@ -109,6 +134,72 @@ async function withRehearsalClient(applicationRoot, connectionString, operation)
   } finally {
     await client.end().catch(() => undefined);
   }
+}
+
+async function verifyColumnNameArrayDriverBoundary(applicationRoot, connectionString) {
+  await withRehearsalClient(applicationRoot, connectionString, async (client) => {
+    const result = await client.query(`
+      with synthetic_column_names(ordinality, column_name) as (
+        values
+          (1, 'job_id'::name),
+          (2, 'dispatch_generation'::name),
+          (3, 'attempt_number'::name)
+      )
+      select
+        pg_typeof(
+          array(
+            select column_name
+            from synthetic_column_names
+            order by ordinality
+          )
+        )::text as uncast_column_result_database_type,
+        array(
+          select column_name
+          from synthetic_column_names
+          order by ordinality
+        ) as uncast_column_result,
+        pg_typeof(
+          array(
+            select column_name::text
+            from synthetic_column_names
+            order by ordinality
+          )
+        )::text as corrected_column_result_database_type,
+        array(
+          select column_name::text
+          from synthetic_column_names
+          order by ordinality
+        ) as corrected_column_result
+    `);
+    requireCondition(result.rows.length === 1, 'rehearsal_driver_array_probe_unexpected');
+
+    const row = result.rows[0];
+    const correctedColumnNamesMatchExpected =
+      Array.isArray(row.corrected_column_result) &&
+      equalArrays(row.corrected_column_result, EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS);
+    console.log(
+      `rehearsal: index_column_array_driver_probe=${JSON.stringify({
+        uncastDatabaseType: row.uncast_column_result_database_type,
+        uncastJavaScriptType: typeof row.uncast_column_result,
+        uncastIsArray: Array.isArray(row.uncast_column_result),
+        correctedDatabaseType: row.corrected_column_result_database_type,
+        correctedJavaScriptType: typeof row.corrected_column_result,
+        correctedIsArray: Array.isArray(row.corrected_column_result),
+        expectedSyntheticColumnNames: [...EXPECTED_EXECUTION_HISTORY_INDEX_KEY_COLUMNS],
+        correctedColumnNamesMatchExpected,
+      })}`,
+    );
+    requireCondition(
+      row.uncast_column_result_database_type === 'name[]' &&
+        typeof row.uncast_column_result === 'string' &&
+        Array.isArray(row.uncast_column_result) === false &&
+        row.corrected_column_result_database_type === 'text[]' &&
+        typeof row.corrected_column_result === 'object' &&
+        Array.isArray(row.corrected_column_result) === true &&
+        correctedColumnNamesMatchExpected,
+      'rehearsal_driver_array_probe_unexpected',
+    );
+  });
 }
 
 async function migrateThrough0006(applicationRoot, connectionString) {
@@ -313,30 +404,55 @@ async function verifyFinalState(applicationRoot, connectionString, expectedMigra
           where dispatch_generation = 1 and execution_deadline is null) as safe_jobs,
         (select count(*)::integer from jarvis.job_executions
           where dispatch_generation = 1) as safe_executions,
-        index_record.indisunique as generation_attempt_index_is_unique,
-        index_record.indisvalid as generation_attempt_index_is_valid,
-        index_record.indnkeyatts::integer as generation_attempt_index_key_count,
-        index_record.indnatts::integer as generation_attempt_index_attribute_count,
-        (index_record.indpred is not null) as generation_attempt_index_has_predicate,
-        (index_record.indexprs is not null) as generation_attempt_index_has_expressions,
-        array(
-          select attribute.attname
-          from unnest(index_record.indkey::smallint[]) with ordinality
-            as key_column(attnum, ordinality)
-          left join pg_attribute as attribute
-            on attribute.attrelid = table_relation.oid and attribute.attnum = key_column.attnum
-          where key_column.ordinality <= index_record.indnkeyatts
-          order by key_column.ordinality
-        ) as generation_attempt_index_key_columns
-      from pg_index as index_record
-      join pg_class as index_relation on index_relation.oid = index_record.indexrelid
-      join pg_namespace as index_namespace on index_namespace.oid = index_relation.relnamespace
-      join pg_class as table_relation on table_relation.oid = index_record.indrelid
-      join pg_namespace as table_namespace on table_namespace.oid = table_relation.relnamespace
-      where index_namespace.nspname = 'jarvis'
-        and table_namespace.nspname = 'jarvis'
-        and table_relation.relname = 'job_executions'
-        and index_relation.relname = 'job_executions_job_generation_attempt_unique'
+        index_metadata.generation_attempt_index_found,
+        index_metadata.generation_attempt_index_is_unique,
+        index_metadata.generation_attempt_index_is_valid,
+        index_metadata.generation_attempt_index_key_count,
+        index_metadata.generation_attempt_index_attribute_count,
+        index_metadata.generation_attempt_index_has_predicate,
+        index_metadata.generation_attempt_index_has_expressions,
+        index_metadata.generation_attempt_index_key_columns_database_type,
+        index_metadata.generation_attempt_index_key_columns
+      from (values (1)) as rehearsal_fixture(singleton)
+      left join lateral (
+        select
+          true as generation_attempt_index_found,
+          index_record.indisunique as generation_attempt_index_is_unique,
+          index_record.indisvalid as generation_attempt_index_is_valid,
+          index_record.indnkeyatts::integer as generation_attempt_index_key_count,
+          index_record.indnatts::integer as generation_attempt_index_attribute_count,
+          (index_record.indpred is not null) as generation_attempt_index_has_predicate,
+          (index_record.indexprs is not null) as generation_attempt_index_has_expressions,
+          pg_typeof(
+            array(
+              select attribute.attname::text
+              from unnest(index_record.indkey::smallint[]) with ordinality
+                as key_column(attnum, ordinality)
+              left join pg_attribute as attribute
+                on attribute.attrelid = table_relation.oid and attribute.attnum = key_column.attnum
+              where key_column.ordinality <= index_record.indnkeyatts
+              order by key_column.ordinality
+            )
+          )::text as generation_attempt_index_key_columns_database_type,
+          array(
+            select attribute.attname::text
+            from unnest(index_record.indkey::smallint[]) with ordinality
+              as key_column(attnum, ordinality)
+            left join pg_attribute as attribute
+              on attribute.attrelid = table_relation.oid and attribute.attnum = key_column.attnum
+            where key_column.ordinality <= index_record.indnkeyatts
+            order by key_column.ordinality
+          ) as generation_attempt_index_key_columns
+        from pg_index as index_record
+        join pg_class as index_relation on index_relation.oid = index_record.indexrelid
+        join pg_namespace as index_namespace on index_namespace.oid = index_relation.relnamespace
+        join pg_class as table_relation on table_relation.oid = index_record.indrelid
+        join pg_namespace as table_namespace on table_namespace.oid = table_relation.relnamespace
+        where index_namespace.nspname = 'jarvis'
+          and table_namespace.nspname = 'jarvis'
+          and table_relation.relname = 'job_executions'
+          and index_relation.relname = 'job_executions_job_generation_attempt_unique'
+      ) as index_metadata on true
     `);
     requireCondition(rows.rows.length === 1, 'rehearsal_final_schema_unexpected');
     requireCondition(
@@ -346,6 +462,11 @@ async function verifyFinalState(applicationRoot, connectionString, expectedMigra
     requireCondition(
       Number(rows.rows[0].safe_executions) === baseline.executionsCount,
       'rehearsal_default_unexpected',
+    );
+    console.log(
+      `rehearsal: execution_history_index_diagnostic=${JSON.stringify(
+        describeExecutionHistoryIndex(rows.rows[0]),
+      )}`,
     );
     requireCondition(
       isExpectedExecutionHistoryIndex(rows.rows[0]),
@@ -376,6 +497,7 @@ export async function runStagingMigrationRehearsal({ applicationRoot = process.c
     'rehearsal_seed_unexpected',
   );
   console.log('rehearsal: baseline_through_0006=pass');
+  await verifyColumnNameArrayDriverBoundary(applicationRoot, connectionString);
 
   const wrongRole = new URL(connectionString);
   wrongRole.username = 'wrong_rehearsal_role';
