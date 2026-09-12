@@ -22,6 +22,10 @@ import {
   registerStagingRuntimeRoutes,
   type StagingRuntimeRouteDependencies,
 } from './staging-runtime-routes.js';
+import {
+  registerStagingC7HarnessRoutes,
+  type StagingC7HarnessRouteDependencies,
+} from './staging-c7-harness-routes.js';
 
 interface ApiReadinessState {
   readonly databaseVerified?: boolean;
@@ -40,6 +44,8 @@ export interface BuildApiOptions {
   readonly evolutionTransportHealth?: () => Promise<MessagingTransportHealth>;
   /** Narrow, authenticated staging-only route; absent from normal API construction. */
   readonly stagingRuntime?: StagingRuntimeRouteDependencies;
+  /** Fixed C.7 staging release-gate suite; absent from normal API construction. */
+  readonly stagingC7Harness?: StagingC7HarnessRouteDependencies;
   /** Narrow Convex-to-Vercel callback; absent from normal API construction. */
   readonly orchestration?: OrchestrationRouteDependencies;
   /** Authenticated local-only transport boundary; absent unless Vercel explicitly composes it. */
@@ -119,6 +125,9 @@ export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
   });
   registerEvolutionWebhookRoute(app, options.evolutionWebhook);
   registerStagingRuntimeRoutes(app, options.stagingRuntime);
+  if (environment.appEnvironment === 'staging') {
+    registerStagingC7HarnessRoutes(app, options.stagingC7Harness);
+  }
   registerOrchestrationRoutes(app, options.orchestration);
   registerLocalBridgeRoutes(app, options.localBridge);
 

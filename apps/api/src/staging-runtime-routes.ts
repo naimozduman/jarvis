@@ -1,14 +1,17 @@
-import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
+import { randomUUID } from 'node:crypto';
 
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 
 import type { ApplicationEnvironment } from '@jarvis/config';
 import type { DurableJob, DurableJobInput } from '@jarvis/contracts';
 import type { EventPipelineDependencies } from '@jarvis/domain';
-import type { AuthenticationBoundary } from '@jarvis/security';
 import { OwnerAuthorizationError } from '@jarvis/security';
 
 import { ingestAuthenticatedEvent } from './events.js';
+import {
+  createStagingRuntimeAuthentication,
+  normalizedRequestHeaders,
+} from './staging-runtime-auth.js';
 
 interface SyntheticTurn {
   readonly message: string;
@@ -51,50 +54,6 @@ export interface StagingRuntimeRouteDependencies {
   readonly now?: () => Date;
 }
 
-function secretDigest(value: string): Buffer {
-  return createHash('sha256').update(value, 'utf8').digest();
-}
-
-function hasExpectedBearerToken(value: string | undefined, expected: string): boolean {
-  if (!value?.startsWith('Bearer ')) {
-    return false;
-  }
-  const candidate = secretDigest(value.slice('Bearer '.length).trim());
-  const known = secretDigest(expected);
-  return timingSafeEqual(known, candidate);
-}
-
-function requestHeaders(
-  headers: FastifyRequest['headers'],
-): Readonly<Record<string, string | undefined>> {
-  const normalized: Record<string, string | undefined> = {};
-  for (const [name, value] of Object.entries(headers)) {
-    normalized[name] = typeof value === 'string' ? value : undefined;
-  }
-  return normalized;
-}
-
-function stagingAuthentication(input: {
-  readonly ownerId: string;
-  readonly accessToken: string;
-}): AuthenticationBoundary {
-  return {
-    async authenticate(context) {
-      if (!hasExpectedBearerToken(context.headers.authorization, input.accessToken)) {
-        throw new OwnerAuthorizationError('The staging runtime route requires trusted access.');
-      }
-      return {
-        ownerId: input.ownerId,
-        // This narrow machine credential acts as its own trusted principal; it does not create a
-        // public user/session path and can only ingest the synthetic event below.
-        subjectId: input.ownerId,
-        authMethod: 'trusted_client',
-        scopes: ['events:ingest'],
-      };
-    },
-  };
-}
-
 /**
  * A non-public staging probe. It is deliberately absent outside APP_ENV=staging and absent when
  * a trusted operator has not configured both an owner reference and a per-environment secret.
@@ -113,7 +72,7 @@ export function registerStagingRuntimeRoutes(
     return;
   }
 
-  const authentication = stagingAuthentication({
+  const authentication = createStagingRuntimeAuthentication({
     ownerId: dependencies.ownerId,
     accessToken: dependencies.accessToken,
   });
@@ -132,7 +91,7 @@ export function registerStagingRuntimeRoutes(
           ...(dependencies.now ? { now: dependencies.now } : {}),
         },
         {
-          headers: requestHeaders(request.headers),
+          headers: normalizedRequestHeaders(request.headers),
           method: request.method,
           path: '/internal/staging/synthetic-turn',
           body: {

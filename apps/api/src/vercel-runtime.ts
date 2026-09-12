@@ -9,6 +9,7 @@ import {
   DrizzleDurableDeliveryOutbox,
   DrizzleDurableJobLifecycleProjection,
   DrizzleRuntimeConversationRepository,
+  DrizzleStagingC7FixtureGuard,
   DrizzleTransportStateRepository,
   DrizzleTransactionalEventStore,
   type DatabaseRuntime,
@@ -28,11 +29,41 @@ import {
 import { createSafeLogRecord } from '@jarvis/observability';
 
 import { buildApi } from './http-app.js';
+import { runStagingC7Harness, StagingC7HarnessError } from './staging-c7-harness.js';
 
 export interface VercelApiRuntime {
   readonly environment: RuntimeEnvironment;
   readonly app: FastifyInstance;
   stop(): Promise<void>;
+}
+
+const stagingC7AdvisoryLock = 3_600_007;
+
+/** A session-level PostgreSQL lock prevents two serverless invocations from overlapping fixtures. */
+async function withStagingC7Lock<T>(
+  database: DatabaseRuntime,
+  operation: () => Promise<T>,
+): Promise<T> {
+  const client = await database.pool.connect();
+  let acquired = false;
+  try {
+    const result = await client.query<{ readonly acquired: boolean }>(
+      'select pg_try_advisory_lock($1) as acquired',
+      [stagingC7AdvisoryLock],
+    );
+    acquired = result.rows[0]?.acquired === true;
+    if (!acquired) {
+      throw new StagingC7HarnessError('fixture_not_ready');
+    }
+    return await operation();
+  } finally {
+    if (acquired) {
+      await client
+        .query('select pg_advisory_unlock($1)', [stagingC7AdvisoryLock])
+        .catch(() => undefined);
+    }
+    client.release();
+  }
 }
 
 function modelConfigured(environment: RuntimeEnvironment): boolean {
@@ -104,6 +135,7 @@ export async function createVercelApiRuntime(
     };
     const jobs = new DrizzleDurableJobLifecycleProjection(database.db);
     const eventRepository = new DrizzleCanonicalEventRepository(database.db);
+    const stagingC7FixtureGuard = new DrizzleStagingC7FixtureGuard(database.db);
     const conversations = new DrizzleRuntimeConversationRepository(database.db);
     const transportRepository = new DrizzleTransportStateRepository(database.db);
     const orchestration = new ConvexHttpOrchestrationPublisher({
@@ -145,6 +177,28 @@ export async function createVercelApiRuntime(
       handler,
       workerId: 'vercel-orchestration',
     });
+    const stagingC7Harness =
+      environment.appEnvironment === 'staging' &&
+      environment.evolution.ownerId &&
+      environment.stagingRuntimeTestToken
+        ? {
+            appEnvironment: environment.appEnvironment,
+            ownerId: environment.evolution.ownerId,
+            accessToken: environment.stagingRuntimeTestToken,
+            runSuite: () =>
+              withStagingC7Lock(database!, () =>
+                runStagingC7Harness({
+                  ownerId: environment.evolution.ownerId!,
+                  pipeline,
+                  lifecycle: jobs,
+                  events: eventRepository,
+                  canonicalHandler: handler,
+                  assertFixtureReady: () =>
+                    stagingC7FixtureGuard.isReady({ ownerId: environment.evolution.ownerId! }),
+                }),
+              ),
+          }
+        : undefined;
     let databaseVerified = true;
     const orchestrationConfigured = Boolean(
       environment.orchestration.convexUrl && environment.orchestration.vercelToConvexSecret,
@@ -181,6 +235,7 @@ export async function createVercelApiRuntime(
             },
           }
         : {}),
+      ...(stagingC7Harness ? { stagingC7Harness } : {}),
       orchestration: {
         callbackSecret: environment.orchestration.convexToVercelSecret,
         executor,

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
-import { and, eq } from 'drizzle-orm';
+import { and, eq, inArray } from 'drizzle-orm';
 
 import type { CanonicalEvent, EventProcessingStatus } from '@jarvis/contracts';
 import { createSafeAuditEvent } from '@jarvis/security';
@@ -10,7 +10,10 @@ import {
   auditEvents,
   conversations,
   events,
+  jobExecutions,
+  jobs,
   messagingTransportConnections,
+  owners,
 } from './schema/index.js';
 
 function asCanonicalEvent(row: typeof events.$inferSelect): CanonicalEvent {
@@ -150,6 +153,57 @@ export class DrizzleCanonicalEventRepository implements CanonicalEventRepository
         metadata: audit.metadata,
       });
     });
+  }
+}
+
+export interface StagingC7FixtureGuard {
+  /** Returns only whether the configured owner is an isolated, quiescent synthetic fixture. */
+  isReady(input: { readonly ownerId: string }): Promise<boolean>;
+}
+
+/**
+ * Prevents a staging release-gate probe from ever targeting a primary owner or from beginning
+ * while a previous synthetic fixture still has pending events, nonterminal jobs, or leases.
+ */
+export class DrizzleStagingC7FixtureGuard implements StagingC7FixtureGuard {
+  public constructor(private readonly database: JarvisDatabase) {}
+
+  public async isReady(input: { readonly ownerId: string }): Promise<boolean> {
+    const [owner] = await this.database
+      .select({ isPrimary: owners.isPrimary, emailNormalized: owners.emailNormalized })
+      .from(owners)
+      .where(eq(owners.id, input.ownerId))
+      .limit(1);
+    if (!owner || owner.isPrimary || !owner.emailNormalized.endsWith('@test.invalid')) {
+      return false;
+    }
+
+    const [activeJob] = await this.database
+      .select({ id: jobs.id })
+      .from(jobs)
+      .where(
+        and(
+          eq(jobs.ownerId, input.ownerId),
+          inArray(jobs.status, ['queued', 'retry_wait', 'leased']),
+        ),
+      )
+      .limit(1);
+    const [activeExecutionLease] = await this.database
+      .select({ id: jobExecutions.id })
+      .from(jobExecutions)
+      .where(and(eq(jobExecutions.ownerId, input.ownerId), eq(jobExecutions.status, 'leased')))
+      .limit(1);
+    const [pendingEvent] = await this.database
+      .select({ id: events.id })
+      .from(events)
+      .where(
+        and(
+          eq(events.ownerId, input.ownerId),
+          inArray(events.processingStatus, ['received', 'queued', 'processing']),
+        ),
+      )
+      .limit(1);
+    return !activeJob && !activeExecutionLease && !pendingEvent;
   }
 }
 
