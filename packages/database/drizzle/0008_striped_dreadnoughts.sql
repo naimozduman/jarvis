@@ -1,2 +1,0 @@
-DROP INDEX "jarvis"."job_executions_job_attempt_unique";--> statement-breakpoint
-CREATE UNIQUE INDEX "job_executions_job_generation_attempt_unique" ON "jarvis"."job_executions" USING btree ("job_id","dispatch_generation","attempt_number");

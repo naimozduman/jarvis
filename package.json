@@ -1,59 +1,11 @@
 {
-  "name": "jarvis-private-os",
-  "version": "0.0.0",
+  "name": "monthly-bills-proxy",
+  "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "packageManager": "pnpm@11.23.0",
-  "engines": {
-    "node": ">=24.19.0 <25",
-    "pnpm": ">=11.19.0 <12"
-  },
   "scripts": {
-    "build": "node scripts/run-workspace-task.mjs build",
-    "lint": "node scripts/run-workspace-task.mjs lint",
-    "typecheck": "node scripts/run-workspace-task.mjs typecheck",
-    "type-check": "pnpm typecheck",
-    "test": "vitest run && pnpm test:migration-safety",
-    "test:migration-safety": "node --test scripts/staging-migration-release.test.mjs",
-    "unit-test": "pnpm test",
-    "format:check": "prettier --check .",
-    "format:write": "prettier --write .",
-    "bundle:validate": "node scripts/validate-bundle.mjs",
-    "bundle-validation": "pnpm bundle:validate",
-    "brain:evals": "pnpm --filter @jarvis/brain evals",
-    "transport:evals": "pnpm --filter @jarvis/integrations-evolution evals",
-    "orchestration:evals": "vitest run packages/orchestration/test apps/api/test/orchestration-routes.test.ts",
-    "bridge:evals": "vitest run packages/database/test/delivery-lifecycle.test.ts apps/api/test/local-bridge-routes.test.ts apps/whatsapp-bridge/test",
-    "convex:codegen": "convex codegen",
-    "zero-cost:verify-models": "node scripts/verify-vercel-ai-gateway-models.mjs",
-    "secrets:check": "node scripts/check-secrets.mjs",
-    "db:generate": "pnpm --filter @jarvis/database db:generate",
-    "db:check": "pnpm --filter @jarvis/database db:check",
-    "db:migrate": "node scripts/migrate-database.mjs",
-    "test:db": "node scripts/run-database-tests.mjs",
-    "build:api": "pnpm --filter @jarvis/api... build",
-    "build:worker": "pnpm --filter @jarvis/worker... build",
-    "start:api": "pnpm --filter @jarvis/api start",
-    "start:worker": "pnpm --filter @jarvis/worker start",
-    "turbo:build": "turbo run build",
-    "turbo:lint": "turbo run lint",
-    "turbo:typecheck": "turbo run typecheck",
-    "ci": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm bundle:validate && pnpm secrets:check"
+    "start": "node server.js"
   },
-  "devDependencies": {
-    "@eslint/js": "10.0.1",
-    "@types/node": "24.13.3",
-    "@types/pg": "8.23.1",
-    "convex": "1.45.0",
-    "drizzle-kit": "0.31.10",
-    "eslint": "10.9.0",
-    "prettier": "3.9.6",
-    "turbo": "2.10.10",
-    "typescript": "6.0.3",
-    "typescript-eslint": "8.67.0",
-    "vitest": "4.1.10"
-  },
-  "optionalDependencies": {
-    "@rolldown/binding-win32-x64-msvc": "1.2.5"
+  "engines": {
+    "node": ">=20"
   }
 }

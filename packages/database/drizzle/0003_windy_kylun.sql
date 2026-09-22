@@ -1,1 +1,0 @@
-ALTER TABLE "jarvis"."intervention_runs" ADD COLUMN "context_key" varchar(512) NOT NULL;

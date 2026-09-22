@@ -1,1 +1,0 @@
-ALTER TABLE "jarvis"."outbound_message_deliveries" ADD COLUMN "media_object_reference" varchar(1024);
