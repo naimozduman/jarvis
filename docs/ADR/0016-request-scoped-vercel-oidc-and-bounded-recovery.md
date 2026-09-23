@@ -32,6 +32,13 @@ completion before regenerating `canonicalJobSignal()` and publishing it. It perf
 mutation, creates no ingress/event/job, and cannot invoke Brain. Convex's existing job/generation
 guard makes a repeated opaque signal idempotent at the coordinator boundary.
 
+Vercel does not export sensitive Production variables to local child processes. Therefore the
+same fixed recovery function may be transported through a temporary staging-only authenticated
+route when the standalone executable cannot receive the protected database and coordinator
+credentials. The route accepts no body or selector, exists only while its dedicated temporary
+credential is configured, and is removed operationally by deleting that credential and
+redeploying the same reviewed source after one invocation.
+
 ## Consequences
 
 - Gateway composition uses Vercel platform identity without a Gateway key, OpenAI key, or manually

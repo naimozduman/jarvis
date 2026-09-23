@@ -29,6 +29,7 @@ import {
 import { createSafeLogRecord } from '@jarvis/observability';
 
 import { buildApi } from './http-app.js';
+import { recoverPhase3d1ExistingJob } from './phase-3-6d1-job-recovery.js';
 import { runStagingC7Harness, StagingC7HarnessError } from './staging-c7-harness.js';
 
 export interface VercelApiRuntime {
@@ -255,6 +256,14 @@ export async function createVercelApiRuntime(
           }
         : {}),
       ...(stagingC7Harness ? { stagingC7Harness } : {}),
+      ...(environment.appEnvironment === 'staging' && environment.stagingPhase3d1RecoveryToken
+        ? {
+            phase3d1JobRecovery: {
+              accessToken: environment.stagingPhase3d1RecoveryToken,
+              recover: () => recoverPhase3d1ExistingJob({ jobs, orchestration }),
+            },
+          }
+        : {}),
       orchestration: {
         callbackSecret: environment.orchestration.convexToVercelSecret,
         executor,

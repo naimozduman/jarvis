@@ -41,6 +41,8 @@ const rawEnvironmentSchema = z.object({
    * user session, never has a development default, and is deliberately ignored outside staging.
    */
   STAGING_RUNTIME_TEST_TOKEN: z.string().trim().min(32).max(1_024).optional(),
+  /** Temporary credential for the exact Phase 3.6D.1 existing-job recovery operation. */
+  STAGING_PHASE_3_6D1_RECOVERY_TOKEN: z.string().trim().min(32).max(1_024).optional(),
   PROVIDER_INTEGRATIONS_ENABLED: booleanEnvironmentSchema.default('false'),
   JARVIS_EVOLUTION_ENABLED: booleanEnvironmentSchema.default('false'),
   JARVIS_OWNER_ID: z.uuid().optional(),
@@ -223,6 +225,7 @@ export interface RuntimeEnvironment {
   readonly apiPort: number;
   readonly workerHealthPort: number;
   readonly stagingRuntimeTestToken: string | undefined;
+  readonly stagingPhase3d1RecoveryToken: string | undefined;
   readonly providerIntegrationsEnabled: boolean;
   readonly evolution: EvolutionRuntimeConfiguration;
   readonly model: ModelRuntimeConfiguration;
@@ -741,6 +744,7 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     apiPort: parsed.PORT ?? parsed.API_PORT,
     workerHealthPort: parsed.PORT ?? parsed.WORKER_HEALTH_PORT,
     stagingRuntimeTestToken: parsed.STAGING_RUNTIME_TEST_TOKEN,
+    stagingPhase3d1RecoveryToken: parsed.STAGING_PHASE_3_6D1_RECOVERY_TOKEN,
     providerIntegrationsEnabled: parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true',
     evolution,
     model,

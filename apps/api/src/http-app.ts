@@ -26,6 +26,10 @@ import {
   registerStagingC7HarnessRoutes,
   type StagingC7HarnessRouteDependencies,
 } from './staging-c7-harness-routes.js';
+import {
+  registerPhase3d1JobRecoveryRoute,
+  type Phase3d1JobRecoveryRouteDependencies,
+} from './phase-3-6d1-job-recovery-route.js';
 
 interface ApiReadinessState {
   readonly databaseVerified?: boolean;
@@ -46,6 +50,8 @@ export interface BuildApiOptions {
   readonly stagingRuntime?: StagingRuntimeRouteDependencies;
   /** Fixed C.7 staging release-gate suite; absent from normal API construction. */
   readonly stagingC7Harness?: StagingC7HarnessRouteDependencies;
+  /** Exact one-job Phase 3.6D.1 recovery; absent unless its temporary credential exists. */
+  readonly phase3d1JobRecovery?: Phase3d1JobRecoveryRouteDependencies;
   /** Narrow Convex-to-Vercel callback; absent from normal API construction. */
   readonly orchestration?: OrchestrationRouteDependencies;
   /** Authenticated local-only transport boundary; absent unless Vercel explicitly composes it. */
@@ -127,6 +133,7 @@ export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
   registerStagingRuntimeRoutes(app, options.stagingRuntime);
   if (environment.appEnvironment === 'staging') {
     registerStagingC7HarnessRoutes(app, options.stagingC7Harness);
+    registerPhase3d1JobRecoveryRoute(app, options.phase3d1JobRecovery);
   }
   registerOrchestrationRoutes(app, options.orchestration);
   registerLocalBridgeRoutes(app, options.localBridge);
