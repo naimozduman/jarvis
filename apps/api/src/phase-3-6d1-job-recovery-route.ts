@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 
+import { Phase3d1RecoveryRefusedError } from './phase-3-6d1-job-recovery.js';
 import { hasExpectedStagingBearerToken } from './staging-runtime-auth.js';
 
 export interface Phase3d1JobRecoveryRouteDependencies {
@@ -30,8 +31,10 @@ export function registerPhase3d1JobRecoveryRoute(
     try {
       const result = await dependencies.recover();
       return reply.code(202).send(result);
-    } catch {
-      return reply.code(409).send({ error: 'recovery_refused' });
+    } catch (error) {
+      return error instanceof Phase3d1RecoveryRefusedError
+        ? reply.code(409).send({ error: 'recovery_refused' })
+        : reply.code(503).send({ error: 'recovery_publication_unavailable' });
     }
   });
 }

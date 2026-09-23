@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import { describe, expect, it, vi } from 'vitest';
 
 import { registerPhase3d1JobRecoveryRoute } from '../src/phase-3-6d1-job-recovery-route.js';
+import { Phase3d1RecoveryRefusedError } from '../src/phase-3-6d1-job-recovery.js';
 
 const accessToken = 'phase-3-6d1-route-unit-test-token-only';
 
@@ -70,22 +71,35 @@ describe('Phase 3.6D.1 exact recovery route', () => {
     }
   });
 
-  it('returns a fixed refusal without leaking an internal failure', async () => {
+  it('distinguishes a canonical refusal from a sanitized publication failure', async () => {
+    const refusalApp = Fastify({ logger: false });
+    registerPhase3d1JobRecoveryRoute(refusalApp, {
+      accessToken,
+      recover: vi.fn().mockRejectedValue(new Phase3d1RecoveryRefusedError()),
+    });
     const app = Fastify({ logger: false });
     registerPhase3d1JobRecoveryRoute(app, {
       accessToken,
       recover: vi.fn().mockRejectedValue(new Error('database details must not escape')),
     });
     try {
+      const refusal = await refusalApp.inject({
+        method: 'POST',
+        url: '/internal/staging/phase-3-6d1-recover',
+        headers: { authorization: `Bearer ${accessToken}` },
+      });
       const response = await app.inject({
         method: 'POST',
         url: '/internal/staging/phase-3-6d1-recover',
         headers: { authorization: `Bearer ${accessToken}` },
       });
-      expect(response.statusCode).toBe(409);
-      expect(response.json()).toEqual({ error: 'recovery_refused' });
+      expect(refusal.statusCode).toBe(409);
+      expect(refusal.json()).toEqual({ error: 'recovery_refused' });
+      expect(response.statusCode).toBe(503);
+      expect(response.json()).toEqual({ error: 'recovery_publication_unavailable' });
       expect(response.payload).not.toContain('database');
     } finally {
+      await refusalApp.close();
       await app.close();
     }
   });
