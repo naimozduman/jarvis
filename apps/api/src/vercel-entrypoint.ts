@@ -1,14 +1,34 @@
 import type { OutgoingHttpHeaders } from 'node:http';
 
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { getVercelOidcToken } from '@vercel/oidc';
 
 import { loadApiEnvironment } from '@jarvis/config';
 
 import { getApiLiveHealth } from './health.js';
-import type { VercelApiRuntime } from './vercel-runtime.js';
+import type { VercelApiRuntime, VercelInvocationIdentity } from './vercel-runtime.js';
 import { createVercelApiRuntime } from './vercel-runtime.js';
 
-export type VercelRuntimeFactory = () => Promise<Pick<VercelApiRuntime, 'app' | 'stop'>>;
+export type VercelRuntimeFactory = (
+  identity: VercelInvocationIdentity,
+) => Promise<Pick<VercelApiRuntime, 'app' | 'stop'>>;
+export type VercelInvocationIdentityResolver = () => Promise<VercelInvocationIdentity>;
+
+/**
+ * Resolves a fresh platform identity for this invocation. Absence is a supported state: the API
+ * still composes, while model readiness remains `not_configured` and no provider call is possible.
+ */
+export async function resolveVercelInvocationIdentity(): Promise<VercelInvocationIdentity> {
+  // `@vercel/oidc` can obtain a development token for a locally linked project. Local and test
+  // processes must remain provider-free unless they inject an explicit resolver test double.
+  if (process.env.VERCEL !== '1') return {};
+  try {
+    const oidcToken = await getVercelOidcToken();
+    return oidcToken ? { oidcToken } : {};
+  } catch {
+    return {};
+  }
+}
 
 /** The documented HTTP methods accepted by Fastify's in-process injection implementation. */
 type InjectableHttpMethod =
@@ -73,6 +93,7 @@ function sendUnavailable(reply: FastifyReply): FastifyReply {
 export function registerVercelFastifyAdapter(
   app: FastifyInstance,
   createRuntime: VercelRuntimeFactory = createVercelApiRuntime,
+  resolveIdentity: VercelInvocationIdentityResolver = resolveVercelInvocationIdentity,
 ): FastifyInstance {
   // Liveness proves the Fastify entrypoint and validated non-secret configuration without
   // coupling the probe to a remote dependency. Readiness below remains responsible for Neon.
@@ -87,7 +108,8 @@ export function registerVercelFastifyAdapter(
   app.all('/api/*', async (request, reply) => {
     let runtime: Pick<VercelApiRuntime, 'app' | 'stop'> | undefined;
     try {
-      runtime = await createRuntime();
+      const identity = await resolveIdentity();
+      runtime = await createRuntime(identity);
       await runtime.app.ready();
       const payload = requestPayload(request);
       const response = await runtime.app.inject({

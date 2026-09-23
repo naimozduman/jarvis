@@ -31,4 +31,4 @@ export type {
   CreateApiRuntimeOptions,
 } from './runtime.js';
 export { createVercelApiRuntime } from './vercel-runtime.js';
-export type { VercelApiRuntime } from './vercel-runtime.js';
+export type { VercelApiRuntime, VercelInvocationIdentity } from './vercel-runtime.js';

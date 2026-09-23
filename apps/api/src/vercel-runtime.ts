@@ -37,6 +37,23 @@ export interface VercelApiRuntime {
   stop(): Promise<void>;
 }
 
+/** Identity resolved by Vercel's official helper for one Function invocation only. */
+export interface VercelInvocationIdentity {
+  readonly oidcToken?: string;
+}
+
+/**
+ * Builds an invocation-local configuration view without mutating `process.env`. An ambient
+ * `VERCEL_OIDC_TOKEN` is deliberately ignored: only identity explicitly obtained for this
+ * invocation may enable the Gateway adapter.
+ */
+export function environmentSourceForVercelInvocation(
+  identity: VercelInvocationIdentity,
+  source: Readonly<Record<string, string | undefined>>,
+): Readonly<Record<string, string | undefined>> {
+  return { ...source, VERCEL_OIDC_TOKEN: identity.oidcToken };
+}
+
 const stagingC7AdvisoryLock = 3_600_007;
 
 /** A session-level PostgreSQL lock prevents two serverless invocations from overlapping fixtures. */
@@ -103,9 +120,11 @@ function modelConfigured(environment: RuntimeEnvironment): boolean {
  * coordinator; all actual job leasing and state mutation remain in the canonical database.
  */
 export async function createVercelApiRuntime(
+  identity: VercelInvocationIdentity = {},
   source: Readonly<Record<string, string | undefined>> = process.env,
 ): Promise<VercelApiRuntime> {
-  const environment = loadApiEnvironment(source);
+  const invocationSource = environmentSourceForVercelInvocation(identity, source);
+  const environment = loadApiEnvironment(invocationSource);
   if (!environment.databaseUrl) {
     throw new Error('Vercel runtime requires canonical DATABASE_URL.');
   }
@@ -213,7 +232,7 @@ export async function createVercelApiRuntime(
     };
 
     app = buildApi({
-      environment: source,
+      environment: invocationSource,
       readiness: () => ({
         databaseVerified,
         // The existing health contract calls this queue readiness. In serverless mode it means a

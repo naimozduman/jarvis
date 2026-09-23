@@ -25,7 +25,7 @@ describe('Vercel Fastify application entrypoint', () => {
       stop,
     } as never);
     const app = Fastify({ logger: false });
-    registerVercelFastifyAdapter(app, createRuntime);
+    registerVercelFastifyAdapter(app, createRuntime, async () => ({}));
 
     try {
       const response = await app.inject({
@@ -46,6 +46,7 @@ describe('Vercel Fastify application entrypoint', () => {
         }),
       );
       expect(stop).toHaveBeenCalledTimes(1);
+      expect(createRuntime).toHaveBeenCalledWith({});
     } finally {
       await app.close();
     }
@@ -89,9 +90,13 @@ describe('Vercel Fastify application entrypoint', () => {
 
   it('returns a safe unavailable response when stateless readiness composition cannot start', async () => {
     const app = Fastify({ logger: false });
-    registerVercelFastifyAdapter(app, async () => {
-      throw new Error('database connection details must not reach the caller');
-    });
+    registerVercelFastifyAdapter(
+      app,
+      async () => {
+        throw new Error('database connection details must not reach the caller');
+      },
+      async () => ({}),
+    );
 
     try {
       const response = await app.inject({ method: 'GET', url: '/api/health/ready' });
@@ -100,6 +105,73 @@ describe('Vercel Fastify application entrypoint', () => {
         status: 'unavailable',
         error: 'The stateless API runtime is unavailable.',
       });
+    } finally {
+      await app.close();
+    }
+  });
+
+  it('passes only request-scoped platform identity into model composition and never reflects it', async () => {
+    const platformToken = 'unit-test-platform-identity-never-log-or-return';
+    const createRuntime = vi.fn<VercelRuntimeFactory>().mockResolvedValue({
+      app: {
+        ready: vi.fn().mockResolvedValue(undefined),
+        inject: vi.fn().mockResolvedValue({
+          statusCode: 200,
+          headers: { 'content-type': 'application/json' },
+          rawPayload: Buffer.from('{"status":"ok"}'),
+        }),
+      },
+      stop: vi.fn().mockResolvedValue(undefined),
+    } as never);
+    const resolveIdentity = vi.fn().mockResolvedValue({ oidcToken: platformToken });
+    const app = Fastify({ logger: false });
+    registerVercelFastifyAdapter(app, createRuntime, resolveIdentity);
+
+    try {
+      const response = await app.inject({
+        method: 'GET',
+        url: '/api/health/ready',
+        headers: { 'x-vercel-oidc-token': 'caller-controlled-header-must-not-be-used' },
+      });
+
+      expect(response.statusCode).toBe(200);
+      expect(response.payload).not.toContain(platformToken);
+      expect(response.payload).not.toContain('caller-controlled-header-must-not-be-used');
+      expect(resolveIdentity).toHaveBeenCalledWith();
+      expect(createRuntime).toHaveBeenCalledWith({ oidcToken: platformToken });
+    } finally {
+      await app.close();
+    }
+  });
+
+  it('resolves identity independently for separate runtime invocations', async () => {
+    const identities = [{ oidcToken: 'invocation-one' }, { oidcToken: 'invocation-two' }] as const;
+    const resolveIdentity = vi
+      .fn()
+      .mockResolvedValueOnce(identities[0])
+      .mockResolvedValueOnce(identities[1]);
+    const createRuntime = vi.fn<VercelRuntimeFactory>().mockImplementation(
+      async () =>
+        ({
+          app: {
+            ready: vi.fn().mockResolvedValue(undefined),
+            inject: vi.fn().mockResolvedValue({
+              statusCode: 200,
+              headers: { 'content-type': 'application/json' },
+              rawPayload: Buffer.from('{"status":"ok"}'),
+            }),
+          },
+          stop: vi.fn().mockResolvedValue(undefined),
+        }) as never,
+    );
+    const app = Fastify({ logger: false });
+    registerVercelFastifyAdapter(app, createRuntime, resolveIdentity);
+
+    try {
+      await app.inject({ method: 'GET', url: '/api/health/ready' });
+      await app.inject({ method: 'GET', url: '/api/health/ready' });
+
+      expect(createRuntime.mock.calls).toEqual([[identities[0]], [identities[1]]]);
     } finally {
       await app.close();
     }

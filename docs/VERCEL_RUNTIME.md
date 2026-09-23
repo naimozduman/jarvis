@@ -76,6 +76,14 @@ The adapter uses Fastify's in-process injection API. Apart from the entrypoint's
 listener, it never starts a TCP listener, a worker, or a durable scheduler. Vercel owns HTTP
 delivery.
 
+For every non-liveness invocation, the entrypoint uses Vercel's official `@vercel/oidc`
+`getVercelOidcToken()` helper and passes the resulting identity explicitly into the disposable
+runtime. The runtime does not read an ambient `VERCEL_OIDC_TOKEN` as its authority and does not
+mutate `process.env`. Missing identity leaves the model safely `not_configured`; local and test
+execution remains provider-free unless an explicit resolver test double is injected. The token is
+never logged, persisted, returned, stored in Neon, or shared across invocations. Liveness does not
+resolve OIDC or compose the model/database runtime.
+
 `/api/health/live` validates only the safe application configuration and Fastify entrypoint; it
 does not wait for Neon. `/api/health/ready` composes the request-scoped canonical runtime and
 verifies Neon. Its pool uses a five-second initial-connect deadline so a missing or unreachable

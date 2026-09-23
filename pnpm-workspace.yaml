@@ -5,3 +5,5 @@ allowBuilds:
   esbuild: false
 minimumReleaseAgeExclude:
   - pg-boss@12.28.1
+  - '@vercel/cli-config@0.3.0'
+  - '@vercel/oidc@3.8.9'

@@ -19,6 +19,8 @@ create a new production decision.
 | [0012 — zero-cost stateless runtime](0012-zero-cost-stateless-runtime.md)                                         | Accepted                       | Vercel is stateless, Convex orchestrates opaque signals, Neon remains canonical, and Railway staging is gone. |
 | [0013 — opaque Convex and local bridge boundary](0013-opaque-convex-local-bridge.md)                              | Accepted                       | Convex cannot receive private content; the authenticated local bridge loads payloads only from Neon.          |
 | [0014 — canonical delivery leases and expiry](0014-canonical-delivery-leases-and-expiry.md)                       | Accepted                       | Freshness, leases, retries, and terminal/reconciliation state are canonical Neon semantics.                   |
+| [0015 — canonical job generation and expiry](0015-canonical-job-generation-and-expiry.md)                         | Accepted                       | Neon-owned generations reject stale dispatch while explicit deadlines govern latest-start expiry.             |
+| [0016 — request-scoped Vercel OIDC and bounded recovery](0016-request-scoped-vercel-oidc-and-bounded-recovery.md) | Accepted                       | Resolve model identity per Function invocation and repair only an exact pre-authorized canonical job.         |
 
 ## Package glossary
 
