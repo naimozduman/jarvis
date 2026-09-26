@@ -124,6 +124,9 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
         ? new OpenAI({
             apiKey: configuration.oidcToken,
             baseURL: vercelAiGatewayResponsesUrl,
+            // One canonical model attempt must not silently issue additional Gateway requests.
+            // Any later retry requires a separately admitted canonical operation.
+            maxRetries: 0,
           })
         : null);
   }

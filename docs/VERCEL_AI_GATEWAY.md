@@ -7,6 +7,11 @@ The Vercel AI Gateway adapter uses the OpenAI-compatible Responses endpoint
 existing structured decision schema and sends `store: false`; it does not adopt hosted response or
 conversation storage as canonical JARVIS state.
 
+The adapter explicitly disables the OpenAI client's automatic HTTP retries (`maxRetries: 0`).
+One canonical model attempt issues one Gateway HTTP request, including on connection and retryable
+provider failures. Any later attempt requires a separately admitted canonical operation. This does
+not pin a provider, select another model, or change Gateway-managed routing.
+
 For the current platform interface, see Vercel's [AI Gateway documentation](https://vercel.com/docs/ai-gateway),
 [SDKs and APIs reference](https://vercel.com/docs/ai-gateway/sdks-and-apis), and
 [authentication guidance](https://vercel.com/docs/ai-gateway/authentication-and-byok). These links

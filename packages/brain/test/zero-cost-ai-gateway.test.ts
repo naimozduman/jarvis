@@ -262,4 +262,32 @@ describe('zero-cost Vercel AI Gateway boundary', () => {
       reportedGatewayCostUsd({ pricing: { input: '0.0000003', output: '0.0000012' } }),
     ).toBeNull();
   });
+
+  it.each(['provider_api', 'network'] as const)(
+    'makes exactly one HTTP attempt on a retryable %s failure through the real SDK client',
+    async (category) => {
+      const fetch = vi.spyOn(globalThis, 'fetch');
+      if (category === 'network') {
+        fetch.mockRejectedValue(new TypeError('Synthetic provider-free connection failure.'));
+      } else {
+        fetch.mockResolvedValue(
+          new Response(JSON.stringify({ error: { message: 'Synthetic provider-free failure.' } }), {
+            status: 503,
+            headers: { 'content-type': 'application/json' },
+          }),
+        );
+      }
+      try {
+        const gateway = new VercelAiGatewayModelGateway(guardedZeroCostEnvironment().model);
+
+        const result = await gateway.decide(gatewayRequest());
+
+        expect(result).toMatchObject({ status: 'unavailable', run: { errorCategory: category } });
+        expect(fetch).toHaveBeenCalledTimes(1);
+        expect(String(fetch.mock.calls[0]?.[0])).toBe(`${vercelAiGatewayResponsesUrl}/responses`);
+      } finally {
+        fetch.mockRestore();
+      }
+    },
+  );
 });
