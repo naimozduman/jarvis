@@ -1,4 +1,8 @@
 import Fastify from 'fastify';
+import {
+  registerPersonalSystemRoutes,
+  type PersonalSystemRouteDependencies,
+} from './personal-system-routes.js';
 import type { FastifyInstance } from 'fastify';
 
 import { loadApiEnvironment } from '@jarvis/config';
@@ -38,6 +42,7 @@ interface ApiReadinessState {
 }
 
 export interface BuildApiOptions {
+  readonly personalSystem?: PersonalSystemRouteDependencies;
   readonly environment?: EnvironmentSource;
   readonly readiness?: ApiReadinessState | (() => ApiReadinessState);
   /** A runtime-owned dependency probe; errors are represented by readiness state, never leaked. */
@@ -136,6 +141,7 @@ export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
     registerPhase3d1JobRecoveryRoute(app, options.phase3d1JobRecovery);
   }
   registerOrchestrationRoutes(app, options.orchestration);
+  registerPersonalSystemRoutes(app, options.personalSystem);
   registerLocalBridgeRoutes(app, options.localBridge);
 
   return app;

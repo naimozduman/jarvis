@@ -1,4 +1,6 @@
 import type { FastifyInstance } from 'fastify';
+import { PersonalSystemClient, PersonalAppError } from '@jarvis/integrations';
+import { PersonalSystemReadAccess } from '@jarvis/database';
 
 import type { RuntimeEnvironment } from '@jarvis/config';
 import { isVerifiedZeroCostGatewayRoute, loadApiEnvironment } from '@jarvis/config';
@@ -232,7 +234,44 @@ export async function createVercelApiRuntime(
       }
     };
 
+    const personalClient = new PersonalSystemClient(environment.personalApps);
+    const personalAccess =
+      environment.personalSystemRead.token && environment.evolution.ownerId
+        ? new PersonalSystemReadAccess(database.db, environment.evolution.ownerId)
+        : undefined;
     app = buildApi({
+      ...(personalAccess && environment.personalSystemRead.token
+        ? {
+            personalSystem: {
+              readToken: environment.personalSystemRead.token,
+              ...(environment.personalSystemRead.nextToken
+                ? { nextReadToken: environment.personalSystemRead.nextToken }
+                : {}),
+              today: (query) => personalClient.today(query),
+              status: () =>
+                Promise.all(
+                  (['ourhours', 'growth', 'iron'] as const).map(async (sourceApp) => {
+                    try {
+                      return {
+                        sourceApp,
+                        response: await personalClient.read(sourceApp, 'status'),
+                      };
+                    } catch (error) {
+                      return {
+                        sourceApp,
+                        error: error instanceof PersonalAppError ? error.code : 'unavailable',
+                      };
+                    }
+                  }),
+                ),
+              admit: (resource, credential) => personalAccess.admit(resource, credential),
+              logRejection: (reason) =>
+                console.info(
+                  JSON.stringify(createSafeLogRecord('personal_system.read.rejected', { reason })),
+                ),
+            },
+          }
+        : {}),
       environment: invocationSource,
       readiness: () => ({
         databaseVerified,

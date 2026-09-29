@@ -120,3 +120,27 @@ Use the Responses API directly from the worker. The OpenAI API key stays on Rail
 ## Hermes executor
 
 Optional later. Treat as a restricted worker for tasks without usable APIs. It receives one task packet and a minimal tool allowlist. It does not receive master database access, raw finance credentials, Google refresh tokens, or the constitution editor.
+
+### Private owner-app HTTP client
+
+`PersonalSystemClient` in `packages/integrations/src/personal-apps.ts` calls the existing
+Our Hours, Growth Stats, and Iron `/api/jarvis/*` server APIs. Configure the server-only
+`OURHOURS_API_URL` / `OURHOURS_API_TOKEN`, `GROWTH_API_URL` / `GROWTH_API_TOKEN`, and
+`IRON_API_URL` / `IRON_API_TOKEN` pairs with HTTPS origins. Revocation and rotation belong
+to each owning service. No database administrator credential is shared.
+
+`today()` reads the three sources independently and preserves unavailable-source status.
+Writes require a caller-supplied UUID operation key and are never automatically retried.
+The adapter does not grant model authority, execute proposed actions, or broaden WhatsApp
+bridge permissions. A caller must persist its authorized operation and audit before dispatch.
+
+The deployed Fastify runtime serves `GET /api/personal-system/today` and
+`GET /api/personal-system/status` only when `JARVIS_PERSONAL_SYSTEM_READ_TOKEN` and
+`JARVIS_OWNER_ID` are configured. Its fixed permission is `personal-system.read`.
+An optional `JARVIS_PERSONAL_SYSTEM_READ_TOKEN_NEXT` accepts the replacement during rotation.
+Remove the old value, promote the replacement, and redeploy to revoke old access. Removing both
+values and redeploying disables the gateway. Never reuse bridge or orchestration credentials.
+Every authenticated request first commits a metadata-only canonical audit record under a
+transactional per-owner limit of 30 reads/minute. No app request runs if admission fails.
+The daily endpoint calls all three APIs with their independent outgoing credentials, preserving
+source ownership and unavailable-source status. It does not execute writes or model actions.

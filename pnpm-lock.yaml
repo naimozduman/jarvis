@@ -62,6 +62,9 @@ importers:
       '@jarvis/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@jarvis/integrations':
+        specifier: workspace:*
+        version: link:../../packages/integrations
       '@jarvis/integrations-evolution':
         specifier: workspace:*
         version: link:../../packages/integrations-evolution

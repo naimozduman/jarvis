@@ -11,3 +11,5 @@ export function getIntegrationFoundationStatus(): IntegrationFoundationStatus {
     detail: 'Provider adapters are deliberately disabled during Phase 1.',
   };
 }
+
+export * from './personal-apps.js';

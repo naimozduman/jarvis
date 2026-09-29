@@ -2,6 +2,21 @@ import { z } from 'zod';
 
 const applicationEnvironments = ['development', 'test', 'staging', 'production'] as const;
 const booleanEnvironmentSchema = z.enum(['true', 'false']);
+const personalOriginSchema = z
+  .string()
+  .url()
+  .refine((value) => {
+    const url = new URL(value);
+    return (
+      url.protocol === 'https:' &&
+      !url.username &&
+      !url.password &&
+      !url.search &&
+      !url.hash &&
+      ['', '/'].includes(url.pathname)
+    );
+  });
+const personalTokenSchema = z.string().min(32).max(1024).regex(/^\S+$/);
 const modelProviderSchema = z.enum(['openai-responses', 'vercel-ai-gateway']);
 
 /**
@@ -25,6 +40,14 @@ const rawEnvironmentSchema = z.object({
   APP_ENV: applicationEnvironmentSchema.default('development'),
   APP_URL: z.string().url().optional(),
   API_URL: z.string().url().optional(),
+  JARVIS_PERSONAL_SYSTEM_READ_TOKEN: personalTokenSchema.optional(),
+  JARVIS_PERSONAL_SYSTEM_READ_TOKEN_NEXT: personalTokenSchema.optional(),
+  GROWTH_API_URL: personalOriginSchema.optional(),
+  GROWTH_API_TOKEN: personalTokenSchema.optional(),
+  OURHOURS_API_URL: personalOriginSchema.optional(),
+  OURHOURS_API_TOKEN: personalTokenSchema.optional(),
+  IRON_API_URL: personalOriginSchema.optional(),
+  IRON_API_TOKEN: personalTokenSchema.optional(),
   USER_TIMEZONE: z.string().trim().min(1).optional(),
   ALLOWED_USER_EMAIL: z.string().email().optional(),
   DATABASE_URL: z.string().url().optional(),
@@ -211,7 +234,23 @@ type ParsedEnvironment = z.infer<typeof rawEnvironmentSchema>;
 
 export type EnvironmentSource = Readonly<Record<string, string | undefined>>;
 
+export interface PersonalAppEnvironment {
+  readonly baseUrl: string;
+  /** Server only. Never return this configuration from an API. */
+  readonly token: string;
+}
+export interface PersonalSystemEnvironment {
+  readonly ourhours?: PersonalAppEnvironment;
+  readonly growth?: PersonalAppEnvironment;
+  readonly iron?: PersonalAppEnvironment;
+}
+
 export interface RuntimeEnvironment {
+  readonly personalSystemRead: {
+    readonly token: string | undefined;
+    readonly nextToken: string | undefined;
+  };
+  readonly personalApps: PersonalSystemEnvironment;
   readonly appEnvironment: ApplicationEnvironment;
   readonly appUrl: string;
   readonly apiUrl: string;
@@ -408,6 +447,18 @@ function parseRuntimeEnvironment(source: EnvironmentSource): RuntimeEnvironment 
     throw new EnvironmentValidationError(['APP_ENV']);
   }
 
+  if (
+    parsed.data.JARVIS_PERSONAL_SYSTEM_READ_TOKEN_NEXT &&
+    !parsed.data.JARVIS_PERSONAL_SYSTEM_READ_TOKEN
+  )
+    throw new EnvironmentValidationError(['JARVIS_PERSONAL_SYSTEM_READ_TOKEN']);
+  if (parsed.data.JARVIS_PERSONAL_SYSTEM_READ_TOKEN && !parsed.data.JARVIS_OWNER_ID)
+    throw new EnvironmentValidationError(['JARVIS_OWNER_ID']);
+  for (const prefix of ['GROWTH', 'OURHOURS', 'IRON'] as const) {
+    if (Boolean(parsed.data[`${prefix}_API_URL`]) !== Boolean(parsed.data[`${prefix}_API_TOKEN`])) {
+      throw new EnvironmentValidationError([`${prefix}_API_URL`, `${prefix}_API_TOKEN`]);
+    }
+  }
   validateEvolutionConfiguration(parsed.data);
   validateModelConfiguration(parsed.data);
   validateLocalBridgeConfiguration(parsed.data);
@@ -731,6 +782,21 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
   } satisfies EvolutionRuntimeConfiguration;
 
   return {
+    personalSystemRead: {
+      token: parsed.JARVIS_PERSONAL_SYSTEM_READ_TOKEN,
+      nextToken: parsed.JARVIS_PERSONAL_SYSTEM_READ_TOKEN_NEXT,
+    },
+    personalApps: {
+      ...(parsed.OURHOURS_API_URL && parsed.OURHOURS_API_TOKEN
+        ? { ourhours: { baseUrl: parsed.OURHOURS_API_URL, token: parsed.OURHOURS_API_TOKEN } }
+        : {}),
+      ...(parsed.GROWTH_API_URL && parsed.GROWTH_API_TOKEN
+        ? { growth: { baseUrl: parsed.GROWTH_API_URL, token: parsed.GROWTH_API_TOKEN } }
+        : {}),
+      ...(parsed.IRON_API_URL && parsed.IRON_API_TOKEN
+        ? { iron: { baseUrl: parsed.IRON_API_URL, token: parsed.IRON_API_TOKEN } }
+        : {}),
+    },
     appEnvironment: parsed.APP_ENV,
     appUrl: parsed.APP_URL ?? defaultAppUrl,
     apiUrl: parsed.API_URL ?? defaultApiUrl,
