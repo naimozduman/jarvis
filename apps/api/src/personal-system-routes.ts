@@ -71,23 +71,19 @@ export function registerPersonalSystemRoutes(
       );
       if (!authenticated) {
         dependencies.logRejection('unauthorized');
-        return reply
-          .code(401)
-          .send({
-            error: {
-              code: 'unauthorized',
-              message: 'A personal-system read credential is required.',
-            },
-          });
+        return reply.code(401).send({
+          error: {
+            code: 'unauthorized',
+            message: 'A personal-system read credential is required.',
+          },
+        });
       }
       const query = todayQuery(request.query);
       if (!query || (resource === 'status' && Object.keys(query).length)) {
         dependencies.logRejection('invalid_request');
-        return reply
-          .code(400)
-          .send({
-            error: { code: 'invalid_request', message: 'Use a valid date and timezone only.' },
-          });
+        return reply.code(400).send({
+          error: { code: 'invalid_request', message: 'Use a valid date and timezone only.' },
+        });
       }
       try {
         if (!(await dependencies.admit(resource, authenticated)))
@@ -100,11 +96,9 @@ export function registerPersonalSystemRoutes(
         return { schemaVersion: 1, data, permissions: ['personal-system.read'] };
       } catch {
         dependencies.logRejection('unavailable');
-        return reply
-          .code(503)
-          .send({
-            error: { code: 'unavailable', message: 'Personal-system read is unavailable.' },
-          });
+        return reply.code(503).send({
+          error: { code: 'unavailable', message: 'Personal-system read is unavailable.' },
+        });
       }
     });
   }
