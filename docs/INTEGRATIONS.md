@@ -144,3 +144,15 @@ Every authenticated request first commits a metadata-only canonical audit record
 transactional per-owner limit of 30 reads/minute. No app request runs if admission fails.
 The daily endpoint calls all three APIs with their independent outgoing credentials, preserving
 source ownership and unavailable-source status. It does not execute writes or model actions.
+
+### Deployed owner service origins
+
+The existing `jarvis-api-staging` Vercel project now tracks this repository's `main`
+branch. Its server environment connects to the existing production applications:
+
+- Our Hours: `https://our-hours-naim-zara.vercel.app`
+- Growth Stats: `https://growth-stats-usable.vercel.app`
+- Iron & Intervals: `https://iron-and-intervals-web.vercel.app`
+
+Use the primary Iron address. Team-specific deployment aliases remain protected
+by Vercel Authentication and are not background service origins.
