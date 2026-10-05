@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-02T08:23:32.492Z",
+  "missionReference": "J5-M09 / PRD Phase 3.8",
+  "scope": "Begin real-use correction, presentation-mode and accountability tuning within existing authority",
+  "boundedImplementationComplete": true,
+  "phase38Complete": false,
+  "governanceAdoptionOrSignedMissionCompletionClaimed": false,
+  "deployment": {
+    "id": "dpl_7uPWDmWWxZcBDqTc84QFkXdaBus4",
+    "state": "READY",
+    "target": "production",
+    "productionAlias": "https://jarvis-api-staging.vercel.app",
+    "immutableUrl": "https://jarvis-api-staging-ltame4mnf-naimozduman-1028s-projects.vercel.app",
+    "previousId": "dpl_7JmFNgjpbfPNt5RJFRSi52Krt7SF",
+    "baseCommit": "cb2284b8a6854cb8ede29ea82aebe1b5846337f9",
+    "source": "Accepted uncommitted working tree plus bounded tuning changes; prior dirty state preserved",
+    "cliVersion": "62.0.0",
+    "migrationsAdded": 0,
+    "newTablesAdded": 0
+  },
+  "gates": {
+    "fullCI": {
+      "command": "pnpm run ci",
+      "exitCode": 0,
+      "passedTests": 583,
+      "defaultSkippedDatabaseTests": 47,
+      "passedFiles": 57,
+      "skippedFiles": 5,
+      "format": true,
+      "lint": true,
+      "typecheck": true,
+      "build": true,
+      "bundle": true,
+      "secrets": true
+    },
+    "focusedBrain": {
+      "passedTests": 284,
+      "files": 6,
+      "skipped": 0,
+      "command": "pnpm exec vitest run packages/brain/test/daily-use.test.ts packages/brain/test/evals/phase-two-evals.test.ts packages/brain/test/accountability-intervention.test.ts packages/brain/test/completion-evidence.test.ts packages/brain/test/casual-chat-routing.test.ts packages/brain/test/owner-reminder-time.test.ts"
+    },
+    "focusedDatabase": {
+      "passedTests": 36,
+      "files": 2,
+      "correctionCases": 11,
+      "acceptedReminderCases": 25,
+      "skipped": 0,
+      "disposableLocalDatabase": true,
+      "command": "pnpm exec vitest run packages/database/test/owner-feedback.db.integration.test.ts packages/database/test/requested-reminder.db.integration.test.ts --maxWorkers=1 --no-file-parallelism"
+    },
+    "dedicatedDatabase": {
+      "command": "pnpm run test:db",
+      "passedTests": 10,
+      "skipped": 0,
+      "distinctRolesSameDisposableDatabase": true
+    },
+    "isolatedSyntheticDatabase": {
+      "command": "pnpm exec vitest run packages/database/test/reliability.db.integration.test.ts --maxWorkers=1 --no-file-parallelism",
+      "passedTests": 1,
+      "skipped": 0,
+      "isolatedDatabaseTargetVerified": true
+    },
+    "allDefaultSkippedDatabaseCasesExplicitlyPassed": true,
+    "controlledFailuresReproduced": [
+      "explicit_owner_minutes_ignored",
+      "next_owner_local_day_counted_as_today",
+      "decision_staging_failure_after_feedback_commit",
+      "audit_write_failure_during_daily_use_finalization",
+      "turkish_hard_override_trigger_mismatch"
+    ]
+  },
+  "evidenceWindow": {
+    "ownerTimezone": "America/Chicago",
+    "actualTransportUseDates": [
+      {
+        "owner_local_date": "2026-09-29",
+        "channel": "whatsapp",
+        "completed_transport_turns": 28
+      },
+      {
+        "owner_local_date": "2026-09-30",
+        "channel": "whatsapp",
+        "completed_transport_turns": 3
+      },
+      {
+        "owner_local_date": "2026-10-01",
+        "channel": "telegram",
+        "completed_transport_turns": 12
+      },
+      {
+        "owner_local_date": "2026-10-02",
+        "channel": "telegram",
+        "completed_transport_turns": 1
+      }
+    ],
+    "dateInterpretation": "Canonical completed primary-owner transport turns, including prior authorized production verification; not a scored longitudinal daily-use study.",
+    "actualOwnerCorrections": [],
+    "newFeedbackEvidenceCount": 0,
+    "historicalOwnerContentCopied": false,
+    "realUseHistoryBackfilled": false,
+    "thirtyDayWindowEstablished": false,
+    "historicalMediumGreetingCount": 15,
+    "historicalGreetingInterpretation": "Aggregate historical medium effort only; controlled fixtures prove the narrower unrelated-uncertainty routing defect."
+  },
+  "evaluation": {
+    "fixturePath": "packages/brain/test/evals/daily-use-cases.ts",
+    "syntheticDailyLifeCases": 16,
+    "scenarioTypes": [
+      "casual",
+      "opinion",
+      "low_energy",
+      "avoidance",
+      "missed_commitment",
+      "replan",
+      "reminder",
+      "ignored_reminder",
+      "ambiguous_reference",
+      "owner_correction",
+      "meaning_correction",
+      "hard_override",
+      "explicit_preference",
+      "mode_transition",
+      "positive_feedback"
+    ],
+    "languages": ["English", "Turkish", "mixed"],
+    "reviewDimensions": [
+      "grounding",
+      "usefulness",
+      "appropriate_brevity",
+      "natural_tone",
+      "challenge_strength",
+      "necessary_clarification_only",
+      "commitment_preservation",
+      "truthful_action_claims",
+      "repetition_and_noise"
+    ],
+    "deterministicBoundaryRegressionsPassed": true,
+    "actualProviderProseQualityReviewedInThisRun": false,
+    "ownerQualitativeReview": "pending natural real use",
+    "numericPersonalityScore": null
+  },
+  "feedbackScopes": {
+    "oneTurn": "Bounded observation requiring review; never automatically activates a durable trait",
+    "repeatedPreferenceEvidence": "At least three distinct linked completed turns in 30 days; provisional context only",
+    "explicitOwnerPreference": "Reviewed canonical presentation preference with audited supersession",
+    "constitutionRule": "Draft proposal only; separate owner review required before constitution activation",
+    "target": "Most recent provider-accepted completed turn in same owner conversation within 24 hours; otherwise explicitly unbound"
+  },
+  "regressionsCreated": [
+    {
+      "id": "casual_greeting_uncertainty",
+      "tests": [
+        "packages/brain/test/casual-chat-routing.test.ts",
+        "packages/brain/test/evals/phase-two-evals.test.ts"
+      ]
+    },
+    {
+      "id": "cooldown_actual_reply_and_override",
+      "tests": [
+        "packages/brain/test/accountability-intervention.test.ts",
+        "packages/brain/test/evals/phase-two-evals.test.ts"
+      ]
+    },
+    {
+      "id": "viable_time_deadline_owner_constraint_and_local_day",
+      "tests": [
+        "packages/brain/test/accountability-intervention.test.ts",
+        "packages/brain/test/daily-use.test.ts",
+        "packages/database/test/owner-feedback.db.integration.test.ts"
+      ]
+    },
+    {
+      "id": "current_owner_completion_evidence",
+      "tests": ["packages/brain/test/completion-evidence.test.ts"]
+    },
+    {
+      "id": "canonical_feedback_scopes_binding_idempotency_and_recovery",
+      "tests": [
+        "packages/database/test/owner-feedback.db.integration.test.ts",
+        "packages/brain/test/evals/phase-two-evals.test.ts"
+      ]
+    },
+    {
+      "id": "atomic_accountability_reply_audit_recovery",
+      "tests": [
+        "packages/database/test/owner-feedback.db.integration.test.ts",
+        "packages/brain/test/evals/phase-two-evals.test.ts"
+      ]
+    },
+    {
+      "id": "reminder_acknowledgement_wording",
+      "tests": [
+        "packages/brain/test/evals/phase-two-evals.test.ts",
+        "packages/database/test/requested-reminder.db.integration.test.ts"
+      ]
+    }
+  ],
+  "production": {
+    "verifiedAt": "2026-10-02T08:22:45.319Z",
+    "readiness": {
+      "httpStatus": 200,
+      "checks": {
+        "configuration": "pass",
+        "database": "pass",
+        "queue": "pass",
+        "model": "pass"
+      }
+    },
+    "telegramWebhook": {
+      "httpStatus": 200,
+      "configured": true,
+      "pendingUpdateCount": 0,
+      "lastErrorCategory": "webhook_server_error"
+    },
+    "historicalWebhookErrorInterpretation": "Provider retains the prior webhook error category; zero pending updates does not erase historical errors.",
+    "runtimeRoleResolved": true,
+    "requiredRights": [
+      {
+        "table": "memory_candidates",
+        "operations": "SELECT,INSERT,UPDATE",
+        "allowed": true
+      },
+      {
+        "table": "memory_evidence",
+        "operations": "SELECT,INSERT",
+        "allowed": true
+      },
+      {
+        "table": "memory_records",
+        "operations": "SELECT,INSERT,UPDATE",
+        "allowed": true
+      },
+      {
+        "table": "preferences",
+        "operations": "SELECT,INSERT",
+        "allowed": true
+      },
+      {
+        "table": "personality_traits",
+        "operations": "SELECT",
+        "allowed": true
+      },
+      {
+        "table": "audit_events",
+        "operations": "SELECT,INSERT",
+        "allowed": true
+      },
+      {
+        "table": "constitution_proposals",
+        "operations": "INSERT",
+        "allowed": true
+      },
+      {
+        "table": "constitution_items",
+        "operations": "SELECT",
+        "allowed": true
+      },
+      {
+        "table": "constitution_item_versions",
+        "operations": "SELECT",
+        "allowed": true
+      },
+      {
+        "table": "commitments",
+        "operations": "SELECT",
+        "allowed": true
+      },
+      {
+        "table": "commitment_deadlines",
+        "operations": "SELECT",
+        "allowed": true
+      },
+      {
+        "table": "commitment_dependencies",
+        "operations": "SELECT",
+        "allowed": true
+      },
+      {
+        "table": "plan_blocks",
+        "operations": "SELECT",
+        "allowed": true
+      },
+      {
+        "table": "hard_overrides",
+        "operations": "SELECT,INSERT",
+        "allowed": true
+      },
+      {
+        "table": "hard_override_entity_links",
+        "operations": "SELECT,INSERT",
+        "allowed": true
+      },
+      {
+        "table": "quiet_mode_periods",
+        "operations": "SELECT",
+        "allowed": true
+      }
+    ],
+    "readOnlyCanonicalProjection": {
+      "verifiedAt": "2026-10-02T08:22:41.220Z",
+      "readOnly": true,
+      "canonicalProjectionSucceeded": true,
+      "commitmentCount": 3,
+      "recordTypes": {
+        "commitment": 3
+      },
+      "activeOverrideCount": 0,
+      "quietModeActive": false,
+      "constraintsKnownCount": 0,
+      "privateContentExported": false,
+      "modelCalls": 0,
+      "sends": 0
+    }
+  },
+  "unresolvedDefects": [],
+  "unresolvedDefectsInterpretation": "No remaining reproduced release-blocking defect; this is not a claim that untested daily conversational behavior is defect-free.",
+  "coverageGaps": [
+    "Owner-rated natural tone and usefulness after deployment",
+    "Real bilingual challenge and correction episodes",
+    "Broader natural correction paraphrases beyond the bounded detector",
+    "Energy/availability constraints beyond explicit minute phrases",
+    "Real commitment, missed/ignored reminder, replan and override episodes",
+    "Three current production commitments have unknown current execution windows",
+    "Existing valid plan state remains required for actual plan moves",
+    "Longitudinal real-use window beyond four observed dates"
+  ],
+  "preserved": {
+    "telegramConfiguration": true,
+    "whatsappConfiguration": true,
+    "reminderLifecycle": true,
+    "policyAndAuthority": true,
+    "financeWritesProhibited": true,
+    "proactiveAuthority": true,
+    "groupsAndNonOwnerMessagingDisabled": true,
+    "edithDisabled": true
+  },
+  "execution": {
+    "modelCallsByVerification": 0,
+    "transportSendsByVerification": 0,
+    "liveReminderCanary": false,
+    "modelComparison": false,
+    "gmailCalendarAndroidVoiceExecutorOrControlCenterWork": false,
+    "unattendedAuthorityExpansion": false
+  },
+  "sourceFiles": [
+    {
+      "path": "packages/contracts/src/daily-use.ts",
+      "sha256": "2a7225addff621da6706fbae9df711447755218fe0b2caf95e8540cddff2dc3d"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "030c6c2e5ac4670ed3059a022206481c9f6bdfa0fb5db926f26f751db5150e3b"
+    },
+    {
+      "path": "packages/brain/src/conversation/owner-feedback.ts",
+      "sha256": "5bc5a0e7e8dd422ef4fbdb1ef2ee6eb3d4350b73fd4bdf21007797a0d9846ad5"
+    },
+    {
+      "path": "packages/brain/src/conversation/daily-use-accountability.ts",
+      "sha256": "63d90447e786a15e9ff5c8b80f9ef5fb8d9bc541ae44bd0a1cdcdbd412761cfc"
+    },
+    {
+      "path": "packages/brain/src/conversation/conversation-turn-service.ts",
+      "sha256": "4d56ea1f1f764525a6a744b25025a64ea4429b7585926b567824824080c5934e"
+    },
+    {
+      "path": "packages/brain/src/conversation/model-decision-mapper.ts",
+      "sha256": "f4d33b7c3f8ba8a55ef04e2873b2402b911fe2a4ccf42c8defeb3db8ea887980"
+    },
+    {
+      "path": "packages/brain/src/conversation/outcome-response.ts",
+      "sha256": "36e26d23a21b5c60df5f7f092e5a442d377cf9bd24d637582057de2546d95066"
+    },
+    {
+      "path": "packages/brain/src/accountability/engine.ts",
+      "sha256": "44f5556cfb0e24f2f61f97b1603f5f11a817666be85989ad729a10a7de49e49a"
+    },
+    {
+      "path": "packages/brain/src/behavior/intervention-registry.ts",
+      "sha256": "56168d3f4ad0d06f024bb0e53b5a38c0577832ae744202b85ad3532c16b7026a"
+    },
+    {
+      "path": "packages/brain/src/model/model-router.ts",
+      "sha256": "61a720c5b37add2e015f6d254bdd6611768fc5a92fd1d8fba9181dad6eb3fcad"
+    },
+    {
+      "path": "packages/brain/src/prompts/registry.ts",
+      "sha256": "6e04a5b8821d9036de9268003fb43230bf9502a63ccfa4132d24e660582d4de5"
+    },
+    {
+      "path": "packages/brain/src/prompts/assembler.ts",
+      "sha256": "8f7daadc28ffe888b5d1779f1da6d7ad55257cba6d8d709e15a1375aadcb96e4"
+    },
+    {
+      "path": "packages/brain/src/index.ts",
+      "sha256": "8202e107798352102c8cecbab19db5e169bf72e23005895d9c928f1462a80f43"
+    },
+    {
+      "path": "packages/database/src/daily-use-context.ts",
+      "sha256": "045853a6aec19a772a13257ec905c9bdd3f5ba995104bc799e99784a5a27e80c"
+    },
+    {
+      "path": "packages/database/src/owner-feedback.ts",
+      "sha256": "b97bc0fbdf18e6fabb21f6d0be8b1a0870326253b4a1cf853657fd58313047d7"
+    },
+    {
+      "path": "packages/database/src/brain-repository.ts",
+      "sha256": "c14d436d6e072412fcc875a622e4d2a5d838615978a95f0263caef7b74ebe129"
+    },
+    {
+      "path": "packages/database/src/index.ts",
+      "sha256": "33fae4f1f8cb67eca9b82ab47ade1aa43a9b310ad35e48487eac26f17500c85b"
+    },
+    {
+      "path": "packages/brain/test/daily-use.test.ts",
+      "sha256": "2036033b25d38aeec08ef2e11b18bd09007d93bb45c46da603caa42af5109a19"
+    },
+    {
+      "path": "packages/brain/test/evals/daily-use-cases.ts",
+      "sha256": "d5cbdbdac32ca034bfaf3e563eb7b5371496df7293a7059b5fcf59a8a1f6b7d7"
+    },
+    {
+      "path": "packages/brain/test/evals/phase-two-evals.test.ts",
+      "sha256": "fc21e331401043153a71ad18429258ef4e239828e6fbaf9eb753eeb587fb7302"
+    },
+    {
+      "path": "packages/brain/test/accountability-intervention.test.ts",
+      "sha256": "393c8999f29f568e3c20643a31ebfbfd933e6020de3a9a21f32caeb999f9cf9d"
+    },
+    {
+      "path": "packages/brain/test/completion-evidence.test.ts",
+      "sha256": "99943be815d7bce62c442e3a7bc8b25983f3fb2ffa2d8326c4ccc2f8bc111711"
+    },
+    {
+      "path": "packages/database/test/owner-feedback.db.integration.test.ts",
+      "sha256": "9453baa5edf8a857ec29bd0666759dddf189a5884cce3b013b8e77609975108d"
+    },
+    {
+      "path": "packages/database/test/requested-reminder.db.integration.test.ts",
+      "sha256": "cb0ead7a061d6b41e2d6d741aaaaf4b2bb56e72815a88f824708ecf297ba27dc"
+    }
+  ],
+  "sourceManifestSha256": "1f57a0b73dc518f9a09d7a5782ef467628d2d04e786db801e45136b5950752b5",
+  "stopPoint": "Bounded release complete; next evidence comes from ordinary owner conversation and corrections. No next mission started."
+}

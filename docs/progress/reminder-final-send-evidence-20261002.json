@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-02T05:20:14.149Z",
+  "scope": "Accepted requested-reminder final-send revalidation and provider-failure reliability repair",
+  "deployment": {
+    "id": "dpl_7JmFNgjpbfPNt5RJFRSi52Krt7SF",
+    "previousId": "dpl_5iLPkDrwkjVZ43EzuMjFoqax34SS",
+    "state": "READY",
+    "productionAlias": "https://jarvis-api-staging.vercel.app",
+    "immutableUrl": "https://jarvis-api-staging-e6ktm1fhl-naimozduman-1028s-projects.vercel.app",
+    "baseCommit": "cb2284b8a6854cb8ede29ea82aebe1b5846337f9",
+    "source": "Existing accepted uncommitted working tree plus bounded repair",
+    "cliVersion": "62.0.0"
+  },
+  "gates": {
+    "fullCI": {
+      "command": "pnpm run ci",
+      "passedTests": 436,
+      "defaultSkippedTests": 36,
+      "format": true,
+      "lint": true,
+      "typecheck": true,
+      "build": true,
+      "bundle": true,
+      "secrets": true
+    },
+    "focused": {
+      "passedTests": 41,
+      "files": 4
+    },
+    "dedicatedDatabase": {
+      "passedTests": 10,
+      "skipped": 0,
+      "distinctRolesSameDisposableDatabase": true
+    },
+    "reminderDatabase": {
+      "passedTests": 25,
+      "skipped": 0,
+      "distinctRolesSameDisposableDatabase": true
+    },
+    "isolatedSyntheticDatabase": {
+      "passedTests": 1,
+      "skipped": 0,
+      "existingIsolatedNeonFixture": true,
+      "verifiedAfterRelease": true,
+      "externalModelCalls": 0
+    },
+    "readOnlyReview": "No remaining actionable security or reliability defect found"
+  },
+  "production": {
+    "verifiedAt": "2026-10-02T05:18:10.588Z",
+    "rights": [
+      {
+        "table_name": "jobs",
+        "can_lock": true
+      },
+      {
+        "table_name": "messages",
+        "can_lock": true
+      },
+      {
+        "table_name": "outbound_message_deliveries",
+        "can_lock": true
+      },
+      {
+        "table_name": "reminders",
+        "can_lock": true
+      },
+      {
+        "table_name": "proposed_actions",
+        "can_lock": true
+      },
+      {
+        "table_name": "messaging_identity_aliases",
+        "can_lock": true
+      },
+      {
+        "table_name": "telegram_bot_participants",
+        "can_lock": true
+      },
+      {
+        "table_name": "messaging_transport_connections",
+        "can_lock": true
+      },
+      {
+        "table_name": "conversations",
+        "can_lock": true
+      }
+    ],
+    "allRequiredLocksAllowed": true,
+    "pendingPreparedReminders": {
+      "prepared_unsent": 0,
+      "missing_fire_generation": 0
+    },
+    "readiness": {
+      "httpStatus": 200,
+      "checks": {
+        "configuration": "pass",
+        "database": "pass",
+        "queue": "pass",
+        "model": "pass"
+      }
+    },
+    "telegramWebhook": {
+      "httpStatus": 200,
+      "configured": true,
+      "pendingUpdateCount": 0,
+      "lastErrorCategory": "webhook_server_error"
+    },
+    "runtimeRoleResolvedFromAuthenticatedFingerprint": true
+  },
+  "completedJobReplay": {
+    "schemaVersion": 1,
+    "eventId": "1186629a-f319-4c82-895f-59866635a252",
+    "receipts": [
+      {
+        "jobId": "71749c8d-75c2-4192-882a-fd1ab6fbbb2e",
+        "jobType": "jarvis.event.process",
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-02T05:18:53.943Z"
+      },
+      {
+        "jobId": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "jobType": "jarvis.reminder.fire",
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-02T05:18:54.447Z"
+      },
+      {
+        "jobId": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "jobType": "jarvis.transport.outbound.send",
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-02T05:18:54.920Z"
+      },
+      {
+        "jobId": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "jobType": "jarvis.transport.outbound.send",
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-02T05:18:55.346Z"
+      }
+    ],
+    "allReplaysNoOp": true
+  },
+  "canonicalProjectionsUnchanged": [
+    "source",
+    "brain",
+    "actions",
+    "reminders",
+    "jobs",
+    "jobExecutions",
+    "reminderAttempts",
+    "deliveries",
+    "audit",
+    "counts",
+    "checks",
+    "timing"
+  ],
+  "canonicalChecks": {
+    "authenticatedOwnerSource": true,
+    "singleEventBrainAndAction": true,
+    "canonicalPolicyExecutionAndReread": true,
+    "canonicalBindings": true,
+    "serverOwnedRelativeTime": true,
+    "singleDuePreparation": true,
+    "terminalJobs": true,
+    "oneAcceptedDueSend": true,
+    "confirmationAndReminderSeparated": true,
+    "noFalseCompletionOrRepeatSchedule": true
+  },
+  "canonicalCounts": {
+    "brain_requests": 1,
+    "model_runs": 1,
+    "actions": 1,
+    "action_executions": 1,
+    "jobs": 4,
+    "deliveries": 2,
+    "due_deliveries": 1
+  },
+  "verificationAdditionalModelCalls": 0,
+  "verificationAdditionalLiveSends": 0,
+  "runtimeObservation": {
+    "since": "2026-10-02T05:16:20Z",
+    "requestStatusCounts": { "200": 6, "400": 1 },
+    "validationRequest": "One incorrect trigger label rejected before execution; all four corrected terminal callbacks returned already_completed.",
+    "existingErrorGroup": "pg-connection-string SSL-mode compatibility warning",
+    "warningOccurrences": 2,
+    "telegramStatus": "Historical webhook_server_error remains with zero pending updates."
+  },
+  "providerFailureVerification": "Synthetic client responses and disposable database paths; no live provider-failure claim",
+  "releaseNotes": [
+    "CLI 62.1.0 initial deploy returned Not authorized; existing authenticated CLI 62.0.0 succeeded.",
+    "One initial no-op callback had a wrong trigger label and was rejected with HTTP 400 before execution; full canonical projections unchanged. Four corrected callbacks all returned HTTP 200 already_completed.",
+    "Historical webhook_server_error remains reported with zero pending updates; current readiness and protected status requests passed."
+  ],
+  "files": [
+    {
+      "path": "apps/api/src/telegram-bot-client.ts",
+      "sha256": "2df3abd6401068a781b388bdaea2d862307d9429d8d68228064b3485f6871263"
+    },
+    {
+      "path": "apps/api/src/telegram-bot-delivery.ts",
+      "sha256": "f8f59b90021ea091dd1eff31b924eb3a0a27d9e24446ac3e2d970261c5922ba4"
+    },
+    {
+      "path": "apps/api/src/vercel-runtime.ts",
+      "sha256": "1e1e14615e7f2e6eb2ad61adce042a7828811536e32e045ccd3d371920f87878"
+    },
+    {
+      "path": "packages/contracts/src/messaging.ts",
+      "sha256": "9ed264aea15b327e195ac83ae9a2355feb82d81df4a98803b8dc59b21284938d"
+    },
+    {
+      "path": "packages/database/src/telegram-final-send.ts",
+      "sha256": "04adea41148004c5ad4594b10355f6b3e07b074739185f42dfe378e6accd6959"
+    },
+    {
+      "path": "packages/database/src/requested-reminder-fire.ts",
+      "sha256": "a02836be80209dc3405c9d68a633574880c91b036bb74406069d10d8fcf585e6"
+    },
+    {
+      "path": "packages/database/src/requested-reminder-target.ts",
+      "sha256": "2146fdc00635d33f6faf4a44dad3850a60b6ac7600c015fc3343ec089fb8cd9c"
+    },
+    {
+      "path": "packages/database/src/transport-repository.ts",
+      "sha256": "1991368a165daab4fa459a45b8491dd6b553389397d02b8b8257e4b2d3e1c281"
+    },
+    {
+      "path": "packages/database/src/jobs.ts",
+      "sha256": "542b5bc9b122a6d6581894189b2eea88de1d377b484acdb558e293f380d270cb"
+    },
+    {
+      "path": "packages/database/src/job-lifecycle.ts",
+      "sha256": "4359332dc00df4cad6dd4fef30b385ab07673db842534f86891971f94be06588"
+    },
+    {
+      "path": "packages/database/src/index.ts",
+      "sha256": "cc56f2b5320c3a02f8f6e9da77dd309eec57ef49cfd52edb72d969d71b9a41e2"
+    },
+    {
+      "path": "packages/orchestration/src/event-job-handler.ts",
+      "sha256": "56d38948d16b4b87a0374d1a9c6c3c6850c9e194e32dc0de1e53a062b073f1dd"
+    },
+    {
+      "path": "apps/api/test/telegram-bot-client.test.ts",
+      "sha256": "f4643ffdcde96f705649372a57a54720dbb62fad6773877ba5687dd0144644f1"
+    },
+    {
+      "path": "packages/database/test/requested-reminder.db.integration.test.ts",
+      "sha256": "4be467f1b06d97054347aa36a4eef1edd9b29cf4ab6c17c10ad16547fc854968"
+    }
+  ]
+}

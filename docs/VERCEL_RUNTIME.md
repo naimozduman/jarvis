@@ -1,5 +1,7 @@
 # Vercel serverless runtime
 
+October 5, 2026: this document retains technical boundaries and dated operational reports. The reconciliation candidate received safe Git and static checks only; deployment IDs, prior test results and release commands below retain their original dates and scope. Read `CANONICAL_DOCUMENTATION_MAP.md` and `DEFERRED_VALIDATION.md` at the repository root before implementation or validation. No production state was queried and no release operation was performed in this phase.
+
 ## Project boundary decision
 
 The Phase 3.6B provisioning descriptions below are historical. As of 2026-09-07,
@@ -101,6 +103,7 @@ This is a supported Node.js Vercel Function pattern. See
 | Canonical job callback | Rehydrate, lease, execute registered serverless handler, and write canonical result. | Retaining a worker loop or treating Convex as the state store. |
 | Event processing | Persist/rehydrate canonical event, run Brain/policy boundaries, build canonical outbox intent. | Calling Evolution or retaining a WhatsApp session. |
 | Local bridge API | Authenticate bridge, acquire/load Neon delivery lease, accept result/heartbeat, schedule opaque retry signal. | Sending a WhatsApp message or exposing private content to Convex. |
+| Official Cloud bridge intake | Authenticate the normalized bridge event, persist/queue it, then record the privacy-filtered direct message. | Receiving raw Meta payloads, retaining a WhatsApp session, Groups/Agent API behavior, model calls, or automatic replies. |
 | Model runtime | Use the Vercel AI Gateway adapter only when configuration and free-tier policy allow it. | Direct paid OpenAI fallback or hosted conversation state. |
 
 The runtime refuses `JARVIS_EVOLUTION_ENABLED=true`. Evolution may exist only behind the local
@@ -120,6 +123,7 @@ bounded and internal routes are authenticated where composed.
 | `POST /internal/local-bridge/signals/:deliveryId/:sequence/ack` | Local bridge | Forwards only opaque acknowledgement fields to Convex. |
 | `POST /internal/local-bridge/heartbeat` | Local bridge | Records canonical transport presence with no provider session material. |
 | `POST /internal/local-bridge/events` | Local bridge | Ingests normalized inbound WhatsApp event into canonical Neon, then signals opaque canonical job. |
+| `POST /internal/ingest` | Dedicated official Cloud bridge | Authenticates one stable bridge event, accepts direct `cloud_api` messages only, stores a privacy-filtered canonical event/job, and signals opaque orchestration. |
 
 All routes use bounded, validated payloads and safe errors. No request route ever turns a raw
 provider exception into a scheduling instruction.
@@ -152,12 +156,37 @@ credential value is present in source or documentation. See Neon's
 | Convex → Vercel authenticated orchestration callback | `JARVIS_CONVEX_TO_VERCEL_SECRET` | Yes, when cloud orchestration is enabled |
 | Vercel → Convex command boundary | `JARVIS_VERCEL_TO_CONVEX_SECRET` | Yes, when Vercel emits commands |
 | Local bridge → Vercel API | `JARVIS_LOCAL_BRIDGE_TOKEN` | No; bridge and WhatsApp remain disabled |
+| Official Cloud bridge → Vercel API | `JARVIS_INGEST_TOKEN` | Only when `JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED=true`; shared only with the dedicated bridge deployment |
 
 These are independent server-only values. They are neither printed nor committed. The operator
 configured the cloud values before the Phase 3.6C.2 tests; that test pass read Convex environment
 names only and did not change configuration.
 
-## Deployment status and next gate
+## Official Cloud intake deployment proof — 2026-09-29
+
+The current `jarvis-api-staging` deployment is `dpl_jR5vxAPAkPqGv16tzHtWt66coQjs`, READY, with
+the same production alias: `https://jarvis-api-staging.vercel.app`. The deployed API's
+`/api/health/live` and `/api/health/ready` endpoints both returned HTTP 200 after the Cloud intake
+was enabled.
+
+The separate official bridge has the alias's `/api/internal/ingest` URL and the independent,
+server-only `JARVIS_INGEST_TOKEN`; the API has the same token and server-only expected bridge
+instance configuration. One exact synthetic `JarvisIngestEvent` was accepted by the live endpoint
+(HTTP 202). Replaying the exact same event was accepted as a duplicate (HTTP 200), rather than
+creating a second canonical event or job. Vercel then recorded the authenticated Convex callback to
+the corresponding canonical job at HTTP 200.
+
+This proves the server-only contract boundary, canonical event/job durability, duplicate handling,
+and opaque callback path. A subsequent fresh message to the dedicated JARVIS number also reached
+the deployed bridge at HTTP 200, arrived at this intake at HTTP 202, and completed its authenticated
+canonical-job callback at HTTP 200. A read-only bridge-database check confirmed one verified raw
+webhook, one normalized message, and one delivered outbox event after one attempt with no failure.
+
+This does **not** prove an automatic reply, model processing, Groups API, Agent API, outbound Cloud
+API sending, or a permanent person mapping. Do not use the bridge's bulk outbox flush to replay
+historical messages.
+
+## Earlier deployment status and separate historic gate
 
 The `jarvis-api-staging` Production deployment `dpl_E8PqY4DrfsGoVNvTSnbRCure6AKS` is READY, with
 `apps/api` as its root and the Fastify framework. Its stable alias is

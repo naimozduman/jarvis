@@ -1,5 +1,7 @@
 # Phase 1: Core data, events, jobs, ownership, policy, approvals, and audit
 
+Historical build prompt from the original staged build kit. Before using any step, read `CODEX_START_HERE.md`, follow `docs/JARVIS/CODEX_START_HERE.md`, and consult `CANONICAL_DOCUMENTATION_MAP.md`. The instructions below describe their original phase and are not current startup or release authorization. Preserve current source, accepted ADRs and later product decisions.
+
 Read the PRD sections on memory, permissions, events, and security. Use `$database-and-jobs`, `$security-and-privacy`, and `$jarvis-product-rules`.
 
 Implement:

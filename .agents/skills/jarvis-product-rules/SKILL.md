@@ -5,7 +5,10 @@ description: Use for any JARVIS product behavior, planning, memory, accountabili
 
 # JARVIS product rules
 
-Read `docs/PRD.md`, `docs/DECISION_ENGINE.md`, and the relevant ADR before changing behavior.
+Read `CODEX_START_HERE.md`, follow `docs/JARVIS/CODEX_START_HERE.md`, and read the relevant accepted
+ADR before changing behavior. `docs/PRD.md` and `docs/DECISION_ENGINE.md` retain historical
+implementation context and cannot override current product decisions. See
+`CANONICAL_DOCUMENTATION_MAP.md` for evidence and authority boundaries.
 
 ## Non-negotiable invariants
 

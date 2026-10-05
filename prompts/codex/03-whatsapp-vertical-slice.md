@@ -1,5 +1,7 @@
 # Phase 3: WhatsApp vertical slice through Evolution API
 
+Historical build prompt from the original staged build kit. Before using any step, read `CODEX_START_HERE.md`, follow `docs/JARVIS/CODEX_START_HERE.md`, and consult `CANONICAL_DOCUMENTATION_MAP.md`. The instructions below describe their original phase and are not current startup or release authorization. Preserve current source, accepted ADRs and later product decisions.
+
 Use `$evolution-whatsapp`, `$connector-integration`, `$security-and-privacy`, and `$agent-evals`.
 
 Before code, verify the current stable Evolution release, Docker variables, webhook event names,

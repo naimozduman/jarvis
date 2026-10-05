@@ -5,6 +5,13 @@ description: Use for JARVIS deployment, environment configuration, Railway servi
 
 # Deployment workflow
 
+October 5, 2026: this retained build-kit workflow describes the historical Railway/Evolution
+topology and the earlier web-only Vercel boundary. Read `CODEX_START_HERE.md`,
+`CANONICAL_DOCUMENTATION_MAP.md`, current source and accepted ADRs before planning deployment.
+The stateless API now has a Vercel composition; the paragraphs below do not select current
+hosting or authorize a deployment. Reconciliation stops at the clean candidate and defers
+executable validation to Ubuntu.
+
 ## Before mutation
 
 - Read `docs/DEPLOYMENT.md` and the relevant ADR.

@@ -1,5 +1,7 @@
 # Architecture
 
+Historical build-kit document, retained during the October 5, 2026 reconciliation. Its original requirements, phase sequence and commands are dated implementation/history evidence. Start at `CODEX_START_HERE.md` and follow `docs/JARVIS/CODEX_START_HERE.md`; this document cannot override the current reading order or authorize an old migration, recovery, provider connection or deployment.
+
 > **Phase 3.6 update.** The long-running Railway API/worker staging target below is retained as
 > historical design context and is **abandoned / superseded by the zero-cost architecture** for
 > the next runtime phase. Current execution uses a stateless Vercel API, opaque Convex scheduling,

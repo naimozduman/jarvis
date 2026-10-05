@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-02T10:20:17.839Z",
+  "missionReference": "Owner Bootstrap / Personal Baseline within J5-M09 / PRD Phase 3.8",
+  "boundedImplementationComplete": true,
+  "deployed": true,
+  "phase38Complete": false,
+  "productionOwnerBaselineCreatedByVerification": false,
+  "deployment": {
+    "state": "READY",
+    "previousId": "dpl_7uPWDmWWxZcBDqTc84QFkXdaBus4",
+    "productionAlias": "https://jarvis-api-staging.vercel.app",
+    "baseCommit": "cb2284b8a6854cb8ede29ea82aebe1b5846337f9",
+    "source": "Accepted uncommitted working tree plus bounded owner-bootstrap changes; prior dirty state preserved",
+    "cliVersion": "62.0.0",
+    "migrationsAdded": 0,
+    "newTablesAdded": 0,
+    "id": "dpl_emHn9CaBPVSBuBrfKxmJ3SxE6W6m",
+    "target": "production",
+    "immutableUrl": "https://jarvis-api-staging-78xtruxfu-naimozduman-1028s-projects.vercel.app",
+    "readyAt": "2026-10-02T10:17:16.853Z",
+    "productionAliasVerified": true
+  },
+  "gates": {
+    "fullCI": {
+      "command": "pnpm run ci",
+      "exitCode": 0,
+      "passedTests": 621,
+      "defaultSkippedDatabaseTests": 65,
+      "passedFiles": 58,
+      "skippedFiles": 6,
+      "format": true,
+      "lint": true,
+      "typecheck": true,
+      "build": true,
+      "bundle": true,
+      "secrets": true
+    },
+    "focusedBaselineCorrectionReminder": {
+      "passedTests": 92,
+      "files": 4,
+      "baselineBrainCases": 38,
+      "baselineDatabaseCases": 18,
+      "acceptedCorrectionDatabaseCases": 11,
+      "acceptedReminderDatabaseCases": 25,
+      "skipped": 0,
+      "databaseTarget": "disposable local test database"
+    },
+    "dedicatedDatabase": {
+      "command": "pnpm run test:db",
+      "passedTests": 10,
+      "skipped": 0,
+      "distinctRolesSameDisposableDatabase": true
+    },
+    "isolatedSyntheticDatabase": {
+      "command": "pnpm exec vitest run packages/database/test/reliability.db.integration.test.ts --maxWorkers=1 --no-file-parallelism",
+      "passedTests": 1,
+      "skipped": 0,
+      "isolatedDatabaseTargetVerified": true
+    },
+    "allDefaultSkippedDatabaseCasesExplicitlyPassed": true,
+    "contextProof": {
+      "source": "synthetic owner through production ConversationTurnService and DrizzleBrainRepository",
+      "selectedTypes": ["constitution", "owner_preference", "project", "commitment"],
+      "maximumContextRecords": 32,
+      "maximumRecentMessages": 12,
+      "maximumApproximatePromptTokens": 6000,
+      "budgetsIncreased": false,
+      "modelCallsOnApprovalOrCorrection": 0,
+      "provider": "fake deterministic gateway",
+      "externalSends": 0
+    },
+    "controlledRegressions": [
+      "current_message_evidence_and_source_quote_required",
+      "model_action_and_success_claims_have_no_bootstrap_effect",
+      "uncertainty_remains_hypothesis",
+      "constitution_draft_until_exact_owner_confirmation",
+      "review_revision_stable_under_json_key_order",
+      "older_or_unsent_review_cannot_authorize_promotion",
+      "acceptance_after_confirming_inbound_cannot_retroactively_authorize",
+      "numbered_and_ambiguous_corrections_preserve_identity",
+      "temporary_without_expiry_cannot_promote",
+      "approved_entity_correction_requires_fresh_confirmation",
+      "reclassification_cannot_weaken_approved_constitution_without_confirmation",
+      "promotion_rolls_back_and_replay_recovers_without_model",
+      "current_exact_owner_enrollment_required",
+      "concurrent_approval_creates_one_canonical_entity",
+      "same_title_and_cross_kind_statement_aliases_fail_before_staging",
+      "non_owner_and_group_input_stays_outside_bootstrap",
+      "verified_whatsapp_uses_same_canonical_review",
+      "personal_name_binding_requires_full_token_and_rejects_pronouns",
+      "private_scope_survives_reclassification_and_correction",
+      "private_source_and_review_omitted_from_general_history",
+      "private_commitment_scope_enforced_in_canonical_projection",
+      "restricted_commitment_cannot_enter_accountability_guidance",
+      "scoped_answer_cannot_reenter_later_general_history"
+    ]
+  },
+  "productionPrecheck": {
+    "verifiedAt": "2026-10-02T09:42:39.818Z",
+    "requiredRuntimeRightsPassed": true,
+    "bootstrapQuestionnaires": 0,
+    "bootstrapMemoryRecords": 0,
+    "activeConstitutionItems": 0,
+    "telegramAndWhatsAppConnectedAndOutboundEnabled": true,
+    "readinessHttpStatus": 200,
+    "telegramWebhookConfigured": true,
+    "pendingTelegramUpdates": 0
+  },
+  "verification": {
+    "productionOwnerWrites": 0,
+    "paidModelCalls": 0,
+    "liveMessagesSent": 0,
+    "externalHistoryImports": 0,
+    "personalContentExported": false,
+    "inventedOwnerBaseline": false,
+    "inventedLongitudinalEvidence": false
+  },
+  "unchangedBoundaries": [
+    "current authority and security policy",
+    "finance writes prohibited",
+    "proactive authority unchanged",
+    "reminder lifecycle unchanged",
+    "Telegram and WhatsApp transports live",
+    "model routing unchanged",
+    "groups and non-owner messaging disabled",
+    "EDITH disabled"
+  ],
+  "remainingEvidence": [
+    "owner deliberately sends and approves first personal baseline",
+    "provider extraction wording and qualitative prose review in natural use",
+    "longitudinal daily-use usefulness and accountability tuning"
+  ],
+  "productionPostcheck": {
+    "verifiedAt": "2026-10-02T10:18:20.502Z",
+    "readiness": {
+      "httpStatus": 200,
+      "checks": {
+        "configuration": "pass",
+        "database": "pass",
+        "queue": "pass",
+        "model": "pass"
+      }
+    },
+    "requiredRuntimeRightsPassed": true,
+    "bootstrapQuestionnaires": 0,
+    "bootstrapMemoryRecords": 0,
+    "activeConstitutionItems": 0,
+    "transports": [
+      {
+        "transport": "telegram_bot",
+        "state": "connected",
+        "outboundEnabled": true,
+        "versionVerified": true
+      },
+      {
+        "transport": "whatsapp_cloud",
+        "state": "connected",
+        "outboundEnabled": true,
+        "versionVerified": true
+      }
+    ],
+    "telegramWebhookConfigured": true,
+    "pendingTelegramUpdates": 0,
+    "canonicalReadOnlyProjection": {
+      "verifiedAt": "2026-10-02T10:18:12.570Z",
+      "readOnly": true,
+      "canonicalProjectionSucceeded": true,
+      "bootstrapReviewExists": false,
+      "bootstrapItemCount": 0,
+      "commitmentCount": 3,
+      "recordTypes": {
+        "commitment": 3
+      },
+      "recentHistoryRecordCount": 12,
+      "privateContentExported": false,
+      "modelCalls": 0,
+      "sends": 0,
+      "productionOwnerWrites": 0
+    }
+  },
+  "finalReview": {
+    "readOnly": true,
+    "remainingMaterialPrivacyFindings": 0,
+    "noProviderOrProductionCalls": true
+  },
+  "codeHashes": {
+    "packages/contracts/src/owner-baseline.ts": "b064d626e65189259c0d8348e029f8e98cb160b7b7c8390e24db4625075a64f9",
+    "packages/contracts/src/memory-policy.ts": "ef133f0acc6095d99a255b39794cf6c46821f6b48cdbe31cb1a5663af7aa06da",
+    "packages/brain/src/conversation/owner-baseline.ts": "55f8080dc8dfd788c62db9d4e3c6aa31da0a932bc2ecb44b2e18d2c2c24525d1",
+    "packages/brain/src/conversation/conversation-turn-service.ts": "83631d5a8dd8a60cec998f5b4f247133d9a55b2b0a598da4150cf1273cc69478",
+    "packages/brain/src/prompts/registry.ts": "20bea70480735a353da64f71c016301d6667e4efaa32a2bdd1137d5e6eff2a27",
+    "packages/brain/src/prompts/assembler.ts": "c3dfc88dc708c50a23511e3ff4a4dfc0784e411533d15ff10d3ba2c643b49466",
+    "packages/database/src/owner-baseline.ts": "cc7570d5de575f44d465d91d6eb022ddf29c5f230cd276a89bb8b9e2637aeea8",
+    "packages/database/src/owner-baseline-context.ts": "c94015e42d94f370b01ad5ddf25891bd8d41a771a6dda665976759bf0f94d11e",
+    "packages/database/src/brain-repository.ts": "b8e57c16b83e3ab6550fe095bc15f5301356e5c53096522250f83637e9406a4a",
+    "packages/database/src/daily-use-context.ts": "59c307c671da49109d3c0d6ab3a27c38304a8522cc311481e74d08cdc81eb1b3",
+    "packages/brain/test/owner-baseline.test.ts": "5c0dc9065c27d956c0c89ffb6bcf3f3a38764da4c1161f614310679b8051650e",
+    "packages/database/test/owner-baseline.db.integration.test.ts": "0b6ec954802eb134a83076897ad41bdb8e58a7c265857f85e4dcc67a7564f0cb"
+  }
+}

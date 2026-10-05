@@ -1,5 +1,7 @@
 # Build order
 
+Historical build-kit document, retained during the October 5, 2026 reconciliation. Its original requirements, phase sequence and commands are dated implementation/history evidence. Start at `CODEX_START_HERE.md` and follow `docs/JARVIS/CODEX_START_HERE.md`; this document cannot override the current reading order or authorize an old migration, recovery, provider connection or deployment.
+
 - [x] Phase 0: Repository bootstrap and safety foundation.
 - [x] Phase 1: Core data, events, durable jobs, ownership/authentication boundary, policy, approvals, and audit.
 - [x] Phase 2: Brain, constitution handling, memory retrieval, context assembly, reasoning, behavioral engine, replanning, and provider-free invariant evaluation. See `docs/progress/phase-2.md` and `docs/BRAIN_EVALS.md`.

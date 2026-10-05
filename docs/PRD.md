@@ -1,5 +1,7 @@
 # JARVIS Product Requirements Document
 
+Historical build-kit document, retained during the October 5, 2026 reconciliation. Its original requirements, phase sequence and commands are dated implementation/history evidence. Start at `CODEX_START_HERE.md` and follow `docs/JARVIS/CODEX_START_HERE.md`; this document cannot override the current reading order or authorize an old migration, recovery, provider connection or deployment.
+
 Version: 1.0
 
 Status: Build-ready product and technical specification

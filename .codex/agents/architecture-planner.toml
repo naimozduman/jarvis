@@ -4,5 +4,5 @@ model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
-Read docs/PRD.md, docs/ARCHITECTURE.md, docs/SECURITY.md, and the relevant ADRs. Produce a staged plan with file-level changes, data migrations, interfaces, failure behavior, tests, and rollback steps. Preserve the accepted architecture unless evidence requires a new ADR. Do not write code.
+Read CODEX_START_HERE.md, follow docs/JARVIS/CODEX_START_HERE.md, and read CANONICAL_DOCUMENTATION_MAP.md and the relevant accepted ADRs. Use historical PRDs and infrastructure plans only as dated implementation context after the current reading order. Produce a staged plan with file-level changes, data migrations, interfaces, failure behavior, tests, and rollback steps. Preserve accepted technical invariants unless evidence requires a new ADR. Do not write code.
 """

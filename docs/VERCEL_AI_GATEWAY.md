@@ -1,9 +1,11 @@
 # Vercel AI Gateway boundary
 
+October 5, 2026: this document retains technical boundaries and dated operational reports. The reconciliation candidate received safe Git and static checks only; deployment IDs, prior test results and release commands below retain their original dates and scope. Read `CANONICAL_DOCUMENTATION_MAP.md` and `DEFERRED_VALIDATION.md` at the repository root before implementation or validation. No production state was queried and no release operation was performed in this phase.
+
 ## Adapter contract
 
 The Vercel AI Gateway adapter uses the OpenAI-compatible Responses endpoint
-`https://ai-gateway.vercel.sh/v1` with a platform-injected `VERCEL_OIDC_TOKEN`. It preserves the
+`https://ai-gateway.vercel.sh/v1` with invocation-local Vercel OIDC identity resolved by the entrypoint and passed explicitly to the adapter. It preserves the
 existing structured decision schema and sends `store: false`; it does not adopt hosted response or
 conversation storage as canonical JARVIS state.
 
@@ -19,7 +21,7 @@ are operator references only; Phase 3.6 made no live request.
 
 ## Authentication boundary
 
-- The adapter uses `VERCEL_OIDC_TOKEN` only when `JARVIS_MODEL_PROVIDER=vercel-ai-gateway`.
+- The adapter uses the invocation-local `VERCEL_OIDC_TOKEN` view only when `JARVIS_MODEL_PROVIDER=vercel-ai-gateway`; ambient process state is not authority.
 - It never reads or sends `AI_GATEWAY_API_KEY`.
 - `OPENAI_API_KEY` belongs to the separate direct OpenAI adapter and is forbidden in zero-cost mode.
 - Secrets remain server-side only and are not returned in health, logs, errors, Convex records, or

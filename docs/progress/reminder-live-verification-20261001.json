@@ -1,0 +1,609 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-01T23:37:51.521Z",
+  "deploymentId": "dpl_5iLPkDrwkjVZ43EzuMjFoqax34SS",
+  "productionAlias": "https://jarvis-api-staging.vercel.app",
+  "eventId": "1186629a-f319-4c82-895f-59866635a252",
+  "userTimezone": "America/Chicago",
+  "privacy": "Content-free canonical projections only; no message bodies, provider identities, prompts, credentials or lease capabilities.",
+  "readiness": {
+    "httpStatus": 200,
+    "checks": {
+      "configuration": "pass",
+      "database": "pass",
+      "queue": "pass",
+      "model": "pass"
+    }
+  },
+  "telegramWebhook": {
+    "httpStatus": 200,
+    "configured": true,
+    "pendingUpdateCount": 0,
+    "lastErrorCategory": "webhook_server_error",
+    "host": "jarvis-api-staging.vercel.app",
+    "path": "/api/webhooks/telegram"
+  },
+  "runtimeLogSummary": {
+    "since": "2026-10-01T22:51:30Z",
+    "until": "2026-10-01T23:02:00Z",
+    "requestStatusCounts": {
+      "200": 5,
+      "202": 1
+    },
+    "levelCounts": {
+      "info": 6,
+      "error": 1
+    },
+    "errorGroup": "Existing pg-connection-string SSL-mode compatibility warning; no failed HTTP callback in this interval."
+  },
+  "focusedRegression": {
+    "command": "pnpm exec vitest run packages/brain/test/owner-reminder-time.test.ts packages/brain/test/outcome-response.test.ts packages/orchestration/test/requested-reminder-dispatch.test.ts",
+    "testFiles": 3,
+    "passedTests": 27
+  },
+  "before": {
+    "observedAt": "2026-10-01T23:27:45.548Z",
+    "counts": {
+      "brain_requests": 1,
+      "model_runs": 1,
+      "actions": 1,
+      "action_executions": 1,
+      "jobs": 4,
+      "deliveries": 2,
+      "due_deliveries": 1
+    }
+  },
+  "after": {
+    "schemaVersion": 1,
+    "observedAt": "2026-10-01T23:32:02.495Z",
+    "eventId": "1186629a-f319-4c82-895f-59866635a252",
+    "transactionMode": "repeatable_read_read_only",
+    "source": [
+      {
+        "id": "1186629a-f319-4c82-895f-59866635a252",
+        "event_type": "telegram.bot.message.observed.v1",
+        "source": "telegram",
+        "occurred_at": "2026-10-01T22:51:37.000Z",
+        "received_at": "2026-10-01T22:51:39.117Z",
+        "processing_status": "processed",
+        "processed_at": "2026-10-01T22:51:50.382Z",
+        "correlation_id": "f1d02067-12a1-5b46-8039-e148834705e9",
+        "owner_timezone": "America/Chicago",
+        "private_direct": true,
+        "text_request": true,
+        "explicit_request": true,
+        "requested_minutes": 10,
+        "approved_owner_source": true,
+        "logical_event_count": 1
+      }
+    ],
+    "brain": [
+      {
+        "request_id": "96e97abb-9223-5388-aa1b-88075c049dcb",
+        "state": "completed",
+        "message_id": "16c525d8-d9da-4d46-9079-d4055fe769d1",
+        "created_at": "2026-10-01T22:51:37.000Z",
+        "run_id": "dafb687a-bc48-4861-8bda-de79c5af5b5f",
+        "actual_model_id": "openai/gpt-6-luna",
+        "reasoning_effort": "medium",
+        "model_status": "completed",
+        "latency_ms": 7681,
+        "input_tokens": 3942,
+        "output_tokens": 880,
+        "reasoning_tokens": 568,
+        "exact_gateway_cost_usd": "0.000932675",
+        "decision_id": "75923764-f482-4768-b4a9-a4dd66b67107",
+        "decision_type": "remind",
+        "validation_state": "validated",
+        "action_count": 1,
+        "authorized_count": 1,
+        "executed_count": 1,
+        "verified_count": 1,
+        "denied_count": 0,
+        "action_processing_error": false,
+        "action_transitions": [
+          {
+            "origin": "server_validated_reminder_intent",
+            "policy": "allowed",
+            "actionId": "1ef768d1-c328-4dbd-b1c9-e293b064861c",
+            "execution": "executed",
+            "actionType": "internal.reminder.create",
+            "verification": "verified"
+          }
+        ],
+        "non_executable_model_intents": 0
+      }
+    ],
+    "actions": [
+      {
+        "id": "1ef768d1-c328-4dbd-b1c9-e293b064861c",
+        "action_type": "internal.reminder.create",
+        "risk_class": "LOW_RISK_INTERNAL",
+        "state": "executed",
+        "source_brain_decision_id": "75923764-f482-4768-b4a9-a4dd66b67107",
+        "reminder_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "proposal_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "due_at": "2026-10-01T23:01:37.000Z",
+        "allowed": true,
+        "requires_approval": false,
+        "denied": false,
+        "policy_version": "phase-1.0",
+        "matched_rules": ["internal.reminder.create", "low_risk_internal.allowed"],
+        "execution_id": "bd72c2ae-f808-49e4-8076-c1f2ae43bb13",
+        "execution_status": "completed",
+        "execution_attempt": 1,
+        "started_at": "2026-10-01T22:51:49.893Z",
+        "completed_at": "2026-10-01T22:51:49.893Z",
+        "result_status": "completed",
+        "owner_binding": true,
+        "execution_count": 1
+      }
+    ],
+    "reminders": [
+      {
+        "id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "state": "active",
+        "completed_at": null,
+        "cancelled_at": null,
+        "job_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "next_eligible_delivery_at": null,
+        "requested_delivery": "true",
+        "fire_outcome": "queued",
+        "fire_delivery_id": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "action_binding": true,
+        "source_binding": true,
+        "owner_binding": true,
+        "subject_matches_action": true,
+        "subject_grounded_in_owner_request": true,
+        "proposal_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "proposal_state": "applied",
+        "scheduled_for": "2026-10-01T23:01:37.000Z",
+        "proposal_binding": true,
+        "trigger_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "trigger_kind": "fixed_time",
+        "trigger_active": false,
+        "next_scheduled_at": null,
+        "trigger_action_binding": true,
+        "commitment_state": null,
+        "commitment_completed_at": null
+      }
+    ],
+    "jobs": [
+      {
+        "id": "71749c8d-75c2-4192-882a-fd1ab6fbbb2e",
+        "job_type": "jarvis.event.process",
+        "status": "completed",
+        "scheduled_for": "2026-10-01T22:51:39.117Z",
+        "available_after": "2026-10-01T22:51:39.117Z",
+        "dispatch_generation": 1,
+        "attempt_count": 1,
+        "completed_at": "2026-10-01T22:51:50.429Z",
+        "correlation_id": "f1d02067-12a1-5b46-8039-e148834705e9",
+        "source_event_id": "1186629a-f319-4c82-895f-59866635a252",
+        "proposed_action_id": null,
+        "brain_request_id": null,
+        "last_error_category": null,
+        "updated_at": "2026-10-01T22:51:50.429Z",
+        "fire_payload_binding": null,
+        "execution_count": 1
+      },
+      {
+        "id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "job_type": "jarvis.reminder.fire",
+        "status": "completed",
+        "scheduled_for": "2026-10-01T23:01:37.000Z",
+        "available_after": "2026-10-01T23:01:37.000Z",
+        "dispatch_generation": 1,
+        "attempt_count": 1,
+        "completed_at": "2026-10-01T23:01:40.566Z",
+        "correlation_id": "f1d02067-12a1-5b46-8039-e148834705e9",
+        "source_event_id": "1186629a-f319-4c82-895f-59866635a252",
+        "proposed_action_id": null,
+        "brain_request_id": null,
+        "last_error_category": null,
+        "updated_at": "2026-10-01T23:01:40.566Z",
+        "fire_payload_binding": true,
+        "execution_count": 1
+      },
+      {
+        "id": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "job_type": "jarvis.transport.outbound.send",
+        "status": "completed",
+        "scheduled_for": "2026-10-01T22:51:50.119Z",
+        "available_after": "2026-10-01T22:51:50.119Z",
+        "dispatch_generation": 1,
+        "attempt_count": 1,
+        "completed_at": "2026-10-01T22:51:52.863Z",
+        "correlation_id": "f1d02067-12a1-5b46-8039-e148834705e9",
+        "source_event_id": "1186629a-f319-4c82-895f-59866635a252",
+        "proposed_action_id": null,
+        "brain_request_id": null,
+        "last_error_category": null,
+        "updated_at": "2026-10-01T22:51:52.863Z",
+        "fire_payload_binding": null,
+        "execution_count": 1
+      },
+      {
+        "id": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "job_type": "jarvis.transport.outbound.send",
+        "status": "completed",
+        "scheduled_for": "2026-10-01T23:01:37.000Z",
+        "available_after": "2026-10-01T23:01:37.000Z",
+        "dispatch_generation": 1,
+        "attempt_count": 1,
+        "completed_at": "2026-10-01T23:01:41.572Z",
+        "correlation_id": "f1d02067-12a1-5b46-8039-e148834705e9",
+        "source_event_id": "1186629a-f319-4c82-895f-59866635a252",
+        "proposed_action_id": null,
+        "brain_request_id": null,
+        "last_error_category": null,
+        "updated_at": "2026-10-01T23:01:41.572Z",
+        "fire_payload_binding": null,
+        "execution_count": 1
+      }
+    ],
+    "jobExecutions": [
+      {
+        "id": "fa1f326a-7bb1-4723-8b25-1409d98483a9",
+        "job_id": "71749c8d-75c2-4192-882a-fd1ab6fbbb2e",
+        "attempt_number": 1,
+        "dispatch_generation": 1,
+        "status": "completed",
+        "leased_at": "2026-10-01T22:51:41.297Z",
+        "completed_at": "2026-10-01T22:51:50.429Z",
+        "error_category": null
+      },
+      {
+        "id": "d88ae1d3-0058-461b-a4d3-2fdc868854f1",
+        "job_id": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "attempt_number": 1,
+        "dispatch_generation": 1,
+        "status": "completed",
+        "leased_at": "2026-10-01T22:51:51.864Z",
+        "completed_at": "2026-10-01T22:51:52.863Z",
+        "error_category": null
+      },
+      {
+        "id": "3a4550e0-11b9-474e-bfe5-65053896a4a5",
+        "job_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "attempt_number": 1,
+        "dispatch_generation": 1,
+        "status": "completed",
+        "leased_at": "2026-10-01T23:01:39.891Z",
+        "completed_at": "2026-10-01T23:01:40.566Z",
+        "error_category": null
+      },
+      {
+        "id": "673922b7-2890-4d7d-8150-bff2943f25bb",
+        "job_id": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "attempt_number": 1,
+        "dispatch_generation": 1,
+        "status": "completed",
+        "leased_at": "2026-10-01T23:01:40.990Z",
+        "completed_at": "2026-10-01T23:01:41.572Z",
+        "error_category": null
+      }
+    ],
+    "reminderAttempts": [
+      {
+        "id": "3681578a-c675-5b71-b686-c951749d153f",
+        "reminder_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "job_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "attempted_at": "2026-10-01T23:01:40.074Z",
+        "outcome": "queued",
+        "delivery_reference": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "error_category": null
+      }
+    ],
+    "deliveries": [
+      {
+        "id": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "message_id": "bd61f098-0271-5628-bde9-a4b4c4a48f39",
+        "transport": "telegram_bot",
+        "brain_request_id": "96e97abb-9223-5388-aa1b-88075c049dcb",
+        "reminder_id": null,
+        "state": "sent",
+        "attempt_count": 1,
+        "created_at": "2026-10-01T22:51:50.119Z",
+        "accepted_at": "2026-10-01T22:51:52.687Z",
+        "delivered_at": null,
+        "read_at": null,
+        "failed_at": null,
+        "last_error_category": null,
+        "freshness_policy": "conversation_response",
+        "expires_at": "2026-10-02T22:51:50.119Z",
+        "requires_reconciliation": false,
+        "provider_receipt_present": true,
+        "message_delivery_state": "local_persisted",
+        "message_source": null,
+        "reminder_text_matches_canonical_subject": null,
+        "approved_owner_target_binding": true,
+        "owner_binding": true
+      },
+      {
+        "id": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "message_id": "a1e5db9f-0415-5fa9-9b68-5bb82c84deb8",
+        "transport": "telegram_bot",
+        "brain_request_id": null,
+        "reminder_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "state": "sent",
+        "attempt_count": 1,
+        "created_at": "2026-10-01T23:01:37.000Z",
+        "accepted_at": "2026-10-01T23:01:41.511Z",
+        "delivered_at": null,
+        "read_at": null,
+        "failed_at": null,
+        "last_error_category": null,
+        "freshness_policy": "time_sensitive_reminder",
+        "expires_at": "2026-10-01T23:16:37.000Z",
+        "requires_reconciliation": false,
+        "provider_receipt_present": true,
+        "message_delivery_state": "pending",
+        "message_source": "requested_reminder_fire",
+        "reminder_text_matches_canonical_subject": true,
+        "approved_owner_target_binding": true,
+        "owner_binding": true
+      }
+    ],
+    "audit": [
+      {
+        "id": "b23bb105-93b8-4159-98b1-2543d77a847c",
+        "action": "event.received",
+        "target_type": "event",
+        "target_id": "1186629a-f319-4c82-895f-59866635a252",
+        "occurred_at": "2026-10-01T22:51:39.117Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "b6fd8bd7-b2da-4c83-9c36-29a35933a99d",
+        "action": "job.queued",
+        "target_type": "job",
+        "target_id": "71749c8d-75c2-4192-882a-fd1ab6fbbb2e",
+        "occurred_at": "2026-10-01T22:51:39.259Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "d7405800-92c3-4e16-878e-43e48ee2ce85",
+        "action": "job.leased",
+        "target_type": "job",
+        "target_id": "71749c8d-75c2-4192-882a-fd1ab6fbbb2e",
+        "occurred_at": "2026-10-01T22:51:41.297Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "7bca5679-1df2-416c-955f-b665e1dc8342",
+        "action": "event.processing.started",
+        "target_type": "event",
+        "target_id": "1186629a-f319-4c82-895f-59866635a252",
+        "occurred_at": "2026-10-01T22:51:41.433Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "bd6d9c0a-6785-4d8e-af86-19c478d14d25",
+        "action": "action.proposed",
+        "target_type": "proposed_action",
+        "target_id": "1ef768d1-c328-4dbd-b1c9-e293b064861c",
+        "occurred_at": "2026-10-01T22:51:49.832Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "6681917b-f5ef-4c84-b03d-2996ac798f96",
+        "action": "policy.evaluated",
+        "target_type": "proposed_action",
+        "target_id": "1ef768d1-c328-4dbd-b1c9-e293b064861c",
+        "occurred_at": "2026-10-01T22:51:49.879Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "370c7711-a268-42a4-ba17-3e9cb1a1a7d1",
+        "action": "reminder.fire_job.queued",
+        "target_type": "job",
+        "target_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "occurred_at": "2026-10-01T22:51:49.948Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "363b3baa-082b-4cdb-aca8-ffcfc0cbe46a",
+        "action": "action.executed",
+        "target_type": "reminder",
+        "target_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "occurred_at": "2026-10-01T22:51:50.028Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "690909e0-5232-4b62-9be8-4c9915779eb9",
+        "action": "transport.delivery.queued",
+        "target_type": "outbound_delivery",
+        "target_id": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "occurred_at": "2026-10-01T22:51:50.119Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "f37d05ce-0a69-4c0b-8afd-3bc3fc0d4c90",
+        "action": "event.processed",
+        "target_type": "event",
+        "target_id": "1186629a-f319-4c82-895f-59866635a252",
+        "occurred_at": "2026-10-01T22:51:50.395Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "1ba745ac-5782-4f33-936c-13dfe4dbe37b",
+        "action": "job.completed",
+        "target_type": "job",
+        "target_id": "71749c8d-75c2-4192-882a-fd1ab6fbbb2e",
+        "occurred_at": "2026-10-01T22:51:50.429Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "999126d0-7c14-4069-9977-aa876e414f04",
+        "action": "job.leased",
+        "target_type": "job",
+        "target_id": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "occurred_at": "2026-10-01T22:51:51.864Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "bd24e3e5-72bb-4cfe-a57e-cef0afadbbe6",
+        "action": "job.completed",
+        "target_type": "job",
+        "target_id": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "occurred_at": "2026-10-01T22:51:52.863Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "1b4e99e1-2622-4e48-8d1a-dc661af92c9c",
+        "action": "transport.delivery.queued",
+        "target_type": "outbound_delivery",
+        "target_id": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "occurred_at": "2026-10-01T23:01:37.000Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "e35c7fdb-b8cf-4b6f-904c-2ad19a987402",
+        "action": "job.leased",
+        "target_type": "job",
+        "target_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "occurred_at": "2026-10-01T23:01:39.891Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "a5f9425b-de02-43a2-a22f-9139708347fe",
+        "action": "reminder.requested.fire",
+        "target_type": "reminder",
+        "target_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "occurred_at": "2026-10-01T23:01:40.074Z",
+        "fire_outcome": "queued",
+        "fire_delivery_id": "e1684daf-ce05-5f03-baf7-239650edc706"
+      },
+      {
+        "id": "2dbcdcac-3aa2-457a-b1f8-f29d70463326",
+        "action": "job.completed",
+        "target_type": "job",
+        "target_id": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "occurred_at": "2026-10-01T23:01:40.566Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "2eb043de-c1fa-41f1-bdca-d83fa0ccaa52",
+        "action": "job.leased",
+        "target_type": "job",
+        "target_id": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "occurred_at": "2026-10-01T23:01:40.990Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      },
+      {
+        "id": "21b9e716-7efd-4b3a-9712-5f892d7aa28b",
+        "action": "job.completed",
+        "target_type": "job",
+        "target_id": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "occurred_at": "2026-10-01T23:01:41.572Z",
+        "fire_outcome": null,
+        "fire_delivery_id": null
+      }
+    ],
+    "counts": {
+      "brain_requests": 1,
+      "model_runs": 1,
+      "actions": 1,
+      "action_executions": 1,
+      "jobs": 4,
+      "deliveries": 2,
+      "due_deliveries": 1
+    },
+    "checks": {
+      "authenticatedOwnerSource": true,
+      "singleEventBrainAndAction": true,
+      "canonicalPolicyExecutionAndReread": true,
+      "canonicalBindings": true,
+      "serverOwnedRelativeTime": true,
+      "singleDuePreparation": true,
+      "terminalJobs": true,
+      "oneAcceptedDueSend": true,
+      "confirmationAndReminderSeparated": true,
+      "noFalseCompletionOrRepeatSchedule": true
+    },
+    "allChecksPass": true,
+    "timing": {
+      "requestToDueMs": 600000,
+      "dueToPreparationMs": 3074,
+      "dueToTelegramAcceptanceMs": 4511
+    }
+  },
+  "replay": {
+    "schemaVersion": 1,
+    "eventId": "1186629a-f319-4c82-895f-59866635a252",
+    "receipts": [
+      {
+        "jobId": "71749c8d-75c2-4192-882a-fd1ab6fbbb2e",
+        "jobType": "jarvis.event.process",
+        "generation": 1,
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-01T23:31:53.979Z"
+      },
+      {
+        "jobId": "3c11da0e-5f42-4031-9aab-7d58d3ced6d7",
+        "jobType": "jarvis.reminder.fire",
+        "generation": 1,
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-01T23:31:56.985Z"
+      },
+      {
+        "jobId": "145a90e2-804f-518f-b6c8-994fee34923d",
+        "jobType": "jarvis.transport.outbound.send",
+        "generation": 1,
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-01T23:31:57.546Z"
+      },
+      {
+        "jobId": "e1684daf-ce05-5f03-baf7-239650edc706",
+        "jobType": "jarvis.transport.outbound.send",
+        "generation": 1,
+        "httpStatus": 200,
+        "disposition": "already_completed",
+        "checkedAt": "2026-10-01T23:31:58.095Z"
+      }
+    ],
+    "allReplaysNoOp": true,
+    "unchangedProjectionCategories": [
+      "source",
+      "brain",
+      "actions",
+      "reminders",
+      "jobs",
+      "jobExecutions",
+      "reminderAttempts",
+      "deliveries",
+      "audit",
+      "counts",
+      "checks",
+      "timing"
+    ],
+    "canonicalRecordsUnchanged": true
+  },
+  "limitations": [
+    "Telegram acceptance is observed; device delivery/read evidence is unavailable.",
+    "This verifies one fresh ten-minute relative reminder, not every date grammar or failure scenario.",
+    "Enrollment and quiet-mode changes between due preparation and the later sender callback are not covered by this canary; final sender revalidation remains a source-level follow-up.",
+    "Current explicit Bot API failures are terminal and unknown outcomes require reconciliation; safe retry_scheduled is a latent interface branch and is not reached by the current concrete client."
+  ]
+}

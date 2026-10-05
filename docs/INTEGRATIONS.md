@@ -1,6 +1,39 @@
 # Integrations
 
-## Phase 1 status and future interface
+October 5, 2026: this document retains technical boundaries and dated operational reports. The reconciliation candidate received safe Git and static checks only; deployment IDs, prior test results and release commands below retain their original dates and scope. Read `CANONICAL_DOCUMENTATION_MAP.md` and `DEFERRED_VALIDATION.md` at the repository root before implementation or validation. No production state was queried and no release operation was performed in this phase.
+
+## Reconciled implementation boundaries — 2026-10-05
+
+The candidate retains the canonical owner Telegram path, requested reminders, daily-use feedback
+and reviewed baseline bootstrap from R1. The dedicated WhatsApp Cloud path remains separately
+gated and uses the shared canonical conversation and delivery services. Main's personal-system
+read gateway and private owner-app adapters remain present; source ownership, independent service
+credentials, read admission and metadata-only audit are retained. See the implementation source,
+tests and `CURRENT_IMPLEMENTATION_HANDOFF.md` for these boundaries. This statement records source
+presence and reconciliation intent; Ubuntu validation must prove the combined behavior.
+
+## Reported official WhatsApp Cloud bridge — 2026-09-29
+
+The active WhatsApp work is an official Meta Cloud API bridge for a **dedicated JARVIS Business
+Platform number**, not the owner's personal WhatsApp account. The independent
+`jarvis-whatsapp-bridge` service owns Meta signature verification, raw evidence, provider-message
+deduplication, participant/conversation mappings, outbox retries, and the normalized
+`JarvisIngestEvent` contract.
+
+JARVIS's new private Cloud-bridge receiver accepts only that contract and binds it to the
+server-configured owner. It stores opaque references plus permitted message content in canonical
+state and queues deterministic work. It neither accepts raw Meta webhook payloads nor makes a
+model call or outbound reply. The deployed receiver has passing live synthetic contract and
+duplicate tests, including its opaque scheduling callback. A fresh message from the owner's
+unchanged personal WhatsApp to the separate dedicated JARVIS number has also completed the real
+Meta → bridge → JARVIS inbound path: the bridge persisted and delivered one event, JARVIS accepted
+it, and the canonical job callback completed. This is not a claim that the old Evolution path or
+personal WhatsApp access is live.
+
+Groups API, the distinct third-party WhatsApp Agent API-key channel, outbound Cloud API sending,
+and durable Naim/Zara person links remain disabled. Do not invent their protocols or endpoints.
+
+## Historical Phase 1 status and future interface
 
 No provider SDK, network client, OAuth flow, webhook route, credential, or connected account is
 implemented in Phase 1. `packages/integrations/src/ports.ts` declares the provider-neutral
@@ -10,7 +43,8 @@ append audit records, and reconcile state; it must not write JARVIS domain state
 
 | Future interface | Planned phase | Phase 1 state |
 | --- | --- | --- |
-| Evolution API / WhatsApp | 3 | Replaceable connector port only. |
+| Official WhatsApp Cloud bridge | Current inbound slice | Dedicated-number direct inbound only; private JARVIS receiver is deployed, synthetic-contract verified, and verified with one fresh real Meta-to-JARVIS delivery. |
+| Legacy Evolution API / WhatsApp | Historical Phase 3 work | Retained transport boundary; disabled and not the active official Cloud API path. |
 | Gmail / Google Calendar | 5 | Connector ports only. |
 | Plaid, WHOOP, Iron & Intervals, food logging | 6 | Connector ports only. |
 | iOS / HealthKit | Later | Device/client and connector port boundary only. |
@@ -36,7 +70,7 @@ Every connector implements:
 
 Every connector provides an admin card and audit events.
 
-## Evolution WhatsApp
+## Legacy Evolution WhatsApp
 
 Mode: dedicated JARVIS account through Evolution API and Baileys.
 
@@ -145,10 +179,11 @@ transactional per-owner limit of 30 reads/minute. No app request runs if admissi
 The daily endpoint calls all three APIs with their independent outgoing credentials, preserving
 source ownership and unavailable-source status. It does not execute writes or model actions.
 
-### Deployed owner service origins
+### Reported owner service origins — GitHub-main source evidence
 
-The existing `jarvis-api-staging` Vercel project now tracks this repository's `main`
-branch. Its server environment connects to the existing production applications:
+The GitHub-main integration record reports that the existing `jarvis-api-staging` project tracks
+`main` and connects to these source-owned applications. Reconciliation preserves the adapters and
+configured-origin intent; it does not recheck deployment configuration or contact these origins:
 
 - Our Hours: `https://our-hours-naim-zara.vercel.app`
 - Growth Stats: `https://growth-stats-usable.vercel.app`

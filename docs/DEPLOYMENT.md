@@ -1,5 +1,7 @@
 # Deployment
 
+Historical build-kit document, retained during the October 5, 2026 reconciliation. Its original requirements, phase sequence and commands are dated implementation/history evidence. Start at `CODEX_START_HERE.md` and follow `docs/JARVIS/CODEX_START_HERE.md`; this document cannot override the current reading order or authorize an old migration, recovery, provider connection or deployment.
+
 > **Historical status — partially abandoned / superseded by the zero-cost architecture.** The
 > Railway target layout below is retained as architectural history. Phase 3.6 does not deploy it;
 > the current planned runtime is a stateless Vercel API, opaque Convex orchestration, canonical

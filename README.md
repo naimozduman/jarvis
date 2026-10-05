@@ -1,15 +1,31 @@
-# JARVIS Codex Build Kit
+# JARVIS
 
-This folder is the build specification for a private, single-user personal executive accountability operating system.
+This repository contains the private, single-user JARVIS product and its implementation history.
 
-Start here:
+October 5, 2026: this is a reconciliation candidate on `reconciliation/2026-10-05`, built from
+verified GitHub main `8fffe34cf12f13b9dbbd8fe7f7f37b2d17937df7` and preserved R1 development
+`e43ec080a2a4eeb0c6603e6570001540bcbace8b`. See [RECONCILIATION_REPORT.md](RECONCILIATION_REPORT.md)
+for provenance and [DEFERRED_VALIDATION.md](DEFERRED_VALIDATION.md) for Linux validation gates.
+Only safe Git and static checks were performed for this candidate; prior test and deployment
+reports remain dated evidence. The candidate has not been deployed.
 
-1. Read `AGENTS.md`.
-2. Read `docs/PRD.md`.
-3. Read `docs/ARCHITECTURE.md`, `docs/SECURITY.md`, and `docs/BUILD_PLAN.md`.
-4. Review `docs/OPEN_QUESTIONS.md`.
-5. Run the prompts in `prompts/codex/` in order.
-6. Use the project agents in `.codex/agents/` and repository skills in `.agents/skills/`.
+## Current documentation
+
+Current JARVIS product and architecture documentation lives in `docs/JARVIS/`. Begin at `CODEX_START_HERE.md`, then follow the reading order in `docs/JARVIS/CODEX_START_HERE.md`. The remaining build-kit material is retained as historical implementation and repository evidence; it does not override canonical documentation.
+
+[CANONICAL_DOCUMENTATION_MAP.md](CANONICAL_DOCUMENTATION_MAP.md) distinguishes current intent,
+technical decisions, candidate implementation, dated reports and historical PRDs. V5 and Jarvis
+Zero remain separate projects; their governance and implementation are not adopted here.
+
+For current work:
+
+1. Read `CODEX_START_HERE.md`.
+2. Follow the reading order in `docs/JARVIS/CODEX_START_HERE.md`.
+3. Read `AGENTS.md` for repository engineering instructions.
+4. Consult historical PRDs and planning documents only after the canonical reading order, and only as implementation/history evidence.
+5. Use the existing prompts, project agents, and repository skills only when they remain relevant to the current canonical direction.
+
+## Historical build-kit context
 
 The first objective is one reliable vertical slice:
 
@@ -24,7 +40,7 @@ Do not build every connector at once. Do not use ChatGPT connector credentials. 
 ## Included artifacts
 
 - `JARVIS_PRD.docx` and `JARVIS_PRD.pdf`
-- Canonical Markdown PRD and architecture documents
+- Historical Markdown PRD and architecture documents
 - Codex `AGENTS.md`
 - Codex project agents
 - Repository skills

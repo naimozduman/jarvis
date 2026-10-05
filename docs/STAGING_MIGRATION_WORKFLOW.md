@@ -1,5 +1,13 @@
 # Staging migration workflow: operator procedure
 
+October 5, 2026 reconciliation note: this retained C7 procedure is operational history for its
+fixed application commit `940ab613d71ee349ab06341dd3684dff63e25c08` and migration pair through
+`0008`. It is not the migration/release procedure for this reconciliation candidate, which also
+contains later migrations. The workflow and scripts remain preserved and unexecuted. Earlier
+preflight commands and live target identifiers below do not authorize a production operation.
+Use `DEFERRED_VALIDATION.md` at the repository root for isolated Ubuntu validation; a later release
+requires a new reviewed source/migration plan.
+
 This document describes the proposed manual GitHub Actions workflow at
 `.github/workflows/staging-migration-manual.yml`. It is release automation only. It does not
 deploy Vercel or Convex, configure a model, or start a worker.

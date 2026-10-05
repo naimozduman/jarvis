@@ -2,16 +2,21 @@
 
 ## Mission
 
-Build the private, single-user JARVIS system defined in `docs/PRD.md`. Treat the PRD as product truth. Treat accepted ADRs as technical truth. Never replace durable state with prompt text.
+Build the private, single-user JARVIS system. Before using historical PRDs or planning documents, read `CODEX_START_HERE.md` and then follow the reading order in `docs/JARVIS/CODEX_START_HERE.md`. `docs/JARVIS/` is the current product and architecture authority. Historical documentation is implementation/history evidence unless explicitly referenced by the canonical documentation, and it must never override newer decisions. Treat accepted ADRs as technical truth within their documented scope. Actual source code, tests, migrations, and deployments are implementation evidence; they do not prove a product requirement is implemented. Never replace durable state with prompt text.
 
 ## Read before changing code
 
-1. `docs/PRD.md`
-2. `docs/ARCHITECTURE.md`
-3. `docs/SECURITY.md`
-4. `docs/BUILD_PLAN.md`
-5. The relevant connector document in `docs/INTEGRATIONS.md`
-6. The relevant skill under `.agents/skills/`
+1. `CODEX_START_HERE.md`
+2. Follow the reading order in `docs/JARVIS/CODEX_START_HERE.md`.
+3. Relevant current source, tests, migrations, and accepted ADRs for implementation evidence.
+4. The relevant connector document in `docs/INTEGRATIONS.md`.
+5. The relevant skill under `.agents/skills/`.
+6. Historical PRDs, planning documents, and build-kit material only when needed for history or implementation evidence, after completing the canonical reading order.
+
+For this reconciliation candidate, also read `CANONICAL_DOCUMENTATION_MAP.md`,
+`RECONCILIATION_REPORT.md` and `DEFERRED_VALIDATION.md`. Executable validation remains a Linux
+gate; the Windows reconciliation performed safe Git and static checks only. Historical prompts,
+skills and deployment commands do not authorize a release or repeat an old recovery operation.
 
 ## Non-negotiable product rules
 
@@ -39,7 +44,9 @@ Build the private, single-user JARVIS system defined in `docs/PRD.md`. Treat the
 - Do not let one domain read another application's database directly. Use narrow service APIs.
 - Keep model names and provider settings in validated environment configuration.
 - Do not log tokens, message bodies, health records, finance details, or raw prompts in normal logs.
-- Make webhook handlers persist and acknowledge quickly. Process expensive work in the worker.
+- Make webhook handlers persist and acknowledge quickly. Process expensive work through the
+  current canonical job executor; preserve the stateless Vercel boundary and the separate worker
+  composition without introducing a competing scheduler.
 - Make job handlers idempotent despite queue guarantees.
 - Use UTC in storage. Convert with the user's IANA timezone at boundaries.
 - Record source, freshness, and confidence for derived state.
@@ -73,7 +80,7 @@ Recommended agents:
 
 A task is complete only when:
 
-- The implementation matches the PRD and current ADRs.
+- The implementation matches the current canonical documentation in `docs/JARVIS/` and relevant current ADRs.
 - Tests cover the changed behavior.
 - Errors and retries are handled.
 - Permission and audit paths are implemented.
@@ -83,7 +90,8 @@ A task is complete only when:
 
 <!-- convex-ai-start -->
 
-This project uses [Convex](https://convex.dev) as its backend.
+This project uses [Convex](https://convex.dev) for opaque orchestration. PostgreSQL/Neon owns
+canonical product data and private content; Convex is not the canonical personal-state backend.
 
 When working on Convex code, **always read
 `convex/_generated/ai/guidelines.md` first** for important guidelines on

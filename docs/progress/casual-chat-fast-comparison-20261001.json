@@ -1,0 +1,1387 @@
+{
+  "runId": "2d7c961b-73a3-435e-94a5-37f04fe730a1",
+  "startedAt": "2026-10-01T08:52:50.661Z",
+  "cases": [
+    "greeting",
+    "whats_up",
+    "tired",
+    "remember_earlier",
+    "is_this_normal",
+    "schedule_today",
+    "after_work",
+    "report_status",
+    "what_else",
+    "keep_simple",
+    "should_i_stress",
+    "quick_check",
+    "follow_up_one",
+    "follow_up_two",
+    "turkish_greeting",
+    "mixed_language",
+    "uncertainty_check",
+    "goodnight"
+  ],
+  "candidates": ["luna_low", "luna_fast_low", "nano_none"],
+  "records": [
+    {
+      "caseId": "greeting",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3352,
+      "responseStatus": "completed",
+      "responseMessage": "Hey! What’s up?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2881,
+        "outputTokens": 166,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00044305,
+        "modelLatencyMs": 2066
+      },
+      "brainProcessingLatencyMs": 2479
+    },
+    {
+      "caseId": "greeting",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 2859,
+      "responseStatus": "completed",
+      "responseMessage": "Hey! What’s up?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2885,
+        "outputTokens": 191,
+        "reasoningTokens": 19,
+        "exactGatewayCostUsd": 0.0009121,
+        "modelLatencyMs": 2020
+      },
+      "brainProcessingLatencyMs": 2343
+    },
+    {
+      "caseId": "greeting",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4665,
+      "responseStatus": "completed",
+      "responseMessage": "Hey! Noted. You’ve got a fixed work block tomorrow (09:00–17:00 UTC) and the open “submit synthetic report” commitment is due 2099-04-08 17:00 UTC. Want me to plan time for it within the next workday(s)?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2878,
+        "outputTokens": 524,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.0012306,
+        "modelLatencyMs": 3866
+      },
+      "brainProcessingLatencyMs": 4240
+    },
+    {
+      "caseId": "whats_up",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4241,
+      "responseStatus": "completed",
+      "responseMessage": "Not much. You’ve got that report due Wednesday, April 8. Want to tackle anything today?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2893,
+        "outputTokens": 353,
+        "reasoningTokens": 127,
+        "exactGatewayCostUsd": 0.00053951,
+        "modelLatencyMs": 3354
+      },
+      "brainProcessingLatencyMs": 3733
+    },
+    {
+      "caseId": "whats_up",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3789,
+      "responseStatus": "completed",
+      "responseMessage": "Not much—just tracking your fixed work block tomorrow (09:00–17:00 UTC) and your “submit synthetic report” due by 2099-04-08 17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2885,
+        "outputTokens": 318,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00065194,
+        "modelLatencyMs": 2869
+      },
+      "brainProcessingLatencyMs": 3268
+    },
+    {
+      "caseId": "whats_up",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4299,
+      "responseStatus": "completed",
+      "responseMessage": "Not much, I’m here. What’s up with you?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2880,
+        "outputTokens": 270,
+        "reasoningTokens": 92,
+        "exactGatewayCostUsd": 0.00022663,
+        "modelLatencyMs": 3527
+      },
+      "brainProcessingLatencyMs": 3851
+    },
+    {
+      "caseId": "tired",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4708,
+      "responseStatus": "completed",
+      "responseMessage": "Got you. Do you want a short rest break added before you work, or should I just nudge you to the next step for the “submit synthetic report” due Apr 8?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2885,
+        "outputTokens": 452,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00081944,
+        "modelLatencyMs": 3659
+      },
+      "brainProcessingLatencyMs": 4045
+    },
+    {
+      "caseId": "tired",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3479,
+      "responseStatus": "completed",
+      "responseMessage": "Oof, sorry bro. Want to take a breather, or should I help you figure out what still needs doing today?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2886,
+        "outputTokens": 236,
+        "reasoningTokens": 43,
+        "exactGatewayCostUsd": 0.00021038,
+        "modelLatencyMs": 2602
+      },
+      "brainProcessingLatencyMs": 2937
+    },
+    {
+      "caseId": "tired",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3208,
+      "responseStatus": "completed",
+      "responseMessage": "Yeah, sounds like a long day. Want to take a breather, or is something keeping you up?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2894,
+        "outputTokens": 241,
+        "reasoningTokens": 43,
+        "exactGatewayCostUsd": 0.00042776,
+        "modelLatencyMs": 2468
+      },
+      "brainProcessingLatencyMs": 2814
+    },
+    {
+      "caseId": "remember_earlier",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3259,
+      "responseStatus": "completed",
+      "responseMessage": "I can’t see an earlier message in the context I have, so I can’t tell what you said.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2893,
+        "outputTokens": 235,
+        "reasoningTokens": 44,
+        "exactGatewayCostUsd": 0.000210755,
+        "modelLatencyMs": 2518
+      },
+      "brainProcessingLatencyMs": 2876
+    },
+    {
+      "caseId": "remember_earlier",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3562,
+      "responseStatus": "completed",
+      "responseMessage": "I can’t see any earlier messages in the context I have, only this question and your schedule details. What conversation do you mean?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2893,
+        "outputTokens": 298,
+        "reasoningTokens": 42,
+        "exactGatewayCostUsd": 0.00048451,
+        "modelLatencyMs": 2579
+      },
+      "brainProcessingLatencyMs": 2971
+    },
+    {
+      "caseId": "remember_earlier",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4272,
+      "responseStatus": "completed",
+      "responseMessage": "Earlier you asked: “what did I tell you earlier?” (That’s the only prior message I have in context.) Also, schedule-wise I only know there’s a fixed work block on 2099-04-06 from 09:00–17:00 UTC, and the open commitment “submit synthetic report” is due 2099-04-08 17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2895,
+        "outputTokens": 403,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00076019,
+        "modelLatencyMs": 3435
+      },
+      "brainProcessingLatencyMs": 3890
+    },
+    {
+      "caseId": "is_this_normal",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3098,
+      "responseStatus": "completed",
+      "responseMessage": "What are you asking about? I’m not sure what “this” refers to.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2891,
+        "outputTokens": 276,
+        "reasoningTokens": 23,
+        "exactGatewayCostUsd": 0.00046201,
+        "modelLatencyMs": 2212
+      },
+      "brainProcessingLatencyMs": 2586
+    },
+    {
+      "caseId": "is_this_normal",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4405,
+      "responseStatus": "completed",
+      "responseMessage": "Yeah—it looks normal. You’ve got a fixed work block 09:00–17:00 UTC on 2099-04-06, and the “submit synthetic report” commitment is due 2099-04-08 17:00 UTC with no completion evidence yet. Your message “is this normal” is just a chat item.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2883,
+        "outputTokens": 375,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00104535,
+        "modelLatencyMs": 3679
+      },
+      "brainProcessingLatencyMs": 4063
+    },
+    {
+      "caseId": "is_this_normal",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3489,
+      "responseStatus": "completed",
+      "responseMessage": "What are you referring to? I don’t have enough context to tell whether it’s normal.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2885,
+        "outputTokens": 290,
+        "reasoningTokens": 29,
+        "exactGatewayCostUsd": 0.000237255,
+        "modelLatencyMs": 2626
+      },
+      "brainProcessingLatencyMs": 3005
+    },
+    {
+      "caseId": "schedule_today",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4129,
+      "responseStatus": "completed",
+      "responseMessage": "Today (2099-04-05) I don’t have any fixed work blocks scheduled in the available data. The next known fixed block is 2099-04-06, 09:00–17:00 UTC. Also, you have an open commitment “submit synthetic report” due 2099-04-08 17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2889,
+        "outputTokens": 388,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00074024,
+        "modelLatencyMs": 3365
+      },
+      "brainProcessingLatencyMs": 3745
+    },
+    {
+      "caseId": "schedule_today",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4079,
+      "responseStatus": "completed",
+      "responseMessage": "I don’t have any schedule data for today, April 5. The only listed block is tomorrow, April 6, from 09:00 to 17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2894,
+        "outputTokens": 364,
+        "reasoningTokens": 145,
+        "exactGatewayCostUsd": 0.00027538,
+        "modelLatencyMs": 3300
+      },
+      "brainProcessingLatencyMs": 3630
+    },
+    {
+      "caseId": "schedule_today",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3956,
+      "responseStatus": "completed",
+      "responseMessage": "I don’t have any schedule details for today, April 5. I can see a work block tomorrow, April 6, from 09:00 to 17:00 UTC. Your synthetic report is still open and due April 8 at 17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2886,
+        "outputTokens": 364,
+        "reasoningTokens": 55,
+        "exactGatewayCostUsd": 0.00054876,
+        "modelLatencyMs": 3051
+      },
+      "brainProcessingLatencyMs": 3411
+    },
+    {
+      "caseId": "after_work",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4504,
+      "responseStatus": "completed",
+      "responseMessage": "I don’t see anything else scheduled after work on April 6 in the available calendar. You do have an open report due April 8, but it isn’t listed as scheduled time.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2889,
+        "outputTokens": 368,
+        "reasoningTokens": 92,
+        "exactGatewayCostUsd": 0.000276755,
+        "modelLatencyMs": 3667
+      },
+      "brainProcessingLatencyMs": 4045
+    },
+    {
+      "caseId": "after_work",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3788,
+      "responseStatus": "completed",
+      "responseMessage": "For the known workday on April 6, I don’t have any other scheduled items after work. You do have an open report due April 8, but it isn’t shown as scheduled.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2894,
+        "outputTokens": 354,
+        "reasoningTokens": 80,
+        "exactGatewayCostUsd": 0.00054076,
+        "modelLatencyMs": 2922
+      },
+      "brainProcessingLatencyMs": 3265
+    },
+    {
+      "caseId": "after_work",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4101,
+      "responseStatus": "completed",
+      "responseMessage": "You’re scheduled to work 09:00–17:00 UTC tomorrow (2099-04-06). I don’t see anything else scheduled after 17:00 UTC in the data available.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2896,
+        "outputTokens": 344,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00068664,
+        "modelLatencyMs": 3331
+      },
+      "brainProcessingLatencyMs": 3719
+    },
+    {
+      "caseId": "report_status",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3066,
+      "responseStatus": "completed",
+      "responseMessage": "It’s still open, due April 8 at 17:00 UTC. I don’t have any completion evidence, so I can’t tell how much progress you’ve made.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2901,
+        "outputTokens": 250,
+        "reasoningTokens": 31,
+        "exactGatewayCostUsd": 0.00043851,
+        "modelLatencyMs": 2118
+      },
+      "brainProcessingLatencyMs": 2523
+    },
+    {
+      "caseId": "report_status",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4604,
+      "responseStatus": "completed",
+      "responseMessage": "You’re still in progress—there’s no completion evidence. The open commitment “submit synthetic report” is due 2099-04-08 17:00 UTC. Today (2099-04-05), the only known work window is 2099-04-06 09:00–17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2890,
+        "outputTokens": 405,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00076169,
+        "modelLatencyMs": 3883
+      },
+      "brainProcessingLatencyMs": 4208
+    },
+    {
+      "caseId": "report_status",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4015,
+      "responseStatus": "completed",
+      "responseMessage": "The report commitment is still open and due April 8 at 17:00 UTC. I don’t have any recorded progress or completion evidence.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2895,
+        "outputTokens": 282,
+        "reasoningTokens": 76,
+        "exactGatewayCostUsd": 0.000234505,
+        "modelLatencyMs": 3090
+      },
+      "brainProcessingLatencyMs": 3462
+    },
+    {
+      "caseId": "what_else",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4994,
+      "responseStatus": "completed",
+      "responseMessage": "You’ve got fixed work 09:00–17:00 UTC on 2099-04-06. The open commitment “submit synthetic report” is due by 2099-04-08 17:00 UTC, and there’s no completion evidence yet.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2897,
+        "outputTokens": 359,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00070559,
+        "modelLatencyMs": 3376
+      },
+      "brainProcessingLatencyMs": 4369
+    },
+    {
+      "caseId": "what_else",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4914,
+      "responseStatus": "completed",
+      "responseMessage": "The synthetic report is still open and due April 8 at 17:00 UTC. Tomorrow you’re booked for work from 09:00 to 17:00 UTC, so you’ll need to fit it around that. I don’t have any completion evidence.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2885,
+        "outputTokens": 361,
+        "reasoningTokens": 69,
+        "exactGatewayCostUsd": 0.000272755,
+        "modelLatencyMs": 3751
+      },
+      "brainProcessingLatencyMs": 4094
+    },
+    {
+      "caseId": "what_else",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3939,
+      "responseStatus": "completed",
+      "responseMessage": "Your synthetic report is due Apr 8 at 17:00 UTC, and there’s no completion recorded. You’ve got a fixed work block tomorrow, 09:00–17:00 UTC; I don’t have any other schedule details.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2895,
+        "outputTokens": 355,
+        "reasoningTokens": 59,
+        "exactGatewayCostUsd": 0.00054201,
+        "modelLatencyMs": 3093
+      },
+      "brainProcessingLatencyMs": 3493
+    },
+    {
+      "caseId": "keep_simple",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3229,
+      "responseStatus": "completed",
+      "responseMessage": "Got it.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2890,
+        "outputTokens": 215,
+        "reasoningTokens": 42,
+        "exactGatewayCostUsd": 0.00020038,
+        "modelLatencyMs": 2423
+      },
+      "brainProcessingLatencyMs": 2797
+    },
+    {
+      "caseId": "keep_simple",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 2658,
+      "responseStatus": "completed",
+      "responseMessage": "Got it. I’ll keep it simple.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2889,
+        "outputTokens": 218,
+        "reasoningTokens": 44,
+        "exactGatewayCostUsd": 0.00040351,
+        "modelLatencyMs": 1885
+      },
+      "brainProcessingLatencyMs": 2245
+    },
+    {
+      "caseId": "keep_simple",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 8240,
+      "responseStatus": "completed",
+      "responseMessage": "The action could not be applied because it was rejected by validation or policy.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2890,
+        "outputTokens": 708,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00114044,
+        "modelLatencyMs": 7349
+      },
+      "brainProcessingLatencyMs": 7880
+    },
+    {
+      "caseId": "should_i_stress",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3769,
+      "responseStatus": "completed",
+      "responseMessage": "No need to panic, but it’s worth giving it attention: the report is due April 8, and there’s no completion evidence yet. If you can, use a small slot today to check what’s left and start the next step; I don’t know how much work it needs.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2892,
+        "outputTokens": 326,
+        "reasoningTokens": 72,
+        "exactGatewayCostUsd": 0.00051226,
+        "modelLatencyMs": 2774
+      },
+      "brainProcessingLatencyMs": 3170
+    },
+    {
+      "caseId": "should_i_stress",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4635,
+      "responseStatus": "completed",
+      "responseMessage": "A little stress is fine, but no—don’t panic. Your “submit synthetic report” is due 2099-04-08 17:00 UTC, and you’ve got a 09:00–17:00 UTC work block on 2099-04-06 to get it done (or at least mostly done).",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2895,
+        "outputTokens": 376,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00072644,
+        "modelLatencyMs": 3945
+      },
+      "brainProcessingLatencyMs": 4278
+    },
+    {
+      "caseId": "should_i_stress",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4965,
+      "responseStatus": "completed",
+      "responseMessage": "No need to panic, but don’t leave it to the last minute. The report is due Wednesday, April 8 at 17:00 UTC, and you have a fixed work block tomorrow. A small start today would give you more breathing room.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2883,
+        "outputTokens": 411,
+        "reasoningTokens": 126,
+        "exactGatewayCostUsd": 0.000297505,
+        "modelLatencyMs": 3994
+      },
+      "brainProcessingLatencyMs": 4349
+    },
+    {
+      "caseId": "quick_check",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 5837,
+      "responseStatus": "completed",
+      "responseMessage": "Probably: I only see your fixed work block (09:00–17:00 on 2099-04-06) and the due commitment “submit synthetic report” (2099-04-08 17:00). Before I say what you’re missing, what timezone should I treat “17:00” as for the due date?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2896,
+        "outputTokens": 515,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00090039,
+        "modelLatencyMs": 4859
+      },
+      "brainProcessingLatencyMs": 5292
+    },
+    {
+      "caseId": "quick_check",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 5067,
+      "responseStatus": "completed",
+      "responseMessage": "One thing on the radar: the synthetic report is still open and due Apr 8. I only have your Apr 6 work block and that commitment here, so I can’t confirm whether anything else is missing.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2895,
+        "outputTokens": 413,
+        "reasoningTokens": 122,
+        "exactGatewayCostUsd": 0.000300005,
+        "modelLatencyMs": 4298
+      },
+      "brainProcessingLatencyMs": 4631
+    },
+    {
+      "caseId": "quick_check",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4086,
+      "responseStatus": "completed",
+      "responseMessage": "One open item I can see: the synthetic report is due April 8 at 17:00 UTC, with no completion recorded. Tomorrow you have work blocked 09:00–17:00 UTC. I don’t have any other schedule data to check.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2896,
+        "outputTokens": 385,
+        "reasoningTokens": 88,
+        "exactGatewayCostUsd": 0.00057226,
+        "modelLatencyMs": 3278
+      },
+      "brainProcessingLatencyMs": 3627
+    },
+    {
+      "caseId": "follow_up_one",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4844,
+      "responseStatus": "completed",
+      "responseMessage": "After your work block, or after submitting the report?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2899,
+        "outputTokens": 426,
+        "reasoningTokens": 53,
+        "exactGatewayCostUsd": 0.000307005,
+        "modelLatencyMs": 3917
+      },
+      "brainProcessingLatencyMs": 4300
+    },
+    {
+      "caseId": "follow_up_one",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3582,
+      "responseStatus": "completed",
+      "responseMessage": "What do you mean by “that”—the work block on April 6, or something else?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2894,
+        "outputTokens": 389,
+        "reasoningTokens": 75,
+        "exactGatewayCostUsd": 0.00057576,
+        "modelLatencyMs": 2730
+      },
+      "brainProcessingLatencyMs": 3112
+    },
+    {
+      "caseId": "follow_up_one",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4530,
+      "responseStatus": "completed",
+      "responseMessage": "After what, specifically—after the 2099-04-06 09:00–17:00 work block, or after the due time for “submit synthetic report” (2099-04-08 17:00 UTC)?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2890,
+        "outputTokens": 509,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00089169,
+        "modelLatencyMs": 3751
+      },
+      "brainProcessingLatencyMs": 4141
+    },
+    {
+      "caseId": "follow_up_two",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3481,
+      "responseStatus": "completed",
+      "responseMessage": "The synthetic report is due April 8 at 17:00 UTC, and there’s no completion recorded. You’ve also got a fixed work block tomorrow, 09:00–17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2890,
+        "outputTokens": 342,
+        "reasoningTokens": 63,
+        "exactGatewayCostUsd": 0.00052776,
+        "modelLatencyMs": 2553
+      },
+      "brainProcessingLatencyMs": 2958
+    },
+    {
+      "caseId": "follow_up_two",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3484,
+      "responseStatus": "completed",
+      "responseMessage": "Yeah: your “submit synthetic report” commitment is due 2099-04-08 17:00 UTC. Also you’ve got a fixed work block tomorrow (2099-04-06) from 09:00–17:00 UTC.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2898,
+        "outputTokens": 316,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00065204,
+        "modelLatencyMs": 2633
+      },
+      "brainProcessingLatencyMs": 3010
+    },
+    {
+      "caseId": "follow_up_two",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4695,
+      "responseStatus": "completed",
+      "responseMessage": "Yes: you’ve got work tomorrow, 09:00–17:00 UTC, and your report is due Wednesday at 17:00 UTC. It’s still open.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2885,
+        "outputTokens": 386,
+        "reasoningTokens": 118,
+        "exactGatewayCostUsd": 0.000285255,
+        "modelLatencyMs": 3947
+      },
+      "brainProcessingLatencyMs": 4278
+    },
+    {
+      "caseId": "turkish_greeting",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4821,
+      "responseStatus": "completed",
+      "responseMessage": "Selam! 2099-04-06 09:00–17:00 UTC arası sabit iş var. Ayrıca “submit synthetic report” 2099-04-08 17:00 UTC’ye due—tamamlanma kanıtı yok.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2885,
+        "outputTokens": 471,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00084319,
+        "modelLatencyMs": 3705
+      },
+      "brainProcessingLatencyMs": 4122
+    },
+    {
+      "caseId": "turkish_greeting",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4166,
+      "responseStatus": "completed",
+      "responseMessage": "Selam! Yarın 09.00–17.00 UTC iş bloğun var. 8 Nisan 17.00 UTC’ye kadar da raporu teslim etmen gerekiyor; henüz tamamlandığına dair kayıt yok.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2890,
+        "outputTokens": 373,
+        "reasoningTokens": 80,
+        "exactGatewayCostUsd": 0.00027938,
+        "modelLatencyMs": 3375
+      },
+      "brainProcessingLatencyMs": 3700
+    },
+    {
+      "caseId": "turkish_greeting",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4713,
+      "responseStatus": "completed",
+      "responseMessage": "Selam! Görünen kayıtlarda yarın 09:00–17:00 iş bloğun var; raporu da çarşamba 17:00’ye kadar teslim etmen gerekiyor.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2895,
+        "outputTokens": 466,
+        "reasoningTokens": 154,
+        "exactGatewayCostUsd": 0.00065301,
+        "modelLatencyMs": 3921
+      },
+      "brainProcessingLatencyMs": 4262
+    },
+    {
+      "caseId": "mixed_language",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4016,
+      "responseStatus": "completed",
+      "responseMessage": "Bugün için takvim bilgim yok. Yarın 09:00–17:00 UTC iş bloğun var; sentetik rapor 8 Nisan’da teslim.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2899,
+        "outputTokens": 333,
+        "reasoningTokens": 44,
+        "exactGatewayCostUsd": 0.000260505,
+        "modelLatencyMs": 3085
+      },
+      "brainProcessingLatencyMs": 3483
+    },
+    {
+      "caseId": "mixed_language",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4607,
+      "responseStatus": "completed",
+      "responseMessage": "Bugün (5 Nis) için kayıtlı plan görünmüyor. Rapor 8 Nis 17:00 UTC’ye kadar açık.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2887,
+        "outputTokens": 422,
+        "reasoningTokens": 151,
+        "exactGatewayCostUsd": 0.00060701,
+        "modelLatencyMs": 3710
+      },
+      "brainProcessingLatencyMs": 4142
+    },
+    {
+      "caseId": "mixed_language",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4046,
+      "responseStatus": "completed",
+      "responseMessage": "Bugün (2099-04-05) planında görünen tek şey: özel bir kayıt yok. 2099-04-06 sabah 09:00–17:00 (UTC) sabit çalışma var. Ayrıca “submit synthetic report” 2099-04-08 17:00 UTC’de due.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2896,
+        "outputTokens": 360,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00070664,
+        "modelLatencyMs": 3226
+      },
+      "brainProcessingLatencyMs": 3601
+    },
+    {
+      "caseId": "uncertainty_check",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4063,
+      "responseStatus": "completed",
+      "responseMessage": "I can verify the supplied schedule and deadline, but I can’t tell what “that” refers to from this turn alone. Which claim do you mean?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2894,
+        "outputTokens": 393,
+        "reasoningTokens": 32,
+        "exactGatewayCostUsd": 0.00057976,
+        "modelLatencyMs": 2938
+      },
+      "brainProcessingLatencyMs": 3574
+    },
+    {
+      "caseId": "uncertainty_check",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4693,
+      "responseStatus": "completed",
+      "responseMessage": "I’m not guessing. I only know two concrete things from the state you gave me: (1) on 2099-04-06 there’s a fixed work block 09:00–17:00 UTC, and (2) your open commitment “submit synthetic report” is due 2099-04-08 17:00 UTC. Anything beyond that isn’t in the provided data.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2904,
+        "outputTokens": 377,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00072949,
+        "modelLatencyMs": 3026
+      },
+      "brainProcessingLatencyMs": 3792
+    },
+    {
+      "caseId": "uncertainty_check",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 4056,
+      "responseStatus": "completed",
+      "responseMessage": "I only know what’s in the supplied records: the fixed work block on April 6, 09:00–17:00 UTC, and the report deadline on April 8 at 17:00 UTC. Anything beyond that would be a guess.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2901,
+        "outputTokens": 286,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.000237255,
+        "modelLatencyMs": 3159
+      },
+      "brainProcessingLatencyMs": 3509
+    },
+    {
+      "caseId": "goodnight",
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 2905,
+      "responseStatus": "completed",
+      "responseMessage": "Goodnight.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2890,
+        "outputTokens": 177,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00047669,
+        "modelLatencyMs": 1846
+      },
+      "brainProcessingLatencyMs": 2325
+    },
+    {
+      "caseId": "goodnight",
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 2756,
+      "responseStatus": "completed",
+      "responseMessage": "Goodnight. Rest well.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2881,
+        "outputTokens": 168,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.000175755,
+        "modelLatencyMs": 2057
+      },
+      "brainProcessingLatencyMs": 2362
+    },
+    {
+      "caseId": "goodnight",
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 3377,
+      "responseStatus": "completed",
+      "responseMessage": "Goodnight. Rest well.",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2894,
+        "outputTokens": 209,
+        "reasoningTokens": 33,
+        "exactGatewayCostUsd": 0.00039576,
+        "modelLatencyMs": 2385
+      },
+      "brainProcessingLatencyMs": 2784
+    }
+  ],
+  "replay": [
+    {
+      "candidate": "luna_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 619,
+      "responseStatus": "duplicate",
+      "responseMessage": "Hey! What’s up?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2881,
+        "outputTokens": 166,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.00044305,
+        "modelLatencyMs": 2066
+      },
+      "brainProcessingLatencyMs": 88
+    },
+    {
+      "candidate": "luna_fast_low",
+      "httpStatus": 200,
+      "clientRoundTripMs": 613,
+      "responseStatus": "duplicate",
+      "responseMessage": "Hey! What’s up?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-6-luna",
+        "reasoningEffort": "low",
+        "inputTokens": 2885,
+        "outputTokens": 191,
+        "reasoningTokens": 19,
+        "exactGatewayCostUsd": 0.0009121,
+        "modelLatencyMs": 2020
+      },
+      "brainProcessingLatencyMs": 93
+    },
+    {
+      "candidate": "nano_none",
+      "httpStatus": 200,
+      "clientRoundTripMs": 560,
+      "responseStatus": "duplicate",
+      "responseMessage": "Hey! Noted. You’ve got a fixed work block tomorrow (09:00–17:00 UTC) and the open “submit synthetic report” commitment is due 2099-04-08 17:00 UTC. Want me to plan time for it within the next workday(s)?",
+      "strictSchemaSuccess": true,
+      "errorCategory": null,
+      "model": {
+        "provider": "vercel-ai-gateway",
+        "modelId": "openai/gpt-5.4-nano",
+        "reasoningEffort": "none",
+        "inputTokens": 2878,
+        "outputTokens": 524,
+        "reasoningTokens": 0,
+        "exactGatewayCostUsd": 0.0012306,
+        "modelLatencyMs": 3866
+      },
+      "brainProcessingLatencyMs": 93
+    }
+  ],
+  "cleanup": {
+    "httpStatus": 200,
+    "clientRoundTripMs": 458,
+    "cleaned": true
+  },
+  "finishedAt": "2026-10-01T08:56:34.673Z",
+  "deployment": {
+    "id": "dpl_9frdTy15ApqGYkeL8p4kY7rYExE3",
+    "project": "jarvis-api-staging",
+    "baselineCommit": "cb2284b8a6854cb8ede29ea82aebe1b5846337f9",
+    "workingTreeIncludesAcceptedUncommittedImplementation": true
+  },
+  "summaries": [
+    {
+      "candidate": "luna_low",
+      "cases": 18,
+      "strictSchemaPassed": 18,
+      "actualModelIds": ["openai/gpt-6-luna"],
+      "reasoning": "low",
+      "inputTokens": 52011,
+      "outputTokens": 5583,
+      "reasoningTokens": 1175,
+      "totalTokens": 57594,
+      "exactGatewayCostUsd": "0.00473051",
+      "medianModelMs": 3229.5,
+      "meanModelMs": 3189,
+      "minModelMs": 2057,
+      "maxModelMs": 4298,
+      "p95NearestRankMs": 4298,
+      "medianSyntheticPipelineMs": 3569.5,
+      "groundingReview": "18/18 without observed grounding/context errors",
+      "nonActionTaskReview": "18/18 without observed grounding/task errors",
+      "firstTokenLatencyMs": null,
+      "firstTokenUnavailableReason": "The accepted canonical Brain adapter is non-streaming; no partial-token timing is available."
+    },
+    {
+      "candidate": "luna_fast_low",
+      "cases": 18,
+      "strictSchemaPassed": 18,
+      "actualModelIds": ["openai/gpt-6-luna"],
+      "reasoning": "low",
+      "inputTokens": 52063,
+      "outputTokens": 5832,
+      "reasoningTokens": 1191,
+      "totalTokens": 57895,
+      "exactGatewayCostUsd": "0.00972302",
+      "medianModelMs": 2752,
+      "meanModelMs": 2777.277777777778,
+      "minModelMs": 1885,
+      "maxModelMs": 3921,
+      "p95NearestRankMs": 3921,
+      "medianSyntheticPipelineMs": 3141,
+      "groundingReview": "18/18 without observed grounding/context errors",
+      "nonActionTaskReview": "18/18 without observed grounding/task errors",
+      "firstTokenLatencyMs": null,
+      "firstTokenUnavailableReason": "The accepted canonical Brain adapter is non-streaming; no partial-token timing is available."
+    },
+    {
+      "candidate": "nano_none",
+      "cases": 18,
+      "strictSchemaPassed": 18,
+      "actualModelIds": ["openai/gpt-5.4-nano"],
+      "reasoning": "none",
+      "inputTokens": 52042,
+      "outputTokens": 7377,
+      "reasoningTokens": 0,
+      "totalTokens": 59419,
+      "exactGatewayCostUsd": "0.01446869",
+      "medianModelMs": 3547,
+      "meanModelMs": 3655.722222222222,
+      "minModelMs": 1846,
+      "maxModelMs": 7349,
+      "p95NearestRankMs": 7349,
+      "medianSyntheticPipelineMs": 4054,
+      "groundingReview": "13/18 without observed grounding/context errors",
+      "nonActionTaskReview": "12/18 without observed grounding/task errors",
+      "firstTokenLatencyMs": null,
+      "firstTokenUnavailableReason": "The accepted canonical Brain adapter is non-streaming; no partial-token timing is available."
+    }
+  ],
+  "reviewRubric": "Manual review of persisted synthetic responses against the fixed schedule/deadline, missing prior messages, absent progress evidence, ambiguity and no-action intent. Qualitative reviewer evidence, not a calibrated model ranking.",
+  "reviewFindings": [
+    {
+      "caseId": "remember_earlier",
+      "note": "Mistook the current question for an earlier owner message."
+    },
+    {
+      "caseId": "is_this_normal",
+      "note": "Asserted normality without resolving what “this” meant."
+    },
+    {
+      "caseId": "report_status",
+      "note": "Asserted progress from an open commitment with no progress evidence."
+    },
+    {
+      "caseId": "keep_simple",
+      "note": "Proposed an unsolicited replan action; policy denied it and truth reconciliation replaced the response."
+    },
+    {
+      "caseId": "should_i_stress",
+      "note": "Treated the protected work anchor as available time to complete the report."
+    },
+    {
+      "caseId": "quick_check",
+      "note": "Asked for the deadline timezone despite explicit UTC metadata."
+    }
+  ],
+  "audit": {
+    "modelReceiptCount": 54,
+    "actions": "1",
+    "executions": "0",
+    "deliveries": "0",
+    "unexpectedAction": [
+      {
+        "id": "0a920057-0d01-5e30-a284-67aa2a7aedf5",
+        "idempotency_key": "casual-chat-benchmark:2d7c961b-73a3-435e-94a5-37f04fe730a1:nano_none:keep_simple",
+        "decision_type": "answer",
+        "validation_state": "validated",
+        "execution_result": {
+          "actionCount": 1,
+          "deniedCount": 1,
+          "executedCount": 0,
+          "verifiedCount": 0,
+          "authorizedCount": 0,
+          "actionTransitions": [
+            {
+              "origin": "model",
+              "policy": "denied",
+              "actionId": "772a8162-8008-4ab4-8a33-79f4f667eef0",
+              "execution": "not_executed",
+              "actionType": "replan",
+              "verification": "not_required"
+            }
+          ],
+          "approvalRequested": false,
+          "mappingErrorCount": 0,
+          "actionProcessingError": false,
+          "finalConversationResponse": {
+            "tone": "neutral",
+            "message": "The action could not be applied because it was rejected by validation or policy.",
+            "nextAction": null
+          }
+        },
+        "model_status": "completed",
+        "exact_gateway_cost_usd": "0.00114044"
+      }
+    ]
+  },
+  "liveTelegramCanary": {
+    "status": "awaiting_fresh_owner_message",
+    "actualNewWebhookToFinalSendMs": null,
+    "lastPriorCanaryReceivedAt": "2026-10-01T08:11:40.109Z",
+    "lastPriorCanaryReasoning": "medium",
+    "lastPriorCanaryModelMs": 2962,
+    "lastPriorCanaryCanonicalIngressToAcceptedMs": 7711,
+    "priorTimingIsNotEvidenceForNewLowRoute": true
+  },
+  "limitations": [
+    "One observation per case/candidate, counterbalanced ordering but no repeated-trial confidence interval.",
+    "Same frozen prompt/context content and strict schema; canonical request/conversation IDs vary for independent persistence.",
+    "Gateway cache warmth/serving conditions affect exact cost and latency.",
+    "Luna Fast requests the fast slug but Gateway reports the underlying openai/gpt-6-luna model ID.",
+    "Most referential/context cases in this suite remain medium in production; the isolated comparison forces its candidate setting."
+  ]
+}
