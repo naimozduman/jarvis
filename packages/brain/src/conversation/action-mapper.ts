@@ -13,6 +13,79 @@ export interface MappedActionIntent {
   readonly mappingError: string | null;
 }
 
+/**
+ * The plan operation is already fully materialized and validated by the server.  This is not a
+ * model action: it deliberately derives its payload, provenance, and idempotency key only from
+ * trusted request and proposal state.
+ */
+export function materializeValidatedPlanAction(input: {
+  readonly request: BrainRequest;
+  readonly decisionId: string;
+  readonly planProposal: PlanProposal | null;
+}): MappedActionIntent | null {
+  const proposal = input.planProposal;
+  if (
+    !proposal?.valid ||
+    proposal.contractVersion !== 'flexible_delta_v2' ||
+    !proposal.commitmentSchedules?.length
+  ) {
+    return null;
+  }
+
+  return {
+    action: {
+      id: randomUUID(),
+      ownerId: input.request.ownerId,
+      actionType: 'internal.plan.update',
+      // The executor re-reads this immutable, validated proposal under the day-plan lock. Its
+      // commitmentSchedules bindings carry the canonical commitment metadata provenance.
+      payload: { dayPlanId: proposal.dayPlanId, planProposalId: proposal.id },
+      riskClass: 'LOW_RISK_INTERNAL',
+      idempotencyKey: `brain:validated-plan:${input.request.id}:${proposal.id}`,
+      ...(input.request.sourceEventId ? { sourceEventId: input.request.sourceEventId } : {}),
+      sourceBrainDecisionId: input.decisionId,
+      correlationId: input.request.correlationId,
+      ...(input.request.causationId ? { causationId: input.request.causationId } : {}),
+      state: 'proposed',
+      expiresAt: null,
+    },
+    mappingError: null,
+  };
+}
+
+/** Typed reminder intent never needs a separate model-invented executable action. */
+export function materializeValidatedReminderAction(input: {
+  readonly request: BrainRequest;
+  readonly decisionId: string;
+  readonly reminderProposal: ReminderProposal | null;
+}): MappedActionIntent | null {
+  const proposal = input.reminderProposal;
+  if (!proposal?.scheduledFor) return null;
+  return {
+    action: {
+      id: randomUUID(),
+      ownerId: input.request.ownerId,
+      actionType: 'internal.reminder.create',
+      payload: {
+        reminderId: proposal.id,
+        reminderProposalId: proposal.id,
+        ...(proposal.commitmentId ? { commitmentId: proposal.commitmentId } : {}),
+        title: proposal.title,
+        nextEligibleDeliveryAt: proposal.scheduledFor,
+      },
+      riskClass: 'LOW_RISK_INTERNAL',
+      idempotencyKey: `brain:validated-reminder:${input.request.id}:${proposal.id}`,
+      ...(input.request.sourceEventId ? { sourceEventId: input.request.sourceEventId } : {}),
+      sourceBrainDecisionId: input.decisionId,
+      correlationId: input.request.correlationId,
+      ...(input.request.causationId ? { causationId: input.request.causationId } : {}),
+      state: 'proposed',
+      expiresAt: null,
+    },
+    mappingError: null,
+  };
+}
+
 function invalidAction(input: {
   readonly request: BrainRequest;
   readonly decisionId: string;
@@ -142,8 +215,23 @@ export function mapModelActions(input: {
       };
     }
 
-    // The original intent is not copied into a payload. Policy can still deny an unknown or
-    // high-impact known type, while no external endpoint, recipient, or secret is ever exposed.
-    return { action: { ...base, payload: {} }, mappingError: null };
+    // Preserve registered approval/denial-only boundaries. No model recipient/payload is executable.
+    const approvalOnlyTypes = [
+      'external.message.send',
+      'email.send',
+      'appointment.cancel',
+      'important.data.delete',
+      'calendar.event.write',
+      'email.archive',
+    ] as const;
+    const registered = approvalOnlyTypes.find((type) => type === intent.actionType);
+    if (registered)
+      return { action: { ...base, actionType: registered, payload: {} }, mappingError: null };
+    return invalidAction({
+      request: input.request,
+      decisionId: input.decisionId,
+      index,
+      reason: 'The model intent is not in the server action mapper allowlist.',
+    });
   });
 }

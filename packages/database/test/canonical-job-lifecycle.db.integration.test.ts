@@ -274,6 +274,15 @@ describe.sequential('canonical generation and execution expiry with real Postgre
           { column_name: 'dispatch_generation', is_nullable: 'NO', column_default: '1' },
           { column_name: 'execution_deadline', is_nullable: 'YES', column_default: null },
         ]);
+        const participantId = await runtime.pool.query<{
+          readonly is_nullable: string;
+          readonly column_default: string | null;
+        }>(
+          "select is_nullable, column_default from information_schema.columns where table_schema = 'jarvis' and table_name = 'telegram_bot_participants' and column_name = 'id'",
+        );
+        expect(participantId.rows).toEqual([
+          { is_nullable: 'NO', column_default: 'gen_random_uuid()' },
+        ]);
       } finally {
         await runtime.close();
       }

@@ -208,8 +208,14 @@ export class DrizzleStagingC7FixtureGuard implements StagingC7FixtureGuard {
 }
 
 export interface RuntimeConversationRepository {
-  /** Creates or returns the one non-public synthetic staging conversation for a trusted owner. */
-  ensureSyntheticConversation(input: { readonly ownerId: string }): Promise<string>;
+  /**
+   * Creates or returns a non-public synthetic staging conversation for a trusted owner. `scope`
+   * is supplied only by fixed server-side fixtures, never by an HTTP request.
+   */
+  ensureSyntheticConversation(input: {
+    readonly ownerId: string;
+    readonly scope?: string;
+  }): Promise<string>;
 }
 
 /**
@@ -220,8 +226,13 @@ export interface RuntimeConversationRepository {
 export class DrizzleRuntimeConversationRepository implements RuntimeConversationRepository {
   public constructor(private readonly database: JarvisDatabase) {}
 
-  public async ensureSyntheticConversation(input: { readonly ownerId: string }): Promise<string> {
-    const externalConversationId = 'staging-runtime-synthetic';
+  public async ensureSyntheticConversation(input: {
+    readonly ownerId: string;
+    readonly scope?: string;
+  }): Promise<string> {
+    const externalConversationId = input.scope
+      ? `staging-runtime-synthetic:${input.scope}`
+      : 'staging-runtime-synthetic';
     const [created] = await this.database
       .insert(conversations)
       .values({
@@ -230,8 +241,13 @@ export class DrizzleRuntimeConversationRepository implements RuntimeConversation
         channel: 'internal',
         externalConversationId,
         state: 'active',
-        title: 'Staging runtime verification',
-        metadata: { purpose: 'synthetic_runtime_verification' },
+        title: input.scope ? 'Staging Luna quality verification' : 'Staging runtime verification',
+        metadata: {
+          purpose: input.scope
+            ? 'synthetic_luna_quality_verification'
+            : 'synthetic_runtime_verification',
+          ...(input.scope ? { scope: input.scope } : {}),
+        },
       })
       .onConflictDoNothing()
       .returning({ id: conversations.id });
@@ -266,6 +282,21 @@ export interface TransportConnectionRegistry {
     readonly baileysVersion: string;
     readonly imageDigest: string;
     readonly versionVerified: boolean;
+  }): Promise<string>;
+  /**
+   * Records the explicit official-Cloud bridge boundary. `connected` here means the trusted
+   * bridge delivery endpoint was explicitly configured; it does not assert that Meta accepted,
+   * delivered, or read any particular message.
+   */
+  ensureWhatsAppCloudConnection(input: {
+    readonly ownerId: string;
+    readonly bridgeReference: string;
+    readonly outboundEnabled: boolean;
+  }): Promise<string>;
+  ensureTelegramBotConnection(input: {
+    readonly ownerId: string;
+    readonly botReference: string;
+    readonly outboundEnabled: boolean;
   }): Promise<string>;
 }
 
@@ -320,5 +351,86 @@ export class DrizzleTransportConnectionRegistry implements TransportConnectionRe
       throw new Error('A transport connection insert conflicted without a canonical record.');
     }
     return existing.id;
+  }
+
+  public async ensureWhatsAppCloudConnection(input: {
+    readonly ownerId: string;
+    readonly bridgeReference: string;
+    readonly outboundEnabled: boolean;
+  }): Promise<string> {
+    const now = new Date();
+    const [connection] = await this.database
+      .insert(messagingTransportConnections)
+      .values({
+        id: randomUUID(),
+        ownerId: input.ownerId,
+        transport: 'whatsapp_cloud',
+        instanceReference: input.bridgeReference,
+        // The bridge implements a reviewed Cloud API adapter. This does not speak to delivery of
+        // an individual message; delivery evidence is recorded only by the result/webhook path.
+        versionVerified: true,
+        outboundEnabled: input.outboundEnabled,
+        state: input.outboundEnabled ? 'connected' : 'unconfigured',
+        metadata: { configuredBy: 'runtime_composition', provider: 'official_cloud_api' },
+        updatedAt: now,
+      })
+      .onConflictDoUpdate({
+        target: [
+          messagingTransportConnections.ownerId,
+          messagingTransportConnections.transport,
+          messagingTransportConnections.instanceReference,
+        ],
+        set: {
+          versionVerified: true,
+          outboundEnabled: input.outboundEnabled,
+          state: input.outboundEnabled ? 'connected' : 'unconfigured',
+          metadata: { configuredBy: 'runtime_composition', provider: 'official_cloud_api' },
+          updatedAt: now,
+        },
+      })
+      .returning({ id: messagingTransportConnections.id });
+    if (!connection) {
+      throw new Error('The official Cloud transport connection could not be projected.');
+    }
+    return connection.id;
+  }
+
+  public async ensureTelegramBotConnection(input: {
+    readonly ownerId: string;
+    readonly botReference: string;
+    readonly outboundEnabled: boolean;
+  }): Promise<string> {
+    const now = new Date();
+    const [connection] = await this.database
+      .insert(messagingTransportConnections)
+      .values({
+        id: randomUUID(),
+        ownerId: input.ownerId,
+        transport: 'telegram_bot',
+        instanceReference: input.botReference,
+        versionVerified: true,
+        outboundEnabled: input.outboundEnabled,
+        state: input.outboundEnabled ? 'connected' : 'unconfigured',
+        metadata: { configuredBy: 'runtime_composition', provider: 'official_telegram_bot_api' },
+        updatedAt: now,
+      })
+      .onConflictDoUpdate({
+        target: [
+          messagingTransportConnections.ownerId,
+          messagingTransportConnections.transport,
+          messagingTransportConnections.instanceReference,
+        ],
+        set: {
+          versionVerified: true,
+          outboundEnabled: input.outboundEnabled,
+          state: input.outboundEnabled ? 'connected' : 'unconfigured',
+          metadata: { configuredBy: 'runtime_composition', provider: 'official_telegram_bot_api' },
+          updatedAt: now,
+        },
+      })
+      .returning({ id: messagingTransportConnections.id });
+    if (!connection)
+      throw new Error('The Telegram Bot transport connection could not be projected.');
+    return connection.id;
   }
 }

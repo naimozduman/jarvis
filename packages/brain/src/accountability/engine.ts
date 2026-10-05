@@ -24,6 +24,8 @@ export interface AccountabilityInput {
   readonly explicitOwnerIntent: string | null;
   readonly hardOverrideActive: boolean;
   readonly ambiguityMatters: boolean;
+  /** Canonical episode history supplied by the caller; repetition cannot grant another challenge. */
+  readonly alreadyChallenged?: boolean;
 }
 
 export interface AccountabilityOutcome {
@@ -36,6 +38,8 @@ export interface AccountabilityOutcome {
 /** Deterministic first-pass accountability; a model may help word or contextualize the result. */
 export class AccountabilityEngine {
   public evaluate(input: AccountabilityInput): AccountabilityOutcome {
+    const challenge = (level: AccountabilityOutcome['challengeLevel']) =>
+      input.alreadyChallenged ? 'none' : level;
     if (input.hardOverrideActive) {
       return {
         kind: 'accept_explicit_hard_override',
@@ -48,7 +52,7 @@ export class AccountabilityEngine {
       return {
         kind: 'ask_one_clarification',
         rationale: 'A missing fact would materially alter the available plan.',
-        challengeLevel: 'gentle',
+        challengeLevel: challenge('gentle'),
         nextAction: 'Ask one concise question before changing the plan.',
       };
     }
@@ -59,7 +63,7 @@ export class AccountabilityEngine {
           : 'ask_one_clarification',
         rationale:
           'A required dependency is not complete, so continuing the current block is invalid.',
-        challengeLevel: 'gentle',
+        challengeLevel: challenge('gentle'),
         nextAction: input.nextProtectedWindowExists
           ? 'Protect the next valid window rather than deleting the commitment.'
           : 'Ask which dependency or constraint should take precedence.',
@@ -70,17 +74,21 @@ export class AccountabilityEngine {
         kind: 'record_miss_and_create_recovery_plan',
         rationale:
           'The deadline has passed without completion evidence; silence is not completion.',
-        challengeLevel: 'direct',
+        challengeLevel: challenge('direct'),
         nextAction: 'Keep the commitment open, record the miss, and create a recovery option.',
       };
     }
-    if (input.minimumMinutes !== null && input.remainingMinutes >= input.minimumMinutes) {
-      if (input.remainingMinutes < Math.max(input.minimumMinutes * 2, 30)) {
+    const viableMinutes =
+      input.deadlineMinutes === null
+        ? input.remainingMinutes
+        : Math.min(input.remainingMinutes, input.deadlineMinutes);
+    if (input.minimumMinutes !== null && viableMinutes >= input.minimumMinutes) {
+      if (viableMinutes < Math.max(input.minimumMinutes * 2, 30)) {
         return {
           kind: 'reduce_to_minimum_viable_action',
           rationale:
             'There is enough time for the minimum acceptable version but not the full plan.',
-          challengeLevel: input.constitutionalRelevance >= 60 ? 'direct' : 'gentle',
+          challengeLevel: challenge(input.constitutionalRelevance >= 60 ? 'direct' : 'gentle'),
           nextAction:
             input.minimumAcceptableVersion ?? 'Do the smallest meaningful next physical action.',
         };
@@ -89,7 +97,7 @@ export class AccountabilityEngine {
         kind: 'continue_original_plan',
         rationale:
           'The remaining time supports the current commitment and no stronger constraint is known.',
-        challengeLevel: input.constitutionalRelevance >= 70 ? 'direct' : 'gentle',
+        challengeLevel: challenge(input.constitutionalRelevance >= 70 ? 'direct' : 'gentle'),
         nextAction: 'Start the next concrete step now.',
       };
     }
@@ -98,7 +106,7 @@ export class AccountabilityEngine {
         kind: 'move_within_same_day',
         rationale:
           'A valid same-day alternative exists, so the commitment does not need to be dropped.',
-        challengeLevel: input.importance >= 70 ? 'direct' : 'gentle',
+        challengeLevel: challenge(input.importance >= 70 ? 'direct' : 'gentle'),
         nextAction: 'Choose the nearest protected same-day slot.',
       };
     }
@@ -106,7 +114,7 @@ export class AccountabilityEngine {
       return {
         kind: 'move_to_next_protected_slot',
         rationale: 'No valid same-day window remains, but a protected recovery slot exists.',
-        challengeLevel: input.previousMisses >= 2 ? 'direct' : 'gentle',
+        challengeLevel: challenge(input.previousMisses >= 2 ? 'direct' : 'gentle'),
         nextAction: 'Move the commitment to the next protected valid slot and state the tradeoff.',
       };
     }
@@ -115,7 +123,7 @@ export class AccountabilityEngine {
         input.previousMisses >= 2 ? 'escalate_reminder' : 'record_miss_and_create_recovery_plan',
       rationale:
         'No valid execution window is known; the commitment remains open and needs recovery.',
-      challengeLevel: input.previousMisses >= 2 ? 'direct' : 'gentle',
+      challengeLevel: challenge(input.previousMisses >= 2 ? 'direct' : 'gentle'),
       nextAction:
         input.previousMisses >= 2
           ? 'Use a different, bounded reminder or intervention strategy.'

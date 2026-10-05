@@ -14,7 +14,9 @@ import {
   EnvironmentValidationError,
   isVerifiedZeroCostGatewayRoute,
   loadApiEnvironment,
+  type OpenAiModelRouteConfiguration,
 } from '@jarvis/config';
+import type { ModelAdmissionProfile } from '@jarvis/contracts';
 
 const ownerId = '00000000-0000-4000-8000-000000000001';
 const requestId = '00000000-0000-4000-8000-000000000002';
@@ -112,6 +114,31 @@ function guardUsage(overrides: Partial<ModelBudgetUsage> = {}): ModelBudgetUsage
       hasUnknownCompletedCost: false,
     },
     ...overrides,
+  };
+}
+
+/** Provider-free verified fixture: the real SDK retry tests must reach inference, not catalog I/O. */
+async function syntheticGatewayProfile(
+  route: OpenAiModelRouteConfiguration,
+): Promise<ModelAdmissionProfile> {
+  return {
+    version: 'synthetic-retry-v1',
+    modelId: route.model,
+    providerRoute: ['openai'],
+    contextWindowTokens: 1050000,
+    maximumOutputTokens: 128000,
+    inputCostPerMillionUsd: 0.3,
+    outputCostPerMillionUsd: 1.2,
+    reasoningEffort: route.reasoningEffort,
+    requestedOutputControl: 'max_output_tokens',
+    requestedOutputTokens: route.maxOutputTokens,
+    outputSemantics: 'total_including_reasoning',
+    reasoningCountsAgainstControl: true,
+    verificationState: 'verified',
+    verificationReason: 'Synthetic profile for provider-free HTTP retry coverage.',
+    verifiedAt: new Date().toISOString(),
+    nativeCounter: 'none',
+    sources: [],
   };
 }
 
@@ -229,28 +256,100 @@ describe('zero-cost Vercel AI Gateway boundary', () => {
     expect(decision.reason).toContain('credit safety guard');
   });
 
-  it('maps a Gateway quota/rate-limit error to unavailable and does not invoke a fallback model', async () => {
+  it('rejects an unknown Gateway profile without probing a token counter or generating', async () => {
     const environment = guardedZeroCostEnvironment();
-    const parse = vi.fn().mockRejectedValue({ status: 429 });
-    const client = { responses: { parse } } as unknown as VercelAiGatewayClient;
+    const count = vi.fn().mockRejectedValue({ status: 429 });
+    const create = vi.fn();
+    const client = {
+      responses: { create, inputTokens: { count } },
+    } as unknown as VercelAiGatewayClient;
     const gateway = new VercelAiGatewayModelGateway(environment.model, client);
 
     const result = await gateway.decide(gatewayRequest());
 
     expect(result).toMatchObject({
-      status: 'unavailable',
+      status: 'configuration_error',
       run: {
         configuredModelId: 'provider/possible-free-model',
-        errorCategory: 'rate_limited',
+        errorCategory: 'provider_output_limit_unverified',
       },
     });
-    if (result.status !== 'unavailable') {
-      throw new Error('Expected a Gateway unavailable result.');
+    if (result.status !== 'configuration_error') {
+      throw new Error('Expected a denied Gateway admission.');
     }
+    expect(result.safeError).toContain('metadata is unavailable');
+    expect(count).not.toHaveBeenCalled();
+    expect(create).not.toHaveBeenCalled();
+  });
+
+  it('uses an explicitly injected request identity when the test configuration has no token', async () => {
+    const environment = loadApiEnvironment({
+      APP_ENV: 'test',
+      JARVIS_MODEL_PROVIDER: 'vercel-ai-gateway',
+      JARVIS_ZERO_COST_MODE: 'false',
+      JARVIS_VERCEL_AI_GATEWAY_FAST_MODEL: 'openai/gpt-6-luna',
+      JARVIS_VERCEL_AI_GATEWAY_FAST_INPUT_COST_PER_MILLION: '0.11',
+      JARVIS_VERCEL_AI_GATEWAY_FAST_OUTPUT_COST_PER_MILLION: '0.55',
+    });
+    const count = vi.fn().mockRejectedValue({ status: 429 });
+    const create = vi.fn().mockRejectedValue({ status: 429 });
+    const tokenProvider = vi.fn(async () => 'request-scoped-oidc-token');
+    const gateway = new VercelAiGatewayModelGateway(
+      environment.model,
+      { responses: { create, inputTokens: { count } } } as unknown as VercelAiGatewayClient,
+      tokenProvider,
+      async (route) => ({
+        version: 'synthetic-v1',
+        modelId: route.model,
+        providerRoute: ['openai'],
+        contextWindowTokens: 1050000,
+        maximumOutputTokens: 128000,
+        inputCostPerMillionUsd: 0.11,
+        outputCostPerMillionUsd: 0.55,
+        reasoningEffort: route.reasoningEffort,
+        requestedOutputControl: 'max_output_tokens',
+        requestedOutputTokens: route.maxOutputTokens,
+        outputSemantics: 'total_including_reasoning',
+        reasoningCountsAgainstControl: true,
+        verificationState: 'verified',
+        verificationReason: 'Synthetic profile.',
+        verifiedAt: new Date().toISOString(),
+        nativeCounter: 'none',
+        sources: [],
+      }),
+    );
+
+    const result = await gateway.decide(gatewayRequest());
+
+    expect(result).toMatchObject({
+      status: 'unavailable',
+      run: { errorCategory: 'rate_limited' },
+    });
+    expect(tokenProvider).toHaveBeenCalledTimes(1);
+    expect(count).not.toHaveBeenCalled();
+    expect(create).toHaveBeenCalledTimes(1);
+  });
+
+  it('maps a Gateway quota/rate-limit error to unavailable and does not invoke a fallback model', async () => {
+    const create = vi.fn().mockRejectedValue({ status: 429 });
+    const client = { responses: { create } } as unknown as VercelAiGatewayClient;
+    const gateway = new VercelAiGatewayModelGateway(
+      guardedZeroCostEnvironment().model,
+      client,
+      undefined,
+      syntheticGatewayProfile,
+    );
+    const result = await gateway.decide(gatewayRequest());
+    expect(result).toMatchObject({
+      status: 'unavailable',
+      run: { configuredModelId: 'provider/possible-free-model', errorCategory: 'rate_limited' },
+    });
+    if (result.status !== 'unavailable') throw new Error('Expected a Gateway unavailable result.');
     expect(result.safeError).toContain('did not select a fallback model');
-    expect(parse).toHaveBeenCalledTimes(1);
-    expect(parse).toHaveBeenCalledWith(
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(create).toHaveBeenCalledWith(
       expect.objectContaining({ model: 'provider/possible-free-model' }),
+      { maxRetries: 0 },
     );
   });
 
@@ -278,7 +377,12 @@ describe('zero-cost Vercel AI Gateway boundary', () => {
         );
       }
       try {
-        const gateway = new VercelAiGatewayModelGateway(guardedZeroCostEnvironment().model);
+        const gateway = new VercelAiGatewayModelGateway(
+          guardedZeroCostEnvironment().model,
+          undefined,
+          undefined,
+          syntheticGatewayProfile,
+        );
 
         const result = await gateway.decide(gatewayRequest());
 

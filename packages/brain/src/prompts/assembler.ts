@@ -50,13 +50,22 @@ function stableModuleFingerprint(moduleIds: readonly string[]): string {
 /** Composes a bounded one-turn model input; callers persist the version, never this full body. */
 export class PromptAssembler {
   public assemble(input: PromptAssemblyInput): AssembledPrompt {
-    const requestedPurposes = [...alwaysIncluded, ...purposeModules[input.purpose]];
+    const requestedPurposes = [
+      ...alwaysIncluded,
+      ...purposeModules[input.purpose],
+      ...(input.ownerBaseline ? (['owner_baseline'] as const) : []),
+      ...(input.presentation === 'whatsapp_owner'
+        ? (['whatsapp_owner_presentation'] as const)
+        : input.presentation === 'telegram_owner'
+          ? (['telegram_owner_presentation'] as const)
+        : []),
+    ];
     const modules = promptModulesForPurpose(requestedPurposes);
     const moduleIds = modules.map((item) => `${item.id}@${item.version}`);
     const version = `phase2-${moduleIds.length}-${stableModuleFingerprint(moduleIds)}`;
     const instructions = modules.map((item) => `[${item.id}@${item.version}]\n${item.content}`).join('\n\n');
     const body = {
-      request: { id: input.context.request.id, purpose: input.context.request.purpose, timestamp: input.context.now },
+      request: { id: input.context.request.id, messageId: input.context.request.messageId, purpose: input.context.request.purpose, timestamp: input.context.now },
       ownerMessage: input.ownerMessage,
       context: input.context.records.map(modelVisibleRecord),
       contextManifest: {

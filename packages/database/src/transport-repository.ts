@@ -6,12 +6,18 @@ import type {
   MessagingConnectionState,
   MessagingDeliveryState,
   MessagingSendResult,
+  MessagingTransportKind,
   NormalizedDeliveryUpdate,
   NormalizedInboundMessage,
   OutboundDeliveryIntent,
 } from '@jarvis/contracts';
 
 import type { JarvisDatabase } from './client.js';
+import {
+  revalidateTelegramFinalSend,
+  type TelegramFinalSendInput,
+  type TelegramFinalSendOutcome,
+} from './telegram-final-send.js';
 import {
   calculateOutboundDeliveryRetryDelayMs,
   deriveOutboundDeliveryFreshness,
@@ -32,6 +38,8 @@ import {
   outboundMessageDeliveries,
 } from './schema/index.js';
 import { createSafeAuditEvent } from '@jarvis/security';
+
+type DeliveryTransaction = Parameters<Parameters<JarvisDatabase['transaction']>[0]>[0];
 
 export interface PersistedTransportMessage {
   readonly id: string;
@@ -96,6 +104,56 @@ export interface LocalBridgeDeliveryRepository {
     readonly deliveryId: string;
     readonly now?: Date;
   }): Promise<boolean>;
+}
+
+/**
+ * The official Cloud bridge uses the same lease/result lifecycle as the retained local bridge.
+ * It is intentionally a separate authenticated boundary, however: its transport kind is checked
+ * by Neon before any persisted response content is returned.
+ */
+export interface WhatsAppCloudBridgeDeliveryRepository {
+  acquireOutboundDeliveryLeaseForWhatsAppCloudBridge(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly now?: Date;
+    readonly leaseDurationMs?: number;
+  }): Promise<LocalBridgeLeaseOutcome>;
+  recordWhatsAppCloudBridgeDeliveryResult(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly leaseToken: string;
+    readonly result: MessagingSendResult;
+    readonly now?: Date;
+  }): Promise<LocalBridgeResultOutcome>;
+  recoverExpiredWhatsAppCloudBridgeLease(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly now?: Date;
+  }): Promise<boolean>;
+}
+
+/** Direct official Bot API sender uses the same one-time canonical lease/result lifecycle. */
+export interface TelegramBotDeliveryRepository {
+  revalidateTelegramFinalSend(input: TelegramFinalSendInput): Promise<TelegramFinalSendOutcome>;
+  acquireOutboundDeliveryLeaseForTelegramBot(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly now?: Date;
+    readonly leaseDurationMs?: number;
+  }): Promise<
+    LocalBridgeLeaseOutcome | { readonly status: 'retry_wait'; readonly retryAt: string }
+  >;
+  recordTelegramBotDeliveryResult(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly leaseToken: string;
+    readonly result: MessagingSendResult;
+    readonly now?: Date;
+  }): Promise<LocalBridgeResultOutcome>;
 }
 
 export interface CanonicalTransportConnectionPolicy {
@@ -241,7 +299,9 @@ export class DrizzleTransportStateRepository
   implements
     TransportStateRepository,
     LocalBridgeDeliveryRepository,
-    CanonicalTransportConnectionPolicyRepository
+    WhatsAppCloudBridgeDeliveryRepository,
+    CanonicalTransportConnectionPolicyRepository,
+    TelegramBotDeliveryRepository
 {
   public constructor(private readonly database: JarvisDatabase) {}
 
@@ -447,7 +507,10 @@ export class DrizzleTransportStateRepository
     if (contentKind === 'text' && !content) {
       throw new Error('A canonical text delivery lacks persisted message content.');
     }
-    if (row.delivery.transport !== 'evolution_whatsapp') {
+    if (
+      row.delivery.transport !== 'evolution_whatsapp' &&
+      row.delivery.transport !== 'whatsapp_cloud'
+    ) {
       throw new Error('A canonical outbound delivery references an unsupported transport.');
     }
     if (!row.conversationId) {
@@ -459,7 +522,7 @@ export class DrizzleTransportStateRepository
       messageId: row.delivery.messageId,
       conversationId: row.conversationId,
       connectionId: row.delivery.connectionId,
-      transport: 'evolution_whatsapp',
+      transport: row.delivery.transport,
       targetReference: row.delivery.targetReference,
       operationKey: row.delivery.operationKey,
       contentType: contentKind,
@@ -511,9 +574,10 @@ export class DrizzleTransportStateRepository
     return leased ? asDelivery(leased) : undefined;
   }
 
-  public async recoverExpiredLocalBridgeLease(input: {
+  private async recoverExpiredBridgeLease(input: {
     readonly ownerId: string;
     readonly deliveryId: string;
+    readonly transport: MessagingTransportKind;
     readonly now?: Date;
   }): Promise<boolean> {
     const now = input.now ?? new Date();
@@ -526,26 +590,46 @@ export class DrizzleTransportStateRepository
         leaseOwner: null,
         leaseExpiresAt: null,
         failedAt: now,
-        lastErrorCategory: 'local_bridge_lease_expired',
+        lastErrorCategory: 'transport_bridge_lease_expired',
         updatedAt: now,
       })
       .where(
         and(
           eq(outboundMessageDeliveries.id, input.deliveryId),
           eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          eq(outboundMessageDeliveries.transport, input.transport),
           eq(outboundMessageDeliveries.state, 'leased'),
           lte(outboundMessageDeliveries.leaseExpiresAt, now),
-          gt(outboundMessageDeliveries.expiresAt, now),
+          ...(input.transport === 'telegram_bot'
+            ? []
+            : [gt(outboundMessageDeliveries.expiresAt, now)]),
         ),
       )
       .returning({ id: outboundMessageDeliveries.id });
     return Boolean(recovered);
   }
 
-  public async acquireOutboundDeliveryLeaseForLocalBridge(input: {
+  public async recoverExpiredLocalBridgeLease(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly now?: Date;
+  }): Promise<boolean> {
+    return this.recoverExpiredBridgeLease({ ...input, transport: 'evolution_whatsapp' });
+  }
+
+  public async recoverExpiredWhatsAppCloudBridgeLease(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly now?: Date;
+  }): Promise<boolean> {
+    return this.recoverExpiredBridgeLease({ ...input, transport: 'whatsapp_cloud' });
+  }
+
+  private async acquireOutboundDeliveryLeaseForBridge(input: {
     readonly ownerId: string;
     readonly deliveryId: string;
     readonly bridgeId: string;
+    readonly transport: MessagingTransportKind;
     readonly now?: Date;
     readonly leaseDurationMs?: number;
   }): Promise<LocalBridgeLeaseOutcome> {
@@ -573,17 +657,22 @@ export class DrizzleTransportStateRepository
         and(
           eq(outboundMessageDeliveries.id, input.deliveryId),
           eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          eq(outboundMessageDeliveries.transport, input.transport),
           lte(outboundMessageDeliveries.expiresAt, now),
+          eq(outboundMessageDeliveries.requiresReconciliation, false),
           or(
             eq(outboundMessageDeliveries.state, 'pending'),
             eq(outboundMessageDeliveries.state, 'failed_retryable'),
-            eq(outboundMessageDeliveries.state, 'leased'),
+            ...(input.transport === 'telegram_bot'
+              ? []
+              : [eq(outboundMessageDeliveries.state, 'leased')]),
           ),
         ),
       );
-    await this.recoverExpiredLocalBridgeLease({
+    await this.recoverExpiredBridgeLease({
       ownerId: input.ownerId,
       deliveryId: input.deliveryId,
+      transport: input.transport,
       now,
     });
 
@@ -601,6 +690,7 @@ export class DrizzleTransportStateRepository
         and(
           eq(outboundMessageDeliveries.id, input.deliveryId),
           eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          eq(outboundMessageDeliveries.transport, input.transport),
           gt(outboundMessageDeliveries.expiresAt, now),
           lte(outboundMessageDeliveries.availableAfter, now),
           eq(outboundMessageDeliveries.requiresReconciliation, false),
@@ -629,6 +719,7 @@ export class DrizzleTransportStateRepository
           and(
             eq(outboundMessageDeliveries.id, input.deliveryId),
             eq(outboundMessageDeliveries.ownerId, input.ownerId),
+            eq(outboundMessageDeliveries.transport, input.transport),
           ),
         )
         .limit(1);
@@ -653,6 +744,7 @@ export class DrizzleTransportStateRepository
         and(
           eq(outboundMessageDeliveries.id, input.deliveryId),
           eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          eq(outboundMessageDeliveries.transport, input.transport),
           eq(outboundMessageDeliveries.state, 'leased'),
           eq(outboundMessageDeliveries.leaseToken, leaseToken),
           eq(outboundMessageDeliveries.leaseOwner, input.bridgeId),
@@ -668,7 +760,7 @@ export class DrizzleTransportStateRepository
     if (
       !contentKind ||
       (contentKind === 'text' && !content) ||
-      row.delivery.transport !== 'evolution_whatsapp' ||
+      row.delivery.transport !== input.transport ||
       !row.conversationId
     ) {
       // No malformed row may result in a provider send. Preserve it for operator review rather
@@ -687,6 +779,8 @@ export class DrizzleTransportStateRepository
         .where(
           and(
             eq(outboundMessageDeliveries.id, input.deliveryId),
+            eq(outboundMessageDeliveries.ownerId, input.ownerId),
+            eq(outboundMessageDeliveries.transport, input.transport),
             eq(outboundMessageDeliveries.leaseToken, leaseToken),
           ),
         );
@@ -702,7 +796,7 @@ export class DrizzleTransportStateRepository
         messageId: row.delivery.messageId,
         conversationId: row.conversationId,
         connectionId: row.delivery.connectionId,
-        transport: 'evolution_whatsapp',
+        transport: input.transport,
         targetReference: row.delivery.targetReference,
         operationKey: row.delivery.operationKey,
         contentType: contentKind,
@@ -719,12 +813,76 @@ export class DrizzleTransportStateRepository
     };
   }
 
-  public async recordLocalBridgeDeliveryResult(input: {
+  public async acquireOutboundDeliveryLeaseForLocalBridge(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly now?: Date;
+    readonly leaseDurationMs?: number;
+  }): Promise<LocalBridgeLeaseOutcome> {
+    return this.acquireOutboundDeliveryLeaseForBridge({
+      ...input,
+      transport: 'evolution_whatsapp',
+    });
+  }
+
+  public async acquireOutboundDeliveryLeaseForWhatsAppCloudBridge(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly now?: Date;
+    readonly leaseDurationMs?: number;
+  }): Promise<LocalBridgeLeaseOutcome> {
+    return this.acquireOutboundDeliveryLeaseForBridge({ ...input, transport: 'whatsapp_cloud' });
+  }
+
+  public async acquireOutboundDeliveryLeaseForTelegramBot(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly now?: Date;
+    readonly leaseDurationMs?: number;
+  }): Promise<
+    LocalBridgeLeaseOutcome | { readonly status: 'retry_wait'; readonly retryAt: string }
+  > {
+    const lease = await this.acquireOutboundDeliveryLeaseForBridge({
+      ...input,
+      transport: 'telegram_bot',
+    });
+    if (lease.status !== 'unavailable') return lease;
+    const [current] = await this.database
+      .select()
+      .from(outboundMessageDeliveries)
+      .where(
+        and(
+          eq(outboundMessageDeliveries.id, input.deliveryId),
+          eq(outboundMessageDeliveries.ownerId, input.ownerId),
+          eq(outboundMessageDeliveries.transport, 'telegram_bot'),
+        ),
+      )
+      .limit(1);
+    if (
+      current?.state === 'failed_retryable' &&
+      !current.requiresReconciliation &&
+      current.availableAfter > (input.now ?? new Date())
+    )
+      return { status: 'retry_wait', retryAt: current.availableAfter.toISOString() };
+    return lease;
+  }
+
+  public async revalidateTelegramFinalSend(
+    input: TelegramFinalSendInput,
+  ): Promise<TelegramFinalSendOutcome> {
+    return revalidateTelegramFinalSend(this.database, input);
+  }
+
+  private async recordBridgeDeliveryResult(input: {
     readonly ownerId: string;
     readonly deliveryId: string;
     readonly bridgeId: string;
     readonly leaseToken: string;
     readonly result: MessagingSendResult;
+    readonly transport: MessagingTransportKind;
     readonly now?: Date;
   }): Promise<LocalBridgeResultOutcome> {
     const now = input.now ?? new Date();
@@ -740,6 +898,7 @@ export class DrizzleTransportStateRepository
         )
         .limit(1);
       if (!current) return { disposition: 'unavailable' };
+      if (current.transport !== input.transport) return { disposition: 'unavailable' };
       if (isTerminalDeliveryState(current.state)) return { disposition: 'already_handled' };
       if (current.state === 'failed_retryable') {
         // Replayed result callbacks are expected when Vercel could commit Neon but could not yet
@@ -766,18 +925,24 @@ export class DrizzleTransportStateRepository
             leaseOwner: null,
             leaseExpiresAt: null,
             failedAt: now,
-            lastErrorCategory: 'local_bridge_lease_expired',
+            lastErrorCategory: 'transport_bridge_lease_expired',
             updatedAt: now,
           })
           .where(
             and(
               eq(outboundMessageDeliveries.id, input.deliveryId),
+              eq(outboundMessageDeliveries.ownerId, input.ownerId),
+              eq(outboundMessageDeliveries.transport, input.transport),
               eq(outboundMessageDeliveries.leaseToken, input.leaseToken),
             ),
           );
         return { disposition: 'lease_expired' };
       }
-      if (!isOutboundDeliveryFresh({ expiresAt: current.expiresAt, now })) {
+      if (
+        !isOutboundDeliveryFresh({ expiresAt: current.expiresAt, now }) &&
+        input.result.disposition !== 'accepted' &&
+        !input.result.requiresReconciliation
+      ) {
         await transaction
           .update(outboundMessageDeliveries)
           .set({
@@ -793,6 +958,8 @@ export class DrizzleTransportStateRepository
           .where(
             and(
               eq(outboundMessageDeliveries.id, input.deliveryId),
+              eq(outboundMessageDeliveries.ownerId, input.ownerId),
+              eq(outboundMessageDeliveries.transport, input.transport),
               eq(outboundMessageDeliveries.leaseToken, input.leaseToken),
             ),
           );
@@ -802,6 +969,7 @@ export class DrizzleTransportStateRepository
       const guardedLease = and(
         eq(outboundMessageDeliveries.id, input.deliveryId),
         eq(outboundMessageDeliveries.ownerId, input.ownerId),
+        eq(outboundMessageDeliveries.transport, input.transport),
         eq(outboundMessageDeliveries.state, 'leased'),
         eq(outboundMessageDeliveries.leaseToken, input.leaseToken),
         eq(outboundMessageDeliveries.leaseOwner, input.bridgeId),
@@ -849,7 +1017,11 @@ export class DrizzleTransportStateRepository
             : { disposition: 'unavailable' };
         }
         const retryAt = new Date(
-          now.getTime() + calculateOutboundDeliveryRetryDelayMs(current.attemptCount),
+          now.getTime() +
+            Math.max(
+              calculateOutboundDeliveryRetryDelayMs(current.attemptCount),
+              (input.result.retryAfterSeconds ?? 0) * 1_000,
+            ),
         );
         if (
           current.attemptCount >= current.maximumAttempts ||
@@ -913,6 +1085,39 @@ export class DrizzleTransportStateRepository
         .returning({ id: outboundMessageDeliveries.id });
       return updated ? { disposition: 'terminal' } : { disposition: 'unavailable' };
     });
+  }
+
+  public async recordLocalBridgeDeliveryResult(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly leaseToken: string;
+    readonly result: MessagingSendResult;
+    readonly now?: Date;
+  }): Promise<LocalBridgeResultOutcome> {
+    return this.recordBridgeDeliveryResult({ ...input, transport: 'evolution_whatsapp' });
+  }
+
+  public async recordWhatsAppCloudBridgeDeliveryResult(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly leaseToken: string;
+    readonly result: MessagingSendResult;
+    readonly now?: Date;
+  }): Promise<LocalBridgeResultOutcome> {
+    return this.recordBridgeDeliveryResult({ ...input, transport: 'whatsapp_cloud' });
+  }
+
+  public async recordTelegramBotDeliveryResult(input: {
+    readonly ownerId: string;
+    readonly deliveryId: string;
+    readonly bridgeId: string;
+    readonly leaseToken: string;
+    readonly result: MessagingSendResult;
+    readonly now?: Date;
+  }): Promise<LocalBridgeResultOutcome> {
+    return this.recordBridgeDeliveryResult({ ...input, transport: 'telegram_bot' });
   }
 
   public async recordSendResult(input: {
@@ -1100,117 +1305,125 @@ export class DrizzleDurableDeliveryOutbox {
     readonly deliveryId: string;
     readonly duplicate: boolean;
   }> {
-    return this.database.transaction(async (transaction) => {
-      const freshness = deriveOutboundDeliveryFreshness(input);
-      const [created] = await transaction
-        .insert(outboundMessageDeliveries)
-        .values({
-          id: input.id,
-          ownerId: input.ownerId,
-          messageId: input.messageId,
-          connectionId: input.connectionId,
-          transport: input.transport,
-          targetReference: input.targetReference,
-          operationKey: input.operationKey,
-          mediaObjectReference: input.mediaObjectReference ?? undefined,
-          sourceEventId: input.sourceEventId ?? undefined,
-          brainRequestId: input.brainRequestId ?? undefined,
-          reminderId: input.reminderId ?? undefined,
-          state: 'pending',
-          maximumAttempts: freshness.maximumAttempts,
-          freshnessPolicy: freshness.policy,
-          availableAfter: new Date(input.createdAt),
-          expiresAt: new Date(freshness.expiresAt),
-          correlationId: input.correlationId,
-          causationId: input.causationId ?? undefined,
-          createdAt: new Date(input.createdAt),
-          updatedAt: new Date(input.createdAt),
-          metadata: { contentType: input.contentType, critical: input.critical },
-        })
-        .onConflictDoNothing()
-        .returning({ id: outboundMessageDeliveries.id });
-      if (!created) {
-        const [existing] = await transaction
-          .select({ id: outboundMessageDeliveries.id })
-          .from(outboundMessageDeliveries)
-          .where(
-            and(
-              eq(outboundMessageDeliveries.ownerId, input.ownerId),
-              eq(outboundMessageDeliveries.operationKey, input.operationKey),
-            ),
-          )
-          .limit(1);
-        if (!existing) {
-          throw new Error(
-            'Outbound delivery transaction conflicted without a canonical outbox record.',
-          );
-        }
-        return { deliveryId: existing.id, duplicate: true };
-      }
+    return this.database.transaction((transaction) =>
+      this.persistAndEnqueueWithinTransaction(transaction, input),
+    );
+  }
 
-      const job = createOutboundDeliveryJob(input, freshness.expiresAt);
-      if (job.executionDeadline === null) {
-        throw new Error('The outbound delivery job must retain its canonical execution deadline.');
-      }
-      await transaction.insert(jobs).values({
-        id: job.id,
-        ownerId: job.ownerId,
-        jobType: job.jobType,
-        payload: job.payload,
-        status: 'queued',
-        priority: job.priority,
-        scheduledFor: new Date(job.scheduledFor),
-        availableAfter: new Date(job.availableAfter),
-        executionDeadline: new Date(job.executionDeadline),
-        dispatchGeneration: job.dispatchGeneration,
-        maximumAttempts: job.maximumAttempts,
-        correlationId: job.correlationId,
-        causationId: job.causationId,
-        sourceEventId: job.sourceEventId,
-        idempotencyKey: job.idempotencyKey,
-      });
-      await this.jobTransport.enqueue(transaction, job);
-
-      const audit = createSafeAuditEvent({
-        id: randomUUID(),
+  /** The same outbox contract, composed atomically with a due reminder and its canonical message. */
+  public async persistAndEnqueueWithinTransaction(
+    transaction: DeliveryTransaction,
+    input: OutboundDeliveryIntent,
+  ): Promise<{ readonly deliveryId: string; readonly duplicate: boolean }> {
+    const freshness = deriveOutboundDeliveryFreshness(input);
+    const [created] = await transaction
+      .insert(outboundMessageDeliveries)
+      .values({
+        id: input.id,
         ownerId: input.ownerId,
-        actorType: 'worker',
-        actorId: null,
-        action: 'transport.delivery.queued',
-        targetType: 'outbound_delivery',
-        targetId: input.id,
-        occurredAt: input.createdAt,
+        messageId: input.messageId,
+        connectionId: input.connectionId,
+        transport: input.transport,
+        targetReference: input.targetReference,
+        operationKey: input.operationKey,
+        mediaObjectReference: input.mediaObjectReference ?? undefined,
+        sourceEventId: input.sourceEventId ?? undefined,
+        brainRequestId: input.brainRequestId ?? undefined,
+        reminderId: input.reminderId ?? undefined,
+        state: 'pending',
+        maximumAttempts: freshness.maximumAttempts,
+        freshnessPolicy: freshness.policy,
+        availableAfter: new Date(input.createdAt),
+        expiresAt: new Date(freshness.expiresAt),
         correlationId: input.correlationId,
-        ...(input.causationId ? { causationId: input.causationId } : {}),
-        previousState: { entityType: 'outbound_delivery', entityId: input.id },
-        resultingState: { entityType: 'outbound_delivery', entityId: input.id },
-        reason: 'A server-derived owner-only transport delivery passed deterministic policy.',
-        source: 'internal',
-        metadata: {
-          transport: input.transport,
-          contentType: input.contentType,
-          critical: input.critical,
-          resultingDeliveryState: 'pending',
-        },
-      });
-      await transaction.insert(auditEvents).values({
-        id: audit.id,
-        ownerId: audit.ownerId,
-        actorType: audit.actorType,
-        actorId: audit.actorId,
-        action: audit.action,
-        targetType: audit.targetType,
-        targetId: audit.targetId,
-        occurredAt: new Date(audit.occurredAt),
-        correlationId: audit.correlationId,
-        causationId: audit.causationId,
-        previousStateReference: audit.previousState ?? undefined,
-        resultingStateReference: audit.resultingState ?? undefined,
-        reason: audit.reason,
-        source: audit.source,
-        metadata: audit.metadata,
-      });
-      return { deliveryId: created.id, duplicate: false };
+        causationId: input.causationId ?? undefined,
+        createdAt: new Date(input.createdAt),
+        updatedAt: new Date(input.createdAt),
+        metadata: { contentType: input.contentType, critical: input.critical },
+      })
+      .onConflictDoNothing()
+      .returning({ id: outboundMessageDeliveries.id });
+    if (!created) {
+      const [existing] = await transaction
+        .select({ id: outboundMessageDeliveries.id })
+        .from(outboundMessageDeliveries)
+        .where(
+          and(
+            eq(outboundMessageDeliveries.ownerId, input.ownerId),
+            eq(outboundMessageDeliveries.operationKey, input.operationKey),
+          ),
+        )
+        .limit(1);
+      if (!existing) {
+        throw new Error(
+          'Outbound delivery transaction conflicted without a canonical outbox record.',
+        );
+      }
+      return { deliveryId: existing.id, duplicate: true };
+    }
+
+    const job = createOutboundDeliveryJob(input, freshness.expiresAt);
+    if (job.executionDeadline === null) {
+      throw new Error('The outbound delivery job must retain its canonical execution deadline.');
+    }
+    await transaction.insert(jobs).values({
+      id: job.id,
+      ownerId: job.ownerId,
+      jobType: job.jobType,
+      payload: job.payload,
+      status: 'queued',
+      priority: job.priority,
+      scheduledFor: new Date(job.scheduledFor),
+      availableAfter: new Date(job.availableAfter),
+      executionDeadline: new Date(job.executionDeadline),
+      dispatchGeneration: job.dispatchGeneration,
+      maximumAttempts: job.maximumAttempts,
+      correlationId: job.correlationId,
+      causationId: job.causationId,
+      sourceEventId: job.sourceEventId,
+      idempotencyKey: job.idempotencyKey,
     });
+    await this.jobTransport.enqueue(transaction, job);
+
+    const audit = createSafeAuditEvent({
+      id: randomUUID(),
+      ownerId: input.ownerId,
+      actorType: 'worker',
+      actorId: null,
+      action: 'transport.delivery.queued',
+      targetType: 'outbound_delivery',
+      targetId: input.id,
+      occurredAt: input.createdAt,
+      correlationId: input.correlationId,
+      ...(input.causationId ? { causationId: input.causationId } : {}),
+      previousState: { entityType: 'outbound_delivery', entityId: input.id },
+      resultingState: { entityType: 'outbound_delivery', entityId: input.id },
+      reason: 'A server-derived owner-only transport delivery passed deterministic policy.',
+      source: 'internal',
+      metadata: {
+        transport: input.transport,
+        contentType: input.contentType,
+        critical: input.critical,
+        resultingDeliveryState: 'pending',
+      },
+    });
+    await transaction.insert(auditEvents).values({
+      id: audit.id,
+      ownerId: audit.ownerId,
+      actorType: audit.actorType,
+      actorId: audit.actorId,
+      action: audit.action,
+      targetType: audit.targetType,
+      targetId: audit.targetId,
+      occurredAt: new Date(audit.occurredAt),
+      correlationId: audit.correlationId,
+      causationId: audit.causationId,
+      previousStateReference: audit.previousState ?? undefined,
+      resultingStateReference: audit.resultingState ?? undefined,
+      reason: audit.reason,
+      source: audit.source,
+      metadata: audit.metadata,
+    });
+    return { deliveryId: created.id, duplicate: false };
   }
 }

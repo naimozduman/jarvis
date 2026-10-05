@@ -3,7 +3,6 @@ import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 
 import type {
-  BrainDecision,
   BrainRequest,
   ClarificationRequest,
   ContextManifest,
@@ -13,6 +12,7 @@ import type {
   ModelRun,
   PlanBlock,
   PlanProposal,
+  PlanningCommitment,
   ReminderProposal,
 } from '@jarvis/contracts';
 import type {
@@ -167,6 +167,17 @@ function modelMemory(overrides: Record<string, unknown> = {}): Record<string, un
 }
 
 class InMemoryBrainRepository implements BrainRepository {
+  public finalizeDailyUseTurn?: NonNullable<BrainRepository['finalizeDailyUseTurn']>;
+  public recoverDailyUseTurn?: NonNullable<BrainRepository['recoverDailyUseTurn']>;
+  public recordOwnerFeedback?: NonNullable<BrainRepository['recordOwnerFeedback']>;
+  public loadDailyUseState?: NonNullable<BrainRepository['loadDailyUseState']>;
+  public recordAccountabilityChallenge?: NonNullable<
+    BrainRepository['recordAccountabilityChallenge']
+  >;
+  public recordOwnerAccountabilityOverride?: NonNullable<
+    BrainRepository['recordOwnerAccountabilityOverride']
+  >;
+  public loadOwnerChatRoutingSafety?: NonNullable<BrainRepository['loadOwnerChatRoutingSafety']>;
   public readonly requests = new Map<string, BrainRequest>();
   public readonly manifests: ContextManifest[] = [];
   public readonly runs: ModelRun[] = [];
@@ -179,6 +190,37 @@ class InMemoryBrainRepository implements BrainRepository {
   public readonly inbound: PersistedInboundConversationMessage[] = [];
   public readonly responses: PersistedConversationResponse[] = [];
   public contextRecords: ContextRecord[] = [];
+  public planningCommitments: PlanningCommitment[] = [];
+  public verifyPlanOperations = true;
+  public verifyReminder = false;
+  public async canScheduleOwnerReminder(): Promise<boolean> {
+    return true;
+  }
+  public async loadOwnerTimezone(): Promise<string> {
+    return 'America/Chicago';
+  }
+  public async verifyScheduledReminder(): Promise<boolean> {
+    return this.verifyReminder;
+  }
+  public async loadPlanningCommitments(input: {
+    ownerId: string;
+    commitmentIds: readonly string[];
+  }): Promise<readonly PlanningCommitment[]> {
+    return this.planningCommitments.filter(
+      (item) => item.ownerId === input.ownerId && input.commitmentIds.includes(item.id),
+    );
+  }
+  public async verifyAppliedPlanOperation(input: {
+    readonly ownerId: string;
+    readonly proposal: PlanProposal;
+  }): Promise<boolean> {
+    return (
+      this.verifyPlanOperations &&
+      input.proposal.valid &&
+      input.proposal.ownerId === input.ownerId &&
+      Boolean(input.proposal.commitmentSchedules?.length)
+    );
+  }
 
   public async beginOrLoadRequest(
     request: BrainRequest,
@@ -296,7 +338,12 @@ class InMemoryBrainRepository implements BrainRepository {
   }
 }
 
-function conversationService(fixture: unknown, repository = new InMemoryBrainRepository()) {
+function conversationService(
+  fixture: unknown,
+  repository = new InMemoryBrainRepository(),
+  evaluate = (action: Parameters<typeof evaluatePolicy>[0]) =>
+    evaluatePolicy(action, { ownerAuthorized: true }),
+) {
   const model = new FakeModelGateway([{ kind: 'decision', decision: fixture }]);
   const actionStore = new InMemoryEventStore();
   const telemetry = new InMemoryBrainTelemetrySink();
@@ -313,12 +360,13 @@ function conversationService(fixture: unknown, repository = new InMemoryBrainRep
     promptAssembler: new PromptAssembler(),
     actionPipeline: {
       store: actionStore,
-      policy: { evaluate: (action) => evaluatePolicy(action, { ownerAuthorized: true }) },
+      policy: { evaluate },
     },
     deepEscalationEnabled: false,
     maxRecentMessages: 12,
     interventionService,
     telemetry,
+    casualChatRoutingEnabled: true,
   });
   return {
     service,
@@ -359,6 +407,847 @@ function turn(
     ...overrides,
   });
 }
+
+describe('daily-use production boundary regressions', () => {
+  const ownerSurface = {
+    channel: 'telegram' as const,
+    channelMetadata: {
+      transport: 'telegram_bot',
+      conversationType: 'direct',
+      ownerVerified: true,
+    },
+  };
+  it('records bounded correction once and prevents duplicate model memory or actions', async () => {
+    const h = conversationService(
+      modelDecision({ proposedActions: [modelAction()], memoryCandidates: [modelMemory()] }),
+    );
+    const inputs: unknown[] = [];
+    h.repository.recordOwnerFeedback = async (input) => {
+      inputs.push(input);
+      return {
+        candidateId: '00000000-0000-4000-8000-000000000050',
+        targetDecisionId: null,
+        targetResponseId: null,
+        scope: 'one_turn',
+        repeatedEvidenceCount: 1,
+      };
+    };
+    const result = await turn(h.service, { ...ownerSurface, message: 'too long' });
+    expect(result.status).toBe('completed');
+    expect(h.actionStore.actions).toHaveLength(0);
+    expect(h.repository.candidates).toHaveLength(0);
+    expect(result.conversationResponse?.message).toBe('Fair. I’ll keep this reply short.');
+    await turn(h.service, { ...ownerSurface, message: 'too long' });
+    expect(inputs).toHaveLength(1);
+    expect(h.model.requests).toHaveLength(0);
+  });
+  it('does not capture another actor as owner feedback', async () => {
+    const h = conversationService(modelDecision());
+    let captured = false;
+    h.repository.recordOwnerFeedback = async () => {
+      captured = true;
+      throw new Error('Unreachable');
+    };
+    await turn(h.service, {
+      ...ownerSurface,
+      channelMetadata: { ...ownerSurface.channelMetadata, ownerVerified: false },
+      message: 'be shorter',
+    });
+    expect(captured).toBe(false);
+  });
+  it('replays feedback whose evidence committed before decision staging failed', async () => {
+    const h = conversationService(modelDecision());
+    const candidates = new Set<string>();
+    let recorded = 0;
+    h.repository.recordOwnerFeedback = async (input) => {
+      recorded += 1;
+      candidates.add(input.messageId);
+      return {
+        candidateId: '00000000-0000-4000-8000-000000000050',
+        targetDecisionId: null,
+        targetResponseId: null,
+        scope: 'explicit_owner_preference',
+        repeatedEvidenceCount: 0,
+      };
+    };
+    const persistDecision = h.repository.persistDecision.bind(h.repository);
+    let failOnce = true;
+    h.repository.persistDecision = async (input) => {
+      if (failOnce) {
+        failOnce = false;
+        throw new Error('controlled decision staging failure');
+      }
+      await persistDecision(input);
+    };
+    const input = { ...ownerSurface, message: 'From now on be shorter' };
+    await expect(turn(h.service, input)).rejects.toThrow('controlled decision staging failure');
+    expect(h.repository.responses).toHaveLength(0);
+    const retry = await turn(h.service, input);
+    expect(retry.status).toBe('completed');
+    expect(retry.conversationResponse?.message).toBe('I’ll keep my replies shorter.');
+    expect([...h.repository.requests.values()][0]?.state).toBe('completed');
+    const replay = await turn(h.service, input);
+    expect(replay.status).toBe('duplicate');
+    expect(replay.conversationResponse).toEqual(retry.conversationResponse);
+    expect(recorded).toBe(2);
+    expect(candidates.size).toBe(1);
+    expect(h.repository.decisions).toHaveLength(1);
+    expect(h.repository.responses).toHaveLength(1);
+    expect(h.model.requests).toHaveLength(0);
+    expect(h.actionStore.actions).toHaveLength(0);
+  });
+  it('suppresses the actual repeated intervention reply when the registry is in cooldown', async () => {
+    const fixture = modelDecision({
+      conversationResponse: {
+        message: 'Do ten minutes now. You can still do it.',
+        nextAction: null,
+        tone: 'direct',
+      },
+      interventionProposal: {
+        interventionId: 'minimum-viable-action',
+        commitmentId: null,
+        contextKey: 'synthetic-workout',
+        purpose: 'A bounded minimum action.',
+        rationale: 'Protect the commitment with a viable smaller action.',
+      },
+    });
+    const h = conversationService(fixture);
+    h.model.enqueue({ kind: 'decision', decision: fixture });
+    const first = await turn(h.service, ownerSurface);
+    const second = await turn(h.service, {
+      ...ownerSurface,
+      timestamp: '2026-08-28T12:01:00.000Z',
+      idempotencyKey: 'brain:turn:second1234567890',
+    });
+    expect(first.conversationResponse?.message).toContain('ten minutes');
+    expect(second.conversationResponse?.message).not.toContain('ten minutes');
+    expect(h.interventionRepository.runs).toHaveLength(1);
+    expect(h.repository.decisions[1]?.executionResult.interventionSuppressed).toBe(true);
+  });
+  it('uses canonical engine guidance and records only one challenge per bounded episode', async () => {
+    const fixture = modelDecision({
+      conversationResponse: {
+        message: 'Do the short workout now.',
+        nextAction: null,
+        tone: 'direct',
+      },
+    });
+    const h = conversationService(fixture);
+    h.model.enqueue({ kind: 'decision', decision: fixture });
+    let challenged = false;
+    h.repository.loadDailyUseState = async () => ({
+      records: [],
+      hardOverrideIds: [],
+      quietModeActive: false,
+      commitments: [
+        {
+          id: '00000000-0000-4000-8000-000000000010',
+          title: 'Workout',
+          importance: 80,
+          consequence: 'Lose the window.',
+          minimumAcceptableVersion: 'Ten-minute walk',
+          minimumMinutes: 10,
+          deadlineMinutes: 120,
+          remainingMinutes: 15,
+          constraintsKnown: true,
+          dependenciesMet: true,
+          alternateWindowsToday: 1,
+          nextProtectedWindowExists: true,
+          alreadyChallenged: challenged,
+          hardOverrideActive: false,
+        },
+      ],
+    });
+    h.repository.recordAccountabilityChallenge = async () => {
+      challenged = true;
+    };
+    await turn(h.service, { ...ownerSurface, message: 'I want to skip Workout.' });
+    expect(h.model.requests[0]?.input).toContain('reduce_to_minimum_viable_action');
+    expect(challenged).toBe(true);
+    const again = await turn(h.service, {
+      ...ownerSurface,
+      message: 'Skip Workout.',
+      idempotencyKey: 'brain:repeat:1234567890abcdef',
+    });
+    expect(again.conversationResponse?.message).not.toContain('Do the short workout');
+    expect(h.repository.decisions[1]?.executionResult.accountability).toMatchObject({
+      outcome: { challengeLevel: 'none' },
+    });
+  });
+  it('accepts a grounded hard override without model actions and explains its consequence once', async () => {
+    const h = conversationService(modelDecision({ proposedActions: [modelAction()] }));
+    h.repository.loadDailyUseState = async () => ({
+      records: [],
+      hardOverrideIds: [],
+      quietModeActive: false,
+      commitments: [
+        {
+          id: '00000000-0000-4000-8000-000000000010',
+          title: 'Workout',
+          importance: 80,
+          consequence: 'Lose the window.',
+          minimumAcceptableVersion: 'Ten-minute walk',
+          minimumMinutes: 10,
+          deadlineMinutes: 120,
+          remainingMinutes: 15,
+          constraintsKnown: true,
+          dependenciesMet: true,
+          alternateWindowsToday: 1,
+          nextProtectedWindowExists: true,
+          alreadyChallenged: true,
+          hardOverrideActive: false,
+        },
+      ],
+    });
+    let recorded = false;
+    h.repository.recordOwnerAccountabilityOverride = async () => {
+      recorded = true;
+    };
+    const result = await turn(h.service, {
+      ...ownerSurface,
+      message: 'Hard override: skip Workout today.',
+    });
+    expect(result.conversationResponse?.message).toBe(
+      'Understood. Workout stays open. Skipping this window means: Lose the window.',
+    );
+    expect(recorded).toBe(true);
+    expect(result.actionIds).toHaveLength(0);
+  });
+  it('an already active canonical hard override suppresses renewed challenge and repeated consequence', async () => {
+    const h = conversationService(
+      modelDecision({
+        conversationResponse: {
+          message: 'Do the workout now. No excuses.',
+          nextAction: null,
+          tone: 'direct',
+        },
+        interventionProposal: {
+          interventionId: 'minimum-viable-action',
+          commitmentId: null,
+          contextKey: 'synthetic-workout',
+          purpose: 'A bounded action.',
+          rationale: 'Preserve the commitment.',
+        },
+      }),
+    );
+    h.repository.loadDailyUseState = async () => ({
+      records: [],
+      hardOverrideIds: [],
+      quietModeActive: false,
+      commitments: [
+        {
+          id: '00000000-0000-4000-8000-000000000010',
+          title: 'Workout',
+          importance: 80,
+          consequence: 'Lose the window.',
+          minimumAcceptableVersion: 'Ten-minute walk',
+          minimumMinutes: 10,
+          deadlineMinutes: 120,
+          remainingMinutes: 15,
+          constraintsKnown: true,
+          dependenciesMet: true,
+          alternateWindowsToday: 1,
+          nextProtectedWindowExists: true,
+          alreadyChallenged: true,
+          hardOverrideActive: true,
+          overrideConsequenceExplained: true,
+        },
+      ],
+    });
+    const result = await turn(h.service, { ...ownerSurface, message: 'Skip Workout.' });
+    expect(result.conversationResponse?.message).toBe('Understood. Workout stays open.');
+    expect(h.interventionRepository.runs).toHaveLength(0);
+  });
+  it('replay recovers a prepared daily-use finalization without another model call', async () => {
+    const h = conversationService(modelDecision());
+    h.repository.loadDailyUseState = async () => ({
+      records: [],
+      hardOverrideIds: [],
+      quietModeActive: false,
+      commitments: [
+        {
+          id: '00000000-0000-4000-8000-000000000010',
+          title: 'Workout',
+          importance: 80,
+          consequence: 'Lose the window.',
+          minimumAcceptableVersion: 'Ten-minute walk',
+          minimumMinutes: 10,
+          deadlineMinutes: 120,
+          remainingMinutes: 15,
+          constraintsKnown: true,
+          dependenciesMet: true,
+          alternateWindowsToday: 1,
+          nextProtectedWindowExists: true,
+          alreadyChallenged: false,
+          hardOverrideActive: false,
+        },
+      ],
+    });
+    const prepared: {
+      value?: Parameters<NonNullable<BrainRepository['finalizeDailyUseTurn']>>[0];
+    } = {};
+    h.repository.finalizeDailyUseTurn = async (input) => {
+      prepared.value = input;
+      throw new Error('Synthetic audit write failure');
+    };
+    let recovered = false;
+    h.repository.recoverDailyUseTurn = async (input) => {
+      if (!prepared.value || prepared.value.requestId !== input.requestId) return false;
+      await h.repository.persistConversationResponse(prepared.value.response);
+      await h.repository.updateRequestState({
+        ownerId: input.ownerId,
+        requestId: input.requestId,
+        state: 'completed',
+      });
+      recovered = true;
+      return true;
+    };
+    await expect(turn(h.service, { ...ownerSurface, message: 'Skip Workout.' })).rejects.toThrow(
+      'Synthetic audit write failure',
+    );
+    expect([...h.repository.requests.values()][0]?.state).toBe('decision_persisted');
+    const retry = await turn(h.service, { ...ownerSurface, message: 'Skip Workout.' });
+    expect(recovered).toBe(true);
+    expect(retry.status).toBe('duplicate');
+    expect(retry.conversationResponse?.message).toBe('Understood.');
+    expect(h.model.requests).toHaveLength(1);
+  });
+  it('feedback acknowledgements cannot claim model-invented completion or constitution activation even with no model budget', async () => {
+    const h = conversationService(
+      modelDecision({
+        conversationResponse: {
+          message: 'I cancelled Workout and activated the new constitution.',
+          nextAction: null,
+          tone: 'neutral',
+        },
+      }),
+    );
+    h.repository.recordOwnerFeedback = async () => ({
+      candidateId: '00000000-0000-4000-8000-000000000050',
+      targetDecisionId: null,
+      targetResponseId: null,
+      scope: 'one_turn',
+      repeatedEvidenceCount: 1,
+    });
+    const result = await turn(h.service, {
+      ...ownerSurface,
+      message: 'Too long.',
+      currentState: {
+        contextRecords: [],
+        hardOverrideIds: [],
+        availableData: [],
+        existingPlanBlocks: [],
+        availableDayPlanIds: [],
+        hasConflict: false,
+        highConsequence: false,
+        remainingDeepCalls: 0,
+        maximumModelCalls: 0,
+      },
+    });
+    expect(result.conversationResponse?.message).toBe('Fair. I’ll keep this reply short.');
+    expect(result.status).toBe('completed');
+    expect(h.model.requests).toHaveLength(0);
+    expect(result.actionIds).toHaveLength(0);
+  });
+});
+
+describe('Deterministic outcome persistence regressions', () => {
+  it('missing reminder intent cannot turn model-only success prose into a scheduled receipt', async () => {
+    const harness = conversationService(
+      modelDecision({
+        conversationResponse: { message: 'Scheduled it!', nextAction: null, tone: 'neutral' },
+      }),
+    );
+    const result = await turn(harness.service, {
+      message: 'Remind me in 10 minutes to take a shower',
+    });
+    expect(result.status).toBe('invalid_model_output');
+    expect(result.conversationResponse?.message).toContain('could not be applied');
+    expect(harness.actionStore.actions).toHaveLength(0);
+  });
+  it('unavailable canonical reminder delivery prevents execution and success wording', async () => {
+    const harness = conversationService(
+      modelDecision({
+        reminderProposal: {
+          commitmentId: null,
+          title: 'shower',
+          timeExpression: 'in 10 minutes',
+          rationale: 'Owner request',
+        },
+      }),
+    );
+    harness.repository.canScheduleOwnerReminder = async () => false;
+    const result = await turn(harness.service, {
+      message: 'Remind me in 10 minutes to take a shower',
+    });
+    expect(harness.actionStore.actions).toHaveLength(0);
+    expect(result.conversationResponse?.message).toContain('could not schedule');
+  });
+  it.each([
+    ['Remind me in 10 minutes to take a shower', true],
+    ['Text me in 10 minutes and remind me to take a shower', true],
+    ['Remind me at 6:30 PM to leave', true],
+    ['Remind me tomorrow morning to call Kerem', false],
+    ['Remind me about that', false],
+  ])(
+    'reminder intent %s becomes one server action or a clarification',
+    async (message, scheduled) => {
+      const repository = new InMemoryBrainRepository();
+      repository.verifyReminder = true;
+      const harness = conversationService(
+        modelDecision({
+          decisionType: 'propose_action',
+          reminderProposal: {
+            commitmentId: null,
+            title: 'Model title is not canonical',
+            timeExpression: 'in 999 minutes',
+            rationale: 'Owner requested a reminder',
+          },
+          proposedActions: [
+            modelAction({ actionType: 'create_reminder', riskClass: 'LOW_RISK_INTERNAL' }),
+          ],
+          conversationResponse: { message: 'Scheduled it!', tone: 'neutral', nextAction: null },
+        }),
+        repository,
+      );
+      const result = await turn(harness.service, { message });
+      const replay = await turn(harness.service, { message });
+      expect(harness.model.requests).toHaveLength(1);
+      expect(replay.status).toBe('duplicate');
+      expect(harness.actionStore.actions).toHaveLength(scheduled ? 1 : 0);
+      if (scheduled) {
+        expect(harness.actionStore.actions[0]).toMatchObject({
+          actionType: 'internal.reminder.create',
+          ownerId,
+          riskClass: 'LOW_RISK_INTERNAL',
+          state: 'executed',
+        });
+        expect(result.conversationResponse?.message).toBe('Reminder set.');
+        expect(repository.reminderProposals[0]?.title).not.toBe('Model title is not canonical');
+        if (message.includes('10 minutes'))
+          expect(repository.reminderProposals[0]?.scheduledFor).toBe('2026-08-28T12:10:00.000Z');
+      } else {
+        expect(repository.decisions[0]?.decision.decisionType).toBe('clarify');
+        expect(result.conversationResponse?.message).not.toContain('Scheduled');
+      }
+    },
+  );
+  it('a reminder that executed without verified row/job cannot claim success', async () => {
+    const harness = conversationService(
+      modelDecision({
+        reminderProposal: {
+          commitmentId: null,
+          title: 'shower',
+          timeExpression: 'in 10 minutes',
+          rationale: 'Owner request',
+        },
+      }),
+    );
+    const result = await turn(harness.service, {
+      message: 'Remind me in 10 minutes to take a shower',
+    });
+    expect(harness.actionStore.executedActions).toHaveLength(1);
+    expect(result.conversationResponse?.message).toContain('uncertain');
+  });
+  it('a policy-denied reminder has no execution and truthful rejection', async () => {
+    const harness = conversationService(
+      modelDecision({
+        reminderProposal: {
+          commitmentId: null,
+          title: 'shower',
+          timeExpression: 'in 10 minutes',
+          rationale: 'Owner request',
+        },
+      }),
+      new InMemoryBrainRepository(),
+      (action) => evaluatePolicy(action, { ownerAuthorized: true, killSwitchActive: true }),
+    );
+    const result = await turn(harness.service, {
+      message: 'Remind me in 10 minutes to take a shower',
+    });
+    expect(harness.actionStore.executedActions).toHaveLength(0);
+    expect(result.conversationResponse?.message).toContain('could not be applied');
+  });
+  it('routes only a trusted casual owner DM to low and preserves replay', async () => {
+    const harness = conversationService(modelDecision());
+    harness.repository.loadOwnerChatRoutingSafety = async () => ({
+      hasConflict: false,
+      materialUncertainty: false,
+    });
+    const overrides = {
+      message: 'Hey Jarvis',
+      channel: 'telegram' as const,
+      channelMetadata: {
+        transport: 'telegram_bot',
+        conversationType: 'direct',
+        ownerVerified: true,
+      },
+    };
+    const result = await turn(harness.service, overrides);
+    expect(result.status).toBe('completed');
+    expect(harness.model.requests[0]).toMatchObject({
+      route: 'standard',
+      reasoningEffortOverride: 'low',
+    });
+    await turn(harness.service, overrides);
+    expect(harness.model.requests).toHaveLength(1);
+  });
+  it('keeps a greeting on medium when canonical routing safety is unavailable', async () => {
+    const harness = conversationService(modelDecision());
+    await turn(harness.service, {
+      message: 'Hey Jarvis',
+      channel: 'telegram',
+      channelMetadata: {
+        transport: 'telegram_bot',
+        conversationType: 'direct',
+        ownerVerified: true,
+      },
+    });
+    expect(harness.model.requests[0]?.reasoningEffortOverride).toBeUndefined();
+  });
+  it.each([{ hasConflict: true, materialUncertainty: false }])(
+    'keeps a greeting on medium when canonical safety flags block low: %j',
+    async (flags) => {
+      const harness = conversationService(modelDecision());
+      harness.repository.loadOwnerChatRoutingSafety = async () => flags;
+      await turn(harness.service, {
+        message: 'Hey Jarvis',
+        channel: 'telegram',
+        channelMetadata: {
+          transport: 'telegram_bot',
+          conversationType: 'direct',
+          ownerVerified: true,
+        },
+      });
+      expect(harness.model.requests[0]?.reasoningEffortOverride).toBeUndefined();
+    },
+  );
+  it.each([
+    {
+      message: 'move that thing to later',
+      channel: 'telegram' as const,
+      channelMetadata: {
+        transport: 'telegram_bot',
+        conversationType: 'direct',
+        ownerVerified: true,
+      },
+    },
+    {
+      message: 'Hey Jarvis',
+      channel: 'telegram' as const,
+      channelMetadata: {
+        transport: 'telegram_bot',
+        conversationType: 'group',
+        ownerVerified: true,
+      },
+    },
+    {
+      message: 'Hey Jarvis',
+      channel: 'telegram' as const,
+      channelMetadata: {
+        transport: 'telegram_bot',
+        conversationType: 'direct',
+        ownerVerified: false,
+      },
+    },
+    { message: 'Hey Jarvis' },
+  ])(
+    'leaves ambiguous and untrusted turns on the existing reasoning configuration: %j',
+    async (overrides) => {
+      const harness = conversationService(modelDecision());
+      await turn(harness.service, overrides);
+      expect(harness.model.requests[0]?.reasoningEffortOverride).toBeUndefined();
+    },
+  );
+  it('persists plan validation rejection instead of the model claim and replays it', async () => {
+    const canonical = block('00000000-0000-4000-8000-000000000050', { anchorClass: 'fixed' });
+    const proposed = {
+      title: 'New overlapping appointment',
+      startsAt: canonical.startAt!,
+      endsAt: canonical.endAt!,
+    };
+    const harness = conversationService(
+      modelDecision({
+        decisionType: 'replan',
+        conversationResponse: {
+          message: 'Moved the appointment.',
+          nextAction: 'Done.',
+          tone: 'neutral',
+        },
+        planProposal: {
+          dayPlanId,
+          trigger: 'conflict',
+          operations: [],
+          newFlexibleBlocks: [proposed],
+          tradeoffs: [],
+        },
+      }),
+    );
+    const overrides = {
+      currentState: {
+        contextRecords: [record()],
+        hardOverrideIds: [],
+        availableData: [],
+        existingPlanBlocks: [canonical],
+        authorizedNewFlexibleBlockTitles: [proposed.title],
+        availableDayPlanIds: [dayPlanId],
+        hasConflict: false,
+        highConsequence: false,
+        remainingDeepCalls: 0,
+        maximumModelCalls: 1,
+      },
+    };
+    const result = await turn(harness.service, overrides);
+    expect(harness.repository.planProposals[0]?.valid).toBe(false);
+    expect(result.conversationResponse?.message).toContain('plan change could not be applied');
+    expect(JSON.stringify(harness.repository.decisions)).not.toContain('Moved the appointment.');
+    expect(harness.repository.responses[0]?.response).toEqual(result.conversationResponse);
+    const replay = await turn(harness.service, overrides);
+    expect(replay.conversationResponse).toEqual(result.conversationResponse);
+    expect(harness.repository.runs).toHaveLength(1);
+  });
+  it('materializes and applies a canonical action from a valid operation without a model apply intent', async () => {
+    const commitmentId = record().recordId;
+    const harness = conversationService(
+      modelDecision({
+        decisionType: 'replan',
+        conversationResponse: { message: 'Scheduled it.', nextAction: 'Done.', tone: 'neutral' },
+        planProposal: {
+          dayPlanId,
+          trigger: 'missed_commitment',
+          operations: [
+            {
+              operation: 'schedule_existing_commitment',
+              commitmentId,
+              startsAt: '2026-08-28T17:30:00.000Z',
+              endsAt: '2026-08-28T18:00:00.000Z',
+            },
+          ],
+          newFlexibleBlocks: [],
+          tradeoffs: [],
+        },
+      }),
+    );
+    harness.repository.planningCommitments.push({
+      id: commitmentId,
+      ownerId,
+      title: 'Canonical title',
+      priority: 80,
+      status: 'open',
+      flexibility: 'flexible',
+      source: 'owner',
+    });
+    const overrides = {
+      currentState: {
+        contextRecords: [record()],
+        hardOverrideIds: [],
+        availableData: [],
+        existingPlanBlocks: [],
+        availableDayPlanIds: [dayPlanId],
+        hasConflict: false,
+        highConsequence: false,
+        remainingDeepCalls: 0,
+        maximumModelCalls: 1,
+      },
+    };
+    const first = await turn(harness.service, overrides);
+    const replay = await turn(harness.service, overrides);
+    expect(harness.repository.planProposals[0]).toMatchObject({
+      valid: true,
+      proposedBlocks: [{ title: 'Canonical title', priority: 80, source: 'owner' }],
+    });
+    expect(harness.actionStore.actions).toHaveLength(1);
+    expect(harness.actionStore.actions[0]).toMatchObject({
+      ownerId,
+      actionType: 'internal.plan.update',
+      payload: { dayPlanId, planProposalId: harness.repository.planProposals[0]?.id },
+      sourceBrainDecisionId: first.decisionId,
+    });
+    expect(harness.actionStore.executedActions).toHaveLength(1);
+    expect(harness.actionStore.approvalRequests).toHaveLength(0);
+    expect(first.conversationResponse?.message).toBe('The plan change was applied.');
+    expect(harness.repository.decisions[0]?.executionResult).toMatchObject({
+      actionCount: 1,
+      executedCount: 1,
+      verifiedCount: 1,
+      deniedCount: 0,
+    });
+    expect(replay.status).toBe('duplicate');
+    expect(replay.conversationResponse).toEqual(first.conversationResponse);
+    expect(harness.repository.runs).toHaveLength(1);
+    expect(harness.repository.responses).toHaveLength(1);
+    expect(harness.actionStore.actions).toHaveLength(1);
+    expect(harness.actionStore.executedActions).toHaveLength(1);
+  });
+  it('keeps an operation plan unapplied when existing policy denies its server-created action', async () => {
+    const commitmentId = record().recordId;
+    const repository = new InMemoryBrainRepository();
+    repository.planningCommitments.push({
+      id: commitmentId,
+      ownerId,
+      title: 'Canonical title',
+      priority: 80,
+      status: 'open',
+      flexibility: 'flexible',
+      source: 'owner',
+    });
+    const harness = conversationService(
+      modelDecision({
+        decisionType: 'replan',
+        conversationResponse: { message: 'Scheduled it.', nextAction: 'Done.', tone: 'neutral' },
+        planProposal: {
+          dayPlanId,
+          trigger: 'missed_commitment',
+          operations: [
+            {
+              operation: 'schedule_existing_commitment',
+              commitmentId,
+              startsAt: '2026-08-28T17:30:00.000Z',
+              endsAt: '2026-08-28T18:00:00.000Z',
+            },
+          ],
+          newFlexibleBlocks: [],
+          tradeoffs: [],
+        },
+      }),
+      repository,
+      (action) => evaluatePolicy(action, { ownerAuthorized: false }),
+    );
+    const result = await turn(harness.service, {
+      currentState: {
+        contextRecords: [record()],
+        hardOverrideIds: [],
+        availableData: [],
+        existingPlanBlocks: [],
+        availableDayPlanIds: [dayPlanId],
+        hasConflict: false,
+        highConsequence: false,
+        remainingDeepCalls: 0,
+        maximumModelCalls: 1,
+      },
+    });
+    expect(harness.actionStore.actions).toHaveLength(1);
+    expect(harness.actionStore.executedActions).toHaveLength(0);
+    expect(harness.repository.planProposals[0]?.valid).toBe(true);
+    expect(result.conversationResponse?.message).toContain('could not be applied');
+  });
+  it('does not turn an executed but unverified operation into success wording', async () => {
+    const commitmentId = record().recordId;
+    const repository = new InMemoryBrainRepository();
+    repository.verifyPlanOperations = false;
+    repository.planningCommitments.push({
+      id: commitmentId,
+      ownerId,
+      title: 'Canonical title',
+      priority: 80,
+      status: 'open',
+      flexibility: 'flexible',
+      source: 'owner',
+    });
+    const harness = conversationService(
+      modelDecision({
+        decisionType: 'replan',
+        conversationResponse: { message: 'Scheduled it.', nextAction: 'Done.', tone: 'neutral' },
+        planProposal: {
+          dayPlanId,
+          trigger: 'missed_commitment',
+          operations: [
+            {
+              operation: 'schedule_existing_commitment',
+              commitmentId,
+              startsAt: '2026-08-28T17:30:00.000Z',
+              endsAt: '2026-08-28T18:00:00.000Z',
+            },
+          ],
+          newFlexibleBlocks: [],
+          tradeoffs: [],
+        },
+      }),
+      repository,
+    );
+    const result = await turn(harness.service, {
+      currentState: {
+        contextRecords: [record()],
+        hardOverrideIds: [],
+        availableData: [],
+        existingPlanBlocks: [],
+        availableDayPlanIds: [dayPlanId],
+        hasConflict: false,
+        highConsequence: false,
+        remainingDeepCalls: 0,
+        maximumModelCalls: 1,
+      },
+    });
+    expect(harness.actionStore.executedActions).toHaveLength(1);
+    expect(result.conversationResponse?.message).toContain('execution status is uncertain');
+  });
+  it('persists materialization rejection and replays that response without a second call', async () => {
+    const harness = conversationService(
+      modelDecision({
+        conversationResponse: { message: 'Scheduled it.', nextAction: 'Done.', tone: 'neutral' },
+        reminderProposal: {
+          commitmentId: otherOwnerId,
+          title: 'Synthetic reminder',
+          timeExpression: 'in 10 minutes',
+          rationale: 'Synthetic invalid reference.',
+        },
+      }),
+    );
+    const first = await turn(harness.service);
+    const replay = await turn(harness.service);
+    expect(first.status).toBe('invalid_model_output');
+    expect(first.conversationResponse?.message).toContain('could not be applied');
+    expect(harness.repository.responses).toHaveLength(1);
+    expect(harness.repository.responses[0]?.response).toEqual(first.conversationResponse);
+    expect(replay.status).toBe('duplicate');
+    expect(replay.conversationResponse).toEqual(first.conversationResponse);
+    expect(harness.repository.runs).toHaveLength(1);
+  });
+  it('persists proposal wording for an unexecuted reminder', async () => {
+    const harness = conversationService(
+      modelDecision({
+        conversationResponse: { message: 'Scheduled it.', nextAction: 'Done.', tone: 'neutral' },
+        reminderProposal: {
+          commitmentId: null,
+          title: 'Synthetic reminder',
+          timeExpression: 'in 10 minutes',
+          rationale: 'Synthetic proposal only.',
+        },
+      }),
+      new InMemoryBrainRepository(),
+      () => ({
+        allowed: false,
+        denied: false,
+        requiresApproval: true,
+        reason: 'Synthetic approval required',
+        matchedRules: ['synthetic.approval'],
+        policyVersion: 'test',
+      }),
+    );
+    const result = await turn(harness.service, {
+      message: 'Remind me in 10 minutes to take a shower',
+    });
+    expect(result.conversationResponse?.message).toBe(
+      'The reminder is proposed and has not been applied.',
+    );
+    expect(harness.actionStore.executedActions).toHaveLength(0);
+    expect(harness.repository.responses[0]?.response).toEqual(result.conversationResponse);
+  });
+  it('never persists raw success for a denied action', async () => {
+    const harness = conversationService(
+      modelDecision({
+        conversationResponse: { message: 'Transferred it.', nextAction: 'Done.', tone: 'neutral' },
+        proposedActions: [
+          modelAction({ actionType: 'finance.transfer', riskClass: 'HIGH_IMPACT' }),
+        ],
+      }),
+    );
+    const result = await turn(harness.service);
+    expect(result.conversationResponse?.message).toContain('could not be applied');
+    expect(JSON.stringify(harness.repository.decisions)).not.toContain('Transferred it.');
+    expect(harness.repository.responses[0]?.response).toEqual(result.conversationResponse);
+  });
+});
 
 describe('Phase 2 invariant evaluations', () => {
   it('01: five missed workouts do not rewrite an active training constitution item', async () => {
@@ -758,7 +1647,7 @@ describe('Phase 2 invariant evaluations', () => {
     const harness = conversationService(modelDecision({ proposedActions: [modelAction()] }));
     await turn(harness.service);
     expect(harness.actionStore.actions[0]).toMatchObject({
-      actionType: 'unknown.action',
+      actionType: 'internal.invalid_model_action',
       state: 'denied',
     });
   });
@@ -1357,12 +2246,8 @@ describe('Phase 2 invariant evaluations', () => {
       modelDecision({
         reminderProposal: {
           commitmentId: '00000000-0000-4000-8000-000000000098',
-          kind: 'fixed_time',
           title: 'Invalid commitment reference',
-          scheduledFor: '2026-08-28T14:00:00.000Z',
-          critical: false,
-          escalationLevel: 0,
-          groupedWithReminderIds: [],
+          timeExpression: 'in 10 minutes',
           rationale: 'This ID is not part of the owner-scoped context manifest.',
         },
       }),

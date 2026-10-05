@@ -1,4 +1,5 @@
 import { sql } from 'drizzle-orm';
+import type { ModelRequestAdmission, ModelRun } from '@jarvis/contracts';
 import {
   boolean,
   date,
@@ -44,6 +45,7 @@ export const brainRequests = jarvis.table(
     promptVersion: varchar('prompt_version', { length: 256 }),
     contextVersion: varchar('context_version', { length: 64 }),
     safeErrorCategory: varchar('safe_error_category', { length: 80 }),
+    admission: jsonb('admission').$type<ModelRequestAdmission>(),
     completedAt: timestamp('completed_at', { withTimezone: true }),
   },
   (table) => [
@@ -117,6 +119,10 @@ export const modelRuns = jarvis.table(
   'model_runs',
   {
     ...standardColumns,
+    admission: jsonb('admission').$type<ModelRequestAdmission>(),
+    usageAccounting: jsonb('usage_accounting').$type<NonNullable<ModelRun['usageAccounting']>>(),
+    outputAudit: jsonb('output_audit').$type<NonNullable<ModelRun['outputAudit']>>(),
+    exactGatewayCostUsd: text('exact_gateway_cost_usd'),
     ownerId: uuid('owner_id')
       .notNull()
       .references(() => owners.id, { onDelete: 'restrict' }),

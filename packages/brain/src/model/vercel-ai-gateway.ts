@@ -8,15 +8,59 @@ import {
   type ModelRuntimeConfiguration,
   type OpenAiModelRouteConfiguration,
 } from '@jarvis/config';
-import type { ModelRoute, ModelRun } from '@jarvis/contracts';
+import type { ModelRequestAdmission, ModelRoute, ModelRun } from '@jarvis/contracts';
 
-import { modelDecisionEnvelopeSchema } from './decision-schema.js';
 import type { ModelGateway, ModelGatewayRequest, ModelGatewayResult } from './gateway.js';
+import { effectiveModelRouteConfiguration } from './gateway.js';
+import { modelDecisionEnvelopeSchema } from './decision-schema.js';
+import {
+  assembleResponsesRequest,
+  createRequestAdmission,
+  parseDecisionResponse,
+  requestHash,
+  responseUsageAccounting,
+} from './request-admission.js';
+
+function structuredOutputFormat() {
+  return zodTextFormat(modelDecisionEnvelopeSchema, 'jarvis_brain_decision');
+}
+
+import {
+  loadGatewayAdmissionProfile,
+  type GatewayAdmissionProfileSource,
+} from './admission-profile.js';
 
 const vercelAiGatewayResponsesUrl = 'https://ai-gateway.vercel.sh/v1';
 
 export interface VercelAiGatewayClient {
-  readonly responses: Pick<OpenAI['responses'], 'parse'>;
+  readonly responses: Pick<OpenAI['responses'], 'create'> &
+    Partial<Pick<OpenAI['responses'], 'inputTokens'>>;
+}
+
+/**
+ * Tests may inject an explicit identity provider. Production identity is resolved once by the
+ * Vercel entrypoint and passed into invocation-local configuration; this adapter never resolves
+ * ambient or development credentials, persists them, or logs them.
+ */
+export type VercelOidcTokenProvider = () => Promise<string | undefined>;
+
+const noImplicitOidcToken: VercelOidcTokenProvider = async () => undefined;
+
+/**
+ * This is an authentication/configuration check only.  It does not contact a model, reserve a
+ * budget, or emit a provider request. The configuration contains only the identity explicitly
+ * supplied for the current invocation; a missing identity remains not configured.
+ */
+export async function hasVercelAiGatewayOidcToken(
+  configuration: ModelRuntimeConfiguration,
+  tokenProvider: VercelOidcTokenProvider = noImplicitOidcToken,
+): Promise<boolean> {
+  if (configuration.oidcToken) return true;
+  try {
+    return Boolean(await tokenProvider());
+  } catch {
+    return false;
+  }
 }
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
@@ -82,6 +126,8 @@ function incompleteResult(
   configuration: OpenAiModelRouteConfiguration,
   startedAtMs: number,
   category: string,
+  admission?: ModelRequestAdmission,
+  response?: unknown,
 ): ModelGatewayResult {
   const run: ModelRun = {
     id: randomUUID(),
@@ -101,38 +147,81 @@ function incompleteResult(
     estimatedCostUsd: null,
     errorCategory: category,
     createdAt: new Date().toISOString(),
+    ...(admission ? { admission, ...responseUsageAccounting(response, admission) } : {}),
   };
+  if (response !== undefined) {
+    run.estimatedCostUsd = reportedGatewayCostUsd(response);
+    if (isRecord(response) && typeof response.model === 'string')
+      run.actualModelId = response.model;
+  }
   return { status, safeError, run };
 }
 
 /**
- * Stateless Vercel AI Gateway Responses adapter. In a deployed Vercel function the platform
- * injects `VERCEL_OIDC_TOKEN`; this adapter never accepts a gateway API key and never falls back
+ * Stateless Vercel AI Gateway Responses adapter. The Vercel entrypoint supplies invocation-local
+ * OIDC identity; this adapter never accepts a gateway API key and never falls back
  * to a billable direct OpenAI credential. It retains the exact JARVIS structured-output and
  * `store: false` boundary used by the direct adapter.
  */
 export class VercelAiGatewayModelGateway implements ModelGateway {
-  private readonly client: VercelAiGatewayClient | null;
-
+  private readonly admissions = new WeakSet<ModelRequestAdmission>();
   public constructor(
     private readonly configuration: ModelRuntimeConfiguration,
-    client?: VercelAiGatewayClient,
-  ) {
-    this.client =
-      client ??
-      (configuration.oidcToken
-        ? new OpenAI({
-            apiKey: configuration.oidcToken,
-            baseURL: vercelAiGatewayResponsesUrl,
-            // One canonical model attempt must not silently issue additional Gateway requests.
-            // Any later retry requires a separately admitted canonical operation.
-            maxRetries: 0,
-          })
-        : null);
+    private readonly clientOverride?: VercelAiGatewayClient,
+    private readonly tokenProvider: VercelOidcTokenProvider = noImplicitOidcToken,
+    private readonly profileSource: GatewayAdmissionProfileSource = loadGatewayAdmissionProfile,
+  ) {}
+
+  private async clientForCurrentRequest(): Promise<VercelAiGatewayClient | null> {
+    let token = this.configuration.oidcToken;
+    if (!token) {
+      try {
+        token = await this.tokenProvider();
+      } catch {
+        // Treat an unexpected request-context failure as unavailable without surfacing provider
+        // details. The caller records a safe not-configured result below.
+        token = undefined;
+      }
+    }
+    if (!token) return null;
+    // Do not cache this client: Vercel may rotate the request-scoped OIDC token between turns.
+    return (
+      this.clientOverride ??
+      new OpenAI({
+        apiKey: token,
+        baseURL: vercelAiGatewayResponsesUrl,
+        maxRetries: 0,
+      })
+    );
+  }
+
+  public async preflight(
+    request: ModelGatewayRequest,
+    limits = { dynamicContextBudgetTokens: 6000 },
+  ): Promise<ModelRequestAdmission> {
+    const route = effectiveModelRouteConfiguration(
+      routeConfiguration(this.configuration, request.route),
+      request,
+    );
+    const profile = await this.profileSource(route);
+    const admission = createRequestAdmission(
+      assembleResponsesRequest(request, route, structuredOutputFormat()),
+      profile,
+      {
+        dynamicContextBudgetTokens: limits.dynamicContextBudgetTokens,
+        dynamicContextEstimate: request.context.manifest.promptTokenEstimate,
+      },
+    );
+    // Gateway has no verified native counting route. Never probe vendor-specific counters.
+    this.admissions.add(admission);
+    return admission;
   }
 
   public async decide(request: ModelGatewayRequest): Promise<ModelGatewayResult> {
-    const configuredRoute = routeConfiguration(this.configuration, request.route);
+    const configuredRoute = effectiveModelRouteConfiguration(
+      routeConfiguration(this.configuration, request.route),
+      request,
+    );
     const startedAtMs = Date.now();
     if (
       this.configuration.zeroCostMode &&
@@ -147,35 +236,60 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
         'zero_cost_model_unverified',
       );
     }
-    if (!this.client) {
+    const body = assembleResponsesRequest(request, configuredRoute, structuredOutputFormat());
+    const admission = request.admission ?? (await this.preflight(request));
+    if (
+      !admission.allowed ||
+      !this.admissions.has(admission) ||
+      admission.requestHash !== requestHash(body)
+    ) {
+      return incompleteResult(
+        admission.errorCategory === 'not_configured' ? 'not_configured' : 'configuration_error',
+        admission.allowed
+          ? 'Full-request admission does not match this exact request. No model call was made.'
+          : admission.reason,
+        request,
+        configuredRoute,
+        startedAtMs,
+        admission.allowed
+          ? 'admission_mismatch'
+          : (admission.errorCategory ?? 'input_count_unavailable'),
+        admission,
+      );
+    }
+    // Single-use admission prevents accidentally replaying a paid request through the adapter.
+    this.admissions.delete(admission);
+    const client = await this.clientForCurrentRequest();
+    if (!client)
       return incompleteResult(
         'not_configured',
-        'The Vercel AI Gateway OIDC identity is not available in this environment.',
+        'The Gateway OIDC identity is unavailable. No model call was made.',
         request,
         configuredRoute,
         startedAtMs,
         'not_configured',
+        admission,
       );
-    }
-
     try {
-      const response = await this.client.responses.parse({
-        model: configuredRoute.model,
-        store: false,
-        truncation: 'disabled',
-        instructions: request.instructions,
-        input: request.input,
-        max_output_tokens: configuredRoute.maxOutputTokens,
-        reasoning: {
-          effort: configuredRoute.reasoningEffort,
-          mode: configuredRoute.reasoningMode,
-          context: configuredRoute.reasoningContext,
-        },
-        text: {
-          verbosity: configuredRoute.verbosity,
-          format: zodTextFormat(modelDecisionEnvelopeSchema, 'jarvis_brain_decision'),
-        },
-      });
+      const response = await client.responses.create(body, { maxRetries: 0 });
+      const accounting = responseUsageAccounting(response, admission);
+      if (
+        !accounting.usageAccounting.usageValid ||
+        accounting.usageAccounting.inputBoundExceeded ||
+        accounting.usageAccounting.outputBoundExceeded ||
+        accounting.usageAccounting.contextBoundExceeded
+      ) {
+        return incompleteResult(
+          'invalid_model_output',
+          'The provider usage could not be reconciled with its admitted token bounds. No proposal was applied.',
+          request,
+          configuredRoute,
+          startedAtMs,
+          'provider_usage_bound_violation',
+          admission,
+          response,
+        );
+      }
       if (response.status !== 'completed') {
         const refused = response.output.some((item) =>
           item.type === 'message'
@@ -191,9 +305,11 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
           configuredRoute,
           startedAtMs,
           refused ? 'refusal' : 'incomplete',
+          admission,
+          response,
         );
       }
-      const parsed = modelDecisionEnvelopeSchema.safeParse(response.output_parsed);
+      const parsed = parseDecisionResponse(response);
       if (!parsed.success) {
         return incompleteResult(
           'invalid_model_output',
@@ -202,9 +318,10 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
           configuredRoute,
           startedAtMs,
           'invalid_structured_output',
+          admission,
+          response,
         );
       }
-      const usage = response.usage;
       const run: ModelRun = {
         id: randomUUID(),
         ownerId: request.request.ownerId,
@@ -216,16 +333,14 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
         reasoningEffort: configuredRoute.reasoningEffort,
         status: 'completed',
         latencyMs: Math.max(0, Date.now() - startedAtMs),
-        inputTokens: usage?.input_tokens ?? null,
-        outputTokens: usage?.output_tokens ?? null,
-        reasoningTokens: usage?.output_tokens_details.reasoning_tokens ?? null,
-        cachedInputTokens: usage?.input_tokens_details.cached_tokens ?? null,
         // This is a provider-reported receipt when one exists. An absent receipt remains null;
         // the canonical Free Tier safety guard then refuses another model call rather than using
         // list pricing, a guessed zero, auto top-up, BYOK, or a fallback model.
         estimatedCostUsd: reportedGatewayCostUsd(response),
         errorCategory: null,
         createdAt: new Date().toISOString(),
+        admission,
+        ...accounting,
       };
       return { status: 'completed', decision: parsed.data, run };
     } catch (error) {
@@ -239,6 +354,7 @@ export class VercelAiGatewayModelGateway implements ModelGateway {
         configuredRoute,
         startedAtMs,
         category,
+        admission,
       );
     }
   }

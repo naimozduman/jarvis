@@ -14,7 +14,15 @@ import {
  * handle a provider JID or token, but it must not leak provider-specific identifiers into the
  * Brain-facing contract, logs, or model context.
  */
-export const messagingTransportKindSchema = z.enum(['evolution_whatsapp']);
+/**
+ * A transport kind identifies the narrow delivery adapter only. It never changes the canonical
+ * conversation, memory, policy, or Brain contract.
+ */
+export const messagingTransportKindSchema = z.enum([
+  'evolution_whatsapp',
+  'whatsapp_cloud',
+  'telegram_bot',
+]);
 
 export const messagingConnectionStateSchema = z.enum([
   'disabled',
@@ -213,6 +221,8 @@ export const messagingSendResultSchema = z
     errorCategory: z.string().trim().min(1).max(80).nullable(),
     /** A timeout after request dispatch requires reconciliation before any retry. */
     requiresReconciliation: z.boolean(),
+    /** Only explicit provider nonacceptance may supply a safe retry wait. */
+    retryAfterSeconds: z.number().int().min(0).max(2_147_483_647).optional(),
   })
   .strict();
 

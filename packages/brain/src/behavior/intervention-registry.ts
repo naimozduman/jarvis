@@ -250,8 +250,13 @@ export class InterventionRegistry {
     if (!definition) {
       return false;
     }
-    const previous = input.history.find((entry) => entry.interventionId === input.interventionId);
-    return !previous?.cooldownUntil || Date.parse(previous.cooldownUntil) <= Date.parse(input.now);
+    const now = Date.parse(input.now);
+    return input.history.every(
+      (entry) =>
+        entry.interventionId !== input.interventionId ||
+        !entry.cooldownUntil ||
+        Date.parse(entry.cooldownUntil) <= now,
+    );
   }
 }
 

@@ -10,6 +10,9 @@ export type PromptModulePurpose =
   | 'behavioral_intervention'
   | 'reminders'
   | 'communication_style'
+  | 'whatsapp_owner_presentation'
+  | 'telegram_owner_presentation'
+  | 'owner_baseline'
   | 'tool_actions'
   | 'uncertainty'
   | 'security'
@@ -27,6 +30,9 @@ export interface PromptAssemblyInput {
   readonly purpose: BrainRequestPurpose;
   readonly context: BrainContext;
   readonly ownerMessage: string | null;
+  /** Set only by the canonical owner-DM path; untrusted transport metadata never selects prompts. */
+  readonly presentation?: 'whatsapp_owner' | 'telegram_owner';
+  readonly ownerBaseline?: boolean;
 }
 
 export interface AssembledPrompt {

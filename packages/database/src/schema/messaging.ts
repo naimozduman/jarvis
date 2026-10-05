@@ -116,6 +116,36 @@ export const messagingIdentityAliases = jarvis.table(
   ],
 );
 
+/**
+ * Adapter-only Telegram recipient handle. The Bot API needs the numeric chat id to send a final
+ * response, but no model, contract, log, or public operator response may read it. Every other
+ * layer refers to the stable hashed references above.
+ */
+export const telegramBotParticipants = jarvis.table(
+  'telegram_bot_participants',
+  {
+    ...standardColumns,
+    ownerId: uuid('owner_id')
+      .notNull()
+      .references(() => owners.id, { onDelete: 'restrict' }),
+    connectionId: uuid('connection_id')
+      .notNull()
+      .references(() => messagingTransportConnections.id, { onDelete: 'restrict' }),
+    participantReference: varchar('participant_reference', { length: 512 }).notNull(),
+    conversationReference: varchar('conversation_reference', { length: 512 }).notNull(),
+    /** Sensitive provider identifier, restricted to the Telegram adapter process. */
+    providerChatId: varchar('provider_chat_id', { length: 80 }).notNull(),
+    lastObservedAt: timestamp('last_observed_at', { withTimezone: true }).notNull(),
+  },
+  (table) => [
+    uniqueIndex('telegram_bot_participants_connection_participant_unique').on(
+      table.connectionId,
+      table.participantReference,
+    ),
+    index('telegram_bot_participants_owner_connection_index').on(table.ownerId, table.connectionId),
+  ],
+);
+
 /** Safe operational record for rejected traffic; no raw body, JID, message content, or API key. */
 export const messagingTransportRejections = jarvis.table(
   'messaging_transport_rejections',

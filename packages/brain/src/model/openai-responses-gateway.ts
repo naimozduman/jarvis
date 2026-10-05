@@ -1,13 +1,31 @@
+import { directAdmissionProfile } from './admission-profile.js';
 import { randomUUID } from 'node:crypto';
 
 import OpenAI from 'openai';
 import { zodTextFormat } from 'openai/helpers/zod';
 
 import type { OpenAiModelRouteConfiguration, OpenAiRuntimeConfiguration } from '@jarvis/config';
-import type { ModelRoute, ModelRun } from '@jarvis/contracts';
+import type { ModelRequestAdmission, ModelRoute, ModelRun } from '@jarvis/contracts';
 
-import { modelDecisionEnvelopeSchema } from './decision-schema.js';
 import type { ModelGateway, ModelGatewayRequest, ModelGatewayResult } from './gateway.js';
+import { effectiveModelRouteConfiguration } from './gateway.js';
+import { modelDecisionEnvelopeSchema } from './decision-schema.js';
+import {
+  assembleResponsesRequest,
+  createRequestAdmission,
+  parseDecisionResponse,
+  requestHash,
+  responseUsageAccounting,
+} from './request-admission.js';
+
+function structuredOutputFormat() {
+  return zodTextFormat(modelDecisionEnvelopeSchema, 'jarvis_brain_decision');
+}
+
+export interface OpenAiResponsesClient {
+  readonly responses: Pick<OpenAI['responses'], 'create'> &
+    Partial<Pick<OpenAI['responses'], 'inputTokens'>>;
+}
 
 function configurationForRoute(
   configuration: OpenAiRuntimeConfiguration,
@@ -26,7 +44,12 @@ function estimatedCostUsd(
       }
     | undefined,
 ): number | null {
-  if (!usage) {
+  if (
+    !usage ||
+    ![usage.input_tokens, usage.output_tokens, usage.input_tokens_details?.cached_tokens].every(
+      (value) => Number.isSafeInteger(value) && value >= 0,
+    )
+  ) {
     return null;
   }
 
@@ -77,6 +100,8 @@ function incompleteResult(
   configuration: OpenAiModelRouteConfiguration,
   startedAtMs: number,
   category: string,
+  admission?: ModelRequestAdmission,
+  response?: OpenAI.Responses.Response,
 ): ModelGatewayResult {
   const run: ModelRun = {
     id: randomUUID(),
@@ -96,7 +121,12 @@ function incompleteResult(
     estimatedCostUsd: null,
     errorCategory: category,
     createdAt: new Date().toISOString(),
+    ...(admission ? { admission, ...responseUsageAccounting(response, admission) } : {}),
   };
+  if (response) {
+    run.estimatedCostUsd = estimatedCostUsd(configuration, response.usage);
+    run.actualModelId = response.model ?? null;
+  }
 
   return { status, safeError, run };
 }
@@ -107,14 +137,57 @@ function incompleteResult(
  * OpenAI response storage is explicitly disabled and no hosted tools are exposed.
  */
 export class OpenAiResponsesModelGateway implements ModelGateway {
-  private readonly client: OpenAI | null;
+  private readonly client: OpenAiResponsesClient | null;
+  private readonly admissions = new WeakSet<ModelRequestAdmission>();
 
-  public constructor(private readonly configuration: OpenAiRuntimeConfiguration) {
-    this.client = configuration.apiKey ? new OpenAI({ apiKey: configuration.apiKey }) : null;
+  public constructor(
+    private readonly configuration: OpenAiRuntimeConfiguration,
+    clientOverride?: OpenAiResponsesClient,
+  ) {
+    this.client = configuration.apiKey
+      ? (clientOverride ?? new OpenAI({ apiKey: configuration.apiKey, maxRetries: 0 }))
+      : null;
+  }
+
+  public async preflight(
+    request: ModelGatewayRequest,
+    limits = { dynamicContextBudgetTokens: 6000 },
+  ): Promise<ModelRequestAdmission> {
+    const route = effectiveModelRouteConfiguration(
+      configurationForRoute(this.configuration, request.route),
+      request,
+    );
+    const body = assembleResponsesRequest(request, route, structuredOutputFormat());
+    const profile = directAdmissionProfile(route);
+    let count: unknown;
+    if (
+      profile.nativeCounter === 'openai_responses_input_tokens' &&
+      this.client?.responses.inputTokens
+    ) {
+      try {
+        count = await this.client.responses.inputTokens.count(body, { maxRetries: 0 });
+      } catch {
+        /* Approved native counter unavailable: use bounded text/JSON fallback, no retry. */
+      }
+    }
+    const admission = createRequestAdmission(
+      body,
+      profile,
+      {
+        dynamicContextBudgetTokens: limits.dynamicContextBudgetTokens,
+        dynamicContextEstimate: request.context.manifest.promptTokenEstimate,
+      },
+      count,
+    );
+    this.admissions.add(admission);
+    return admission;
   }
 
   public async decide(request: ModelGatewayRequest): Promise<ModelGatewayResult> {
-    const configuredRoute = configurationForRoute(this.configuration, request.route);
+    const configuredRoute = effectiveModelRouteConfiguration(
+      configurationForRoute(this.configuration, request.route),
+      request,
+    );
     const startedAtMs = Date.now();
 
     if (!this.client) {
@@ -128,24 +201,48 @@ export class OpenAiResponsesModelGateway implements ModelGateway {
       );
     }
 
+    const body = assembleResponsesRequest(request, configuredRoute, structuredOutputFormat());
+    const admission = request.admission ?? (await this.preflight(request));
+    if (
+      !admission.allowed ||
+      !this.admissions.has(admission) ||
+      admission.requestHash !== requestHash(body)
+    ) {
+      return incompleteResult(
+        'configuration_error',
+        admission.allowed
+          ? 'Full-request admission does not match this exact request. No model call was made.'
+          : admission.reason,
+        request,
+        configuredRoute,
+        startedAtMs,
+        admission.allowed
+          ? 'admission_mismatch'
+          : (admission.errorCategory ?? 'input_count_unavailable'),
+        admission,
+      );
+    }
+    this.admissions.delete(admission);
     try {
-      const response = await this.client.responses.parse({
-        model: configuredRoute.model,
-        store: false,
-        truncation: 'disabled',
-        instructions: request.instructions,
-        input: request.input,
-        max_output_tokens: configuredRoute.maxOutputTokens,
-        reasoning: {
-          effort: configuredRoute.reasoningEffort,
-          mode: configuredRoute.reasoningMode,
-          context: configuredRoute.reasoningContext,
-        },
-        text: {
-          verbosity: configuredRoute.verbosity,
-          format: zodTextFormat(modelDecisionEnvelopeSchema, 'jarvis_brain_decision'),
-        },
-      });
+      const response = await this.client.responses.create(body, { maxRetries: 0 });
+      const accounting = responseUsageAccounting(response, admission);
+      if (
+        !accounting.usageAccounting.usageValid ||
+        accounting.usageAccounting.inputBoundExceeded ||
+        accounting.usageAccounting.outputBoundExceeded ||
+        accounting.usageAccounting.contextBoundExceeded
+      ) {
+        return incompleteResult(
+          'invalid_model_output',
+          'The provider usage could not be reconciled with its admitted token bounds. No proposal was applied.',
+          request,
+          configuredRoute,
+          startedAtMs,
+          'provider_usage_bound_violation',
+          admission,
+          response,
+        );
+      }
 
       if (response.status !== 'completed') {
         const isRefusal = response.output.some((item) =>
@@ -162,10 +259,12 @@ export class OpenAiResponsesModelGateway implements ModelGateway {
           configuredRoute,
           startedAtMs,
           isRefusal ? 'refusal' : 'incomplete',
+          admission,
+          response,
         );
       }
 
-      const parsed = modelDecisionEnvelopeSchema.safeParse(response.output_parsed);
+      const parsed = parseDecisionResponse(response);
       if (!parsed.success) {
         return incompleteResult(
           'invalid_model_output',
@@ -174,6 +273,8 @@ export class OpenAiResponsesModelGateway implements ModelGateway {
           configuredRoute,
           startedAtMs,
           'invalid_structured_output',
+          admission,
+          response,
         );
       }
 
@@ -189,13 +290,11 @@ export class OpenAiResponsesModelGateway implements ModelGateway {
         reasoningEffort: configuredRoute.reasoningEffort,
         status: 'completed',
         latencyMs: Math.max(0, Date.now() - startedAtMs),
-        inputTokens: usage?.input_tokens ?? null,
-        outputTokens: usage?.output_tokens ?? null,
-        reasoningTokens: usage?.output_tokens_details.reasoning_tokens ?? null,
-        cachedInputTokens: usage?.input_tokens_details.cached_tokens ?? null,
         estimatedCostUsd: estimatedCostUsd(configuredRoute, usage),
         errorCategory: null,
         createdAt: new Date().toISOString(),
+        admission,
+        ...accounting,
       };
 
       return { status: 'completed', decision: parsed.data, run };
@@ -207,6 +306,7 @@ export class OpenAiResponsesModelGateway implements ModelGateway {
         configuredRoute,
         startedAtMs,
         errorCategory(error),
+        admission,
       );
     }
   }

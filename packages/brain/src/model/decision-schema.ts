@@ -52,42 +52,21 @@ export const modelMemoryCandidateSchema = z
   })
   .strict();
 
+export const modelScheduleCommitmentSchema = z
+  .object({
+    operation: z.literal('schedule_existing_commitment'),
+    commitmentId: uuidSchema,
+    startsAt: utcTimestampSchema,
+    endsAt: utcTimestampSchema,
+  })
+  .strict();
+
+/** New free-form blocks require a matching trusted owner creation authorization. */
 export const modelPlanBlockSchema = z
   .object({
-    reference: z.string().trim().min(1).max(160),
-    /** Reference an existing block only when preserving or relocating a known server-owned block. */
-    existingBlockId: uuidSchema.nullable(),
-    commitmentId: uuidSchema.nullable(),
     title: z.string().trim().min(1).max(512),
-    role: z.enum([
-      'commitment',
-      'hard_external_anchor',
-      'travel_buffer',
-      'preparation_buffer',
-      'sleep_window',
-      'training_window',
-      'work_block',
-      'optional_block',
-      'other',
-    ]),
-    anchorClass: z.enum([
-      'hard_external_anchor',
-      'fixed',
-      'flexible',
-      'preferred',
-      'optional',
-      'commitment_linked',
-    ]),
-    priority: z.number().int().min(0).max(100),
-    startAt: utcTimestampSchema.nullable(),
-    endAt: utcTimestampSchema.nullable(),
-    earliestStartAt: utcTimestampSchema.nullable(),
-    latestFinishAt: utcTimestampSchema.nullable(),
-    estimatedDurationMinutes: z.number().int().positive().max(1_440),
-    minimumDurationMinutes: z.number().int().positive().max(1_440).nullable(),
-    dependencyIds: z.array(uuidSchema).max(24),
-    reasonForPlacement: z.string().trim().min(1).max(1_000),
-    source: z.string().trim().min(1).max(160),
+    startsAt: utcTimestampSchema,
+    endsAt: utcTimestampSchema,
   })
   .strict();
 
@@ -106,7 +85,8 @@ export const modelPlanProposalSchema = z
       'conflict',
       'insufficient_time',
     ]),
-    proposedBlocks: z.array(modelPlanBlockSchema).max(80),
+    operations: z.array(modelScheduleCommitmentSchema).max(80),
+    newFlexibleBlocks: z.array(modelPlanBlockSchema).max(80),
     tradeoffs: z.array(z.string().trim().min(1).max(500)).max(12),
   })
   .strict();
@@ -114,24 +94,8 @@ export const modelPlanProposalSchema = z
 export const modelReminderProposalSchema = z
   .object({
     commitmentId: uuidSchema.nullable(),
-    kind: z.enum([
-      'fixed_time',
-      'before_event',
-      'after_event',
-      'deadline_countdown',
-      'context',
-      'until_completed',
-      'follow_up',
-      'conditional',
-      'open_loop',
-      'recurring',
-      'escalating',
-    ]),
     title: z.string().trim().min(1).max(512),
-    scheduledFor: utcTimestampSchema.nullable(),
-    critical: z.boolean(),
-    escalationLevel: z.number().int().min(0).max(5),
-    groupedWithReminderIds: z.array(uuidSchema).max(12),
+    timeExpression: z.string().trim().min(1).max(160).nullable(),
     rationale: z.string().trim().min(1).max(1_000),
   })
   .strict();

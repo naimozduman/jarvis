@@ -371,7 +371,14 @@ export class DrizzleDurableJobLifecycleProjection
         input.classification,
       );
       const retryAt = next.retryDelaySeconds
-        ? new Date(serverNow.getTime() + next.retryDelaySeconds * 1_000)
+        ? new Date(
+            Math.max(
+              serverNow.getTime() + next.retryDelaySeconds * 1_000,
+              input.classification.retryNotBefore
+                ? Date.parse(input.classification.retryNotBefore)
+                : 0,
+            ),
+          )
         : undefined;
       const expiresBeforeRetry =
         next.status === 'retry_wait' &&

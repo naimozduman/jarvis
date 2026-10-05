@@ -1,0 +1,1 @@
+ALTER TABLE "jarvis"."model_runs" ADD COLUMN "output_audit" jsonb;

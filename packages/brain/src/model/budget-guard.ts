@@ -1,5 +1,5 @@
 import type { BrainRuntimeConfiguration, ModelRuntimeConfiguration } from '@jarvis/config';
-import type { ModelRoute } from '@jarvis/contracts';
+import type { ModelRequestAdmission, ModelRoute } from '@jarvis/contracts';
 
 /**
  * Canonical accounting for completed JARVIS Gateway calls after the operator's Vercel dashboard
@@ -24,6 +24,7 @@ export interface ModelBudgetUsage {
   readonly dailySpendEstimateUsd: number;
   readonly dailyDeepCallsUsed: number;
   readonly approximatePromptTokens: number;
+  readonly admission?: ModelRequestAdmission;
   readonly zeroCostCreditAccounting?: ZeroCostCreditAccounting;
 }
 
@@ -50,7 +51,13 @@ function routeWorstCaseRequestCostUsd(
     inputCostPerMillionUsd === null ||
     outputCostPerMillionUsd === null ||
     !Number.isFinite(inputCostPerMillionUsd) ||
-    !Number.isFinite(outputCostPerMillionUsd)
+    !Number.isFinite(outputCostPerMillionUsd) ||
+    inputCostPerMillionUsd < 0 ||
+    outputCostPerMillionUsd < 0 ||
+    !Number.isSafeInteger(approximatePromptTokens) ||
+    approximatePromptTokens < 0 ||
+    !Number.isSafeInteger(model.maxOutputTokens) ||
+    model.maxOutputTokens <= 0
   ) {
     return null;
   }
@@ -89,16 +96,47 @@ export class ModelBudgetGuard {
     return this.models.zeroCostMode;
   }
 
+  public dynamicContextBudgetTokens(): number {
+    return this.limits.maxApproxPromptTokens;
+  }
+
   public zeroCostCreditAccountingSnapshotAsOf(): string | undefined {
     return this.models.freeTierCreditGuard.reportedMonthlyUsageAsOf;
   }
 
   public evaluate(route: ModelRoute, usage: ModelBudgetUsage): ModelBudgetDecision {
-    const worstCaseRequestCostUsd = routeWorstCaseRequestCostUsd(
-      this.models,
-      route,
-      usage.approximatePromptTokens,
-    );
+    const worstCaseRequestCostUsd = usage.admission
+      ? (usage.admission.worstCaseCostUsd ?? null)
+      : routeWorstCaseRequestCostUsd(this.models, route, usage.approximatePromptTokens);
+    if (!Number.isFinite(usage.dailySpendEstimateUsd) || usage.dailySpendEstimateUsd < 0) {
+      return {
+        allowed: false,
+        reason: 'Canonical daily model-spend accounting is invalid.',
+        worstCaseRequestCostUsd: null,
+        failureStatus: 'provider_unavailable',
+      };
+    }
+    if (
+      usage.admission &&
+      (!usage.admission.allowed ||
+        usage.admission.fullRequestInputTokens === null ||
+        usage.admission.contextWindowTokens === undefined ||
+        usage.admission.contextWindowTokens === null ||
+        usage.admission.fullRequestInputTokens + usage.admission.maxOutputTokens >
+          usage.admission.contextWindowTokens ||
+        usage.admission.modelId !== this.models[route].model ||
+        usage.admission.maxOutputTokens !== this.models[route].maxOutputTokens ||
+        !['total_including_reasoning', 'provider_maximum_shared_context'].includes(
+          usage.admission.outputLimitSemantics,
+        ))
+    ) {
+      return {
+        allowed: false,
+        reason: usage.admission.reason,
+        worstCaseRequestCostUsd: null,
+        failureStatus: 'provider_unavailable',
+      };
+    }
     if (usage.callsAlreadyMade >= this.limits.maxModelCallsPerCycle) {
       return {
         allowed: false,

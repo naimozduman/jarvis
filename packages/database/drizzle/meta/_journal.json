@@ -64,6 +64,34 @@
       "when": 1788823135219,
       "tag": "0008_striped_dreadnoughts",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1790692247330,
+      "tag": "0009_nosy_hex",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790696889080,
+      "tag": "0010_model_output_audit",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1790784000000,
+      "tag": "0011_telegram_bot_transport",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791158400000,
+      "tag": "0012_telegram_participant_id_default",
+      "breakpoints": true
     }
   ]
 }

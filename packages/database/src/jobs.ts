@@ -347,6 +347,17 @@ export interface ClassifiedJobError {
   readonly category: JobErrorCategory;
   readonly disposition: JobFailureDisposition;
   readonly summary: string;
+  readonly retryNotBefore?: string;
+}
+
+/** Carries the committed outbox retry floor into the existing canonical callback retry. */
+export class TransportRetryableJobError extends Error {
+  public constructor(public readonly retryNotBefore: string) {
+    super('A transport delivery is waiting for its committed retry instant.');
+    this.name = 'TransportRetryableJobError';
+    if (!Number.isFinite(Date.parse(retryNotBefore)))
+      throw new Error('validation: invalid transport retry instant.');
+  }
 }
 
 export function classifyJobError(error: unknown): ClassifiedJobError {
@@ -355,6 +366,9 @@ export function classifyJobError(error: unknown): ClassifiedJobError {
       category: 'transient_network',
       disposition: 'retryable',
       summary: 'A transport delivery is waiting for a retryable transport condition.',
+      ...(error instanceof TransportRetryableJobError
+        ? { retryNotBefore: error.retryNotBefore }
+        : {}),
     };
   }
   const message = error instanceof Error ? error.message : 'Unknown job failure.';

@@ -1,9 +1,13 @@
+import { commitmentPlanBlock, schedulableCommitment } from '@jarvis/contracts';
 import { createHash, randomUUID } from 'node:crypto';
 
 import { and, eq, or } from 'drizzle-orm';
 import {
   canonicalJson,
+  CanonicalPlanValidationError,
+  planBlockSchema,
   planProposalSchema,
+  validatePlanProposal,
   utcTimestampSchema,
   uuidSchema,
 } from '@jarvis/contracts';
@@ -38,11 +42,14 @@ import {
   events,
   jobs,
   planBlocks,
+  planBlockDependencies,
   planProposals,
   policyEvaluations,
   proposedActions,
   replanningHistory,
   reminders,
+  reminderProposals,
+  reminderTriggers,
 } from './schema/index.js';
 
 type TransactionCallback = Parameters<JarvisDatabase['transaction']>[0];
@@ -504,28 +511,121 @@ class DrizzleEventTransaction implements EventTransaction {
       const reminderId = requiredUuid(action.payload, 'reminderId');
       const title = requiredString(action.payload, 'title');
       const nextEligibleDeliveryAt = requiredTimestamp(action.payload, 'nextEligibleDeliveryAt');
+      const commitmentId = action.payload.commitmentId
+        ? requiredUuid(action.payload, 'commitmentId')
+        : null;
+      if (commitmentId) {
+        const [commitment] = await this.transaction
+          .select({ id: commitments.id })
+          .from(commitments)
+          .where(and(eq(commitments.id, commitmentId), eq(commitments.ownerId, action.ownerId)))
+          .limit(1)
+          .for('share');
+        if (!commitment) throw new Error('A reminder cannot bind a missing or foreign commitment.');
+      }
+      const fireJobId = reminderId; // Server-created canonical reminder identity, not a model/provider ID.
       const [created] = await this.transaction
         .insert(reminders)
         .values({
           id: reminderId,
           ownerId: action.ownerId,
           title,
+          commitmentId,
+          sourceCommitmentId: commitmentId,
           nextEligibleDeliveryAt,
+          jobId: fireJobId,
           source: 'internal',
+          metadata: {
+            sourceActionId: action.id,
+            sourceEventId: action.sourceEventId ?? null,
+            sourceBrainDecisionId: action.sourceBrainDecisionId ?? null,
+            requestedDelivery: true,
+          },
         })
         .onConflictDoNothing()
         .returning({ id: reminders.id });
 
       if (!created) {
         const [existing] = await this.transaction
-          .select({ ownerId: reminders.ownerId })
+          .select({
+            ownerId: reminders.ownerId,
+            title: reminders.title,
+            due: reminders.nextEligibleDeliveryAt,
+            jobId: reminders.jobId,
+            metadata: reminders.metadata,
+          })
           .from(reminders)
           .where(eq(reminders.id, reminderId))
           .limit(1);
-        if (!existing || existing.ownerId !== action.ownerId) {
-          throw new Error('A reminder action cannot reuse a record owned by another identity.');
+        if (
+          !existing ||
+          existing.ownerId !== action.ownerId ||
+          existing.title !== title ||
+          existing.due?.getTime() !== nextEligibleDeliveryAt.getTime() ||
+          existing.jobId !== fireJobId ||
+          existing.metadata.sourceActionId !== action.id
+        ) {
+          throw new Error(
+            'A reminder action cannot reuse a missing, foreign, or differently bound record.',
+          );
         }
+      } else {
+        await this.transaction.insert(reminderTriggers).values({
+          id: reminderId,
+          ownerId: action.ownerId,
+          reminderId,
+          triggerKind: 'fixed_time',
+          configuration: { sourceActionId: action.id },
+          nextScheduledAt: nextEligibleDeliveryAt,
+          active: true,
+        });
+        await this.enqueueJob({
+          id: fireJobId,
+          ownerId: action.ownerId,
+          jobType: 'jarvis.reminder.fire',
+          payload: {
+            ownerId: action.ownerId,
+            reminderId,
+            sourceActionId: action.id,
+            schemaVersion: 1,
+          },
+          priority: 0,
+          scheduledFor: nextEligibleDeliveryAt.toISOString(),
+          availableAfter: nextEligibleDeliveryAt.toISOString(),
+          executionDeadline: null,
+          dispatchGeneration: 1,
+          maximumAttempts: 5,
+          correlationId: action.correlationId,
+          ...(action.sourceEventId ? { sourceEventId: action.sourceEventId } : {}),
+          idempotencyKey: `reminder-fire:${action.ownerId}:${reminderId}`,
+        });
+        await this.appendAudit({
+          id: randomUUID(),
+          ownerId: action.ownerId,
+          actorType: 'system',
+          actorId: null,
+          action: 'reminder.fire_job.queued',
+          targetType: 'job',
+          targetId: fireJobId,
+          occurredAt: new Date().toISOString(),
+          correlationId: action.correlationId,
+          previousState: null,
+          resultingState: { entityType: 'job', entityId: fireJobId },
+          reason: 'An explicit owner reminder was transactionally scheduled.',
+          source: 'internal',
+          metadata: { reminderId, jobType: 'jarvis.reminder.fire' },
+        });
       }
+      if (typeof action.payload.reminderProposalId === 'string')
+        await this.transaction
+          .update(reminderProposals)
+          .set({ reminderId, state: 'applied' })
+          .where(
+            and(
+              eq(reminderProposals.id, action.payload.reminderProposalId),
+              eq(reminderProposals.ownerId, action.ownerId),
+            ),
+          );
 
       return {
         targetType: 'reminder',
@@ -542,7 +642,8 @@ class DrizzleEventTransaction implements EventTransaction {
         .select({ id: dayPlans.id, revision: dayPlans.revision })
         .from(dayPlans)
         .where(and(eq(dayPlans.id, dayPlanId), eq(dayPlans.ownerId, action.ownerId)))
-        .limit(1);
+        .limit(1)
+        .for('update');
       if (!plan) {
         throw new Error('A plan update cannot target a missing or foreign day plan.');
       }
@@ -572,7 +673,89 @@ class DrizzleEventTransaction implements EventTransaction {
         throw new Error('A plan update requires a structurally valid plan proposal.');
       }
 
-      for (const block of parsedProposal.data.proposedBlocks) {
+      // The locked day-plan row serializes apply operations; validation from model time is not
+      // authority to overwrite a newer canonical schedule. Reuse the exact deterministic guard.
+      const currentBlocks = await this.transaction
+        .select()
+        .from(planBlocks)
+        .where(and(eq(planBlocks.ownerId, action.ownerId), eq(planBlocks.dayPlanId, dayPlanId)));
+      const currentDependencies = await this.transaction
+        .select({
+          planBlockId: planBlockDependencies.planBlockId,
+          dependsOnPlanBlockId: planBlockDependencies.dependsOnPlanBlockId,
+        })
+        .from(planBlockDependencies)
+        .innerJoin(planBlocks, eq(planBlockDependencies.planBlockId, planBlocks.id))
+        .where(
+          and(
+            eq(planBlockDependencies.ownerId, action.ownerId),
+            eq(planBlocks.ownerId, action.ownerId),
+            eq(planBlocks.dayPlanId, dayPlanId),
+          ),
+        );
+      const canonicalBlocks = currentBlocks.map((block) =>
+        planBlockSchema.parse({
+          id: block.id,
+          ownerId: block.ownerId,
+          dayPlanId: block.dayPlanId,
+          commitmentId: block.commitmentId,
+          title: block.title,
+          role: block.role,
+          anchorClass: block.anchorClass,
+          priority: block.priority,
+          startAt: block.startAt?.toISOString() ?? null,
+          endAt: block.endAt?.toISOString() ?? null,
+          earliestStartAt: block.earliestStartAt?.toISOString() ?? null,
+          latestFinishAt: block.latestFinishAt?.toISOString() ?? null,
+          estimatedDurationMinutes: block.estimatedDurationMinutes,
+          minimumDurationMinutes: block.minimumDurationMinutes,
+          dependencyIds: currentDependencies
+            .filter((dependency) => dependency.planBlockId === block.id)
+            .map((dependency) => dependency.dependsOnPlanBlockId),
+          completionState: block.completionState,
+          reasonForPlacement: block.reasonForPlacement ?? 'Canonical placement.',
+          source: block.source,
+        }),
+      );
+      // Operation-derived blocks must still resolve to the same live canonical metadata.
+      for (const binding of parsedProposal.data.commitmentSchedules ?? []) {
+        const block = parsedProposal.data.proposedBlocks.find(
+          (item) => item.id === binding.blockId,
+        );
+        const [commitment] = await this.transaction
+          .select()
+          .from(commitments)
+          .where(
+            and(eq(commitments.id, binding.commitmentId), eq(commitments.ownerId, action.ownerId)),
+          )
+          .limit(1)
+          .for('update');
+        if (
+          !block ||
+          !commitment ||
+          !schedulableCommitment(commitment, action.ownerId) ||
+          !block.startAt ||
+          !block.endAt ||
+          canonicalBlocks.some((item) => item.commitmentId === commitment.id)
+        ) {
+          throw new CanonicalPlanValidationError();
+        }
+        const expected = commitmentPlanBlock({
+          id: block.id,
+          dayPlanId,
+          commitment,
+          startsAt: block.startAt,
+          endsAt: block.endAt,
+        });
+        if (JSON.stringify(expected) !== JSON.stringify(block))
+          throw new CanonicalPlanValidationError();
+      }
+      const liveProposal = validatePlanProposal(parsedProposal.data, canonicalBlocks);
+      if (!liveProposal.valid) {
+        throw new CanonicalPlanValidationError();
+      }
+
+      for (const block of liveProposal.proposedBlocks) {
         const [existingBlock] = await this.transaction
           .select({ ownerId: planBlocks.ownerId, dayPlanId: planBlocks.dayPlanId })
           .from(planBlocks)
@@ -586,7 +769,7 @@ class DrizzleEventTransaction implements EventTransaction {
         }
       }
 
-      for (const block of parsedProposal.data.proposedBlocks) {
+      for (const block of liveProposal.proposedBlocks) {
         await this.transaction
           .insert(planBlocks)
           .values({
@@ -637,6 +820,28 @@ class DrizzleEventTransaction implements EventTransaction {
           });
       }
 
+      // Dependency edges are part of the validated block state and must commit with its times.
+      // All mutation targets exist now, including dependencies on another newly proposed block.
+      for (const block of liveProposal.proposedBlocks) {
+        await this.transaction
+          .delete(planBlockDependencies)
+          .where(
+            and(
+              eq(planBlockDependencies.ownerId, action.ownerId),
+              eq(planBlockDependencies.planBlockId, block.id),
+            ),
+          );
+        if (block.dependencyIds.length > 0) {
+          await this.transaction.insert(planBlockDependencies).values(
+            block.dependencyIds.map((dependencyId) => ({
+              ownerId: action.ownerId,
+              planBlockId: block.id,
+              dependsOnPlanBlockId: dependencyId,
+            })),
+          );
+        }
+      }
+
       const resultingRevision = plan.revision + 1;
       await this.transaction
         .update(dayPlans)
@@ -657,7 +862,14 @@ class DrizzleEventTransaction implements EventTransaction {
         reason: 'A validated internal plan proposal was applied through the action pipeline.',
         correlationId: action.correlationId,
         source: 'brain_validated_plan',
-        metadata: { planProposalId },
+        metadata: {
+          planProposalId,
+          contractVersion: liveProposal.contractVersion ?? 'legacy',
+          appliedDelta: {
+            proposedBlocks: liveProposal.proposedBlocks,
+            preservedBlockIds: liveProposal.preservedBlockIds ?? [],
+          },
+        },
       });
       return {
         targetType: 'day_plan',
