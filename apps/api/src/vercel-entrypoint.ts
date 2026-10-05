@@ -4,10 +4,12 @@ import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { getVercelOidcToken } from '@vercel/oidc';
 
 import { loadApiEnvironment } from '@jarvis/config';
+import { createSafeLogRecord } from '@jarvis/observability';
 
 import { getApiLiveHealth } from './health.js';
 import type { VercelApiRuntime, VercelInvocationIdentity } from './vercel-runtime.js';
 import { createVercelApiRuntime } from './vercel-runtime.js';
+import { recordTelegramTiming, withTelegramTiming } from './telegram-timing.js';
 
 export type VercelRuntimeFactory = (
   identity: VercelInvocationIdentity,
@@ -77,6 +79,24 @@ function requestPayload(request: FastifyRequest): InjectablePayload | undefined 
   return request.body as InjectablePayload;
 }
 
+/**
+ * The outer Vercel Fastify shell has already parsed the provider request body. Passing its wire
+ * framing headers into `inject` alongside that parsed payload can leave the inner Fastify parser
+ * waiting for bytes that have already been consumed. Retain semantic/authentication headers only;
+ * light-my-request supplies correct framing for the re-serialized payload.
+ */
+function forwardedHeaders(headers: FastifyRequest['headers']): FastifyRequest['headers'] {
+  const consumedFramingHeaders = new Set([
+    'content-length',
+    'transfer-encoding',
+    'content-encoding',
+    'connection',
+  ]);
+  return Object.fromEntries(
+    Object.entries(headers).filter(([name]) => !consumedFramingHeaders.has(name.toLowerCase())),
+  ) as FastifyRequest['headers'];
+}
+
 function sendUnavailable(reply: FastifyReply): FastifyReply {
   return reply
     .header('cache-control', 'no-store')
@@ -105,26 +125,56 @@ export function registerVercelFastifyAdapter(
       return sendUnavailable(reply);
     }
   });
-  app.all('/api/*', async (request, reply) => {
-    let runtime: Pick<VercelApiRuntime, 'app' | 'stop'> | undefined;
-    try {
-      const identity = await resolveIdentity();
-      runtime = await createRuntime(identity);
-      await runtime.app.ready();
-      const payload = requestPayload(request);
-      const response = await runtime.app.inject({
-        method: request.method as InjectableHttpMethod,
-        url: fastifyPath(request.raw.url ?? request.url),
-        headers: request.headers,
-        ...(payload === undefined ? {} : { payload }),
-      });
-      applyResponseHeaders(reply, response.headers);
-      return reply.code(response.statusCode).send(response.rawPayload);
-    } catch {
-      return sendUnavailable(reply);
-    } finally {
-      await runtime?.stop().catch(() => undefined);
-    }
-  });
+  app.all('/api/*', async (request, reply) =>
+    withTelegramTiming(async () => {
+      let runtime: Pick<VercelApiRuntime, 'app' | 'stop'> | undefined;
+      const telegramWebhook = fastifyPath(request.raw.url ?? request.url) === '/webhooks/telegram';
+      if (telegramWebhook) recordTelegramTiming('webhook_received');
+      try {
+        const identity = await resolveIdentity();
+        runtime = await createRuntime(identity);
+        await runtime.app.ready();
+        if (telegramWebhook) {
+          console.info(
+            JSON.stringify(
+              createSafeLogRecord('telegram.webhook.adapter.progress', { stage: 'inner_ready' }),
+            ),
+          );
+        }
+        const payload = requestPayload(request);
+        const response = await runtime.app.inject({
+          method: request.method as InjectableHttpMethod,
+          url: fastifyPath(request.raw.url ?? request.url),
+          headers: forwardedHeaders(request.headers),
+          ...(payload === undefined ? {} : { payload }),
+        });
+        if (telegramWebhook) {
+          console.info(
+            JSON.stringify(
+              createSafeLogRecord('telegram.webhook.adapter.progress', {
+                stage: 'inner_response',
+                statusCode: response.statusCode,
+              }),
+            ),
+          );
+        }
+        applyResponseHeaders(reply, response.headers);
+        return reply.code(response.statusCode).send(response.rawPayload);
+      } catch {
+        if (telegramWebhook) {
+          console.info(
+            JSON.stringify(
+              createSafeLogRecord('telegram.webhook.adapter.rejected', {
+                category: 'inner_runtime_unavailable',
+              }),
+            ),
+          );
+        }
+        return sendUnavailable(reply);
+      } finally {
+        await runtime?.stop().catch(() => undefined);
+      }
+    }),
+  );
   return app;
 }

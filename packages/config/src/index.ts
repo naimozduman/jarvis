@@ -69,6 +69,35 @@ const rawEnvironmentSchema = z.object({
   PROVIDER_INTEGRATIONS_ENABLED: booleanEnvironmentSchema.default('false'),
   JARVIS_EVOLUTION_ENABLED: booleanEnvironmentSchema.default('false'),
   JARVIS_OWNER_ID: z.uuid().optional(),
+  /** Enables only the private normalized-event intake from the official WhatsApp Cloud bridge. */
+  JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED: booleanEnvironmentSchema.default('false'),
+  /** Server-only bearer credential shared with the dedicated WhatsApp bridge deployment. */
+  JARVIS_INGEST_TOKEN: z.string().trim().min(32).max(1_024).optional(),
+  /** Bridge instance scope, not a WhatsApp account, phone number, or Meta identifier. */
+  JARVIS_WHATSAPP_CLOUD_INGEST_INSTANCE_ID: z.string().trim().min(1).max(160).optional(),
+  /** Enables only verified-owner direct conversation handling through the canonical Brain. */
+  JARVIS_WHATSAPP_CLOUD_OWNER_DM_ENABLED: booleanEnvironmentSchema.default('false'),
+  /** Server-only base URL of the separately deployed official Cloud bridge. */
+  JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_URL: z.string().url().optional(),
+  /** Separate from ingress and orchestration credentials; never expose to a browser. */
+  JARVIS_WHATSAPP_CLOUD_DELIVERY_TOKEN: z.string().trim().min(32).max(1_024).optional(),
+  /** Stable bridge process identity used only as a canonical delivery-lease owner. */
+  JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_ID: z
+    .string()
+    .trim()
+    .regex(/^[a-z][a-z0-9._:-]{7,159}$/)
+    .optional(),
+  /** Official Telegram Bot API surface. Inbound enrollment is allowed before owner replies. */
+  JARVIS_TELEGRAM_BOT_TOKEN: z.string().trim().min(32).max(1_024).optional(),
+  JARVIS_TELEGRAM_WEBHOOK_SECRET: z
+    .string()
+    .trim()
+    .regex(/^[A-Za-z0-9_-]{1,256}$/)
+    .optional(),
+  /** Separate operator boundary for Telegram registration and exact participant enrollment. */
+  JARVIS_TELEGRAM_OPERATOR_TOKEN: z.string().trim().min(48).max(1_024).optional(),
+  JARVIS_TELEGRAM_BOT_ENABLED: booleanEnvironmentSchema.default('false'),
+  JARVIS_TELEGRAM_OWNER_DM_ENABLED: booleanEnvironmentSchema.default('false'),
   JARVIS_WHATSAPP_INSTANCE: z.string().trim().min(1).max(160).optional(),
   JARVIS_OWNER_PHONE: z
     .string()
@@ -266,7 +295,11 @@ export interface RuntimeEnvironment {
   readonly stagingRuntimeTestToken: string | undefined;
   readonly stagingPhase3d1RecoveryToken: string | undefined;
   readonly providerIntegrationsEnabled: boolean;
+  /** Canonical owner configuration is shared by narrow server-side connectors. */
+  readonly ownerId: string | undefined;
   readonly evolution: EvolutionRuntimeConfiguration;
+  readonly whatsappCloudIngest: WhatsAppCloudIngestRuntimeConfiguration;
+  readonly telegramBot: TelegramBotRuntimeConfiguration;
   readonly model: ModelRuntimeConfiguration;
   readonly orchestration: OrchestrationRuntimeConfiguration;
   readonly openAi: OpenAiRuntimeConfiguration;
@@ -342,6 +375,33 @@ export interface OrchestrationRuntimeConfiguration {
   readonly localBridgeOwnerId: string | undefined;
   readonly localBridgeConnectionId: string | undefined;
   readonly localBridgeOwnerTargetReference: string | undefined;
+}
+
+export interface WhatsAppCloudIngestRuntimeConfiguration {
+  /** False by default. This route never enables Groups or third-party Agent APIs. */
+  readonly enabled: boolean;
+  /** Server-only bridge-to-JARVIS credential. */
+  readonly accessToken: string | undefined;
+  /** Expected bridge instance, used to prevent a different bridge from selecting this owner. */
+  readonly expectedInstanceId: string | undefined;
+  /** Explicit gate for the verified-owner direct-message conversation surface. */
+  readonly ownerDirectMessagingEnabled: boolean;
+  /** Separate official-Cloud bridge delivery endpoint, never a provider endpoint. */
+  readonly deliveryBridgeUrl: string | undefined;
+  /** Separate server-only delivery credential shared only with that bridge. */
+  readonly deliveryToken: string | undefined;
+  /** Opaque bridge identity used to bind canonical leases. */
+  readonly deliveryBridgeId: string | undefined;
+}
+
+export interface TelegramBotRuntimeConfiguration {
+  readonly token: string | undefined;
+  readonly webhookSecret: string | undefined;
+  /** Server-only credential for the narrowly-scoped Telegram operator routes. */
+  readonly operatorToken: string | undefined;
+  /** Enables Bot API adapter operations; owner Brain replies remain separately gated. */
+  readonly enabled: boolean;
+  readonly ownerDirectMessagingEnabled: boolean;
 }
 
 export interface BrainRuntimeConfiguration {
@@ -462,6 +522,9 @@ function parseRuntimeEnvironment(source: EnvironmentSource): RuntimeEnvironment 
   validateEvolutionConfiguration(parsed.data);
   validateModelConfiguration(parsed.data);
   validateLocalBridgeConfiguration(parsed.data);
+  validateWhatsAppCloudIngestConfiguration(parsed.data);
+  validateWhatsAppCloudOwnerConversationConfiguration(parsed.data);
+  validateTelegramConfiguration(parsed.data);
 
   return toRuntimeEnvironment(parsed.data);
 }
@@ -635,6 +698,78 @@ function validateLocalBridgeConfiguration(parsed: ParsedEnvironment): void {
   }
 }
 
+function validateWhatsAppCloudIngestConfiguration(parsed: ParsedEnvironment): void {
+  if (parsed.JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED !== 'true') return;
+  const invalid = [
+    ['PROVIDER_INTEGRATIONS_ENABLED', parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true'],
+    ['JARVIS_OWNER_ID', Boolean(parsed.JARVIS_OWNER_ID)],
+    ['JARVIS_INGEST_TOKEN', Boolean(parsed.JARVIS_INGEST_TOKEN)],
+    [
+      'JARVIS_WHATSAPP_CLOUD_INGEST_INSTANCE_ID',
+      Boolean(parsed.JARVIS_WHATSAPP_CLOUD_INGEST_INSTANCE_ID),
+    ],
+    ['JARVIS_CONVEX_ORCHESTRATION_URL', Boolean(parsed.JARVIS_CONVEX_ORCHESTRATION_URL)],
+    ['JARVIS_VERCEL_TO_CONVEX_SECRET', Boolean(parsed.JARVIS_VERCEL_TO_CONVEX_SECRET)],
+    ['JARVIS_CONVEX_TO_VERCEL_SECRET', Boolean(parsed.JARVIS_CONVEX_TO_VERCEL_SECRET)],
+  ]
+    .filter(([, present]) => !present)
+    .map(([field]) => field as string);
+  if (invalid.length > 0) {
+    throw new EnvironmentValidationError(invalid);
+  }
+}
+
+function validateWhatsAppCloudOwnerConversationConfiguration(parsed: ParsedEnvironment): void {
+  if (parsed.JARVIS_WHATSAPP_CLOUD_OWNER_DM_ENABLED !== 'true') return;
+  const invalid = [
+    ['PROVIDER_INTEGRATIONS_ENABLED', parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true'],
+    [
+      'JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED',
+      parsed.JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED === 'true',
+    ],
+    ['JARVIS_OWNER_ID', Boolean(parsed.JARVIS_OWNER_ID)],
+    [
+      'JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_URL',
+      Boolean(parsed.JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_URL),
+    ],
+    ['JARVIS_WHATSAPP_CLOUD_DELIVERY_TOKEN', Boolean(parsed.JARVIS_WHATSAPP_CLOUD_DELIVERY_TOKEN)],
+    [
+      'JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_ID',
+      Boolean(parsed.JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_ID),
+    ],
+    ['JARVIS_CONVEX_ORCHESTRATION_URL', Boolean(parsed.JARVIS_CONVEX_ORCHESTRATION_URL)],
+    ['JARVIS_VERCEL_TO_CONVEX_SECRET', Boolean(parsed.JARVIS_VERCEL_TO_CONVEX_SECRET)],
+    ['JARVIS_CONVEX_TO_VERCEL_SECRET', Boolean(parsed.JARVIS_CONVEX_TO_VERCEL_SECRET)],
+  ]
+    .filter(([, present]) => !present)
+    .map(([field]) => field as string);
+  if (invalid.length > 0) {
+    throw new EnvironmentValidationError(invalid);
+  }
+}
+
+function validateTelegramConfiguration(parsed: ParsedEnvironment): void {
+  if (
+    parsed.JARVIS_TELEGRAM_OWNER_DM_ENABLED === 'true' &&
+    parsed.JARVIS_TELEGRAM_BOT_ENABLED !== 'true'
+  ) {
+    throw new EnvironmentValidationError(['JARVIS_TELEGRAM_BOT_ENABLED']);
+  }
+  if (parsed.JARVIS_TELEGRAM_BOT_ENABLED !== 'true') return;
+  const invalid = [
+    ['PROVIDER_INTEGRATIONS_ENABLED', parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true'],
+    ['JARVIS_OWNER_ID', Boolean(parsed.JARVIS_OWNER_ID)],
+    ['JARVIS_TELEGRAM_BOT_TOKEN', Boolean(parsed.JARVIS_TELEGRAM_BOT_TOKEN)],
+    ['JARVIS_TELEGRAM_WEBHOOK_SECRET', Boolean(parsed.JARVIS_TELEGRAM_WEBHOOK_SECRET)],
+    ['JARVIS_TELEGRAM_OPERATOR_TOKEN', Boolean(parsed.JARVIS_TELEGRAM_OPERATOR_TOKEN)],
+    ['JARVIS_CONVEX_ORCHESTRATION_URL', Boolean(parsed.JARVIS_CONVEX_ORCHESTRATION_URL)],
+    ['JARVIS_VERCEL_TO_CONVEX_SECRET', Boolean(parsed.JARVIS_VERCEL_TO_CONVEX_SECRET)],
+  ]
+    .filter(([, present]) => !present)
+    .map(([field]) => field as string);
+  if (invalid.length > 0) throw new EnvironmentValidationError(invalid);
+}
+
 function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
   const openAi = {
     apiKey: parsed.OPENAI_API_KEY,
@@ -746,6 +881,23 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     localBridgeOwnerTargetReference: parsed.JARVIS_LOCAL_BRIDGE_OWNER_TARGET_REFERENCE,
   } satisfies OrchestrationRuntimeConfiguration;
 
+  const whatsappCloudIngest = {
+    enabled: parsed.JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED === 'true',
+    accessToken: parsed.JARVIS_INGEST_TOKEN,
+    expectedInstanceId: parsed.JARVIS_WHATSAPP_CLOUD_INGEST_INSTANCE_ID,
+    ownerDirectMessagingEnabled: parsed.JARVIS_WHATSAPP_CLOUD_OWNER_DM_ENABLED === 'true',
+    deliveryBridgeUrl: parsed.JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_URL,
+    deliveryToken: parsed.JARVIS_WHATSAPP_CLOUD_DELIVERY_TOKEN,
+    deliveryBridgeId: parsed.JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_ID,
+  } satisfies WhatsAppCloudIngestRuntimeConfiguration;
+  const telegramBot = {
+    token: parsed.JARVIS_TELEGRAM_BOT_TOKEN,
+    webhookSecret: parsed.JARVIS_TELEGRAM_WEBHOOK_SECRET,
+    operatorToken: parsed.JARVIS_TELEGRAM_OPERATOR_TOKEN,
+    enabled: parsed.JARVIS_TELEGRAM_BOT_ENABLED === 'true',
+    ownerDirectMessagingEnabled: parsed.JARVIS_TELEGRAM_OWNER_DM_ENABLED === 'true',
+  } satisfies TelegramBotRuntimeConfiguration;
+
   const brain = {
     maxContextRecords: parsed.JARVIS_BRAIN_MAX_CONTEXT_RECORDS,
     maxRecentMessages: parsed.JARVIS_BRAIN_MAX_RECENT_MESSAGES,
@@ -812,7 +964,10 @@ function toRuntimeEnvironment(parsed: ParsedEnvironment): RuntimeEnvironment {
     stagingRuntimeTestToken: parsed.STAGING_RUNTIME_TEST_TOKEN,
     stagingPhase3d1RecoveryToken: parsed.STAGING_PHASE_3_6D1_RECOVERY_TOKEN,
     providerIntegrationsEnabled: parsed.PROVIDER_INTEGRATIONS_ENABLED === 'true',
+    ownerId: parsed.JARVIS_OWNER_ID,
     evolution,
+    whatsappCloudIngest,
+    telegramBot,
     model,
     orchestration,
     openAi,

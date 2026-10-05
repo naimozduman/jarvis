@@ -6,8 +6,13 @@ import { join } from 'node:path';
 const databaseTestFiles = [
   'packages/database/test/canonical-job-lifecycle.db.integration.test.ts',
   'packages/database/test/postgres.db.integration.test.ts',
+  'packages/database/test/requested-reminder.db.integration.test.ts',
+  'packages/database/test/owner-feedback.db.integration.test.ts',
+  'packages/database/test/owner-baseline.db.integration.test.ts',
 ];
 
+// Reconciliation retains the original ten required cases and gates all 64 disposable cases.
+// The separate historical hosted reliability suite retains its own explicit endpoint gate.
 // Keep the dedicated gate tied to the migration, concurrency, generation, and expiry scenarios
 // it is supposed to prove. An optional Vitest skip is appropriate for provider-free `pnpm test`,
 // but it must not make `pnpm test:db` report success.
@@ -32,14 +37,14 @@ function validateDatabaseReport(report) {
       )
     : [];
 
-  if (report.numTotalTests !== requiredDatabaseTestTitles.length) {
+  if (report.numTotalTests < 64) {
     errors.push(
-      `expected ${requiredDatabaseTestTitles.length} database tests, received ${report.numTotalTests}`,
+      `expected at least 64 database tests across all disposable suites, received ${report.numTotalTests}`,
     );
   }
-  if (report.numPassedTests !== requiredDatabaseTestTitles.length) {
+  if (report.numPassedTests !== report.numTotalTests) {
     errors.push(
-      `expected ${requiredDatabaseTestTitles.length} passed database tests, received ${report.numPassedTests}`,
+      `expected all ${report.numTotalTests} database tests to pass, received ${report.numPassedTests}`,
     );
   }
   if (report.numFailedTests !== 0) {
@@ -65,6 +70,15 @@ function validateDatabaseReport(report) {
     }
   }
 
+  for (const file of databaseTestFiles) {
+    const matches = (report.testResults ?? []).filter((result) =>
+      String(result.name).replaceAll('\\', '/').endsWith(file),
+    );
+    if (matches.length !== 1 || !matches[0].assertionResults?.length) {
+      errors.push(`expected non-empty results for database suite: ${file}`);
+    }
+  }
+
   return errors;
 }
 
@@ -74,28 +88,31 @@ if (!process.env.JARVIS_TEST_DATABASE_URL || !process.env.JARVIS_TEST_DATABASE_S
   );
   process.exitCode = 1;
 } else {
-  const vitest = process.platform === 'win32' ? 'vitest.cmd' : 'vitest';
   const reportDirectory = mkdtempSync(join(tmpdir(), 'jarvis-database-test-results-'));
   const reportPath = join(reportDirectory, 'vitest.json');
+  // `spawnSync('vitest.cmd')` without a shell fails with EINVAL on Windows. Invoke Vitest's
+  // installed Node entrypoint directly so this required gate behaves identically on Windows and
+  // Unix without enabling shell parsing for an environment-derived command.
+  const vitest = process.platform === 'win32' ? process.execPath : 'vitest';
+  const vitestArguments = [
+    ...(process.platform === 'win32'
+      ? [join(process.cwd(), 'node_modules/vitest/vitest.mjs')]
+      : []),
+    'run',
+    ...databaseTestFiles,
+    '--maxWorkers=1',
+    '--no-file-parallelism',
+    '--reporter=default',
+    '--reporter=json',
+    `--outputFile.json=${reportPath}`,
+  ];
   let exitCode = 1;
 
   try {
-    const result = spawnSync(
-      vitest,
-      [
-        'run',
-        ...databaseTestFiles,
-        '--maxWorkers=1',
-        '--no-file-parallelism',
-        '--reporter=default',
-        '--reporter=json',
-        `--outputFile.json=${reportPath}`,
-      ],
-      {
-        env: process.env,
-        stdio: 'inherit',
-      },
-    );
+    const result = spawnSync(vitest, vitestArguments, {
+      env: process.env,
+      stdio: 'inherit',
+    });
     exitCode = result.status ?? 1;
 
     if (result.error) {

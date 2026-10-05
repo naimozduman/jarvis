@@ -80,6 +80,9 @@ importers:
       '@vercel/oidc':
         specifier: 3.8.9
         version: 3.8.9
+      '@vercel/functions':
+        specifier: 3.9.9
+        version: 3.9.9(ws@8.21.0)
       fastify:
         specifier: 5.12.1
         version: 5.12.1
@@ -152,6 +155,9 @@ importers:
       '@jarvis/security':
         specifier: workspace:*
         version: link:../security
+      '@js-temporal/polyfill':
+        specifier: 0.5.1
+        version: 0.5.1
       openai:
         specifier: ^7.8.0
         version: 7.8.0(ws@8.21.0)(zod@4.4.3)
@@ -1331,6 +1337,13 @@ packages:
         integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==,
       }
 
+  '@js-temporal/polyfill@0.5.1':
+    resolution:
+      {
+        integrity: sha512-hloP58zRVCRSpgDxmqCWJNlizAlUgJFqG2ypq79DCvyv9tHjRYMDOcPFjzfl/A1/YxDvRCZz8wvZvmapQnKwFQ==,
+      }
+    engines: { node: '>=12' }
+
   '@oxc-project/types@0.146.0':
     resolution:
       {
@@ -1687,6 +1700,21 @@ packages:
         integrity: sha512-g9XerViJ/paZujufXYcu5XYI2vU2rtB4sgdpjUHde5RnOkdmpu0ngH46LCFGHoPXO/C+qDPSczIHIRN+8Q2YKQ==,
       }
     engines: { node: '>= 18' }
+
+  '@vercel/functions@3.9.9':
+    resolution:
+      {
+        integrity: sha512-ocN/BNsIswReoyqfU1huilNyBM9tvY9kFXgYj0LlyPRATC1dt35gj2jN5hs9+Nag/CRyVQOX58L2FEhvL+0sSA==,
+      }
+    engines: { node: '>= 20' }
+    peerDependencies:
+      '@aws-sdk/credential-provider-web-identity': '*'
+      ws: '>=8'
+    peerDependenciesMeta:
+      '@aws-sdk/credential-provider-web-identity':
+        optional: true
+      ws:
+        optional: true
 
   '@vercel/oidc@3.8.9':
     resolution:
@@ -2354,6 +2382,12 @@ packages:
     resolution:
       {
         integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==,
+      }
+
+  jsbi@4.3.2:
+    resolution:
+      {
+        integrity: sha512-9fqMSQbhJykSeii05nxKl4m6Eqn2P6rOlYiS+C5Dr/HPIU/7yZxu5qzbs40tgaFORiw2Amd0mirjxatXYMkIew==,
       }
 
   json-buffer@3.0.1:
@@ -3703,6 +3737,10 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
+  '@js-temporal/polyfill@0.5.1':
+    dependencies:
+      jsbi: 4.3.2
+
   '@oxc-project/types@0.146.0': {}
 
   '@pinojs/redact@0.4.0': {}
@@ -3896,6 +3934,12 @@ snapshots:
   '@vercel/cli-exec@1.0.1':
     dependencies:
       execa: 5.1.1
+
+  '@vercel/functions@3.9.9(ws@8.21.0)':
+    dependencies:
+      '@vercel/oidc': 3.8.9
+    optionalDependencies:
+      ws: 8.21.0
 
   '@vercel/oidc@3.8.9':
     dependencies:
@@ -4339,6 +4383,8 @@ snapshots:
   isexe@2.0.0: {}
 
   jose@5.10.0: {}
+
+  jsbi@4.3.2: {}
 
   json-buffer@3.0.1: {}
 

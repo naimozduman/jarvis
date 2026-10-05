@@ -28,6 +28,7 @@
     "@jarvis/orchestration": "workspace:*",
     "@jarvis/security": "workspace:*",
     "@vercel/oidc": "3.8.9",
+    "@vercel/functions": "3.9.9",
     "fastify": "5.12.1"
   }
 }

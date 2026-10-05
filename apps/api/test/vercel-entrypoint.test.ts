@@ -10,6 +10,39 @@ import {
 } from '../src/vercel-entrypoint.js';
 
 describe('Vercel Fastify application entrypoint', () => {
+  it('does not forward consumed HTTP framing headers to the inner application', async () => {
+    const inject = vi.fn().mockResolvedValue({
+      statusCode: 200,
+      headers: { 'content-type': 'application/json' },
+      rawPayload: Buffer.from('{"accepted":true}'),
+    });
+    const app = Fastify({ logger: false });
+    registerVercelFastifyAdapter(app, async () => ({
+      app: { ready: vi.fn().mockResolvedValue(undefined), inject } as never,
+      stop: vi.fn().mockResolvedValue(undefined),
+    }));
+    try {
+      const response = await app.inject({
+        method: 'POST',
+        url: '/api/webhooks/telegram',
+        headers: {
+          'content-type': 'application/json',
+          'x-telegram-bot-api-secret-token': 'test-secret',
+        },
+        payload: '{"update_id":1}',
+      });
+      expect(response.statusCode).toBe(200);
+      const forwarded = inject.mock.calls[0]?.[0]?.headers as Record<string, unknown>;
+      expect(forwarded).toMatchObject({
+        'content-type': 'application/json',
+        'x-telegram-bot-api-secret-token': 'test-secret',
+      });
+      expect(forwarded).not.toHaveProperty('content-length');
+    } finally {
+      await app.close();
+    }
+  });
+
   it('maps the public /api readiness path into the existing Fastify path and disposes the runtime', async () => {
     const inject = vi.fn().mockResolvedValue({
       statusCode: 200,

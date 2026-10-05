@@ -94,4 +94,63 @@ describe('loadApiEnvironment', () => {
       EnvironmentValidationError,
     );
   });
+
+  it('fails closed until every server-side official Cloud API ingress boundary is configured', () => {
+    const base = {
+      APP_ENV: 'test',
+      PROVIDER_INTEGRATIONS_ENABLED: 'true',
+      JARVIS_OWNER_ID: '00000000-0000-4000-8000-000000000001',
+      JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED: 'true',
+      JARVIS_INGEST_TOKEN: 'cloud-ingest-test-token-that-is-not-a-deployment-secret',
+      JARVIS_WHATSAPP_CLOUD_INGEST_INSTANCE_ID: 'naim',
+      JARVIS_CONVEX_ORCHESTRATION_URL: 'https://orchestration.invalid',
+      JARVIS_VERCEL_TO_CONVEX_SECRET: 'vercel-to-convex-test-secret-material-0001',
+      JARVIS_CONVEX_TO_VERCEL_SECRET: 'convex-to-vercel-test-secret-material-0001',
+    } as const;
+
+    expect(() =>
+      loadApiEnvironment({
+        ...base,
+        JARVIS_INGEST_TOKEN: undefined,
+      }),
+    ).toThrow(EnvironmentValidationError);
+    expect(loadApiEnvironment(base)).toMatchObject({
+      ownerId: '00000000-0000-4000-8000-000000000001',
+      providerIntegrationsEnabled: true,
+      whatsappCloudIngest: {
+        enabled: true,
+        expectedInstanceId: 'naim',
+      },
+    });
+  });
+
+  it('requires a separate explicit bridge boundary before verified-owner Cloud messages can reply', () => {
+    const base = {
+      APP_ENV: 'test',
+      PROVIDER_INTEGRATIONS_ENABLED: 'true',
+      JARVIS_OWNER_ID: '00000000-0000-4000-8000-000000000001',
+      JARVIS_WHATSAPP_CLOUD_INGEST_ENABLED: 'true',
+      JARVIS_INGEST_TOKEN: 'cloud-ingest-test-token-that-is-not-a-deployment-secret',
+      JARVIS_WHATSAPP_CLOUD_INGEST_INSTANCE_ID: 'naim',
+      JARVIS_CONVEX_ORCHESTRATION_URL: 'https://orchestration.invalid',
+      JARVIS_VERCEL_TO_CONVEX_SECRET: 'vercel-to-convex-test-secret-material-0001',
+      JARVIS_CONVEX_TO_VERCEL_SECRET: 'convex-to-vercel-test-secret-material-0001',
+      JARVIS_WHATSAPP_CLOUD_OWNER_DM_ENABLED: 'true',
+    } as const;
+
+    expect(() => loadApiEnvironment(base)).toThrow(EnvironmentValidationError);
+    const configured = loadApiEnvironment({
+      ...base,
+      JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_URL: 'https://bridge.invalid',
+      JARVIS_WHATSAPP_CLOUD_DELIVERY_TOKEN:
+        'cloud-delivery-test-token-that-is-not-a-deployment-secret',
+      JARVIS_WHATSAPP_CLOUD_DELIVERY_BRIDGE_ID: 'jarvis-cloud-bridge',
+    });
+    expect(configured.whatsappCloudIngest).toMatchObject({
+      enabled: true,
+      ownerDirectMessagingEnabled: true,
+      deliveryBridgeUrl: 'https://bridge.invalid',
+      deliveryBridgeId: 'jarvis-cloud-bridge',
+    });
+  });
 });

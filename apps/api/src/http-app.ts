@@ -23,7 +23,9 @@ import {
   type LocalBridgeRouteDependencies,
 } from './local-bridge-routes.js';
 import {
+  registerCasualChatBenchmarkRoute,
   registerStagingRuntimeRoutes,
+  type CasualChatBenchmarkRouteDependencies,
   type StagingRuntimeRouteDependencies,
 } from './staging-runtime-routes.js';
 import {
@@ -34,6 +36,22 @@ import {
   registerPhase3d1JobRecoveryRoute,
   type Phase3d1JobRecoveryRouteDependencies,
 } from './phase-3-6d1-job-recovery-route.js';
+import {
+  registerWhatsAppCloudIngestRoutes,
+  type WhatsAppCloudIngestRouteDependencies,
+} from './whatsapp-cloud-ingest-routes.js';
+import {
+  registerWhatsAppCloudBridgeRoutes,
+  type WhatsAppCloudBridgeRouteDependencies,
+} from './whatsapp-cloud-bridge-routes.js';
+import {
+  registerTelegramBotRoutes,
+  type TelegramBotRouteDependencies,
+} from './telegram-bot-routes.js';
+import {
+  registerTelegramBotOperatorRoutes,
+  type TelegramBotOperatorRouteDependencies,
+} from './telegram-bot-operator-routes.js';
 
 interface ApiReadinessState {
   readonly databaseVerified?: boolean;
@@ -44,7 +62,7 @@ interface ApiReadinessState {
 export interface BuildApiOptions {
   readonly personalSystem?: PersonalSystemRouteDependencies;
   readonly environment?: EnvironmentSource;
-  readonly readiness?: ApiReadinessState | (() => ApiReadinessState);
+  readonly readiness?: ApiReadinessState | (() => ApiReadinessState | Promise<ApiReadinessState>);
   /** A runtime-owned dependency probe; errors are represented by readiness state, never leaked. */
   readonly readinessProbe?: () => Promise<void>;
   /** Explicit composition only; disabled/default API instances never call Evolution. */
@@ -57,15 +75,26 @@ export interface BuildApiOptions {
   readonly stagingC7Harness?: StagingC7HarnessRouteDependencies;
   /** Exact one-job Phase 3.6D.1 recovery; absent unless its temporary credential exists. */
   readonly phase3d1JobRecovery?: Phase3d1JobRecoveryRouteDependencies;
+  /** Fixed synthetic model comparison, independently gated from staging ingress. */
+  readonly casualChatBenchmark?: CasualChatBenchmarkRouteDependencies;
   /** Narrow Convex-to-Vercel callback; absent from normal API construction. */
   readonly orchestration?: OrchestrationRouteDependencies;
   /** Authenticated local-only transport boundary; absent unless Vercel explicitly composes it. */
   readonly localBridge?: LocalBridgeRouteDependencies;
+  /** Official Cloud API bridge boundary; absent until its server-only configuration is complete. */
+  readonly whatsappCloudIngest?: WhatsAppCloudIngestRouteDependencies;
+  /** Separate opaque lease/result boundary used only by the configured official Cloud bridge. */
+  readonly whatsappCloudBridge?: WhatsAppCloudBridgeRouteDependencies;
+  /** Official Telegram Bot webhook boundary; it remains available while replies are disabled for enrollment. */
+  readonly telegramBot?: TelegramBotRouteDependencies;
+  readonly telegramBotOperator?: TelegramBotOperatorRouteDependencies;
 }
 
-function resolveReadiness(readiness: BuildApiOptions['readiness']): ApiReadinessState {
+async function resolveReadiness(
+  readiness: BuildApiOptions['readiness'],
+): Promise<ApiReadinessState> {
   if (typeof readiness === 'function') {
-    return readiness();
+    return await readiness();
   }
   return readiness ?? {};
 }
@@ -118,7 +147,7 @@ export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
     } catch {
       // The runtime probe owns its own safe state. A health endpoint never emits dependency text.
     }
-    const health = getApiReadinessHealth(environment, resolveReadiness(options.readiness));
+    const health = getApiReadinessHealth(environment, await resolveReadiness(options.readiness));
     return reply.code(health.status === 'ok' ? 200 : 503).send(health);
   });
   app.get('/health/transport/evolution', async (_request, reply) => {
@@ -140,9 +169,14 @@ export function buildApi(options: BuildApiOptions = {}): FastifyInstance {
     registerStagingC7HarnessRoutes(app, options.stagingC7Harness);
     registerPhase3d1JobRecoveryRoute(app, options.phase3d1JobRecovery);
   }
+  registerCasualChatBenchmarkRoute(app, options.casualChatBenchmark);
   registerOrchestrationRoutes(app, options.orchestration);
   registerPersonalSystemRoutes(app, options.personalSystem);
   registerLocalBridgeRoutes(app, options.localBridge);
+  registerWhatsAppCloudIngestRoutes(app, options.whatsappCloudIngest);
+  registerWhatsAppCloudBridgeRoutes(app, options.whatsappCloudBridge);
+  registerTelegramBotRoutes(app, options.telegramBot);
+  registerTelegramBotOperatorRoutes(app, options.telegramBotOperator);
 
   return app;
 }
