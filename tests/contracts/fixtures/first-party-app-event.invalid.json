@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "eventId": "00000000-0000-4000-8000-000000000001",
+  "ownerId": "00000000-0000-4000-8000-000000000002",
+  "appId": "growth-stats",
+  "eventType": "meal.logged",
+  "occurredAt": "2026-09-25T10:00:00Z",
+  "receivedAt": "2026-09-25T10:00:00Z",
+  "idempotencyKey": "fixture-meal-0001",
+  "sourceRecord": {
+    "type": "meal",
+    "id": "fixture-meal",
+    "version": "1"
+  },
+  "summarySchemaId": "jarvis.meal-summary:1",
+  "summary": {
+    "calories": 500
+  },
+  "sensitivity": "private",
+  "supersedesEventId": null,
+  "unexpectedAuthority": true
+}

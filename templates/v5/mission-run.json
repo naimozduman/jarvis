@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "recordType": "mission-run",
+  "description": "A run of one reusable mission",
+  "repository": "naimozduman/jarvis",
+  "baseSha": null,
+  "headSha": null,
+  "createdAt": null,
+  "createdBy": null,
+  "environment": null,
+  "status": "not_started",
+  "evidenceRefs": [],
+  "limitations": [],
+  "missionId": null,
+  "commands": [],
+  "testedHeadSha": null,
+  "reviewedBy": null,
+  "completionEvidence": null,
+  "ownerApprovalRef": null
+}

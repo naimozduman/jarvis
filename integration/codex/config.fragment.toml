@@ -1,0 +1,21 @@
+# Merge only after inspecting the installed client and existing configuration.
+# Audit defaults, not a fine-grained file ACL. No provider credentials or Railway stanza.
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+approval_policy = "on-request"
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 4
+
+[shell_environment_policy]
+inherit = "core"
+ignore_default_excludes = false
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+enabled = true
+required = false
+
+# Vercel/Neon/Convex are intentionally not enabled here.
+# Use the explicit authorized-read procedure in docs/CODEX_SETUP.md for dependent live gates.

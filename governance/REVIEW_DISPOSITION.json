@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "source": "User-supplied reviews and follow-up discussion, not independent production audit",
+  "findings": [
+    {
+      "finding": "Governance capture and reverse doc drift",
+      "disposition": "accepted",
+      "control": "GOV-01",
+      "response": "Trusted-base gate, protected policy, detached owner signatures and explicit bootstrap",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Code/doc edits in one commit must always fail",
+      "disposition": "modified",
+      "control": "GOV-03",
+      "response": "Allow coherent changes with exact protected promotion and impact evidence. No arbitrary diff-size proxy.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Index all file classes and fix skill frontmatter",
+      "disposition": "accepted",
+      "control": "GOV-02",
+      "response": "All managed files indexed with metadata checks, explicit self-hash exclusions and valid skill metadata",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Keep only AGENTS invariants at runtime",
+      "disposition": "rejected",
+      "control": "PROMPT-01",
+      "response": "Runtime has no automatic AGENTS access. Invariant registry supplies generated runtime text.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Model ActionIntent needs ownerId and approvalId",
+      "disposition": "rejected",
+      "control": "AUTH-01",
+      "response": "Those are server-derived ProposedAction and ExecutionAuthorization fields, never model authority",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Executor manifest missing operational safety fields",
+      "disposition": "accepted",
+      "control": "AUTH-01",
+      "response": "Separate capability and executor contracts include idempotency, expiry, credentials, verification and reconciliation",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Life Ledger replay safety",
+      "disposition": "accepted",
+      "control": "SCHEMA-01",
+      "response": "Versioned owner/source derivation keys and revision fields",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Unbounded standing leases",
+      "disposition": "accepted",
+      "control": "AUTH-02",
+      "response": "Finite typed proposals, fresh grants/renewals, no high-impact leases, shorter Night Mode cap",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Default every new capability to a lease",
+      "disposition": "rejected",
+      "control": "AUTH-02",
+      "response": "New capability is denied until registration, review and applicable explicit authority. No auto-broadening under approval fatigue.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Approval latency proves inattention",
+      "disposition": "modified",
+      "control": "APPROVAL-UX",
+      "response": "Use bounded telemetry as a review signal, not a diagnosis or automatic authority change",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Dedicated first-party approval surface",
+      "disposition": "accepted",
+      "control": "AUTH-01",
+      "response": "Canonical payload display and fresh step-up, messaging only notifies for high-impact approval",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Fixed midnight-to-six ban",
+      "disposition": "rejected",
+      "control": "APPROVAL-UX",
+      "response": "Use actual owner sleep state and conscious step-up. Night Mode never creates or executes high-impact authority.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Budget $60 is already approved",
+      "disposition": "rejected",
+      "control": "COST-01",
+      "response": "Earlier assistant proposal is not consent. Proposed $50 historical-context profile remains disabled.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "No cost guard exists",
+      "disposition": "rejected",
+      "control": "COST-01",
+      "response": "Existing source has ModelBudgetGuard. Preserve it, add durable reservations/concurrency and loop gates.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Brain evaluations are absent from CI",
+      "disposition": "rejected",
+      "control": "EVAL-01",
+      "response": "Observed CI explicitly invokes brain:evals plus other evaluation suites. Preserve and extend.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "A permanently green eval suite is dead",
+      "disposition": "rejected",
+      "control": "EVAL-01",
+      "response": "Regression suites should stay green. Audit incident coverage, withheld judgment cases and fixture weakening.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Nine kill switches already work",
+      "disposition": "rejected",
+      "control": "KILL-01",
+      "response": "Generic source flag is not nine independent deployed controls. Actual drill evidence remains required.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Let JARVIS certify its own stop drills",
+      "disposition": "modified",
+      "control": "KILL-01",
+      "response": "External runner and synthetic test account, plus real local/cloud enforcement paths",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Every substantial session needs location for handoff",
+      "disposition": "accepted",
+      "control": "GOV-04",
+      "response": "Mutable canonical working state plus append-only meaningful milestone and run receipts",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Missions 9/11 and Night Mode missing",
+      "disposition": "accepted",
+      "control": "GOV-04",
+      "response": "Twenty stable-ID V4 missions include device policy, workforce, modes, browser and night-mode gates",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "SchemaVersion 1 inside a V4 folder is necessarily wrong",
+      "disposition": "rejected",
+      "control": "SCHEMA-01",
+      "response": "Product generation, contract revision and wire schemaVersion are explicitly separate",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "ZERO_COST remains active conflicting doctrine",
+      "disposition": "rejected",
+      "control": "COST-01",
+      "response": "Original V3 file was historical. V4 retains historical status and active cost-policy pointer.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Rewrite accepted ADRs to fit template",
+      "disposition": "modified",
+      "control": "GOV-01",
+      "response": "Preserve actual repository history. V4 proposals follow complete template before acceptance.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Enable all provider MCPs by default",
+      "disposition": "rejected",
+      "control": "OBS-01",
+      "response": "Explicit read authorization and documented verification procedure, not blanket production access",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Rename KAREN everywhere",
+      "disposition": "modified",
+      "control": "PROMPT-01",
+      "response": "Internal mentor identifier, optional owner-facing KAREN label, no behavior or authority escalation",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Prompt version is entirely absent",
+      "disposition": "rejected",
+      "control": "PROMPT-01",
+      "response": "Source stores versions. New assembly preview adds exact content digests without pretending runtime loader migrated.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Machine config snapshots belong in blind overlay",
+      "disposition": "rejected",
+      "control": "GOV-01",
+      "response": "No root package/lock/workspace/compose/env replacements. Optional reviewed integration fragments only.",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Research summaries lost provenance",
+      "disposition": "accepted",
+      "control": "GOV-02",
+      "response": "Twenty separate source-attributed systems with explicit limitations, no silent framework adoption",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Owner absence is undefined",
+      "disposition": "accepted",
+      "control": "AUTH-02",
+      "response": "Mode narrows power, external work waits, no inference of consent from inactivity",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Counter checks eliminate unknown side effects",
+      "disposition": "rejected",
+      "control": "AUTH-01",
+      "response": "Post-dispatch uncertainty persists and reconciles even after cancellation or stop",
+      "introducedIn": "V4/V4.1"
+    },
+    {
+      "finding": "Mission dependencies need a real admission check",
+      "disposition": "accepted_with_scope",
+      "response": "Purpose-separated receipts, transitive prerequisite checks, current definition hashes and trusted checkpoint ancestry. No claim of installation.",
+      "control": "GOV-04",
+      "introducedIn": "V5"
+    },
+    {
+      "finding": "Governance-key recovery is operationally underspecified",
+      "disposition": "accepted_with_scope",
+      "response": "Isolated owner command path, public-state transition verifier and dummy-key rotation/recovery/revocation tests. Atomic external installation still required.",
+      "control": "KEY-01",
+      "introducedIn": "V5"
+    },
+    {
+      "finding": "Every task should read the complete PRD",
+      "disposition": "accepted_with_scope",
+      "response": "Rejected full-context loading. Bounded topic packets select exact requirements and relevant skills.",
+      "control": "CTX-01",
+      "introducedIn": "V5"
+    },
+    {
+      "finding": "V5 must replace all previous code",
+      "disposition": "accepted_with_scope",
+      "response": "Explicit keep/repair/migrate/replace/retire/unresolved program with pinned code evidence.",
+      "control": "GOV-03",
+      "introducedIn": "V5"
+    },
+    {
+      "finding": "Signed prompt version exists so byte provenance is complete",
+      "disposition": "accepted_with_scope",
+      "response": "Source inspection shows ID/version-only fingerprint. Preserve persistence and repair content addressing through loader migration.",
+      "control": "PROMPT-01",
+      "introducedIn": "V5"
+    },
+    {
+      "finding": "Context caps cover the complete request",
+      "disposition": "accepted_with_scope",
+      "response": "Source inspection shows selected-record content estimate. Reconcile final payload measurement and conservative metered admission.",
+      "control": "COST-01",
+      "introducedIn": "V5"
+    }
+  ],
+  "scope": "Historical review decisions retained and V5 additions, not independent production audit"
+}

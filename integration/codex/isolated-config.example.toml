@@ -1,0 +1,21 @@
+# Reviewed configuration EXAMPLE, not a filesystem or credential boundary by itself.
+# Do not copy over the user's global config. Use a clean dedicated account/VM.
+# M00 reads an operator-prepared snapshot, not a credentialed live checkout.
+# Verify exact supported keys against the installed Codex version before use.
+approval_policy = "never"
+sandbox_mode = "read-only"
+
+[sandbox_workspace_write]
+network_access = false
+writable_roots = []
+exclude_tmpdir_env_var = true
+exclude_slash_tmp = true
+
+[shell_environment_policy]
+inherit = "none"
+ignore_default_excludes = false
+
+# No provider MCPs or hooks are configured here. An inherited/global connection
+# still requires explicit removal/disablement in the dedicated account.
+# Model authentication is separate from the offline execution worker. Do not pass
+# model/provider credentials into that worker or assume this file controls remote tools.

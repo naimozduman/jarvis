@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "doNotInferTestQualityFromPassRate": true,
+  "entries": [
+    {
+      "id": "E-GATE",
+      "category": "governance",
+      "path": "tools/jarvis-v5/tests/trust-gate.test.mjs",
+      "invariantIds": [
+        "INV-BUILDER-001"
+      ],
+      "description": "Tampered/expired/replayed signatures, protected history, candidate validator attacks",
+      "status": "reference_test",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": [
+        "tools/jarvis-v5/trust-gate.mjs",
+        "tools/jarvis-v5/tests/*gate*.mjs"
+      ]
+    },
+    {
+      "id": "E-SCHEMA",
+      "category": "contract",
+      "path": "tools/jarvis-v5/schema_tests/test_schemas.py",
+      "invariantIds": [
+        "INV-AUTH-001"
+      ],
+      "description": "Valid/invalid fixtures and removal of each required field",
+      "status": "reference_test",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": [
+        "schemas/drafts/*.json",
+        "tests/contracts/fixtures/*.json",
+        "tools/jarvis-v5/schema_tests/*.py"
+      ]
+    },
+    {
+      "id": "E-CONTROL",
+      "category": "policy",
+      "path": "tools/jarvis-v5/tests/test_reference_controls.py",
+      "invariantIds": [
+        "INV-APPROVAL-001",
+        "INV-FINANCE-001"
+      ],
+      "description": "Reference authorization/lease/cost/cancellation semantics",
+      "status": "reference_test",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": [
+        "tools/jarvis-v5/reference_controls.py",
+        "tools/jarvis-v5/tests/test_reference_controls.py"
+      ]
+    },
+    {
+      "id": "E-STRUCTURE",
+      "category": "governance",
+      "path": "tools/jarvis-v5/tests/test_pack_tools.py",
+      "invariantIds": [
+        "INV-BUILDER-001"
+      ],
+      "description": "Broken frontmatter, missing links and registry drift",
+      "status": "reference_test",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": [
+        "tools/jarvis-v5/*.py",
+        "tools/jarvis-v5/tests/test_pack_tools.py"
+      ]
+    },
+    {
+      "id": "E-LIVE-JUDGMENT",
+      "category": "judgment",
+      "path": null,
+      "invariantIds": [
+        "INV-MEMORY-001"
+      ],
+      "description": "Actual-model tradeoffs, uncertainty, owner corrections and relationship context",
+      "status": "planned",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": []
+    },
+    {
+      "id": "E-EXTERNAL-KILL",
+      "category": "deployment_drill",
+      "path": null,
+      "invariantIds": [
+        "INV-COMPLETE-001"
+      ],
+      "description": "Deployed cloud/local stop and post-dispatch reconciliation",
+      "status": "planned",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": []
+    },
+    {
+      "id": "E-CONCURRENT-SPEND",
+      "category": "integration",
+      "path": null,
+      "invariantIds": [
+        "INV-AUTH-001"
+      ],
+      "description": "Atomic spend reservations across simultaneous real jobs",
+      "status": "planned",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": []
+    },
+    {
+      "id": "E-REAL-ENROLL",
+      "category": "integration",
+      "path": null,
+      "invariantIds": [
+        "INV-APPROVAL-001"
+      ],
+      "description": "Real passkey/device/enrollment/step-up/recovery flow",
+      "status": "planned",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4 review synthesis",
+      "productionCoverage": false,
+      "coveragePatterns": []
+    },
+    {
+      "id": "E-ENFORCEMENT",
+      "category": "governance",
+      "path": "tools/jarvis-v5/tests/test_v41_enforcement.py",
+      "coveragePatterns": [
+        "tools/jarvis-v5/*",
+        "tools/jarvis-v5/tests/test_v41*.py",
+        "tools/jarvis-v5/tests/*v41*.mjs"
+      ],
+      "invariantIds": [
+        "INV-BUILDER-001"
+      ],
+      "description": "V4.1 fail-closed coverage, signed evidence, live-provenance fixtures and worker isolation specifications",
+      "status": "reference_test",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "contract_change",
+        "policy_change"
+      ],
+      "origin": "V4.1 confirmed review gaps",
+      "productionCoverage": false
+    },
+    {
+      "id": "E-APP-REGRESSION",
+      "category": "integration",
+      "path": null,
+      "coveragePatterns": [],
+      "invariantIds": [
+        "INV-AUTH-001",
+        "INV-IDENTITY-001",
+        "INV-COMPLETE-001"
+      ],
+      "description": "Actual repository CI and policy/dispatch regression inventory. Map after M00. Pack-only fixtures do not satisfy application coverage.",
+      "status": "planned",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "model_change",
+        "contract_change"
+      ],
+      "origin": "V4.1 boundary verification",
+      "productionCoverage": false
+    },
+    {
+      "id": "E-V5-TOOLS",
+      "category": "governance",
+      "path": "tools/jarvis-v5/tests/test_v5_tools.py",
+      "invariantIds": [
+        "INV-MISSION-001",
+        "INV-TIME-001"
+      ],
+      "description": "V5 continuity, recovery and task-context adversarial tests",
+      "status": "reference_test",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "contract_change"
+      ],
+      "origin": "V5 source/review reconciliation",
+      "productionCoverage": false,
+      "coveragePatterns": [
+        "tools/jarvis-v5/*.py",
+        "missions/**",
+        "governance/PRODUCT_SPEC.json",
+        "governance/CONTEXT_REGISTRY.json"
+      ]
+    },
+    {
+      "id": "E-V5-TRUST",
+      "category": "governance",
+      "path": "tools/jarvis-v5/tests/v5-trust.test.mjs",
+      "invariantIds": [
+        "INV-MISSION-001",
+        "INV-RECOVERY-001"
+      ],
+      "description": "V5 continuity, recovery and task-context adversarial tests",
+      "status": "reference_test",
+      "lastReviewedAt": null,
+      "reviewEvidence": null,
+      "reviewIntervalDays": 90,
+      "mustReviewAfter": [
+        "incident",
+        "contract_change"
+      ],
+      "origin": "V5 source/review reconciliation",
+      "productionCoverage": false,
+      "coveragePatterns": [
+        "tools/jarvis-v5/mission_gate.mjs",
+        "tools/jarvis-v5/signed_records.mjs",
+        "tools/jarvis-v5/key_lifecycle.mjs",
+        "governance/MISSION_POLICY.json",
+        "tools/jarvis-v5/owner_record_signing.mjs"
+      ]
+    }
+  ],
+  "enforcement": "V4.1 promotion_evidence.py selects the trusted implementation-map requiredEvalIds. Each requires an exact-head signed fresh review and authenticated test evidence. Planned unrelated evals do not block. Newly activated controls add requirements from trusted EVIDENCE_POLICY."
+}

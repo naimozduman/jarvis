@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/execution-authorization/1.0.0-draft",
+  "title": "Execution Authorization Record",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.execution-authorization",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "authorizationId",
+    "ownerId",
+    "actionId",
+    "actionRevision",
+    "snapshotHash",
+    "capabilityId",
+    "executorId",
+    "credentialAccountRef",
+    "policyVersion",
+    "killEpoch",
+    "authorityType",
+    "approvalId",
+    "leaseId",
+    "risk",
+    "issuedAt",
+    "expiresAt",
+    "idempotencyKey",
+    "trustedResolverRef"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "authorizationId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "actionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "actionRevision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000000000
+    },
+    "snapshotHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "capabilityId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "executorId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "credentialAccountRef": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "policyVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "killEpoch": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    },
+    "authorityType": {
+      "type": "string",
+      "enum": [
+        "owner_policy",
+        "action_approval",
+        "lease"
+      ]
+    },
+    "approvalId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "leaseId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "risk": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "LOW_RISK_INTERNAL",
+        "CONTROLLED_WRITE",
+        "HIGH_IMPACT",
+        "PROHIBITED"
+      ]
+    },
+    "issuedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256
+    },
+    "trustedResolverRef": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "authorityType": {
+            "const": "action_approval"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approvalId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "leaseId": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "authorityType": {
+            "const": "lease"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "leaseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "approvalId": {
+            "type": "null"
+          },
+          "risk": {
+            "type": "string",
+            "enum": [
+              "CONTROLLED_WRITE",
+              "LOW_RISK_INTERNAL",
+              "READ"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "authorityType": {
+            "const": "owner_policy"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approvalId": {
+            "type": "null"
+          },
+          "leaseId": {
+            "type": "null"
+          },
+          "risk": {
+            "type": "string",
+            "enum": [
+              "READ",
+              "LOW_RISK_INTERNAL"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "risk": {
+            "const": "HIGH_IMPACT"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "authorityType": {
+            "const": "action_approval"
+          },
+          "approvalId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    }
+  ]
+}

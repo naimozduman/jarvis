@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "recordType": "bootstrap-receipt",
+  "description": "Owner-installed trusted boundary",
+  "repository": "naimozduman/jarvis",
+  "baseSha": null,
+  "headSha": null,
+  "createdAt": null,
+  "createdBy": null,
+  "environment": null,
+  "status": "not_started",
+  "evidenceRefs": [],
+  "limitations": [],
+  "trustedToolDigest": null,
+  "publicKeyId": null,
+  "privateKeyOutsideBuilder": false,
+  "requiredChecksObserved": false,
+  "builderBypassRemoved": false,
+  "negativeTestRefs": [],
+  "acceptanceSignatureRef": null
+}

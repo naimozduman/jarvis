@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/executor-manifest/1.0.0-draft",
+  "title": "Executor Registration Contract",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.executor-manifest",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "executorId",
+    "version",
+    "capability",
+    "idempotencyBehavior",
+    "expiryPolicy",
+    "credentialBoundary",
+    "observationMethod",
+    "verificationMethod",
+    "reconciliationMethod",
+    "killDomains",
+    "timeoutSeconds"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "executorId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "capability": {
+      "$ref": "https://jarvis.invalid/contracts/capability/1.0.0-draft"
+    },
+    "idempotencyBehavior": {
+      "type": "string",
+      "enum": [
+        "provider_key",
+        "canonical_lock_and_reconcile",
+        "read_only"
+      ]
+    },
+    "expiryPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maximumOperationAgeSeconds",
+        "checkBeforeDispatch"
+      ],
+      "properties": {
+        "maximumOperationAgeSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "checkBeforeDispatch": {
+          "const": true
+        }
+      }
+    },
+    "credentialBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resolverRef",
+        "accountScopeRequired",
+        "rawCredentialsToModel"
+      ],
+      "properties": {
+        "resolverRef": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+        },
+        "accountScopeRequired": {
+          "const": true
+        },
+        "rawCredentialsToModel": {
+          "const": false
+        }
+      }
+    },
+    "observationMethod": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "verificationMethod": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "reconciliationMethod": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "killDomains": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+      },
+      "minItems": 1,
+      "maxItems": 9,
+      "uniqueItems": true
+    },
+    "timeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600
+    }
+  }
+}

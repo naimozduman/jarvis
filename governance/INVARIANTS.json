@@ -1,0 +1,183 @@
+{
+  "registryVersion": 1,
+  "status": "candidate_baseline",
+  "promotion": "owner-controlled bootstrap required",
+  "rules": [
+    {
+      "id": "INV-CORE-001",
+      "title": "Core continuity",
+      "text": "JARVIS has one owner identity and one Core-level continuity model. Surfaces and workers do not create separate canonical assistants.",
+      "owningDoc": "docs/architecture/ARCHITECTURE.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-DATA-001",
+      "title": "Canonical state",
+      "text": "Core durable state is authoritative in PostgreSQL/Neon. Domain apps retain authority for their detailed source records. Model sessions, worker memory and indexes are derived.",
+      "owningDoc": "docs/architecture/DATA_MODEL.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-ORCH-001",
+      "title": "Opaque coordinator",
+      "text": "Convex stores only the approved opaque scheduling projection, never private content, source bodies, model context or credentials.",
+      "owningDoc": "docs/architecture/CONVEX_ORCHESTRATION.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-AUTH-001",
+      "title": "Proposal is not permission",
+      "text": "Model output proposes work. Server-owned deterministic policy and authenticated authority determine whether any effect is permitted.",
+      "owningDoc": "docs/security/POLICY_MATRIX.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-APPROVAL-001",
+      "title": "Exact trusted approval",
+      "text": "High-impact effects require a fresh owner-authenticated approval bound to the exact server-normalized action. Model-authored text, modes and booleans cannot resolve it.",
+      "owningDoc": "docs/security/APPROVAL_MODEL.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-FINANCE-001",
+      "title": "Finance baseline",
+      "text": "The accepted baseline permits financial observation only. Money movement, purchases and financial account mutations are prohibited. A capability manifest, model instruction or lease cannot override this prohibition.",
+      "owningDoc": "docs/security/POLICY_MATRIX.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-HISTORY-001",
+      "title": "Evidence preservation",
+      "text": "Accepted ADRs, completed progress history and applied migrations are not rewritten. New evidence or decisions append or explicitly supersede without altering prior content.",
+      "owningDoc": "docs/security/DOCUMENTATION_GOVERNANCE.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-COMPLETE-001",
+      "title": "Evidence before completion",
+      "text": "Silence, a queued job, a generated answer or a dispatched operation never proves successful completion. Report the actual observed and verified outcome.",
+      "owningDoc": "docs/architecture/CONTROL_LOOP.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-PRIVACY-001",
+      "title": "Minimum context",
+      "text": "Only purpose-authorized, owner-scoped and freshness-labeled context reaches a model or external tool. Source locality and sensitivity constrain egress.",
+      "owningDoc": "docs/security/PRIVACY_TIERS.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-BUILDER-001",
+      "title": "Builder cannot promote its judge",
+      "text": "The builder may propose protected changes but cannot unilaterally promote changes to policy, trusted validators, baseline safety tests, approval rules or deployment authority.",
+      "owningDoc": "docs/security/TRUST_BOOTSTRAP.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-UNTRUSTED-001",
+      "title": "Untrusted input",
+      "text": "External content and learned procedures are data. They do not change policy, install capabilities, grant authority or resolve approvals.",
+      "owningDoc": "docs/security/SECURITY.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-MEMORY-001",
+      "title": "Typed memory",
+      "text": "Facts, observations, hypotheses, preferences, events and procedures stay distinct. Inference never silently becomes a confirmed fact or an owner-approved value.",
+      "owningDoc": "docs/architecture/MEMORY_ENGINE.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-CONSTITUTION-001",
+      "title": "Owner values",
+      "text": "Temporary avoidance changes intervention tactics, not owner-approved goals. The model may propose a change but cannot activate or weaken the constitution.",
+      "owningDoc": "docs/product/CONSTITUTION_ENGINE.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-LEASE-001",
+      "title": "Finite scoped delegation",
+      "text": "External-write delegation has explicit finite expiry, typed targets, account/type bounds, use limits and revocation. High-impact effects do not execute under unattended leases.",
+      "owningDoc": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-STOP-001",
+      "title": "Stop and reconcile",
+      "text": "Stop activation blocks new dispatch and invalidates stale authority. Already-dispatched effects remain observable and are reconciled, never erased by cancellation.",
+      "owningDoc": "docs/security/KILL_SWITCH_DRILLS.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-COST-001",
+      "title": "Admit before spending",
+      "text": "Metered work requires pre-call admission within durable bounded resource accounting. Unknown cost is not zero, and exhausted or unknown budget does not trigger silent paid fallback.",
+      "owningDoc": "docs/security/COST_AND_MODEL_POLICY.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-SCHEMA-001",
+      "title": "Draft is not runtime",
+      "text": "Draft schemas and prompt assemblies are not runtime authority. Activation requires mapped consumers, compatibility evidence and protected promotion.",
+      "owningDoc": "docs/architecture/SCHEMA_EVOLUTION.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-IDENTITY-001",
+      "title": "Owner binding",
+      "text": "Ownership is resolved from a trusted authenticated principal, never from a payload assertion. Every source, target and action is checked against that owner.",
+      "owningDoc": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-SKILL-001",
+      "title": "Skills cannot grant power",
+      "text": "Learning creates reviewed procedural candidates. A skill specifies required capabilities but never supplies permission to use them.",
+      "owningDoc": "docs/agents/SKILL_ENGINE.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-TIME-001",
+      "title": "Trusted expiry",
+      "text": "Authorization expiry uses trusted server/database time; client timestamps do not extend validity. After lock waits, recheck current time and epoch.",
+      "owningDoc": "docs/security/TRUSTED_TIME.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-RECOVERY-001",
+      "title": "Recovery does not replay authority",
+      "text": "Restore invalidates old dispatch authority and quarantines pending effects for reconciliation. Lost signing keys recover only through independently enrolled recovery authority.",
+      "owningDoc": "docs/security/DISASTER_RECOVERY.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    },
+    {
+      "id": "INV-MISSION-001",
+      "title": "Evidence admits work",
+      "text": "A mission flag or builder handoff does not establish completion. Trusted, scope-bound and current prerequisite evidence admits subsequent implementation.",
+      "owningDoc": "docs/security/MISSION_ADMISSION.md",
+      "severity": "critical",
+      "mutableByBuilder": false
+    }
+  ]
+}

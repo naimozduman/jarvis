@@ -1,0 +1,13 @@
+{
+  "status": "proposed",
+  "id": null,
+  "unit": null,
+  "scope": null,
+  "source": null,
+  "windowSeconds": null,
+  "threshold": null,
+  "missingDataState": "unknown",
+  "blockedOperation": null,
+  "ownerRole": null,
+  "lastActualEvidence": null
+}

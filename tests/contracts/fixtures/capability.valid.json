@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "name": "calendar.block.create",
+  "version": "1",
+  "description": "Synthetic controlled calendar write",
+  "risk": "CONTROLLED_WRITE",
+  "inputSchemaId": "jarvis.calendar-block-input:1",
+  "requiredScopes": [
+    "calendar.events.write"
+  ],
+  "reversibility": "reversible",
+  "authorityRequirement": "approval_or_finite_lease",
+  "sensitivity": "private"
+}

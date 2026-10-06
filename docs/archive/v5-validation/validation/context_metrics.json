@@ -1,0 +1,221 @@
+{
+  "measured": "exact UTF-8 bytes, not token counts",
+  "missions": [
+    {
+      "mission": "J5-M00",
+      "topic": "engineering",
+      "utf8Bytes": 30850,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 8,
+      "requirementCount": 7,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M01",
+      "topic": "engineering",
+      "utf8Bytes": 59966,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 12,
+      "requirementCount": 7,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M02",
+      "topic": "engineering",
+      "utf8Bytes": 29893,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 9,
+      "requirementCount": 11,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M03",
+      "topic": "brain",
+      "utf8Bytes": 30572,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 10,
+      "requirementCount": 6,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M04",
+      "topic": "orchestration",
+      "utf8Bytes": 26935,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 9,
+      "requirementCount": 5,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M05",
+      "topic": "brain",
+      "utf8Bytes": 33702,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 11,
+      "requirementCount": 6,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M06",
+      "topic": "operations",
+      "utf8Bytes": 28668,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 8,
+      "requirementCount": 6,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M07",
+      "topic": "surfaces",
+      "utf8Bytes": 24546,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 8,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M08",
+      "topic": "identity",
+      "utf8Bytes": 25523,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 10,
+      "requirementCount": 5,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M09",
+      "topic": "planning",
+      "utf8Bytes": 27664,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 12,
+      "requirementCount": 5,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M10",
+      "topic": "surfaces",
+      "utf8Bytes": 26996,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 9,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M11",
+      "topic": "identity",
+      "utf8Bytes": 23570,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 9,
+      "requirementCount": 5,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M12",
+      "topic": "memory",
+      "utf8Bytes": 29718,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 9,
+      "requirementCount": 18,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M13",
+      "topic": "apps",
+      "utf8Bytes": 29627,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 10,
+      "requirementCount": 6,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M14",
+      "topic": "apps",
+      "utf8Bytes": 28171,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 9,
+      "requirementCount": 6,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M15",
+      "topic": "android",
+      "utf8Bytes": 20275,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 7,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M16",
+      "topic": "voice",
+      "utf8Bytes": 23455,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 7,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M17",
+      "topic": "android",
+      "utf8Bytes": 21539,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 8,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M18",
+      "topic": "authority",
+      "utf8Bytes": 33406,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 9,
+      "requirementCount": 7,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M19",
+      "topic": "workers",
+      "utf8Bytes": 23156,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 8,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M20",
+      "topic": "night",
+      "utf8Bytes": 22263,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 7,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M21",
+      "topic": "browser",
+      "utf8Bytes": 24713,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 8,
+      "requirementCount": 4,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M22",
+      "topic": "operations",
+      "utf8Bytes": 27859,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 8,
+      "requirementCount": 6,
+      "fullPrdIncluded": false
+    },
+    {
+      "mission": "J5-M23",
+      "topic": "operations",
+      "utf8Bytes": 43353,
+      "maximumUtf8Bytes": 70000,
+      "sourceFiles": 10,
+      "requirementCount": 6,
+      "fullPrdIncluded": false
+    }
+  ]
+}

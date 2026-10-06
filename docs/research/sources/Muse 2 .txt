@@ -1,0 +1,370 @@
+Done — all three research tracks are back, the repos were read directly, and the original seven reels' internals came from the deep-dive PDF. Scope note: 77 items surveyed, 18 distinct systems profiled below. Excluded as non-systems: the Luke/Blake skits (marketing funnels — though the briefing pattern is kept) and Ghost X1 (an uncensored-model pitch with no trust architecture; I advised against it in the deep-dive and it stays excluded here). Hector's clap build and the classic Keras build are profiled honestly for what they are.
+
+## Phase 1 — Individual System Breakdowns
+
+### 1. Hermes Agent (Nous Research, MIT) — the runtime most builds are a skin over
+
+- **Pipeline**
+  - Ingress: `gateway/` bots (Telegram/WhatsApp/Discord via `channel_directory.py`, `delivery.py`), `hermes_cli/gateway.py`, TUI/desktop, `run_agent.py`
+  - Turn: `conversation_loop.py::run_conversation()` → `_run_conversation_turn()` → `turn_preflight.py` → `turn_request_assembly.py::assemble_api_request()` (system prompt, `build_memory_context_block()`, skill payloads) → `turn_api_call.py` → `turn_tool_round.py::run_tool_round()` (returns `ToolRoundVerdict`) → `turn_finalizer.py::finalize_turn()`
+  - Resilience wrappers around every turn: `iteration_budget.py`, `interrupt_control.py`, multi-strategy `context_compressor.py`, `error_classifier.py`, `repetition_guard.py`
+  - Background: `periodic_scheduler.py` (cron), `async_delegation.py` (subagents); learning loop: `learn_prompt.py::build_learn_prompt()` reflective phase → `curator.py` background curator (`get_interval_hours()`, `get_min_idle_hours()`) → `learning_graph.py` (`SkillNode` from SKILL.md `related_skills`)
+  - Skills: `SKILL.md` YAML frontmatter (`name/description/version/platforms/metadata.hermes.tags/related_skills`) under `skills/` + `optional-skills/`, injected by `skill_commands.py`, composable via `skill_bundles.py`
+- **Tech stack**
+  - Inference & Orchestration: custom turn pipeline (no LangChain); `transports/` adapters (anthropic, bedrock, codex + App Server protocol, chat_completions, gemini_native); `credential_pool.py` per-model cooldowns; `moa_loop.py` (mixture-of-agents); terminal backends (local/Docker/SSH/Daytona/Singularity/Modal); MCP server exposing Hermes tools (`transports/hermes_tools_mcp_server.py`); ACP bridge; Docker Compose deploy
+  - Voice & Vision: transcription registry (`local`, `local_command`, `groq`, `openai`, `mistral`, `xai`, `elevenlabs`, `deepinfra`); TTS registry (`edge`, `elevenlabs`, `openai`, `minimax`, `xai`, `mistral`, `gemini`, `neutts`, `kittentts`); vision via `vision_message_prep.py` (native turn images, no double-embedding)
+  - Memory & Storage: `MemoryManager` + pluggable `MemoryProvider`; SQLite `SessionDB`; agent-curated capped markdown files; FTS5 full-text search; pluggable Honcho provider (`memory.provider: honcho`)
+  - Integration: 263 tool modules in `tools/` (terminal, browser via Camofox/CDP/Lightpanda); approvals via `approval.py` + `approval_floors.py` (dangerous commands pause for human ALLOW/DENY); state in `~/.hermes/` (`config.yaml`, `state.db`, `MEMORY.md`/`USER.md`/`SOUL.md`)
+- **Strength:** Self-improvement is a scheduled subsystem (reflect → curate → densify skill graph → agent-authored SKILL.md), and approval floors + sandboxing make it the closest thing here to a 24/7-safe agent
+- **Bottleneck:** Python-monolith scale (~30 `turn_*.py` modules + plugin-compat shims); modifying core behavior needs deep familiarity, and it still wants a strong (usually cloud) model behind the adapters
+
+### 2. open-jarvis/OpenJarvis (Stanford Hazy Research, Apache 2.0) — local-first agent framework
+
+- **Pipeline**
+  - Ingress: CLI (`jarvis ask`), FastAPI `server/`, desktop app, or 27+ channels (`channels/telegram.py`, `whatsapp.py`, `whatsapp_baileys.py`, `discord_channel.py`, `gmail.py`, `imessage_daemon.py`)
+  - Voice: `speech/voice_io.py::record_until_silence()` (sounddevice, 16 kHz mono, RMS silence threshold 500, 1.5 s auto-stop, 30 s ceiling) → STT → text; push-to-talk, no wake-word engine
+  - Tick: `AgentManager` → `agents/executor.py::AgentExecutor.execute_tick()` (`_MAX_RETRIES = 3`, events on `EventBus`)
+  - Agent loops: `orchestrator` (OpenAI function-calling, `_default_max_turns = 10`, `parallel_tools = True`), `native_react` (text `Thought:/Action:/Action Input:/Final Answer:`; parser rejects responses containing both action and final answer), `native_openhands` (CodeAct), `simple`, `operative`/`monitor_operative` (continuous), `morning_digest` (scheduled), `deep_research`
+  - Tools via `tool_resolver.py`; skills surface as `skill_*` tools with two taught return modes — *computed result* (use directly) vs *procedural instructions* (markdown playbook: follow with other tools, never re-call the skill); output streamed as SSE; tool results converted to a storage contract with per-tool latency in ms
+  - Background: `daemon/` + `scheduler/` (natural-language cron); `learning/` (traces → SFT/GRPO; orchestrator's `structured` mode matches the training format)
+- **Tech stack**
+  - Inference & Orchestration: `InferenceEngine` abstraction over Ollama, vLLM, SGLang, llama.cpp, MLX, LM Studio, Exo, Nexa, Uzu, Lemonade, Apple Foundation Models, gemma.cpp + cloud via LiteLLM (`provider/model`, keys from env); `core/config.py::recommend_engine(hw)` / `recommend_model(hw)` RAM-tier table; `jarvis init` / `jarvis doctor`
+  - Voice & Vision: STT `FasterWhisperBackend` (default `base`, lazy-load), `openai_whisper.py`, `deepgram.py`; TTS `KokoroTTSBackend` (local multilingual `KPipeline`), `cartesia_tts.py`, `openai_tts.py`
+  - Memory & Storage: `LocalFactStore` — append-only JSONL, `max_facts = 1000`, atomic temp-file+rename, thread lock; `FactExtractor` on background thread (small local model, temp 0.0, strict JSON-array prompt; any failure → "no facts", never raises); RAG via SQLite/FAISS/ColBERT/BM25
+  - Integration: `shell_exec`, `file_read/write`, `browser.py`/`browser_axtree.py`, `http_request`, `code_interpreter`, `mcp_adapter.py`, A2A (`a2a/`), Docker sandbox, skill importer with dependency resolution, Rust extension via maturin
+- **Strength:** Cleanest separation of concerns in the survey; the only system treating local-model efficiency as a measurable target (evals on energy/FLOPs/latency/$)
+- **Bottleneck:** Framework, not product (2,151 files); the default tick model `gemma4:31b` concedes the headline local model (`qwen3:8b`) fails the framework's own function-calling protocol on agentic workloads
+
+### 3. FatihMakes "Mark-LIII" — Gemini Live + self-describing plugins + forgery-proof confirm
+
+- **Pipeline**
+  - Wake: `core/wake_word.py` on pretrained openwakeword ONNX `hey_jarvis` (`DEFAULT_THRESHOLD = 0.5`, own thread, non-blocking queue; `WAKE_SLEEP_TIMEOUT = 120.0` s auto-sleep) or global Ctrl+Space (`core/hotkey.py`); mic/speaker open once awake (sounddevice 16 kHz in / 24 kHz out, `CHUNK_SIZE = 1024`)
+  - Session: `main.py::JarvisLive.__init__` → `discover_actions()` + `discover_plugins()` → `_build_config()` → `types.LiveConnectConfig`: `response_modalities=["AUDIO"]`, in/out audio transcription, `system_instruction` rendered at runtime from `core/prompt.txt` + memory + live-derived `{capabilities}`/`{limits}` (never hardcoded), `tools=[{function_declarations}]`, `SessionResumptionConfig`, `ContextWindowCompressionConfig(sliding_window)`, `PrebuiltVoiceConfig` (5 voices), `AutomaticActivityDetection`, `ProactivityConfig(proactive_audio=True)`
+  - Audio loop: `receive()` coroutine owns mic; `send_realtime_input(audio=…)` streams chunks; `EchoGuard` (`core/echo.py`) band-energy subtraction (`_BAND_EDGES = 200…7000` Hz) + learned mic-to-output gain + `_TAIL_MARGIN = 0.25` s
+  - Tool calls: `_execute_tool()` (`main.py:1113`) → inline core tools (incl. `save_memory`/`recall_memory` → `memory/long_term.json`: 6 categories, `MEMORY_MAX_CHARS=200_000` vs `PROMPT_CORE_CHARS=900` budget) or `action_registry`/`plugin_registry` with signature introspection injecting only declared context kwargs; each action/plugin declares `behavior: BLOCKING|NON_BLOCKING` + `scheduling: WHEN_IDLE|SILENT|INTERRUPT`; "instant acknowledgment" rule (model names the action before a gap forms)
+  - Confirmation (`core/confirm.py`): irreversible actions call `request()` → on-screen CONFIRM/CANCEL banner, model gets a sentence to say; only the UI button calls `resolve()` on a worker thread (`TIMEOUT_SECONDS = 90.0`) — the model *cannot* forge approval (old `confirmed=yes` param convention explicitly documented as insecure); refuses if no UI bound; `core/undo.py` puts reversible changes on an undo stack instead of prompting
+  - Background: `actions/background_monitor.py`, `proactive.py` (time-aware check-ins), `reminder.py` (OS-native Task Scheduler/LaunchAgent/systemd), `system_monitor.py` (`pynvml` GPU-temp spoken alerts); dashboard `dashboard/server.py` (FastAPI phone remote, QR pairing, `/api/command`, `/api/wake`, `/ws/phone-audio`, AES-CBC session auth, self-signed certs)
+- **Tech stack**
+  - Inference & Orchestration: single long-lived Gemini Live WebSocket (`models/gemini-3.1-flash-live-preview`, `google-genai>=2.8.0,<3`); hybrid paths `core/stt.py` (faster-whisper int8 CPU / Vosk), `core/tts.py` (EdgeTTS / offline Kokoro ~330 MB / ElevenLabs), `core/llm_client.py` (Ollama/LM Studio); `core/gemini.py` one-shot ladders (`FAST`/`SMART`/`SEARCH`)
+  - Voice & Vision: sounddevice + numpy; visemes at `_VIS_HOP = 480` samples (~50 shapes/s) from formants (F1 openness, F2 width) + transcript closures → QPainter software head (`core/avatar.py`, `core/face_model.obj` MediaPipe canonical); PyQt6 HUD (`ui.py`, 5437 lines)
+  - Memory & Storage: `memory/long_term.json` (6 categories); prompt budget separation (200k chars stored vs 900 injected)
+  - Integration: plugins as `TOOL`/`PLUGIN` dicts auto-discovered at startup (name regex `^[a-zA-Z_][a-zA-Z0-9_]{0,63}$`, collisions logged-and-rejected); `pyautogui/pyperclip/pygetwindow/playwright/mss/opencv/psutil/ddgs/tinytuya`; Gmail/Calendar OAuth; Windows-only `pywinauto/pywin32/pycaw/wmi`; `setup.py`/`core/installer.py` OS autostart
+- **Strength:** Zero-touch extensibility (one file in `actions/` or `plugins/` auto-registers tool schema + prompt rendering), and `confirm.py` is the rare *correct* answer to LLM self-approval
+- **Bottleneck:** single module-global `_pending` confirmation — two racing irreversible actions overwrite each other; `WHEN_IDLE`/`SILENT`/`INTERRUPT` scheduling hints are advisory metadata with no client-side execution contract
+
+### 4. eadmin2/jarvis_ai (MIT) — FastAPI voice server + Hermes Agent over HTTP/SSE + arc-reactor HUD
+
+- **Pipeline**
+  - HUD: `server/hud/index.html` (vanilla JS, single file) — click-the-ring → `getUserMedia` 16 kHz mono → inline `AudioWorkletProcessor` downsamples → 80 ms int16 frames over `/ws`; native client `client/client.py` (sounddevice + openwakeword `hey_jarvis` threshold 0.55 or push-to-talk) → same PCM to `:8765/ws`; wire protocol documented in `docs/ARCHITECTURE.md`
+  - STT two-tier (`VoicePipelineServer.transcribe`, `server.py:302`): GPU worker `POST :8768/stt` (`worker/stt_server.py`: faster_whisper `large-v3-turbo`, cuda, fp16, `beam_size=1`) with silent fallback → local `RealtimeSTT.AudioToTextRecorder` (`small.en`, cpu, int8), constructed once per process behind a single `asyncio` `stt_lock` (STT globally serialized); partial captions via `_maybe_schedule_partial` every `stt.partial_interval` (1.2 s) re-transcribing the buffer
+  - Agent: `HermesAPI` (`server.py:202`) → `http://127.0.0.1:8642`, `POST /api/sessions/{id}/chat/stream` (SSE) per turn, `/v1/runs/{id}/stop` for STOP, `/v1/runs/{id}/approval` for approvals; session ids persist in `server/logs/hermes_sessions.json`; `X-Hermes-Session-Key: jarvis:user:main` scopes long-term memory
+  - SSE parse (`_parse_sse`): `run.started` → `assistant.delta` → `tool.started` (name + 200-char preview; `_`-prefixed pseudo-tools filtered) → `*approval*` → cards → `assistant.completed` → `run.completed` (tokens → `logs/usage_stats.json`); Hermes-down fallback: direct Anthropic `claude-haiku-4-5` (`max_tokens: 220`, temp 0.3) — memory-less, tool-less
+  - Approvals: Hermes `*approval*` SSE → `approval_request{data,run_id}` → HUD ALLOW/DENY cards → decision POSTed to `/v1/runs/{id}/approval`
+  - STOP/barge-in: cancels the asyncio turn task + `/v1/runs/{id}/stop`; barge-in records the last spoken sentence and injects a cut-off note into the persistent session so memory matches what the user heard
+  - TTS: ElevenLabs `eleven_flash_v2_5` `/v1/text-to-speech/{voice_id}/stream?output_format=pcm_16000`, sentence-split streaming while the agent still generates (~3 s to first audio); secret redaction before cloud TTS
+  - Deploy: two macOS LaunchAgents with hard-won `NumberOfFiles=8192` fix (server idles ~244 FDs; dies under launchd's 256 default); ports 8765 (WS), 8766/443 (TLS HUD), 9443 (dashboard proxy), 8767 (stats), 8768 (GPU STT)
+- **Tech stack**
+  - Inference & Orchestration: FastAPI + `requests` Hermes client over HTTP/SSE (not subprocess/SDK/MCP); `hermes-plugin/hud_display/` native plugin (`ctx.register_tool`) exposing `hud_display`/`hud_dismiss`, POSTing back to `/api/summon` over loopback
+  - Voice & Vision: faster-whisper (CPU `small.en` int8 / remote `large-v3-turbo` fp16); RealtimeSTT `AudioToTextRecorder`; ElevenLabs Flash streaming; vanilla-JS HUD
+  - Memory & Storage: delegated to Hermes sessions (`jarvis:user:main`); usage stats JSONL
+  - Integration: loopback HTTP between voice server and agent process — the agent and the voice pipeline are separately deployable, restartable units
+- **Strength:** Pipelined latency (sentence-split streaming TTS while generation continues, ~3 s to first audio) plus secret redaction pre-TTS and real deployment hardening
+- **Bottleneck:** one `AudioToTextRecorder` behind one lock (partials and finals mutually block, no multi-user path); remote STT probed with a 6 s timeout per turn (degraded-but-reachable GPU worker = 6 s dead air); `ack_after_seconds`/`ack_texts` in `server.example.yaml` are dead config — long tool runs go silent
+
+### 5. adewaskar/jarvis — browser face, Claude Code headless as the brain
+
+- **Pipeline**
+  - `src/App.tsx` → `src/lib/voice.ts`: one `SpeechRecognition` instance for the page lifetime (mic stays open while JARVIS talks → barge-in); wake `WAKE_ENGINE='porcupine'` if `VITE_PICOVOICE_ACCESS_KEY` (offline WASM) else `'speech'` — same stream scanned for `WAKE` regex with Jarvis aliases (`jarvys|jervis|travis|jarviss|java's|jarv`) since Chrome mishears the name; `onWake(trailing)` catches "Jarvis, what's the weather" in one breath
+  - Endpointing: energy VAD (`vad.ts`) + assembler holding `CONTINUES` function words so mid-thought pauses don't split turns; modes `wake → command → guard`; extras: `clap.ts` transient detector (`PEAK_OVER_FLOOR=7`, `MIN_PEAK=0.055`), `hands.ts` MediaPipe WASM
+  - Brain: `brain.ts::ask()` → `bridge.ts::ask()` → `ws://localhost:8787` `{type:'ask'}` → `bridge/server.mjs` → `@anthropic-ai/claude-agent-sdk` `query({prompt, model: JARVIS_MODEL ?? 'claude-opus-5', effort: 'high', maxTurns: 24, includePartialMessages: true, permissionMode: 'default', settingSources: []})` — `settingSources: []` blocks `~/.claude/settings.json` bypasses, then `~/.claude.json` `mcpServers` are re-injected by hand
+  - Tool surface: Claude Code built-ins + all local MCP servers + 4 in-process servers (`jarvis` display/blade, `jarvis_ui` live Three.js restyle, `jarvis_chrome` driving the user's Chrome, `jarvis_eyes` camera)
+  - Gate: `canUseTool` → `decideTool()`: `READ_ONLY_BUILTINS` vs `WRITE_BUILTINS` on `JARVIS_ALLOW_WRITES==='1'`; MCP names matched against `EFFECTFUL_VERB` regex (`send|delete|buy|deploy|…`), `READ_ONLY_MCP` allowlist, `READ_VERB` prefix regex — with the honest comment that deny is reliable but absence of a gate call proves nothing ran
+  - Output: streamed `delta` frames → sentence-split `tts.ts` (single-pump queue cuttable for barge-in; `ECHO_TAIL_MS=1800` self-echo suppression; `fillers.ts` speaks ahead of tool calls); TTS = `speechSynthesis`, `kokoro-js` ONNX (`bm_george`), or ElevenLabs (`JBFqnCBsd6RMkjVDRZzb`); face: React 19 + three/fiber/drei + custom GLSL, zustand, mic level drives visualizer
+- **Tech stack**
+  - Inference & Orchestration: `@anthropic-ai/claude-agent-sdk@^0.3.220`; `ws@^8.21.1` bridge (`JARVIS_BRIDGE_PORT ?? 8787`); config via `VITE_BACKEND`/`VITE_TTS_ENGINE`/`VITE_KOKORO_VOICE`/`VITE_USE_ELEVENLABS`/`VITE_PICOVOICE_ACCESS_KEY`/`JARVIS_ALLOW_WRITES`/`JARVIS_MODEL`/`JARVIS_EFFORT`
+  - Voice & Vision: Web Speech API (Google-server STT); `@picovoice/porcupine-web`; kokoro-js; MediaPipe tasks-vision
+  - Memory & Storage: none of its own — inherits whatever the Claude Code session holds
+  - Integration: piggybacks the user's existing Claude Code install and every stdio MCP server on the machine; zero new credentials
+- **Strength:** Library-grade brain — running the coding agent you already have headless inherits every local MCP server with zero new credentials; sentence-level streaming TTS = low-latency-by-architecture
+- **Bottleneck:** "the socket is the session" — one SDK `query()` per WebSocket, so any reconnect silently wipes conversational memory while the transcript still shows it; `maxTurns: 24` with no resume/continuation can kill long tool chains
+
+### 6. mem0 (mem0ai/mem0, Apache 2.0) — LLM-driven memory layer, v3 phased pipeline
+
+- **Pipeline** (`mem0/memory/main.py::Memory`)
+  - `add(messages, user_id/agent_id/run_id, infer=True)` → `_add_to_vector_store()`: Phase 0 — `db.get_last_messages(session_scope, limit=10)`; Phase 1 — embed query, vector search `top_k=10`, map UUIDs→integer indices (anti-hallucination); Phase 2 — single LLM call emits ADD/UPDATE/DELETE/NOOP against numbered existing memories; Phase 3 — `_create_memory()` / `_update_memory()` / `_delete_memory()`; entity linking (`_upsert_entity`, `_link_entities_for_memory`)
+  - `infer=False` stores verbatim; `search()` → `_search_vector_store()`: embed → filtered vector search → `_compute_entity_boosts()` → optional reranker (`threshold=0.1`); full CRUD + `history()`; every mutation journaled to SQLite `~/.mem0/history.db`
+- **Tech stack**
+  - Inference & Orchestration: `mem0/llms/` (default openai; anthropic, gemini, groq, deepseek, together, xai, ollama, vllm, lmstudio, litellm, langchain, azure, bedrock, minimax, sarvam + structured-output variants); `MemoryConfig` Pydantic; Python + TypeScript SDKs, REST `server/`, `proxy/` mode, `Memory.chat()`, MCP `integrations/`
+  - Voice & Vision: none (memory substrate only)
+  - Memory & Storage: vector stores — Qdrant (default), Chroma, pgvector, MongoDB, Redis, Elasticsearch, OpenSearch, Pinecone, Weaviate, Milvus, FAISS, Supabase, Upstash, Valkey; embeddings (openai, ollama, huggingface, fastembed, gemini, together, vertexai, azure, bedrock, lmstudio); entity graph via `_upsert_entity`/`_link_entities_for_memory`
+  - Integration: drop-in `m.add()` / `m.search()`; widest vector-store matrix in the survey
+- **Strength:** the phased add (retrieve-before-extract, single-call ADD/UPDATE/DELETE decisions, entity boosts) is the most token-efficient and update-correct design here — fixes the naive append-only embedding dump that lets long-running agents contradict themselves
+- **Bottleneck:** an LLM judges every write (mis-extractions compound silently); heaviest cost-per-write option, and memory content routes through whichever LLM provider you configure
+
+### 7. memU (NevaMind-AI/MemU, Apache 2.0) — memory-as-files service, LLM-free core
+
+- **Pipeline**
+  - Record seam: scheduled task runs `memu memorize` on the host's session log → `app/memorize/lifecycle.py::prepare_memorize()` materializes transcript → *host agent* distills memories/skills to Markdown ("judgment and synthesis stay inside the agent; `MemoryService` makes no LLM or chat calls") → `commit_memorize()` writes `RecallFile` rows (track `"memory"`|`"skill"`) + `Resource` rows, slices files into `RecallFileSegment`s (the embed unit); drop-and-recreate on re-slice
+  - Inject seam: instruction-file standing order → `<binary> retrieve` → `AgenticMixin::progressive_retrieve()` (`app/agentic.py`): embed query → batched `_EmbeddingBatch` segment ranking → roll up to parent files → `_materialize_hits()` into context; cursor pagination
+  - Install: `SKILL.md` (`name: install-memu`) routing skill → `pip install --upgrade memu-cli` → `memu-agent detect` → pick binary (`memu-codex`, `memu-claude-code`, `memu-cursor`, `memu-openclaw`, `memu-hermes`, `memu-workbuddy`, `memu-cola`, `memu-pi`, `memu-agent` in `hosts/`) → wire both seams behind verify gates
+- **Tech stack**
+  - Inference & Orchestration: none of its own — the connected agent does all synthesis
+  - Voice & Vision: none
+  - Memory & Storage: Pydantic models (`database/models.py`): `Resource` (url/local_path/caption/embedding), `RecallFile` (name/description/content/embedding), `RecallFileSegment` (recall_file_id/text/embedding); `Database` Protocol with inmemory/sqlite/postgres backends (`database/factory.py`); embeddings via OpenAI, Jina, Voyage, OpenRouter, Doubao (`embedding/backends/`); optional memU Cloud (`memu.so`) with sync/webhooks via memU-server + memU-ui
+  - Integration: per-host adapter CLIs mine host session logs (Claude Code `~/.claude/projects/<project>/<session>.jsonl`, Codex, Cursor, OpenClaw, Hermes `~/.hermes/state.db` read-only) and patch instruction files (`CLAUDE.md`/`AGENTS.md`/`SOUL.md`)
+- **Strength:** human-readable portable Markdown memory that survives provider pricing changes; ~500 lines of core logic, zero LLM calls = zero extraction cost/risk; one memory across heterogeneous harnesses
+- **Bottleneck:** quality is entirely agent-dependent (weak agent → weak Markdown, no validation layer); retrieval is a single embedding pass with no rerank/graph, so relational queries underperform mem0-graph
+
+### 8. Honcho (Plastic Labs, open-source) — reasoning-first memory
+
+- **Pipeline**: the Honcho Loop — **Store** (raw conversations/events/tool traces as messages on `Workspace → Peers → Sessions → Messages`) → **Reason** (background loop updates a per-peer *representation* — an LLM-derived model of each participant: preferences, technical level, goals, drift over time; dialectic reasoning models what one peer knows about another) → **Query** (natural-language questions like "how technical is the user?", semantic search, peer cards) → **Inject** (drop result into any LLM call)
+- **Tech stack**
+  - Inference & Orchestration: background reasoning loop over any OpenAI-compatible LLM endpoint (Ollama/vLLM accepted → stays on-prem); managed alternative `api.honcho.dev`
+  - Voice & Vision: none
+  - Memory & Storage: PostgreSQL + pgvector (messages, representations, embeddings), Redis (caching); embeddings default `openai/text-embedding-3-small`, swappable (local BGE via vLLM)
+  - Integration: Hermes provider (`hermes memory setup` → provider `honcho`; `memory.provider: honcho` in `~/.hermes/config.yaml`) — injects provider context into system prompt, prefetches relevant memories before each turn (background, non-blocking), syncs turns after each response, extracts on session end, mirrors `MEMORY.md`/`USER.md` writes; tools `honcho_profile`, `honcho_search`, `honcho_context`, `honcho_reasoning`, `honcho_conclude`; knobs `contextCadence` (1), `dialecticCadence` (2), `dialecticDepth` (1–3), `recallMode` (`hybrid`/`context`/`tools`), `writeFrequency` (`async`/`turn`/`session`/N)
+- **Strength:** the only memory layer maintaining a *reasoned model of the user* rather than a fact pile — cross-session alignment works even when no single stored fact answers the question
+- **Bottleneck:** heaviest self-host footprint (Postgres+pgvector, Redis, LLM, embedder — four services); dialectic LLM calls every N turns add latency/cost; representation drift is silent until manually corrected
+
+### 9. alexcandothat's DIY stack — capture-to-graph-to-voice, "intelligence = context + relevancy"
+
+- **Pipeline**
+  - Capture: Plaud Note/NotePin records → pulled via unofficial `api.plaud.ai` REST (Bearer token lifted from logged-in `app.plaud.ai` session; EU `api-euc1.plaud.ai`): list files → download MP3/WAV → fetch transcript + AI summary (S3, gzip); fallback: folder-watching Plaud desktop export
+  - Transcribe: faster-whisper (CTranslate2, int8-quantized Whisper `large-v3`, CPU on Mac Mini) → JSON timestamped segments + speaker diarization → cleaned Markdown
+  - Store: transcripts land as Markdown in an Obsidian vault; entities become `[[wikilinked]]` notes — a plain-text link network on the filesystem (greppable, git-friendly, no DB)
+  - Reason: Hermes Agent (v0.14) on Mac Mini — session memory, persistent `MEMORY.md`/`USER.md`, skill memory (auto-written reusable skill docs); reads the vault as files
+  - Retrieve ("Fletcher"): embed query → rank notes/segments → inject top-k into the agent's working context — the relevance gate ("full recall would drown the model")
+  - Voice: Raspberry Pi satellite (openWakeWord/Porcupine wake → audio to Mac Mini over HTTP/MQTT LAN → Piper TTS playback) → Amazon Echo as room endpoint (Alexa skill webhook / audio cast)
+- **Tech stack**
+  - Inference & Orchestration: Hermes Agent (Nous Research, MIT) on Mac Mini; model-agnostic
+  - Voice & Vision: Plaud recorder; LocalWhisper (faster-whisper); Pi satellite + Echo endpoint; USB SSD storage (moved off microSD after the AI HAT covered the slot — Part 27)
+  - Memory & Storage: Obsidian vault (Markdown + wikilinks); Fletcher retrieval
+  - Integration: filesystem as the integration bus; every stage local and replaceable
+- **Strength:** privacy-segmented by design — capture, transcription, knowledge, reasoning are each local and replaceable; no single cloud sees the whole pipeline; the capture → normalize → store → retrieve → act discipline is the most replicable in the set
+- **Bottleneck:** seven handoffs = seven failure surfaces; the unofficial Plaud API is the fragile link (token expiry, no rate limits, breaks on any Plaud web change); Fletcher is bespoke with no published eval, and wikilink-graph retrieval degrades without active curation
+
+### 10. chloeshy.ai's business-ops Jarvis — live metrics → Kokoro brief → MCP actions
+
+- **Pipeline**: Pull (RevenueCat + Meta Ads via MCP) → Interpret (trends, spend, return) → Speak (Kokoro TTS report) → Recommend (PR review, content research) → Act (browser via Playwright MCP) → Observe (read result, update state)
+  - Demo figures: 2,459 new downloads, $4,289 revenue, $475 ad spend, 1.5 ROAS over seven days
+- **Tech stack**
+  - Inference & Orchestration: Claude host holding all three MCP servers' tool lists simultaneously; MCP mechanics — Host/Client/Server split; transports stdio (JSON-RPC 2.0 over stdin/stdout) or Streamable HTTP; `initialize` → `tools/list` (JSON Schema) → `tools/call`; `isError` signaling; primitives Tools/Resources/Prompts; Sampling (server asks host for a completion mid-tool); safety annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`)
+  - Voice & Vision: Kokoro TTS (hexgrad/Kokoro, 82M-param StyleTTS 2 + ISTFTNet, Apache 2.0, 54 voices, 8 languages; `kokoro-onnx` CPU path; first chunk ~100–200 ms warm)
+  - Memory & Storage: none disclosed beyond the dashboard
+  - Integration: Playwright MCP (`@playwright/mcp`, Microsoft, stdio via `npx`) — `browser_navigate/click/type/fill/press_key/select_option/hover/drag`, `browser_snapshot` (ARIA accessibility tree — "no vision models needed"), `browser_take_screenshot`, `browser_evaluate`, `browser_tabs/network_requests/console_messages/file_upload/storage_state`; RevenueCat MCP (`REVENUECAT_API_KEY_V2`, `REVENUECAT_PROJECT_ID`; local webhook listener `127.0.0.1:8787/revenuecat` for real-time subscriber events); Meta Ads MCP (`META_APP_ID`/`META_APP_SECRET`/System User token `ads_read`, Graph v21–v25; `get_campaign_insights` etc.; safety-conscious servers force new objects to PAUSED)
+- **Strength:** MCP is the first *portable* tool substrate — the same servers plug into Claude Desktop/Code, Hermes, or n8n's MCP Client Tool with zero reimplementation; the pull → interpret → speak → recommend → act loop is the clearest working business demo in the set
+- **Bottleneck:** tool-count bloat (every server's full toolset lands in context each turn — latency + tokens; disciplined hosts filter per-server); browser control without permissions/approval thresholds/retries/stale-data checks/audit log can quietly do the wrong thing
+
+### 11. James Goldbach's "Donna" — one Telegram chat driving six systems
+
+- **Pipeline**
+  - Ingress: Telegram bot (Bot API); every update (`message.chat.id`, `message.text`, voice-note `file_id`) mapped `chat_id` → persistent agent session
+  - Fan-out tools (Hermes/OpenClaw-style gateway, typed functions in the ReAct loop): Google Calendar (OAuth2 `events.list/insert`); Gmail (OAuth2 `users.messages.list`/`get`/`send`/`modify`); meeting transcripts (voice notes → faster-whisper → Obsidian/Markdown, entity extraction feeds other tools); CRM (HubSpot/Notion API `contacts.search`, `deals.create/update`); iMessage (no API — Mac running the harness: AppleScript + `~/Library/Messages/chat.db` SQLite reads, AppleScript send)
+  - Approval gating: destructive/external actions (send email, send iMessage, book calendar, update CRM) marked approval-required → agent drafts → Telegram inline keyboard (`Approve`/`Edit`/`Reject` via `callback_data`) → paused tool call resumes/revises/cancels on the `callback_query` webhook
+  - Proactive: same gateway runs cron tasks — morning brief, calendar-scan pings, unread-triage digests — pushed to the same chat
+- **Tech stack**
+  - Inference & Orchestration: agent gateway (Hermes/OpenClaw-class); per-domain typed tools; cron scheduler
+  - Voice & Vision: Telegram voice notes → faster-whisper
+  - Memory & Storage: session store per `chat_id`; transcript notes store
+  - Integration: Telegram Bot API webhooks; Google OAuth2; AppleScript + Messages SQLite (the fragile joint — needs an always-on signed-in Mac; macOS updates can break it)
+- **Strength:** interface collapse — one chat replaces six apps; the approval-keyboard pattern gives CEO-grade control (nothing irreversible fires without a tap) without dropping into each app
+- **Bottleneck:** iMessage bridge fragility; approval gating creates a throughput ceiling and approval fatigue → rubber-stamping, the exact failure the gate was built to prevent
+
+### 12. Thanhy's LiveKit build — the complete free duplex-voice stack (Android + iPhone)
+
+- **Pipeline**: `livekit-agents` SDK worker joins a LiveKit room as a participant; client (browser/Android/iOS via LiveKit client SDKs — same agent logic, both phones) publishes mic track → WebRTC → LiveKit SFU (self-hostable or Cloud) → worker: noise cancellation (Krisp/BVC plugin) → Silero VAD → semantic turn detector (Qwen2.5-0.5B ONNX) → STT plugin (Deepgram nova-3 / AssemblyAI / Gemini) → LLM plugin (OpenAI/Anthropic/Gemini) → TTS plugin (Cartesia/ElevenLabs/Gemini) → agent audio track → WebRTC → speaker; barge-in cancels the TTS track in ~200 ms; realistic full-turn latency ~600–900 ms; streaming partial transcripts + token-by-token TTS hide model TTFT
+  - Camera vision: client publishes a video track; worker subscribes; LLM plugin receives frames (continuous or on-demand via a function tool, e.g. "look at camera") — JPEG-downscaled at 2–5 fps as image parts
+- **Tech stack**
+  - Inference & Orchestration: LiveKit Agents (Python/Node); plugin model for STT/LLM/TTS/VAD/turn detection; SIP ingress/egress exists as a separate component for telephony
+  - Voice & Vision: Silero VAD (~1 ms CPU inference, 2 MB ONNX); Deepgram nova-3 streaming STT (partials ~300–600 ms); Cartesia Sonic / ElevenLabs streaming TTS; video-track camera frames
+  - Memory & Storage: none in the framework — the agent worker owns it
+  - Integration: WebRTC transport; one code path for Android, iOS, browser
+- **Strength:** the only framework in the survey giving mobile-native real-time duplex voice with one code path, plus an open telephony bridge later
+- **Bottleneck:** cloud STT/LLM/TTS per-minute costs stack; the framework gives you transport, not memory, tools, or approvals — the Jarvis parts are all on you
+
+### 13. manujademin's 100% offline Python stack — the no-cloud reference
+
+- **Pipeline**: openWakeWord (always-on, ~1–5% CPU on Pi) → Silero-style VAD → faster-whisper (int8; `base` ≈ 1–3 s per 5 s audio on Pi 4) → Ollama (Llama 3.1, GGUF Q4) → Piper TTS (ONNX VITS voices, ~100–300 ms TTFB on Pi, PCM streaming) → speaker; mic stream never leaves the house until the keyword fires
+- **Tech stack**
+  - Inference & Orchestration: Ollama REST (`/api/chat`, `/api/generate`, OpenAI-compatible, tool-calling support); llama.cpp backend (GGUF quantization)
+  - Voice & Vision: openWakeWord (Apache 2.0, ONNX); faster-whisper (CTranslate2); Piper TTS
+  - Memory & Storage: none beyond the model context
+  - Integration: local function calls between stages; Wyoming protocol (TCP PCM) when mic/speaker live on satellites; MQTT optional
+- **Strength:** total sovereignty, zero marginal cost, works with no internet — the privacy-tier reference for everything intimate (raw audio, wake detection)
+- **Bottleneck:** utterance-level STT (no true streaming partials) raises the wake→answer latency floor; Pi-class LLMs (1.5B–4B) are command-class, not conversation-class — open agentic loops need the hop to a bigger brain
+
+### 14. Zubair's phone-number Jarvis — Retell AI telephony as an agent action
+
+- **Pipeline**: PSTN call → carrier → Retell SIP stack → media bridged (8 kHz G.711 / 16 kHz Opus) into the agent session → STT → LLM → TTS → injected back into call audio; outbound dial via SIP when the agent initiates (appointment booking, invoice follow-up calls); ~800 ms end-to-end typical; custom LLMs pluggable via API
+- **Tech stack**
+  - Inference & Orchestration: Retell managed platform (phone numbers + SIP trunking + WebSocket agent API + server-side VAD→STT→LLM→TTS loop)
+  - Voice & Vision: telephony audio path; FYI/will.i.am's variant adds per-agent phone numbers + a cron-like scheduler for proactive outbound check-ins on user-owned hardware
+  - Memory & Storage: agent-side
+  - Integration: SIP; Luke Builds AI's driving-call reel demonstrates the *pattern* (agent-initiated call with approval gating: report bug → tested fix → ask deploy approval) even where the carrier plumbing isn't shown
+- **Strength:** the agent becomes reachable and proactive over the oldest network there is — inbound and outbound calls as ordinary agent actions
+- **Bottleneck:** cloud, per-minute pricing; you don't own the number path; telephony STT errors can trigger wrong tool calls with no visual confirmation channel
+
+### 15. n8n stacks — Nate Herkman (Lovable + ElevenLabs + n8n) & Velmatic (Claude Sonnet over n8n)
+
+- **Pipeline**: Trigger (Chat / Webhook / Telegram / Schedule) → AI Agent root cluster node → ReAct loop: Chat Model sub-node (OpenAI/Anthropic/Ollama/OpenRouter) + Memory sub-node (Window Buffer/Postgres/Redis keyed by `session_id`) + Tools sub-nodes (HTTP Request, Gmail, Google Calendar, Vector Store retriever, Code, sub-workflow, MCP Client Tool — n8n ≥ 1.2, Streamable HTTP) → tool sub-node executes → observation → iterate; `$fromAI()` expressions pass runtime values into tool params; credentials are first-class vault objects (OAuth2/API keys) per-node, never inline
+  - Nate: Lovable (React+Vite) → `POST /webhook/agent` `{message, session_id}` → `{reply, session_id}`; ElevenLabs via Conversational AI WebSocket (realtime duplex) or MediaRecorder → STT → n8n → ElevenLabs TTS REST (`POST /v1/text-to-speech/{voice_id}`) → MP3 in the Lovable UI
+  - Velmatic: Telegram Trigger (Bot API webhook/long-poll) → AI Agent + Anthropic Sonnet + Memory keyed by Telegram `chat_id` → Google Calendar tool (`events.insert` + Meet link), Gmail tool → `sendMessage` to originating `chat_id`
+  - Webhook reliability: response mode immediate or "when last node finishes"; senders retry on timeout/5xx → production builds need an idempotency key (provider event ID) checked against a store at the top of the workflow
+- **Tech stack**
+  - Inference & Orchestration: n8n's Advanced AI node set (LangChain.js, visual); self-hosted Docker (`n8nio/n8n`) with Postgres/SQLite; workflows as importable JSON via REST API; execution log = free audit trail
+  - Voice & Vision: ElevenLabs (Turbo v2/v2.5, streaming WebSocket, TTFB ~300–500 ms, per-character pricing)
+  - Memory & Storage: Window Buffer / Postgres / Redis keyed by session
+  - Integration: 400+ prebuilt nodes; MCP Client Tool bridges the MCP ecosystem in; Telegram Bot API; Google OAuth2
+- **Strength:** fastest path from idea to working agent — auth, retries, scheduling, and hundreds of integrations are prebuilt; the execution log is a free audit trail of every tool call
+- **Bottleneck:** the visual graph *is* the codebase (JSON diffs, click-to-test); tool-call latency stacks per HTTP round-trip through the executor; the ReAct loop has no built-in budget guard (runaway loops burn tokens until timeout); self-hosted n8n inherits webhook-reliability duty (idempotency, retries, TLS)
+
+### 16. Cintas's Hermes + NotebookLM loop — overnight research that reads and connects
+
+- **Pipeline**
+  - Harvest (Hermes): scheduled task (built-in NL cron) fires overnight → `delegate_task` subagents (3 concurrent) run research passes: web search (Firecrawl), paper fetches, RSS → URLs + extracted text
+  - Feed (NotebookLM): `notebooklm-py` CLI (unofficial — Google exposes no NotebookLM API): `notebooklm login` (one-time Google OAuth, cached) → `notebooklm create "Research — <date>"` (notebook UUID) → `notebooklm source add "<url>"` (auto-detects: `http…` → web, YouTube URL → transcript extraction, file path → upload, `drive://<id>` → Drive doc, `text:` → pasted); `source add-research --mode deep` triggers NotebookLM's own deep-research import
+  - Generate (async): `notebooklm generate audio/report/mind-map/slides` → `task_id` (pending) → poll `artifact wait` in a background task (minutes to 30+)
+  - Connect: `notebooklm ask "…"` → `{"answer", "references": [{"source_id", "citation_number", "cited_text"}]}` — every claim cited; `notebooklm source fulltext` pulls indexed text; agent diffs answers against prior nights' notes (same claim across sources, contradictions, emerging threads) → morning synthesis → Hermes pushes to Telegram/Discord/email at wake time; optional `notebooklm generate audio --wait` for commute listening
+- **Tech stack**
+  - Inference & Orchestration: Hermes scheduled tasks + subagent delegation; NotebookLM's grounded RAG as the reader
+  - Voice & Vision: audio-overview generation for playback
+  - Memory & Storage: NotebookLM side Google-hosted (opaque index); Hermes side local audit trail (session logs, `MEMORY.md` research notes, artifact URLs in `~/.hermes/state.db`)
+  - Integration: unofficial internal RPC surface (`notebooklm-py`)
+- **Strength:** true division of labor — NotebookLM's cited, grounded synthesis is a better research reader than any DIY chunk pipeline, and Hermes supplies what NotebookLM lacks: autonomous scheduling and multi-source ingestion
+- **Bottleneck:** built entirely on an unofficial API (Google changes the RPC surface; auth expires; no SLA); generation latency (up to 30+ min) makes the overnight window tight; a silent UI change can break the harvest loop with no error contract
+
+### 17. Arcus (@avoshuu) — local-first chief of staff, "Dynamic agent island v1"
+
+- **Pipeline**: intent enters via chat/voice or a scheduled event → routed to role-separated agents (Research, Developer, Browser) → local models reason (sensitive context stays on owned hardware) → actions reach a surface (desktop, watch, Discord, phone, proactive call); operator interfaces: PowerShell + chat UI; "arcus voice" mini-notch, watch pings, proactive phone calls; hardware roadmap (Friday Assistant, smart glasses, Bluetooth tag, "brain box")
+- **Tech stack**: locally run models (exact model/serving layer undisclosed); agent island roles; multi-surface control (desktop, Discord server, phone); vision is product/interface work, not published internals
+- **Strength:** the architecture is right — surfaces as replaceable clients over one durable brain, local-first privacy, proactive contact; closest to the "one brain, many surfaces" end state
+- **Bottleneck:** no disclosed orchestration framework, memory schema, permissions model, evaluation system, or local-model setup — a north star, not a reproducible recipe
+
+### 18. Z.E.R.O (@jonathonmj) — the tool-vs-operator contract
+
+- **Pipeline** (framing, not disclosed internals): Purpose → Plan → Tool → Observe → Correct → Remember; parallel agents (qualify leads, draft outreach, scan releases, build pipelines, write rollups); persistent context (founder role, research automation, Python/Flask stack, safety model); "32 tools wired to its hands"; brain-metaphor UI (Motor Cortex, Prefrontal, Concept Layer, Language, Brainstem, Hippocampus)
+- **Tech stack**: undisclosed orchestration engine; theatrical dashboard over ordinary workflow automation
+- **Strength:** the best *framing* in the set — the operator contract (explicit goal, scoped tools, persistent state, feedback, escalation) is exactly what separates a demo from a system; tool-vs-operator table (waits for prompt vs wakes on events; returns content vs pursues outcomes; single interaction vs multi-step state machine)
+- **Bottleneck:** polished screen recording may be pre-scripted; no orchestration engine, tool list, or autonomy proof disclosed — steal the contract, not the claims
+
+### Also profiled, honestly scoped
+
+- **hectorg2211/jarvis** — a double-clap *trigger*, not an assistant: `sounddevice` + numpy hand-rolled DSP (adaptive noise floor `NOISE_FLOOR_ALPHA = 0.992`, quiet-gate `QUIET_GATE_MULT = 2.2`, spike at `max(floor × 7.0, 0.012)`, re-arm below 0.55×; clap gap 0.05–0.35 s, `COOLDOWN_S = 0.45`) → threaded fan-out (Spotify track, `claude.ai/new` on monitor 1, Binance BTC/USDT on monitor 3, ElevenLabs welcome `eleven_multilingual_v2`/`pcm_24000`, cached `.cache/jarvis_welcome/<sha256-24>.wav`; Win32 `ctypes`; fires once per process). Genuinely robust one-file transient detector; contributes a DSP trigger, not a pipeline.
+- **nightfury217836/ai-jarvis** — the legacy archetype: `intents.json` (27 intents) → Keras `Tokenizer(1000)` → `Embedding(1000,16)` → `GlobalAveragePooling1D` → `Dense(16,relu)`×2 → softmax, 1000 epochs → `chat_model.h5`; runtime `recognize_google` (cloud, `en-IN`) → softmax < 0.6 fallback → `execute_command()` if/elif dispatch (`pyautogui`, `wttr.in`, `wikipedia`, `jarvis_notes.txt`); `pyttsx3` re-inited every call; 6 of 27 intents have no handler (`else: pass` — spoken reply, silently skipped action). Useful as the "what not to do": hardcoded intent taxonomies lose to LLM tool-calling on every axis except determinism.
+- **Qendresa Hoti's Life Admin Brain** — the canonical local RAG starter: PyPDFLoader → `RecursiveCharacterTextSplitter` (500–1000 chars, 50–150 overlap) → `nomic-embed-text` via Ollama → ChromaDB (`./chroma/`) or FAISS with `{source_pdf, page, chunk_id}` metadata → top-k (4–8) cosine → local LLM (mistral/llama3.1) → Flask/FastAPI `POST /embed`, `POST /query`. Total data sovereignty, near-zero marginal cost; ceiling is naive chunking (tables split, no reranker, multi-hop fails).
+
+## Phase 2 — The "Ultimate Jarvis" Synthesis
+
+### 1. Synthesized architecture blueprint
+
+The control loop, top to bottom. Every stage names its source system.
+
+- **Surfaces (ingress/egress)** — *Donna + eadmin2 + adewaskar + LiveKit*
+  - Messaging: Telegram/WhatsApp gateway (Hermes `gateway/` / OpenJarvis `channels/` incl. `whatsapp_baileys.py`); `chat_id`/`wa_id` → persistent session; voice notes → `getFile` → ffmpeg → faster-whisper
+  - Voice realtime: LiveKit room (WebRTC) for phone/desktop duplex + barge-in; Pi/ESP32-S3 satellites over Wyoming/MQTT for rooms; browser HUD (vanilla JS + `AudioWorkletProcessor`, 80 ms int16 frames) for desktop
+  - Telephony: SIP ingress/egress (Retell AI or LiveKit SIP) for inbound/outbound calls
+  - Rule: surfaces are replaceable clients over one brain — never separate assistants with separate memories (*Arcus lesson*)
+- **Always-on host** — *Sina's VPS pattern*
+  - Hetzner-class VPS or Mac Mini; Tailscale tailnet; dashboard bound to the Tailscale IP only (never `0.0.0.0`); `systemd` + `loginctl enable-linger`; basic-auth + signed sessions
+- **Wake & capture (edge)** — *manujademin + Mark-LIII + hectorg2211*
+  - openWakeWord (`hey_jarvis`, threshold ~0.5) or Porcupine for licensed accuracy; hector-style RMS transient detector as a clap/knock fallback; Silero VAD (~1 ms/frame) gates STT so the mic stream never leaves the room until the keyword fires
+  - STT: faster-whisper int8 locally for utterance privacy; Deepgram nova-3 streaming when sub-second partials matter (LiveKit path)
+- **Fast triage router** — *new, implied by every build's latency budget*
+  - A small local model (Qwen3/Gemma-class) classifies each input: answer-from-memory / single-tool task / deep-reasoning task → routes to local brain or cloud frontier model; keeps trivial turns off the expensive path
+- **Agent runtime (the brain)** — *Hermes + OpenJarvis + adewaskar*
+  - Hermes turn pipeline: `turn_preflight` → `assemble_api_request` (system prompt + `build_memory_context_block()` + skill payloads) → API call → `turn_tool_round` (`ToolRoundVerdict`) → `finalize_turn`; wrapped in `iteration_budget`, `interrupt_control`, `context_compressor`, `error_classifier`, `repetition_guard`
+  - Model via LiteLLM-style router (`provider/model`) with `credential_pool` per-model cooldowns — Claude/Codex/Gemini/Ollama swappable by config, zero code (*Luke 9-step build lesson*); shortcut: run Claude Code Agent SDK headless to inherit existing MCP servers (*adewaskar lesson*)
+  - Agent loops: OpenJarvis `orchestrator` (function-calling, `max_turns=10`, `parallel_tools=True`) for tool-heavy work; `monitor_operative` for continuous watch; `morning_digest` for scheduled briefs
+  - Skills: `SKILL.md` frontmatter registry + OpenJarvis's two return modes (computed result vs procedural playbook)
+- **Memory (three tiers)** — *mem0 + memU + Honcho + Hermes + Alex*
+  - Hot: session context + SQLite FTS5 (Hermes `SessionDB`) — current conversation, instant
+  - Warm: mem0-style phased extraction (retrieve-before-extract, single-call ADD/UPDATE/DELETE, entity linking/boosts) over Qdrant/pgvector — semantic recall across sessions
+  - Cold/durable: memU-style agent-synthesized Markdown vault (memory + skill tracks, git-tracked, LLM-free core) + Obsidian `[[wikilink]]` graph for human browsing (*Alex lesson*); Honcho-style per-peer reasoned representation of the user for cross-session alignment ("what is he trying to do?")
+  - Write-back rule: every completed job writes verified outcomes to the vault; the vault is the system of record the vector layer indexes
+- **Tools (one portable substrate)** — *Chloe + n8n + Home Assistant*
+  - MCP everywhere: stdio for local servers, Streamable HTTP for remote; per-server tool filtering to avoid context bloat; honor `readOnlyHint`/`destructiveHint`/`idempotentHint`
+  - Browser: Playwright MCP (`browser_snapshot` ARIA tree first, screenshots only when structure isn't enough)
+  - Integration backplane: n8n for the 400+ long-tail integrations (Gmail/Calendar as typed tools, credentials in the vault, idempotency keys on every webhook)
+  - Actuators: Home Assistant (lights/switches via HA API/MQTT; Arduino over serial for custom hardware — *xllr8ing/LogicSu lesson*)
+  - Research: Hermes scheduled harvest → NotebookLM grounded synthesis for overnight reading (*Cintas lesson*, unofficial-API risk accepted with a local-RAG fallback per *Qendresa*)
+- **Approvals & safety (the trust architecture)** — *Mark-LIII + Hermes + Donna + Hal*
+  - Forgery-proof confirm (*Mark-LIII*): irreversible actions render a UI CONFIRM/CANCEL card; only the UI's `resolve()` executes — the model can never self-approve; fix the single-global-pending flaw with per-action tokens so concurrent approvals can't overwrite each other
+  - Approval floors (*Hermes*): dangerous commands pause for ALLOW/DENY by policy tier
+  - One-tap keyboards (*Donna*): Approve/Edit/Reject inline buttons in chat for drafts (emails, bookings, posts); reads auto-execute, writes wait for a tap
+  - Undo stack (*Mark-LIII*) for reversible actions instead of prompting; full audit log per job (goal, trigger, context snapshot, plan, approval state, action log, verification, memory write — *deep-dive reference flow*)
+  - Failure rule: never report a start as a finish — "queued/running/drafted" ≠ "sent/deployed/resolved"; every tool call ends in an observation step
+- **Proactive operator loop** — *Luke 6 AM call + Tony + Hal + Z.E.R.O*
+  - Scheduler (NL cron) → gather in parallel (calendar `events.list`, Gmail `users.messages.list`, metrics) → act within policy (safe actions run; risky become drafts/cards) → verify (tests, deployment status, read-back) → audit → brief
+  - Morning brief: spoken via TTS (Kokoro/Piper local; ElevenLabs/Cartesia cloud; cloned voice for the 7 AM note — *Tony lesson*); missed call → identical brief falls back to WhatsApp
+  - Inbox triage (*Hal*): one prompt drafts replies in the user's voice (style seeded from sent-mail history / memory style note); one-tap Approve/Edit/Skip; auto-cluster newsletters/receipts so approval throughput isn't the bottleneck
+  - Operator contract (*Z.E.R.O*): explicit goal, scoped tools, persistent state, observe-and-verify, escalate-don't-pretend
+- **Voice output** — *Chloe + eadmin2 + Mark-LIII*
+  - Local: Piper (fastest edge) / Kokoro (best free neural, `kokoro-onnx`); cloud: ElevenLabs Flash streaming (sentence-split streaming while generating, ~3 s to first audio) / Cartesia Sonic; secret redaction before any cloud TTS (*eadmin2 lesson*); `ECHO_TAIL_MS`-style self-echo suppression and filler speech ahead of long tool calls (*adewaskar lesson*)
+- **Learning loop** — *Hermes + OpenJarvis*
+  - Reflective phase after tasks → background curator → skill-graph densification → agent-authored SKILL.md files; traces → SFT/GRPO for the local models
+- **Privacy tiers** — *Arcus + Alex*
+  - Raw audio → local; personal memory store → local/private cloud; heavy reasoning → hosted; credentials → connector vault/OAuth, never prompt text
+
+### 2. Consolidated tech stack table
+
+| Layer/Component | Recommended Tool/Model | Source System Borrowed From | Technical Justification |
+| --- | --- | --- | --- |
+| Agent runtime | Hermes Agent turn pipeline (`conversation_loop` → preflight → request assembly → tool round → finalizer) | Hermes Agent (Nous) | Only runtime with production turn staging plus iteration budgets, interrupt control, context compression, error classification, and repetition guards as first-class modules |
+| Agent loop variant (tool-heavy) | OpenJarvis `orchestrator` (function-calling, max_turns=10, parallel_tools) | OpenJarvis | Cleanest function-calling loop with parallel tool execution and SSE streaming; registry-plugged engines |
+| Model routing | LiteLLM-style `provider/model` router + credential pools with per-model cooldowns | Hermes (`credential_pool.py`) + OpenJarvis engines | Provider outages and rate limits become config changes; Claude/Codex/Gemini/Ollama swappable with zero code |
+| Fast triage | Small local model (Qwen3/Gemma-class) as intent router only | Implied by all builds' latency budgets; OpenJarvis's qwen3:8b failure | Keeps trivial turns off the frontier model; never give the small model tool-calling duty (it picks no-op tools under agentic prompts) |
+| Brain shortcut | Claude Code Agent SDK headless (`query()`, `settingSources: []`, MCP re-injection) | adewaskar/jarvis | Inherits every local stdio MCP server with zero new credentials; fastest path to a capable brain |
+| Hot memory | SQLite `SessionDB` + FTS5, rolling window | Hermes Agent | Instant session recall with full-text search; no vector overhead on the hot path |
+| Warm memory | mem0 v3 phased pipeline (retrieve-before-extract, ADD/UPDATE/DELETE, entity boosts) over Qdrant/pgvector | mem0 | Most update-correct semantic memory; fixes append-only contradiction drift in long-running agents |
+| Cold/durable memory | Agent-synthesized Markdown vault (memory + skill tracks, git-tracked), LLM-free core | memU | Survives provider pricing changes and model swaps; human-readable, hand-debuggable, ~500 lines of core |
+| User model | Per-peer reasoned representation + dialectic reasoning | Honcho | Only layer that maintains conclusions about the user rather than fact piles; enables cross-session alignment |
+| Human-browsable graph | Obsidian vault with `[[wikilink]]` entity notes | alexcandothat DIY | Plain-text link network: greppable, git-friendly, no database required |
+| Document RAG | Local chunk → `nomic-embed-text` (Ollama) → ChromaDB → top-k → local LLM | Qendresa Hoti Life Admin Brain | Total data sovereignty, near-zero marginal cost; the Phase-1 document memory pattern |
+| Tool substrate | MCP (stdio local, Streamable HTTP remote, per-server tool filtering) | chloeshy.ai business Jarvis | First portable tool standard; one server plugs into Claude/Hermes/n8n with zero reimplementation |
+| Browser control | Playwright MCP (`browser_snapshot` ARIA tree first) | chloeshy.ai | LLM-friendly structured DOM access without vision models; screenshot/evaluate as fallback |
+| Integration backplane | n8n (AI Agent node, typed tool sub-nodes, credential vault, idempotency keys) | Nate Herkman + Velmatic | 400+ integrations prebuilt; execution log is a free audit trail; fastest no-code tool expansion |
+| Smart-home actuators | Home Assistant (Assist API/MQTT) + Arduino over serial | xllr8ing + LogicSu | On-device entity control; the proven voice→`light.turn_off` tail |
+| Wake word | openWakeWord (`hey_jarvis`, ~0.5 threshold) / Porcupine for licensed accuracy | manujademin + Mark-LIII + adewaskar | Always-on at ~1–5% Pi CPU; mic stream never leaves the room until keyword fires |
+| VAD | Silero VAD (2 MB ONNX, ~1 ms/frame) | LiveKit builds + HF pipeline | Universal first stage; segments speech so STT only runs on speech |
+| Local STT | faster-whisper int8 (CTranslate2) | manujademin + eadmin2 + Alex | 4× faster than reference Whisper; the converged local-STT pick across three independent builds |
+| Streaming STT | Deepgram nova-3 | LiveKit builds | Sub-second partial transcripts; enables barge-in and duplex conversation |
+| Realtime voice transport | LiveKit Agents (WebRTC SFU, worker model) | Thanhy tutorial | One code path for Android/iOS/browser duplex voice + barge-in (~200 ms cancel) + video-track camera vision |
+| Local TTS | Piper (fastest edge) / Kokoro (`kokoro-onnx`, best free neural) | manujademin + chloeshy.ai | Piper ~100–300 ms TTFB on Pi; Kokoro 82M params, 54 voices, Apache 2.0 |
+| Cloud TTS | ElevenLabs Flash streaming (sentence-split while generating) | eadmin2 + Nate Herkman | ~3 s to first audio with pipelined generation; highest-fidelity cloning (Tony's 7 AM brief) |
+| Native duplex alt | Gemini Live API (single-model speech I/O) | Mark-LIII + FatihMakes | No STT→LLM→TTS chain; session resumption + sliding-window compression for hours-long sessions |
+| Telephony | Retell AI (SIP + numbers) or LiveKit SIP | Zubair phone Jarvis | Inbound/outbound calls as ordinary agent actions; scheduled check-in calls |
+| Edge satellite | Raspberry Pi 5 (active cooling) / ESP32-S3 + Wyoming | Omar Selim + HA pipeline | Wake/VAD/STT-skeleton/TTS in the room; LLM one hop away on home server or cloud |
+| Brain host | Mac Mini / RTX home rig / Hetzner VPS + Tailscale | Alex + Bennett Spooner + Sina | Split-brain rule: Pi-class devices are command-class; Jarvis-class behavior needs the hop to a bigger brain |
+| Capture | Plaud recorder → local faster-whisper → Markdown | alexcandothat DIY | Continuous life-context ingestion feeding the memory graph |
+| Overnight research | Hermes scheduled harvest → NotebookLM grounded synthesis | Cintas | Cited, hallucination-resistant reading; Hermes supplies the scheduling NotebookLM lacks |
+| Approvals | Forgery-proof UI `resolve()` + approval floors + inline Approve/Edit/Reject keyboards + undo stack | Mark-LIII + Hermes + Donna | Model can never self-approve; reads auto-execute, writes wait for a tap; reversible actions undo instead of prompting |
+| Scheduler | Natural-language cron + periodic scheduler | Hermes + OpenJarvis | Jobs wake from user message, schedule, or event — the operator loop's heartbeat |
+| Learning | Reflective phase → background curator → skill-graph densification | Hermes (`curator.py`, `learning_graph.py`) | Self-improvement as a scheduled subsystem, not a hope |
+| Morning brief | Parallel gather → digest → TTS voice note + WhatsApp fallback | Tony + Luke 6 AM call | Push experience: wake to decisions and exceptions, not a dashboard |
+| Inbox triage | One-prompt draft in user's voice + one-tap approval cards + auto-clustering | Casey Neistat's "Hal" | Drafting automated, judgment stays human; clustering keeps approval throughput above inbox volume |
+| Chat interface | Telegram/WhatsApp gateway, per-`chat_id` sessions | Donna + Denny Santoso | The chat app already open 100×/day is the interface; zero new apps to learn |
+| Safety rails | Secret redaction pre-cloud-TTS; `settingSources: []` + hand-rolled tool-effect gate; idempotency keys on webhooks | eadmin2 + adewaskar + n8n | Credentials and secrets never reach models or cloud audio; retries never double-execute |
+
+### 3. End-to-end execution trace
+
+Command: **"Check my unread emails, extract travel dates, book a calendar slot, and dim the office lights."**
+
+- **1. Ingress.** WhatsApp voice note arrives → WAHA/Baileys webhook POSTs `{from, type: audio}` → gateway verifies signature → maps `wa_id` → persistent agent session → immediate ack ("On it — checking email, calendar, and lights.")
+- **2. Transcribe (edge).** Audio blob → ffmpeg → faster-whisper int8 (local) → transcript text; raw audio never leaves the host (*privacy tier*).
+- **3. Triage.** Small local router classifies: multi-tool task (email read + entity extraction + calendar write + actuator) → escalates to the full agent runtime; prefetch fires in the background (non-blocking): warm memory (`honcho_context` — "user travels for FBA sourcing; prefers evening slots"; mem0 search "travel dates" — past trips, companions) + hot session (today's existing commitments).
+- **4. Turn assembly.** Hermes `assemble_api_request()`: system prompt + `build_memory_context_block()` (travel preferences, home timezone America/Chicago) + skill payloads (gmail, calendar, home-assistant) → cloud frontier model via LiteLLM router (credential pool, per-model cooldown).
+- **5. Plan.** Model emits a plan: (a) Gmail `users.messages.list` (`q=is:unread newer_than:7d`) → `batchGet` subjects/senders/snippets; (b) extract travel dates/entities; (c) find a free calendar slot honoring constraints; (d) dim office lights. Steps (a)+(d-probe) parallelized (`parallel_tools=True`).
+- **6. Gather.** Gmail tool returns unread threads; Home Assistant queried for `light.office` current state (verification baseline). Idempotency key (message ID) recorded so a webhook retry can't double-execute.
+- **7. Extract.** LLM reads the snippets → travel dates identified (e.g., "supplier visit Tue–Thu next week") → written to memory: mem0 `add()` (phased: dedup against existing trip facts, entity-link the supplier) + vault Markdown append (trip note, git-tracked).
+- **8. Calendar.** `calendar.events.list` (`timeMin`/`timeMax` around the travel window) → free/busy → model proposes a slot; booking is an *external commitment* → approval tier: Donna-style inline keyboard in WhatsApp — "Hold Tue 2:00–3:30 PM for supplier-visit prep? [Approve] [Edit] [Reject]". Tool call pauses on the `callback_query` webhook.
+- **9. Approve → execute.** User taps Approve → paused execution resumes → `calendar.events.insert` (with attendee + Meet link if needed) → observation: read the event back, confirm no collision.
+- **10. Actuate.** `light.turn_off`/`light.turn_on` with brightness param → Home Assistant API/MQTT → observation: read back `light.office` state; mismatch → `error_classifier` → one retry, then escalate ("lights didn't respond — check the switch").
+- **11. Verify.** Every step closes its observe loop: email list returned N threads, dates extracted and stored, calendar event exists (read-back ID), light state matches target. Nothing is reported as done without its evidence.
+- **12. Brief.** Digest → WhatsApp text: "3 unread that matter (2 supplier, 1 bank), extracted Tue–Thu travel, held Tue 2:00–3:30 PM prep, office lights dimmed to 30%." Optional: Kokoro/Piper voice note with the same content if the user prefers audio; long version stays in chat.
+- **13. Learn.** Post-task reflective phase → curator: reusable pattern ("travel-date extraction from supplier emails") proposed as a SKILL.md candidate; fact "office lights 30% = work mode" reinforced in warm memory; full audit entry (goal, trigger, context snapshot, plan, approval state, action log, verification, memory writes) appended to the job log.
+
+### What was deliberately left out
+
+- **Ghost X1 (uncensored model):** refusal-avoidance is the opposite of a trust architecture for a system touching messages, money, calendar, and home actuators. Excluded; model routing (hosted frontier + local specialist) covers the legitimate use cases.
+- **Skit/funnel builds (Luke Azaris, Blake Stephens):** no reproducible internals — but their *interaction patterns* (overnight batch + morning brief; operator framing with approval gates) are load-bearing parts of the synthesis.
+- **Single-purpose pieces** (hector clap trigger, nightfury Keras intents) contribute one component each (transient DSP detection; a cautionary tale about hardcoded intent taxonomies) rather than architectural roles.

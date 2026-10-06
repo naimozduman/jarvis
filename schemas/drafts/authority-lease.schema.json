@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/authority-lease/1.0.0-draft",
+  "title": "Finite Authority Lease",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.authority-lease",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "leaseId",
+    "ownerId",
+    "executorId",
+    "scope",
+    "startsAt",
+    "expiresAt",
+    "durationSeconds",
+    "sourceApprovalId",
+    "policyVersion",
+    "killEpoch",
+    "status",
+    "usedCount",
+    "context",
+    "sleepEpisodeRef"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "leaseId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "executorId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actionTypes",
+        "targetRefs",
+        "accountRefs",
+        "maximumUses",
+        "maximumRisk"
+      ],
+      "properties": {
+        "actionTypes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+          },
+          "minItems": 1,
+          "maxItems": 20,
+          "uniqueItems": true
+        },
+        "targetRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "accountRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+          },
+          "minItems": 1,
+          "maxItems": 20,
+          "uniqueItems": true
+        },
+        "maximumUses": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "maximumRisk": {
+          "type": "string",
+          "enum": [
+            "READ",
+            "LOW_RISK_INTERNAL",
+            "CONTROLLED_WRITE"
+          ]
+        }
+      }
+    },
+    "startsAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "durationSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2592000
+    },
+    "sourceApprovalId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "policyVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "killEpoch": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "active",
+        "expired",
+        "revoked",
+        "consumed"
+      ]
+    },
+    "usedCount": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000
+    },
+    "context": {
+      "type": "string",
+      "enum": [
+        "ordinary",
+        "night_mode"
+      ]
+    },
+    "sleepEpisodeRef": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "context": {
+            "const": "night_mode"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "durationSeconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 43200
+          },
+          "sleepEpisodeRef": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+          }
+        }
+      }
+    }
+  ]
+}

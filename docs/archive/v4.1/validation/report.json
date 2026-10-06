@@ -1,0 +1,158 @@
+{
+  "reportVersion": 1,
+  "packVersion": "4.1.0",
+  "generatedAt": "2026-09-26T04:31:41.432206+00:00",
+  "environment": {
+    "python": "3.13.5",
+    "node": "v22.16.0",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41"
+  },
+  "sourceArchive": {
+    "name": "JARVIS_V4_Codex_Pack.zip",
+    "sha256": "1e91e3de5a5ac0bb964c368237873a52b2f80990ba5837f4d660772ea69e771b"
+  },
+  "tests": {
+    "totalPassed": 399,
+    "failed": 0,
+    "skipped": 0,
+    "python": 136,
+    "node": 46,
+    "schema": 217,
+    "addedSinceV4": 105
+  },
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/jarvis-v4/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "pack root",
+      "startedAt": "2026-09-26T04:31:37.319083+00:00",
+      "finishedAt": "2026-09-26T04:31:38.687632+00:00",
+      "exitCode": 0,
+      "logPath": "validation/v4.1/results/python.log",
+      "logSha256": "2b59c2ef7afe8669072836decc9053147b13993252db4c3b751268aca8ffbcec"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tools/jarvis-v4/tests/trust-gate.test.mjs",
+        "tools/jarvis-v4/tests/v41-enforcement.test.mjs"
+      ],
+      "cwd": "pack root",
+      "startedAt": "2026-09-26T04:31:38.688160+00:00",
+      "finishedAt": "2026-09-26T04:31:39.738047+00:00",
+      "exitCode": 0,
+      "logPath": "validation/v4.1/results/node.log",
+      "logSha256": "5d8a290bfc7d8dfcb59fd53af0a54969d84ed2849864afdc47e749d433ef2fb1"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/jarvis-v4/schema_tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "pack root",
+      "startedAt": "2026-09-26T04:31:39.738162+00:00",
+      "finishedAt": "2026-09-26T04:31:41.289807+00:00",
+      "exitCode": 0,
+      "logPath": "validation/v4.1/results/schemas.log",
+      "logSha256": "8cf3a09dcfeef47f172371bbd09a7b87a1df20161b478882c9ce7065253c9625"
+    }
+  ],
+  "syntaxCheckedFiles": [
+    "tools/jarvis-v4/overlay_plan.py",
+    "tools/jarvis-v4/index.py",
+    "tools/jarvis-v4/isolation_probe.py",
+    "tools/jarvis-v4/version_gate.py",
+    "tools/jarvis-v4/env_report.py",
+    "tools/jarvis-v4/render.py",
+    "tools/jarvis-v4/prepare_builder.py",
+    "tools/jarvis-v4/promotion_evidence.py",
+    "tools/jarvis-v4/review_evidence.py",
+    "tools/jarvis-v4/github_candidate.py",
+    "tools/jarvis-v4/git_snapshot.py",
+    "tools/jarvis-v4/validate.py",
+    "tools/jarvis-v4/common.py",
+    "tools/jarvis-v4/isolated_worker.py",
+    "tools/jarvis-v4/reference_controls.py",
+    "tools/jarvis-v4/compile_prompts.py",
+    "tools/jarvis-v4/impact.py",
+    "tools/jarvis-v4/tests/test_pack_tools.py",
+    "tools/jarvis-v4/tests/test_reference_controls.py",
+    "tools/jarvis-v4/tests/test_v41_enforcement.py",
+    "tools/jarvis-v4/schema_tests/test_schemas.py",
+    "tools/jarvis-v4/trust-gate.mjs",
+    "tools/jarvis-v4/owner-signing.mjs",
+    "tools/jarvis-v4/evidence-signing.mjs",
+    "tools/jarvis-v4/tests/v41-enforcement.test.mjs",
+    "tools/jarvis-v4/tests/trust-gate.test.mjs"
+  ],
+  "testedToolDigests": {
+    "tools/jarvis-v4/common.py": "9cf935090afc3b186d307a725b3d10c95b99305359ece09cedd8930bedd21d97",
+    "tools/jarvis-v4/compile_prompts.py": "b89d5af0e8dfe4453ed500f2010f66128160b2b2950b32f1bc6dc4383180cd99",
+    "tools/jarvis-v4/env_report.py": "5026d8aaab10b542417f550b470f022c6adb89784e10de55304c8eb9411fca72",
+    "tools/jarvis-v4/evidence-signing.mjs": "2a533a836cbb0044ddd3e9800dccb740ea071dd059efe29663361384a6306954",
+    "tools/jarvis-v4/git_snapshot.py": "6468d0ce451d4ed182f91a0408978909aed84d755fce0911171530b9ffceb881",
+    "tools/jarvis-v4/github_candidate.py": "05b53ffac8039afe3af9bea4d6d70b3562379c562d6c43484f599f58f968d0f4",
+    "tools/jarvis-v4/impact.py": "defa49c948640bb7bcf818862283b42c44e6187319a3b09f11717f1678109a81",
+    "tools/jarvis-v4/index.py": "079042463ab89945824bcadd502dcd323d75a9687415db6b225056a4e965409b",
+    "tools/jarvis-v4/isolated_worker.py": "9d32ca3287ba902280c27ab630d531c2030083677cda38e75dd7f96867fc4f5c",
+    "tools/jarvis-v4/isolation_probe.py": "383588c426b43e78aca24a1a1795f4fe84d8e665cced687989b7607d7fd3b241",
+    "tools/jarvis-v4/overlay_plan.py": "b53f994e4a05ed55f086a9fcaab2936998316f3b3624e577f49e4b4a2c58c422",
+    "tools/jarvis-v4/owner-signing.mjs": "de3b6cca6fe881e32cebec04a4c94b7f95a264e2e9b3ddaee13336c3fb053393",
+    "tools/jarvis-v4/prepare_builder.py": "23e067291de2f1828d27191fca5faf148d2a79182e6b86e3ff7290f2791b4bc7",
+    "tools/jarvis-v4/promotion_evidence.py": "605483e0c7fc5b6e0190201f89a230f8b1136729e37032183eab58a97452a826",
+    "tools/jarvis-v4/reference_controls.py": "1a3ee1d263569dd66dafca8136025c363493d428947bf2c0e76dd650e07d08c3",
+    "tools/jarvis-v4/render.py": "1a7a6a8e00b835fa34e82c5d6953afb7fabc8615519936e3a3788751d2eaadea",
+    "tools/jarvis-v4/review_evidence.py": "66c59218ecc5891af6bc0b817e080180c090ee4442fa7c8ff5fff0da0b01a9cc",
+    "tools/jarvis-v4/schema_tests/test_schemas.py": "0c19fbffab1eda056045ca392fb6ffd46353301c36744fe2be1ed48176232bcf",
+    "tools/jarvis-v4/tests/test_pack_tools.py": "eaf141576036e65257f2ba62b4d1ef4793ff2520f47beb7600d8c87aa182ddf7",
+    "tools/jarvis-v4/tests/test_reference_controls.py": "9c1b44618a3a6c43a49c081959efa7c5f3ca56b21bec8b556195c9520f2f9d55",
+    "tools/jarvis-v4/tests/test_v41_enforcement.py": "eb5332ef4ed208f65edbe99e3bfe2c27739d6c2f6b0d827ac9a7c98f0c5bb031",
+    "tools/jarvis-v4/tests/trust-gate.test.mjs": "c4b0c0165be093651ff84c256745d859b55633614f3c9249da46c2e77a168fa8",
+    "tools/jarvis-v4/tests/v41-enforcement.test.mjs": "339e93cb8b4d1d2ad4507daf8854de592a7f222f30dd68236d9b013899e003e2",
+    "tools/jarvis-v4/trust-gate.mjs": "abe52ee5d3ea4c90482b3ba38dd6eae3eedc30dc8b823023339fdcc9b868e0ee",
+    "tools/jarvis-v4/validate.py": "1576794fe5b6758f6d7ebf1cbddeda3a26feb1fd5c50db7c09f31527fec0d587",
+    "tools/jarvis-v4/version_gate.py": "3b290c33614e2c8989a3406d7fc9346dd9b9f5add070a0d586d627a199c08e30"
+  },
+  "notRun": [
+    {
+      "check": "Real rootless Docker launch and isolation probe",
+      "reason": "Docker executable/daemon unavailable in packaging environment"
+    },
+    {
+      "check": "Live GitHub evidence verifier and required-check/merge path",
+      "reason": "No verifier/key enrollment or repository changes authorized for packaging"
+    },
+    {
+      "check": "Actual JARVIS application CI or runtime integration",
+      "reason": "This is a toolkit overlay, not a deployment/source-code implementation pass"
+    },
+    {
+      "check": "Production identity, concurrent spending, live side effects and kill switches",
+      "reason": "Remain explicit runtime mission gates"
+    }
+  ],
+  "localReportIsTrustedPromotionEvidence": false,
+  "trustEnrollment": {
+    "ownerKeyEnrolled": false,
+    "evidencePolicyEnabled": false,
+    "runtimePolicyApproved": false
+  },
+  "scope": "Local synthetic tool/control tests, exact Git fixture diffs and mocked platform metadata. No deployed security certification."
+}

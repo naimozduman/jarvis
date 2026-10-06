@@ -1,0 +1,873 @@
+{
+  "schemaVersion": 2,
+  "productGeneration": "V5",
+  "status": "proposed_for_adoption",
+  "authoritativeSequence": "dependency graph, not filename order",
+  "missionCompletionAuthority": "signed external receipts, never runState",
+  "missions": [
+    {
+      "id": "J5-M00",
+      "title": "Preserve and inventory the actual repository",
+      "path": "docs/missions/J5-M00.md",
+      "legacyPhases": [
+        "J5-M00"
+      ],
+      "dependsOn": [],
+      "runState": "ready",
+      "leadAgent": "repo_explorer",
+      "topic": "engineering",
+      "requiredReading": [
+        "docs/missions/REPOSITORY_RECONCILIATION.md",
+        "docs/security/BUILDER_ISOLATION.md",
+        "docs/agents/SESSION_CONTINUITY.md"
+      ],
+      "requirementIds": [
+        "REQ-ENG-01",
+        "REQ-ENG-02",
+        "REQ-ENG-03",
+        "REQ-ENG-04",
+        "REQ-ENG-05",
+        "REQ-ENG-06",
+        "REQ-ENG-07"
+      ],
+      "evidenceRequirements": [
+        "Produce a hash-addressed inventory and per-subsystem keep/repair/migrate/replace/retire/unresolved proposals. Identify the scripts which existing CI actually executes. Record tests not run, unsanitized sources not inspected and the exact local gaps."
+      ],
+      "completedRunRef": null,
+      "executionClass": "audit",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M01",
+      "title": "Install trusted governance and rehearse recovery",
+      "path": "docs/missions/J5-M01.md",
+      "legacyPhases": [
+        "J5-M01"
+      ],
+      "dependsOn": [
+        "J5-M00"
+      ],
+      "runState": "planned",
+      "leadAgent": "governance_reviewer",
+      "topic": "engineering",
+      "requiredReading": [
+        "docs/security/TRUST_BOOTSTRAP.md",
+        "docs/security/KEY_LIFECYCLE.md",
+        "docs/security/BUILDER_ISOLATION.md",
+        "docs/security/VERIFICATION_EVIDENCE.md",
+        "docs/security/MISSION_ADMISSION.md"
+      ],
+      "requirementIds": [
+        "REQ-ENG-01",
+        "REQ-ENG-02",
+        "REQ-ENG-03",
+        "REQ-ENG-04",
+        "REQ-ENG-05",
+        "REQ-ENG-06",
+        "REQ-ENG-07"
+      ],
+      "evidenceRequirements": [
+        "Demonstrate unsigned code denial, candidate-validator substitution denial, stale-head signature rejection, no builder bypass permissions, exact workflow evidence, isolated-worker dummy probe and recovery without the lost key. Produce a signed bootstrap receipt only after actual installation evidence exists."
+      ],
+      "completedRunRef": null,
+      "executionClass": "owner_bootstrap",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M02",
+      "title": "Decide each existing subsystem disposition",
+      "path": "docs/missions/J5-M02.md",
+      "legacyPhases": [
+        "J5-M02"
+      ],
+      "dependsOn": [
+        "J5-M01"
+      ],
+      "runState": "planned",
+      "leadAgent": "architecture_planner",
+      "topic": "engineering",
+      "requiredReading": [
+        "docs/missions/REPOSITORY_RECONCILIATION.md",
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/architecture/SCHEMA_EVOLUTION.md"
+      ],
+      "requirementIds": [
+        "REQ-CORE-01",
+        "REQ-CORE-02",
+        "REQ-CORE-03",
+        "REQ-CORE-04",
+        "REQ-ENG-01",
+        "REQ-ENG-02",
+        "REQ-ENG-03",
+        "REQ-ENG-04",
+        "REQ-ENG-05",
+        "REQ-ENG-06",
+        "REQ-ENG-07"
+      ],
+      "evidenceRequirements": [
+        "The disposition map names source hashes, affected requirements, tests, rollback boundaries, schema consumers and owner decisions. The integration planner lists every collision. No untouched subsystem is labeled verified merely because it compiles."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M03",
+      "title": "Reconcile the existing Brain and prompt runtime",
+      "path": "docs/missions/J5-M03.md",
+      "legacyPhases": [],
+      "dependsOn": [
+        "J5-M02"
+      ],
+      "runState": "planned",
+      "leadAgent": "runtime_prompt_engineer",
+      "topic": "brain",
+      "requiredReading": [
+        "docs/architecture/BRAIN_ARCHITECTURE.md",
+        "docs/architecture/CONTEXT_ASSEMBLY.md",
+        "docs/architecture/PROMPT_ARCHITECTURE.md",
+        "docs/architecture/MODEL_RUNTIME.md"
+      ],
+      "requirementIds": [
+        "REQ-BRAIN-01",
+        "REQ-BRAIN-02",
+        "REQ-BRAIN-03",
+        "REQ-BRAIN-04",
+        "REQ-BRAIN-05",
+        "REQ-BRAIN-06"
+      ],
+      "evidenceRequirements": [
+        "Editing prompt bytes changes provenance without a manual version bump. Final serialized inputs are budgeted, mandatory safety context is never silently truncated, and crash injection at each request checkpoint produces recoverable states. The legacy behavior/eval suite still runs."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M04",
+      "title": "Reconcile infrastructure and durable execution",
+      "path": "docs/missions/J5-M04.md",
+      "legacyPhases": [],
+      "dependsOn": [
+        "J5-M02"
+      ],
+      "runState": "planned",
+      "leadAgent": "backend_implementer",
+      "topic": "orchestration",
+      "requiredReading": [
+        "docs/architecture/VERCEL_RUNTIME.md",
+        "docs/architecture/CONVEX_ORCHESTRATION.md",
+        "docs/architecture/JOB_LIFECYCLE.md",
+        "docs/integrations/OUTBOUND_DELIVERY.md",
+        "docs/security/TRUSTED_TIME.md"
+      ],
+      "requirementIds": [
+        "REQ-JOB-01",
+        "REQ-JOB-02",
+        "REQ-JOB-03",
+        "REQ-JOB-04",
+        "REQ-JOB-05"
+      ],
+      "evidenceRequirements": [
+        "Exercise duplicate, stale generation, expired lease, interrupted callback, outbox projection crash and unknown provider outcome with synthetic fixtures. A proposed SQL migration is reviewed and rehearsed on a disposable database before any independently authorized staging release."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M05",
+      "title": "Prove model admission and one bounded live probe",
+      "path": "docs/missions/J5-M05.md",
+      "legacyPhases": [
+        "J5-M05"
+      ],
+      "dependsOn": [
+        "J5-M03",
+        "J5-M04"
+      ],
+      "runState": "planned",
+      "leadAgent": "backend_implementer",
+      "topic": "brain",
+      "requiredReading": [
+        "docs/security/COST_AND_MODEL_POLICY.md",
+        "docs/architecture/MODEL_RUNTIME.md",
+        "docs/architecture/VERCEL_AI_GATEWAY.md",
+        "docs/security/TRUSTED_TIME.md"
+      ],
+      "requirementIds": [
+        "REQ-BRAIN-01",
+        "REQ-BRAIN-02",
+        "REQ-BRAIN-03",
+        "REQ-BRAIN-04",
+        "REQ-BRAIN-05",
+        "REQ-BRAIN-06"
+      ],
+      "evidenceRequirements": [
+        "Concurrent jobs cannot reserve more than the approved balance. Unknown cost remains reserved. A replay does not create another paid request without an explicit reconciliation decision. One selected route proves structured output, exact provenance, cost evidence and capability/privacy preservation."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M06",
+      "title": "Build recovery and incident readiness for private data",
+      "path": "docs/missions/J5-M06.md",
+      "legacyPhases": [],
+      "dependsOn": [
+        "J5-M04"
+      ],
+      "runState": "planned",
+      "leadAgent": "release_operator",
+      "topic": "operations",
+      "requiredReading": [
+        "docs/security/DISASTER_RECOVERY.md",
+        "docs/security/INCIDENT_RESPONSE.md",
+        "docs/missions/OPERATIONS_HEALTH.md",
+        "docs/security/TRUSTED_TIME.md"
+      ],
+      "requirementIds": [
+        "REQ-OPS-01",
+        "REQ-OPS-02",
+        "REQ-OPS-03",
+        "REQ-OPS-04",
+        "REQ-OPS-05",
+        "REQ-OPS-06"
+      ],
+      "evidenceRequirements": [
+        "Restore into a clean environment with all writers disabled. Old approvals and leases fail, historical provider effects are not resent, deleted-source tombstones are honored, and RPO/RTO measurements are reported without inventing owner targets."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M07",
+      "title": "Deliver Surface Zero and trusted owner identity",
+      "path": "docs/missions/J5-M07.md",
+      "legacyPhases": [
+        "J5-M07"
+      ],
+      "dependsOn": [
+        "J5-M05",
+        "J5-M06"
+      ],
+      "runState": "planned",
+      "leadAgent": "frontend_implementer",
+      "topic": "surfaces",
+      "requiredReading": [
+        "docs/design/SURFACES_AND_CLIENTS.md",
+        "docs/security/AUTHENTICATION_BOUNDARY.md",
+        "docs/security/APPROVAL_MODEL.md",
+        "docs/security/KILL_SWITCH_DRILLS.md"
+      ],
+      "requirementIds": [
+        "REQ-SURF-01",
+        "REQ-SURF-02",
+        "REQ-SURF-03",
+        "REQ-SURF-04"
+      ],
+      "evidenceRequirements": [
+        "Cross-principal negative tests, stale session rejection, action edit invalidation, accessible keyboard/mobile UI and messenger-independent read access pass. A mocked UI is not reported as deployed auth."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M08",
+      "title": "Connect the dedicated WhatsApp transport",
+      "path": "docs/missions/J5-M08.md",
+      "legacyPhases": [
+        "J5-M08"
+      ],
+      "dependsOn": [
+        "J5-M07"
+      ],
+      "runState": "planned",
+      "leadAgent": "integration_specialist",
+      "topic": "identity",
+      "requiredReading": [
+        "docs/integrations/WHATSAPP_ARCHITECTURE.md",
+        "docs/integrations/WHATSAPP_IDENTITY.md",
+        "docs/integrations/EVOLUTION_VERSION_GATE.md",
+        "docs/integrations/LOCAL_WHATSAPP_BRIDGE.md"
+      ],
+      "requirementIds": [
+        "REQ-ID-01",
+        "REQ-ID-02",
+        "REQ-ID-03",
+        "REQ-ID-04",
+        "REQ-ID-05"
+      ],
+      "evidenceRequirements": [
+        "Unknown sender, forged alternate identity, unenrolled LID, history-sync replay, duplicate incoming event, offline reconnect and late send result tests pass. The authorized operator proves one real owner-only exchange and one timely reminder."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M09",
+      "title": "Tune daily usefulness, modes and accountability",
+      "path": "docs/missions/J5-M09.md",
+      "legacyPhases": [
+        "J5-M09"
+      ],
+      "dependsOn": [
+        "J5-M07"
+      ],
+      "runState": "planned",
+      "leadAgent": "runtime_prompt_engineer",
+      "topic": "planning",
+      "requiredReading": [
+        "docs/missions/BRAIN_EVALS.md",
+        "docs/product/MODES.md",
+        "docs/product/BEHAVIOR_ENGINE.md",
+        "docs/product/ACCOUNTABILITY_ENGINE.md",
+        "docs/architecture/PROACTIVE_OPERATOR.md"
+      ],
+      "requirementIds": [
+        "REQ-PLAN-01",
+        "REQ-PLAN-02",
+        "REQ-PLAN-03",
+        "REQ-PLAN-04",
+        "REQ-PLAN-05"
+      ],
+      "evidenceRequirements": [
+        "Corrections link to regression cases. Mode changes are audited without granting capabilities. Quiet hours preserve commitments. No forced minimum notification count. Actual use dates and missing coverage remain visible."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M10",
+      "title": "Complete the owner control center",
+      "path": "docs/missions/J5-M10.md",
+      "legacyPhases": [
+        "J5-M10"
+      ],
+      "dependsOn": [
+        "J5-M07"
+      ],
+      "runState": "planned",
+      "leadAgent": "frontend_implementer",
+      "topic": "surfaces",
+      "requiredReading": [
+        "docs/design/SURFACES_AND_CLIENTS.md",
+        "docs/architecture/MEMORY_ENGINE.md",
+        "docs/security/CAPABILITY_AND_AUTHORITY.md",
+        "docs/missions/OPERATIONS_HEALTH.md"
+      ],
+      "requirementIds": [
+        "REQ-SURF-01",
+        "REQ-SURF-02",
+        "REQ-SURF-03",
+        "REQ-SURF-04"
+      ],
+      "evidenceRequirements": [
+        "Responsive tests cover actual APIs and role boundaries. Risky edits produce specific proposals, not direct database writes. A degraded connector remains visibly degraded. Data exports respect the selected purpose and classification."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M11",
+      "title": "Add read-first Gmail and Calendar integration",
+      "path": "docs/missions/J5-M11.md",
+      "legacyPhases": [
+        "J5-M11"
+      ],
+      "dependsOn": [
+        "J5-M10"
+      ],
+      "runState": "planned",
+      "leadAgent": "integration_specialist",
+      "topic": "identity",
+      "requiredReading": [
+        "docs/integrations/INTEGRATIONS.md",
+        "docs/security/AUTHENTICATION_BOUNDARY.md",
+        "docs/integrations/MEDIA_PIPELINE.md"
+      ],
+      "requirementIds": [
+        "REQ-ID-01",
+        "REQ-ID-02",
+        "REQ-ID-03",
+        "REQ-ID-04",
+        "REQ-ID-05"
+      ],
+      "evidenceRequirements": [
+        "Expired credentials, reauthorization, duplicate events, cursor reset, partial coverage and malicious email instructions are tested. Source-backed deadlines distinguish explicit commitment from model inference."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M12",
+      "title": "Build Life Ledger, Journal and idea continuity",
+      "path": "docs/missions/J5-M12.md",
+      "legacyPhases": [
+        "J5-M12"
+      ],
+      "dependsOn": [
+        "J5-M10",
+        "J5-M06"
+      ],
+      "runState": "planned",
+      "leadAgent": "memory_architect",
+      "topic": "memory",
+      "requiredReading": [
+        "docs/architecture/LIFE_LEDGER.md",
+        "docs/architecture/JOURNAL.md",
+        "docs/research/HISTORICAL_RECONSTRUCTION.md",
+        "docs/architecture/MEMORY_ENGINE.md"
+      ],
+      "requirementIds": [
+        "REQ-CAPTURE-01",
+        "REQ-CAPTURE-02",
+        "REQ-CAPTURE-03",
+        "REQ-CAPTURE-04",
+        "REQ-CONST-01",
+        "REQ-CONST-02",
+        "REQ-CONST-03",
+        "REQ-CONST-04",
+        "REQ-MEM-01",
+        "REQ-MEM-02",
+        "REQ-MEM-03",
+        "REQ-MEM-04",
+        "REQ-MEM-05",
+        "REQ-HIST-01",
+        "REQ-HIST-02",
+        "REQ-HIST-03",
+        "REQ-HIST-04",
+        "REQ-HIST-05"
+      ],
+      "evidenceRequirements": [
+        "Replaying an import is idempotent. Conflicting sources stay visible. A deletion invalidates dependent recall. Historical answers expose source coverage. Journal suggestions never invent feelings."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M13",
+      "title": "Adopt Personal OS contracts and procedural memory",
+      "path": "docs/missions/J5-M13.md",
+      "legacyPhases": [
+        "J5-M13"
+      ],
+      "dependsOn": [
+        "J5-M12",
+        "J5-M03"
+      ],
+      "runState": "planned",
+      "leadAgent": "architecture_planner",
+      "topic": "apps",
+      "requiredReading": [
+        "docs/integrations/FIRST_PARTY_SDK.md",
+        "docs/architecture/SCHEMA_EVOLUTION.md",
+        "docs/agents/SKILL_ENGINE.md",
+        "docs/architecture/WORLD_STATE.md"
+      ],
+      "requirementIds": [
+        "REQ-APP-01",
+        "REQ-APP-02",
+        "REQ-APP-03",
+        "REQ-APP-04",
+        "REQ-APP-05",
+        "REQ-APP-06"
+      ],
+      "evidenceRequirements": [
+        "Old and new consumers pass an explicit compatibility matrix. Foreign-owner app events fail. Draft imports are blocked. A new learned procedure cannot introduce scopes or modify its own acceptance tests."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M14",
+      "title": "Connect existing domain apps one at a time",
+      "path": "docs/missions/J5-M14.md",
+      "legacyPhases": [
+        "J5-M14"
+      ],
+      "dependsOn": [
+        "J5-M13"
+      ],
+      "runState": "planned",
+      "leadAgent": "integration_specialist",
+      "topic": "apps",
+      "requiredReading": [
+        "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+        "docs/integrations/FIRST_PARTY_SDK.md",
+        "docs/integrations/DOMAIN_INTEGRATION_CARDS.md"
+      ],
+      "requirementIds": [
+        "REQ-APP-01",
+        "REQ-APP-02",
+        "REQ-APP-03",
+        "REQ-APP-04",
+        "REQ-APP-05",
+        "REQ-APP-06"
+      ],
+      "evidenceRequirements": [
+        "One real app path produces source-backed Core summaries and idempotent edits. Cross-app state revisions resolve conflicts explicitly. FBA business roles do not turn a partner into the personal OS owner."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M15",
+      "title": "Build Android companion and controlled device context",
+      "path": "docs/missions/J5-M15.md",
+      "legacyPhases": [
+        "J5-M15"
+      ],
+      "dependsOn": [
+        "J5-M13",
+        "J5-M07"
+      ],
+      "runState": "planned",
+      "leadAgent": "mobile_implementer",
+      "topic": "android",
+      "requiredReading": [
+        "docs/design/ANDROID_ARCHITECTURE.md",
+        "docs/architecture/WORLD_STATE.md",
+        "docs/security/AUTHENTICATION_BOUNDARY.md"
+      ],
+      "requirementIds": [
+        "REQ-ANDROID-01",
+        "REQ-ANDROID-02",
+        "REQ-ANDROID-03",
+        "REQ-ANDROID-04"
+      ],
+      "evidenceRequirements": [
+        "Revocation, offline edits, stale clock, duplicate queue, missing permissions and interrupted sync are exercised. The device cannot broaden owner or connector scope."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M16",
+      "title": "Build measured realtime voice",
+      "path": "docs/missions/J5-M16.md",
+      "legacyPhases": [
+        "J5-M16"
+      ],
+      "dependsOn": [
+        "J5-M15",
+        "J5-M03"
+      ],
+      "runState": "planned",
+      "leadAgent": "voice_engineer",
+      "topic": "voice",
+      "requiredReading": [
+        "docs/design/VOICE_ARCHITECTURE.md",
+        "docs/architecture/EXECUTOR_ARCHITECTURE.md",
+        "docs/security/COST_AND_MODEL_POLICY.md"
+      ],
+      "requirementIds": [
+        "REQ-VOICE-01",
+        "REQ-VOICE-02",
+        "REQ-VOICE-03",
+        "REQ-VOICE-04"
+      ],
+      "evidenceRequirements": [
+        "Interrupt before and after dispatch, reconnect mid-sentence, misheard destination, unavailable STT and budget exhaustion produce honest outcomes. Model text, emitted audio and externally verified actions remain separate records."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M17",
+      "title": "Implement owner-enrolled device self-control",
+      "path": "docs/missions/J5-M17.md",
+      "legacyPhases": [
+        "J5-M17"
+      ],
+      "dependsOn": [
+        "J5-M15",
+        "J5-M09"
+      ],
+      "runState": "planned",
+      "leadAgent": "mobile_implementer",
+      "topic": "android",
+      "requiredReading": [
+        "docs/design/ANDROID_ARCHITECTURE.md",
+        "docs/security/CAPABILITY_AND_AUTHORITY.md",
+        "docs/product/ACCOUNTABILITY_ENGINE.md"
+      ],
+      "requirementIds": [
+        "REQ-ANDROID-01",
+        "REQ-ANDROID-02",
+        "REQ-ANDROID-03",
+        "REQ-ANDROID-04"
+      ],
+      "evidenceRequirements": [
+        "Expiry, revoked enrollment, timezone change, reboot, offline mode and emergency exceptions pass on-device tests. Any contact escalation needs its own approval and privacy gate."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M18",
+      "title": "Implement the first external executor safely",
+      "path": "docs/missions/J5-M18.md",
+      "legacyPhases": [
+        "J5-M18"
+      ],
+      "dependsOn": [
+        "J5-M13",
+        "J5-M07",
+        "J5-M06"
+      ],
+      "runState": "planned",
+      "leadAgent": "executor_engineer",
+      "topic": "authority",
+      "requiredReading": [
+        "docs/architecture/EXECUTOR_ARCHITECTURE.md",
+        "docs/security/APPROVAL_MODEL.md",
+        "docs/security/KILL_SWITCH_DRILLS.md",
+        "docs/security/COST_AND_MODEL_POLICY.md",
+        "docs/security/TRUSTED_TIME.md"
+      ],
+      "requirementIds": [
+        "REQ-AUTH-01",
+        "REQ-AUTH-02",
+        "REQ-AUTH-03",
+        "REQ-AUTH-04",
+        "REQ-AUTH-05",
+        "REQ-AUTH-06",
+        "REQ-AUTH-07"
+      ],
+      "evidenceRequirements": [
+        "Payload edits, owner mismatch, policy revision, expiry during lock wait, cancellation races, duplicate attempts, missing receipts and independently triggered kill propagation all fail or reconcile correctly. Fresh actual-path drill evidence is mandatory before enablement."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M19",
+      "title": "Introduce bounded worker delegation",
+      "path": "docs/missions/J5-M19.md",
+      "legacyPhases": [
+        "J5-M19"
+      ],
+      "dependsOn": [
+        "J5-M18",
+        "J5-M09"
+      ],
+      "runState": "planned",
+      "leadAgent": "agent_runtime_engineer",
+      "topic": "workers",
+      "requiredReading": [
+        "docs/agents/AGENT_RUNTIME.md",
+        "docs/agents/MULTI_AGENT_ARCHITECTURE.md",
+        "docs/security/COST_AND_MODEL_POLICY.md"
+      ],
+      "requirementIds": [
+        "REQ-WORK-01",
+        "REQ-WORK-02",
+        "REQ-WORK-03",
+        "REQ-WORK-04"
+      ],
+      "evidenceRequirements": [
+        "Fan-out respects a shared reservation. Repeated tool loops stop. Child output remains untrusted. Cancellation preserves already dispatched reconciliation. The required daily-use evidence is present before unattended operation."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M20",
+      "title": "Enroll finite Night Mode",
+      "path": "docs/missions/J5-M20.md",
+      "legacyPhases": [
+        "J5-M20"
+      ],
+      "dependsOn": [
+        "J5-M19",
+        "J5-M16"
+      ],
+      "runState": "planned",
+      "leadAgent": "security_reviewer",
+      "topic": "night",
+      "requiredReading": [
+        "docs/product/NIGHT_MODE.md",
+        "docs/security/APPROVAL_MODEL.md",
+        "docs/architecture/PROACTIVE_OPERATOR.md"
+      ],
+      "requirementIds": [
+        "REQ-NIGHT-01",
+        "REQ-NIGHT-02",
+        "REQ-NIGHT-03",
+        "REQ-NIGHT-04"
+      ],
+      "evidenceRequirements": [
+        "Spoofed urgency, stale sleep state, expired enrollment, revoked contact and missing verification never widen authority. Morning reporting distinguishes drafts, sent/verified actions and unresolved effects."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M21",
+      "title": "Build the browser and research surface",
+      "path": "docs/missions/J5-M21.md",
+      "legacyPhases": [
+        "J5-M21"
+      ],
+      "dependsOn": [
+        "J5-M13",
+        "J5-M07"
+      ],
+      "runState": "planned",
+      "leadAgent": "browser_engineer",
+      "topic": "browser",
+      "requiredReading": [
+        "docs/architecture/BROWSER_ARCHITECTURE.md",
+        "docs/security/PRIVACY_TIERS.md",
+        "docs/integrations/FIRST_PARTY_SDK.md"
+      ],
+      "requirementIds": [
+        "REQ-BROWSER-01",
+        "REQ-BROWSER-02",
+        "REQ-BROWSER-03",
+        "REQ-BROWSER-04"
+      ],
+      "evidenceRequirements": [
+        "Research continuity, private-context exclusion, malicious page instructions, stale snapshots and unauthorized uploads are tested. A provider login is never a tool permission."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [
+        "J5-M18"
+      ],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M22",
+      "title": "Harden supply chain and recurring operations",
+      "path": "docs/missions/J5-M22.md",
+      "legacyPhases": [],
+      "dependsOn": [
+        "J5-M06",
+        "J5-M02"
+      ],
+      "runState": "planned",
+      "leadAgent": "release_operator",
+      "topic": "operations",
+      "requiredReading": [
+        "docs/security/SUPPLY_CHAIN.md",
+        "docs/missions/OPERATIONS_HEALTH.md",
+        "docs/security/INCIDENT_RESPONSE.md",
+        "docs/security/DISASTER_RECOVERY.md"
+      ],
+      "requirementIds": [
+        "REQ-OPS-01",
+        "REQ-OPS-02",
+        "REQ-OPS-03",
+        "REQ-OPS-04",
+        "REQ-OPS-05",
+        "REQ-OPS-06"
+      ],
+      "evidenceRequirements": [
+        "Unknown provenance blocks privileged execution, simulated dependency compromise leads to scoped revocation, and operational evidence names actual environment and source. Candidate code never controls the credential-bearing verifier."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    },
+    {
+      "id": "J5-M23",
+      "title": "Promote a bounded usable release",
+      "path": "docs/missions/J5-M23.md",
+      "legacyPhases": [
+        "J5-M23"
+      ],
+      "dependsOn": [
+        "J5-M07",
+        "J5-M22"
+      ],
+      "runState": "planned",
+      "leadAgent": "release_operator",
+      "topic": "operations",
+      "requiredReading": [
+        "docs/missions/PRODUCTION_READINESS.md",
+        "docs/security/VERIFICATION_EVIDENCE.md",
+        "docs/security/MISSION_ADMISSION.md",
+        "docs/missions/OPERATIONS_HEALTH.md"
+      ],
+      "requirementIds": [
+        "REQ-OPS-01",
+        "REQ-OPS-02",
+        "REQ-OPS-03",
+        "REQ-OPS-04",
+        "REQ-OPS-05",
+        "REQ-OPS-06"
+      ],
+      "evidenceRequirements": [
+        "The final merge/deployment identity matches verified source and artifact hashes. A new commit invalidates stale admission. Unimplemented features stay disabled. Independent rollback and first-run observation are recorded."
+      ],
+      "completedRunRef": null,
+      "executionClass": "bounded_implementation",
+      "maximumAuthority": "No external effect without independently authorized action-specific operation",
+      "additionalActivationGates": [],
+      "definitionVersion": 1
+    }
+  ]
+}

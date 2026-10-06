@@ -1,0 +1,707 @@
+{
+  "baseline_head": "0b05116598a7bed142c294326e15471ed03e0b26",
+  "files": [
+    {
+      "original_path": ".agents/skills/agent-evals/SKILL.md",
+      "archive_path": "docs/archive/reconciled-baseline/.agents/skills/agent-evals/SKILL.md",
+      "sha256": "03ba33158aa78fc54cd07451ec874b16037eed1dd88ed1d4ac533ede30f09ebd",
+      "size": 1453
+    },
+    {
+      "original_path": ".agents/skills/connector-integration/SKILL.md",
+      "archive_path": "docs/archive/reconciled-baseline/.agents/skills/connector-integration/SKILL.md",
+      "sha256": "fe3b9e7f9fc8fdc1d49c82268fa46da7004bec97eb51d23c9d6824c31f2353eb",
+      "size": 1880
+    },
+    {
+      "original_path": ".agents/skills/database-and-jobs/SKILL.md",
+      "archive_path": "docs/archive/reconciled-baseline/.agents/skills/database-and-jobs/SKILL.md",
+      "sha256": "fcf5fadee83d9a2d290662f6a7e244fff293a30ce328f621dc88f9d2f4ce3362",
+      "size": 1790
+    },
+    {
+      "original_path": ".agents/skills/deploy-railway-vercel/SKILL.md",
+      "archive_path": "docs/archive/reconciled-baseline/.agents/skills/deploy-railway-vercel/SKILL.md",
+      "sha256": "bf3993f9ea7ca54682d37c8977585c7755acd79d3cb390ca1a160a7b3e3ec34f",
+      "size": 2086
+    },
+    {
+      "original_path": ".agents/skills/evolution-whatsapp/SKILL.md",
+      "archive_path": "docs/archive/reconciled-baseline/.agents/skills/evolution-whatsapp/SKILL.md",
+      "sha256": "c50839914ab81c0994981d5e0eedc6ac6c78409c0b9d2b201d5fc19bc9b31698",
+      "size": 1982
+    },
+    {
+      "original_path": ".agents/skills/jarvis-product-rules/SKILL.md",
+      "archive_path": "docs/archive/reconciled-baseline/.agents/skills/jarvis-product-rules/SKILL.md",
+      "sha256": "751de30631f69f7ed08889e3ffe23a53c1cd591e18c476a4a0d56e520da0c795",
+      "size": 1965
+    },
+    {
+      "original_path": ".agents/skills/security-and-privacy/SKILL.md",
+      "archive_path": "docs/archive/reconciled-baseline/.agents/skills/security-and-privacy/SKILL.md",
+      "sha256": "a5876139fc7609c2ddc1d852ff930a189a79c694aa6b2ab6a7a09bf6dfdfed9b",
+      "size": 1819
+    },
+    {
+      "original_path": ".codex/agents/architecture-planner.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/architecture-planner.toml",
+      "sha256": "fc3f018981b3e3e532f762ff8cc892a7f7ea8c880048a44382daf3b301cfc691",
+      "size": 768
+    },
+    {
+      "original_path": ".codex/agents/backend-implementer.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/backend-implementer.toml",
+      "sha256": "801b53471ca63b52cd2111da7768893c659a042a458dd86d1680e37dffcbd7e3",
+      "size": 617
+    },
+    {
+      "original_path": ".codex/agents/docs-researcher.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/docs-researcher.toml",
+      "sha256": "d32ffeec75577b321251cc1d3089bdf8f724aa6e18362853055f275fd82feb9a",
+      "size": 736
+    },
+    {
+      "original_path": ".codex/agents/frontend-implementer.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/frontend-implementer.toml",
+      "sha256": "67957657d4d274e405712472d7df0e466281a4499c54bcb3e1ee9217cf857571",
+      "size": 609
+    },
+    {
+      "original_path": ".codex/agents/integration-specialist.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/integration-specialist.toml",
+      "sha256": "c4807ee774164ee9cfb9e7ef77062b874387173f8638e527faacb779a95d9fe4",
+      "size": 696
+    },
+    {
+      "original_path": ".codex/agents/repo-explorer.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/repo-explorer.toml",
+      "sha256": "829971b00c43a1100d8b8c9c9aa73ec33b120a0ffd8620487dea2f41d4dd1158",
+      "size": 577
+    },
+    {
+      "original_path": ".codex/agents/security-reviewer.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/security-reviewer.toml",
+      "sha256": "6b1355ee4ea9cecb42b804b988a3b7814012b8ae795f495e813a874b05eb0978",
+      "size": 764
+    },
+    {
+      "original_path": ".codex/agents/test-evals.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/agents/test-evals.toml",
+      "sha256": "2131f3834da43376c16025679dc0a2e4efb60bf81b562eab13cab3950692d8c8",
+      "size": 662
+    },
+    {
+      "original_path": ".codex/config.toml",
+      "archive_path": "docs/archive/reconciled-baseline/.codex/config.toml",
+      "sha256": "950f838568195eaa0137a1e5ffc7c1a0d04473571544546c653ee8da178700bf",
+      "size": 678
+    },
+    {
+      "original_path": "AGENTS.md",
+      "archive_path": "docs/archive/reconciled-baseline/AGENTS.md",
+      "sha256": "e10a3caad8e6a673263dba6e7a5a99e2fbc1368323e3e930e8ee82782106e925",
+      "size": 5790
+    },
+    {
+      "original_path": "BUILD_ORDER.md",
+      "archive_path": "docs/archive/reconciled-baseline/BUILD_ORDER.md",
+      "sha256": "2807fd16c7ebc3d05febde8cb091b0069768aac80de074fbf528bb4b8992fd7a",
+      "size": 1593
+    },
+    {
+      "original_path": "CANONICAL_DOCUMENTATION_MAP.md",
+      "archive_path": "docs/archive/reconciled-baseline/CANONICAL_DOCUMENTATION_MAP.md",
+      "sha256": "2aada1d85eb75e1f143e77fd29f634aa45e2f0d3ef876c022bb89ee40086a4a9",
+      "size": 9196
+    },
+    {
+      "original_path": "CLAUDE.md",
+      "archive_path": "docs/archive/reconciled-baseline/CLAUDE.md",
+      "sha256": "5d04fb717c7b325bc82576f9f55a9d404cb243736c0d1a846a8767cac1019284",
+      "size": 471
+    },
+    {
+      "original_path": "CODEX_DOCUMENTATION_ONLY_PROMPT.md",
+      "archive_path": "docs/archive/v2/CODEX_DOCUMENTATION_ONLY_PROMPT.md",
+      "sha256": "aebb13f12e565b872e9862ca320c460ed5b5e649beda776bb8d5f648859b0c5a",
+      "size": 2183
+    },
+    {
+      "original_path": "CODEX_START_HERE.md",
+      "archive_path": "docs/archive/reconciled-baseline/CODEX_START_HERE.md",
+      "sha256": "77164436e24720032224dd59aff3a8773400d0ccf2481b468a10b571a097407d",
+      "size": 1080
+    },
+    {
+      "original_path": "CURRENT_IMPLEMENTATION_HANDOFF.md",
+      "archive_path": "docs/archive/reconciled-baseline/CURRENT_IMPLEMENTATION_HANDOFF.md",
+      "sha256": "05629d48353452831f2b79efd1664aa38332ac800b3716560c20ac37e9895dde",
+      "size": 9413
+    },
+    {
+      "original_path": "docs/ACCOUNTABILITY_ENGINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/ACCOUNTABILITY_ENGINE.md",
+      "sha256": "8455806ddc70cb1b5a0a7e4b3ddaae0b7956d23c7516c3220b94f76a1ddfbf10",
+      "size": 859
+    },
+    {
+      "original_path": "docs/APPROVAL_MODEL.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/APPROVAL_MODEL.md",
+      "sha256": "51eaf1166a2e61bc244ff8a90571aa3fb41b146dcc980993b76a95e71162f2ba",
+      "size": 1704
+    },
+    {
+      "original_path": "docs/ARCHITECTURE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/ARCHITECTURE.md",
+      "sha256": "07570a0df563c72ec3ca201b5e29540de6e5aae10fdc1920f696b2f854557024",
+      "size": 8112
+    },
+    {
+      "original_path": "docs/AUDIT_MODEL.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/AUDIT_MODEL.md",
+      "sha256": "3cf61e077c8e73e40509e0755dca6a8f1764f42b5793fdf6797f01882cf0ebb6",
+      "size": 1686
+    },
+    {
+      "original_path": "docs/AUTHENTICATION_BOUNDARY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/AUTHENTICATION_BOUNDARY.md",
+      "sha256": "7b251ac92fef0956dc2cc84415e79da391f38884bdb59cb6f381380475ba4c11",
+      "size": 2333
+    },
+    {
+      "original_path": "docs/BEHAVIOR_ENGINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/BEHAVIOR_ENGINE.md",
+      "sha256": "4e3604bdbbc712503d9681ae97314e2d1076cd4e4e5994193290d7e28bb376f6",
+      "size": 1293
+    },
+    {
+      "original_path": "docs/BRAIN_ARCHITECTURE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/BRAIN_ARCHITECTURE.md",
+      "sha256": "f6b118ad1df492ae9fe937c7a36fb162ba045da9e84bda34e5208015f0a95cc2",
+      "size": 2319
+    },
+    {
+      "original_path": "docs/BRAIN_EVALS.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/BRAIN_EVALS.md",
+      "sha256": "c22d646f4fef1a5b4a81b47de739da75911cea2da210c6720e67a411f1e162cc",
+      "size": 1447
+    },
+    {
+      "original_path": "docs/BUILD_PLAN.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/BUILD_PLAN.md",
+      "sha256": "67011524a92a44d7e5b20802425e0df02bbc05fe478d2344254e1451d982e0d8",
+      "size": 5817
+    },
+    {
+      "original_path": "docs/CODEX_SETUP.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/CODEX_SETUP.md",
+      "sha256": "5163f31f606c5f2a3902bc4998aa0bb4bb76a9d1fc2206a26600c35e6b3dce80",
+      "size": 2024
+    },
+    {
+      "original_path": "docs/CONSTITUTION_ENGINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/CONSTITUTION_ENGINE.md",
+      "sha256": "14e31e467518bf9dd747bd9d7fa1420e2d52edf9237c6f89d5d24c9612bcf442",
+      "size": 1102
+    },
+    {
+      "original_path": "docs/CONTEXT_ASSEMBLY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/CONTEXT_ASSEMBLY.md",
+      "sha256": "52a5939cdd884b6f980830cb7b36c9d728f42ca0f86a11b5b2558306b644fa46",
+      "size": 1136
+    },
+    {
+      "original_path": "docs/CONVEX_ORCHESTRATION.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/CONVEX_ORCHESTRATION.md",
+      "sha256": "8b9c1aa2c39c6bd6d59778267d0b1e3e36fa88c195dd6ee3e31048f37f1a85de",
+      "size": 3767
+    },
+    {
+      "original_path": "docs/DATA_MODEL.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/DATA_MODEL.md",
+      "sha256": "4d469d74bec93cc652bf5404952e15ae6a660ee9b134d252b114d9cde46421d1",
+      "size": 9107
+    },
+    {
+      "original_path": "docs/DECISION_ENGINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/DECISION_ENGINE.md",
+      "sha256": "5dd28e60ae210bc62770db827f1bc6aae488ffd1db95a6eb69a7c0ccdb5254f5",
+      "size": 3455
+    },
+    {
+      "original_path": "docs/DEPLOYMENT.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/DEPLOYMENT.md",
+      "sha256": "5a1dd78f86a4aa2cb1eda13c24a0e63b45af389ec4b49b55affd0d9ba5c3a685",
+      "size": 4753
+    },
+    {
+      "original_path": "docs/EVALS_AND_ACCEPTANCE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/EVALS_AND_ACCEPTANCE.md",
+      "sha256": "9b16c9e5fc2395ecd45a3f52db811f35297f298f79061bf28b1e416f9d7d85c0",
+      "size": 3639
+    },
+    {
+      "original_path": "docs/EVENT_MODEL.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/EVENT_MODEL.md",
+      "sha256": "1c9cb42d1ef7de65c8f19fc6156f24a6e2359dbe94077a08ff0916b6050c803a",
+      "size": 4193
+    },
+    {
+      "original_path": "docs/EVOLUTION_INTEGRATION.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/EVOLUTION_INTEGRATION.md",
+      "sha256": "fb3dee8c695ce768c2366fea8121c4375cad0ab6b50a12ef06b25f340829440f",
+      "size": 2842
+    },
+    {
+      "original_path": "docs/EVOLUTION_VERSION_GATE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/EVOLUTION_VERSION_GATE.md",
+      "sha256": "aede790c5c4cb42e5be033d0b9894959685bbbc1c87a338ed655233bd34875b1",
+      "size": 5233
+    },
+    {
+      "original_path": "docs/INTEGRATIONS.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/INTEGRATIONS.md",
+      "sha256": "426e15d7f11a76bd8ea01b57ceb1d9f1d1ffd032d3771e55a6663edcdf341c2a",
+      "size": 10955
+    },
+    {
+      "original_path": "docs/JARVIS/AI_ROUTER_AND_COSTS.md",
+      "archive_path": "docs/archive/r1-product/AI_ROUTER_AND_COSTS.md",
+      "sha256": "b42f651ff1fccf76cbd73a75020b1e7ddb8335d651d69251a28c43721cb8c7ca",
+      "size": 17980
+    },
+    {
+      "original_path": "docs/JARVIS/ARCHITECTURE.md",
+      "archive_path": "docs/archive/r1-product/ARCHITECTURE.md",
+      "sha256": "9fb9339231f930d3beab2e7c175d45982e4fd526f52fbe169ba773e46056b19f",
+      "size": 15584
+    },
+    {
+      "original_path": "docs/JARVIS/ARCHIVE_OLD_DIRECTIONS.md",
+      "archive_path": "docs/archive/r1-product/ARCHIVE_OLD_DIRECTIONS.md",
+      "sha256": "07be2bcbe472580877ea49b3303ae326aaf6a863c4bb67900eea5f0f37fca9e4",
+      "size": 10606
+    },
+    {
+      "original_path": "docs/JARVIS/AUTOMATION_AND_CASES.md",
+      "archive_path": "docs/archive/r1-product/AUTOMATION_AND_CASES.md",
+      "sha256": "36cb1d89377aa9ba881bfba6c1dae34686e70d9f481c0d1c372624650d180087",
+      "size": 13993
+    },
+    {
+      "original_path": "docs/JARVIS/CODEX_START_HERE.md",
+      "archive_path": "docs/archive/r1-product/CODEX_START_HERE.md",
+      "sha256": "4e7dbb57ba3ed4946cf1b5e0e9e46dd2cae27d3c649327d31c3a13b5a2206c36",
+      "size": 5408
+    },
+    {
+      "original_path": "docs/JARVIS/CONTEXT_AND_MEMORY.md",
+      "archive_path": "docs/archive/r1-product/CONTEXT_AND_MEMORY.md",
+      "sha256": "08397fcbbe1014a24cd64a9234e413a6dd959ffd37ae8d8df306ed53914c2bf2",
+      "size": 15370
+    },
+    {
+      "original_path": "docs/JARVIS/COUNCIL_AND_BOARDROOM.md",
+      "archive_path": "docs/archive/r1-product/COUNCIL_AND_BOARDROOM.md",
+      "sha256": "b88792f1e875e8313eb9a4e3f8d6613091f6818790f9c101c2ed82c8f0d3dcec",
+      "size": 10895
+    },
+    {
+      "original_path": "docs/JARVIS/DECISIONS.md",
+      "archive_path": "docs/archive/r1-product/DECISIONS.md",
+      "sha256": "1c117ae4ec4b19e0e12d9b2297bf9fdef0da047b8684d01a2482f888166e01b6",
+      "size": 25065
+    },
+    {
+      "original_path": "docs/JARVIS/IMPLEMENTATION_STATUS.md",
+      "archive_path": "docs/archive/r1-product/IMPLEMENTATION_STATUS.md",
+      "sha256": "e6b3e7b2210e940c70363dd4f8ec99ac18e3a3100207817345801213a76cb2ed",
+      "size": 26706
+    },
+    {
+      "original_path": "docs/JARVIS/JARVIS_HOME.md",
+      "archive_path": "docs/archive/r1-product/JARVIS_HOME.md",
+      "sha256": "43678fbcab92b9d108d300fe0407699eb55d760e6e0dbefa06fd42981f915229",
+      "size": 7681
+    },
+    {
+      "original_path": "docs/JARVIS/JARVIS_MASTER.md",
+      "archive_path": "docs/archive/r1-product/JARVIS_MASTER.md",
+      "sha256": "4d7e79ffefc976bab130531d397365834237d0d0c8fddf6ffc7576a51807969b",
+      "size": 9349
+    },
+    {
+      "original_path": "docs/JARVIS/MESSAGING_AND_HANDOFF.md",
+      "archive_path": "docs/archive/r1-product/MESSAGING_AND_HANDOFF.md",
+      "sha256": "3a136ad0272c574be05f22135a5b2480b9182dd32e6de805a4790859df7ec0fa",
+      "size": 15834
+    },
+    {
+      "original_path": "docs/JARVIS/OPEN_QUESTIONS.md",
+      "archive_path": "docs/archive/r1-product/OPEN_QUESTIONS.md",
+      "sha256": "568b03668444c296c198b4efeade83606b01f4e5256be137683f822e27078d77",
+      "size": 12795
+    },
+    {
+      "original_path": "docs/JARVIS/OWNER_CONVERSATIONAL_STYLE_PROFILE.md",
+      "archive_path": "docs/archive/r1-product/OWNER_CONVERSATIONAL_STYLE_PROFILE.md",
+      "sha256": "76eb3e1295c32428522afdec61153580d70759b371c48dd701c5f060b63ecaaf",
+      "size": 973
+    },
+    {
+      "original_path": "docs/JARVIS/PASSIVE_CONTEXT_ENGINE.md",
+      "archive_path": "docs/archive/r1-product/PASSIVE_CONTEXT_ENGINE.md",
+      "sha256": "09e68e50345a3e519505f9a72fa404502b72510db4bcf0d804306a63a179a4d9",
+      "size": 11392
+    },
+    {
+      "original_path": "docs/JARVIS/PRD.md",
+      "archive_path": "docs/archive/r1-product/PRD.md",
+      "sha256": "4259bbc84797eba77c8b50868c51824447a69806237df0b736d589dd27554522",
+      "size": 17933
+    },
+    {
+      "original_path": "docs/JARVIS/REQUIREMENTS_LEDGER.md",
+      "archive_path": "docs/archive/r1-product/REQUIREMENTS_LEDGER.md",
+      "sha256": "b1e7c2a9899313685e92d4a1a1d2dafd135261c30ed126163bfa808099e63819",
+      "size": 76211
+    },
+    {
+      "original_path": "docs/JARVIS/ROADMAP.md",
+      "archive_path": "docs/archive/r1-product/ROADMAP.md",
+      "sha256": "0e5fd9246e1f7cf8bf073f6e444431168dae8544a5336820d1848fcea3cafb3f",
+      "size": 9838
+    },
+    {
+      "original_path": "docs/JARVIS/SECURITY_PRIVACY_AND_PERMISSIONS.md",
+      "archive_path": "docs/archive/r1-product/SECURITY_PRIVACY_AND_PERMISSIONS.md",
+      "sha256": "e534bfdb16c6eeea26531ad6e5e777c7e60b4bd3a83dd6067f68465e364f2876",
+      "size": 14619
+    },
+    {
+      "original_path": "docs/JARVIS/SOURCE_INVENTORY.md",
+      "archive_path": "docs/archive/r1-product/SOURCE_INVENTORY.md",
+      "sha256": "75cbeb19d935a3bd706a6f8992c7c75b84095c7274c7b4a2639f1249feee6b91",
+      "size": 10070
+    },
+    {
+      "original_path": "docs/JARVIS/VALIDATION_AND_COVERAGE.md",
+      "archive_path": "docs/archive/r1-product/VALIDATION_AND_COVERAGE.md",
+      "sha256": "ba9f7b1c0207db5edd6ae24704390e35aa88e4c44ca480775922fed44721cc59",
+      "size": 14913
+    },
+    {
+      "original_path": "docs/JARVIS/VOICE_AND_DEVICE_CONTROL.md",
+      "archive_path": "docs/archive/r1-product/VOICE_AND_DEVICE_CONTROL.md",
+      "sha256": "7f2fac4884277b1451d1827e83f7f8a527563ecda33c0f6b817a1288b68c4876",
+      "size": 15660
+    },
+    {
+      "original_path": "docs/JOB_LIFECYCLE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/JOB_LIFECYCLE.md",
+      "sha256": "8a68a1918846ee3e8451524c2f13ea9d1e69b52d167f5805d22227d89cc1d7f8",
+      "size": 4718
+    },
+    {
+      "original_path": "docs/LOCAL_WHATSAPP_BRIDGE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/LOCAL_WHATSAPP_BRIDGE.md",
+      "sha256": "66fcf22c707edf7efc0a82c3fcd6f7d2091c0609ca373959eac3295b1b82920e",
+      "size": 4196
+    },
+    {
+      "original_path": "docs/MEDIA_PIPELINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/MEDIA_PIPELINE.md",
+      "sha256": "2b98303c8359b459604c055ea56bb76c6a24e567c7e4e750c9ac041aa7d26a8b",
+      "size": 1086
+    },
+    {
+      "original_path": "docs/MEMORY_ENGINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/MEMORY_ENGINE.md",
+      "sha256": "1b59d6f8d4cce9ee48d6bdce1b58c7147a62a8480b569fe20cd099a9bd9ac176",
+      "size": 1756
+    },
+    {
+      "original_path": "docs/MODEL_RUNTIME.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/MODEL_RUNTIME.md",
+      "sha256": "6cb99cc9d28e7635347ba5099753fd7203d600d6755debd9cb8049a2ec298760",
+      "size": 2718
+    },
+    {
+      "original_path": "docs/NEON_STAGING.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/NEON_STAGING.md",
+      "sha256": "3824b0a6fe4d2edd1389e00c96e7c20ff9426acbd22f958c93072c5fe4933b66",
+      "size": 1738
+    },
+    {
+      "original_path": "docs/OFFLINE_TRANSPORT.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/OFFLINE_TRANSPORT.md",
+      "sha256": "e136562a446fc2ac3406efc4b935fd1a028562becde31b6021845c2f199611d4",
+      "size": 3882
+    },
+    {
+      "original_path": "docs/OPEN_QUESTIONS.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/OPEN_QUESTIONS.md",
+      "sha256": "389569eb19a6cae4676421b6d93b299a991893797ff4c96ec9098a5e33df17d7",
+      "size": 2176
+    },
+    {
+      "original_path": "docs/OUTBOUND_DELIVERY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/OUTBOUND_DELIVERY.md",
+      "sha256": "038b094405cf5881e849b0a6ef70ad8a361c1a3b68acc7bad81aa0cdae2a025e",
+      "size": 2871
+    },
+    {
+      "original_path": "docs/POLICY_MATRIX.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/POLICY_MATRIX.md",
+      "sha256": "ad35339236bbe33b0dd1056b86630d74402e2a572d65af2c386a7c7d2344d417",
+      "size": 1969
+    },
+    {
+      "original_path": "docs/PRD.md",
+      "archive_path": "docs/archive/v1/PRD.md",
+      "sha256": "cf083f77330743efaa11b9576600e3e87ee2e50b10913516be7f5c8d48077de7",
+      "size": 54850
+    },
+    {
+      "original_path": "docs/PROMPT_ARCHITECTURE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/PROMPT_ARCHITECTURE.md",
+      "sha256": "9d825a88f8f1f465f125ca9fe6a53fc4006dafc3764f3de53c47e8b397db6048",
+      "size": 1015
+    },
+    {
+      "original_path": "docs/RAILWAY_PHASE3_PLAN.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/RAILWAY_PHASE3_PLAN.md",
+      "sha256": "4015da7e5788432704673e175d611f50534191e818082346bb2da353d3fa565d",
+      "size": 3086
+    },
+    {
+      "original_path": "docs/RAILWAY_STAGING.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/RAILWAY_STAGING.md",
+      "sha256": "d37c65ca523ef34468b63c740c4672c331b50562c1577672092e3375e643c603",
+      "size": 2772
+    },
+    {
+      "original_path": "docs/REMINDER_ENGINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/REMINDER_ENGINE.md",
+      "sha256": "60df43c62af548a220f51ad909ac22471914535ea72a66a8245a50dc2e61e50e",
+      "size": 1003
+    },
+    {
+      "original_path": "docs/REPLANNING_ENGINE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/REPLANNING_ENGINE.md",
+      "sha256": "a87207abac0eae9d0ca2f88b3459f2cd4e931f0a679955ce0879dcfe8b38dde5",
+      "size": 1011
+    },
+    {
+      "original_path": "docs/RESEARCH_NOTES.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/RESEARCH_NOTES.md",
+      "sha256": "a4818022f0b595eef999fefe5e4587f23b49795d83c2b5fd10767e7d84b52039",
+      "size": 8680
+    },
+    {
+      "original_path": "docs/SECURITY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/SECURITY.md",
+      "sha256": "4832adb39526c08902319afa5b139dda9067d27e7b223c7d115bdfc658471ddf",
+      "size": 4698
+    },
+    {
+      "original_path": "docs/STAGING_INFRASTRUCTURE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/STAGING_INFRASTRUCTURE.md",
+      "sha256": "de600e645ba3b47ea6eda4dfce9f1a0e0b867d8659223183b2a67b4e4efaa15d",
+      "size": 4106
+    },
+    {
+      "original_path": "docs/STAGING_MIGRATION_WORKFLOW.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/STAGING_MIGRATION_WORKFLOW.md",
+      "sha256": "a7957a8ea0fcf62e39d9cdc395b708a969653de7edf213e92de0fa56d6c6ab9d",
+      "size": 10636
+    },
+    {
+      "original_path": "docs/STAGING_RUNBOOK.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/STAGING_RUNBOOK.md",
+      "sha256": "574015140ba4976e95728c0ae2275a1226e16ce322d45ff7f035023b6661daec",
+      "size": 3750
+    },
+    {
+      "original_path": "docs/VERCEL_AI_GATEWAY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/VERCEL_AI_GATEWAY.md",
+      "sha256": "3f9e6f62f15b21090b864db3238bec941b8986ebd295003cec96742f34af38dd",
+      "size": 7146
+    },
+    {
+      "original_path": "docs/VERCEL_RUNTIME.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/VERCEL_RUNTIME.md",
+      "sha256": "a124f3dd4bea6dd8100d9bf799d0bcc715ed5ad2b85b4242949aa30e4ab01144",
+      "size": 14288
+    },
+    {
+      "original_path": "docs/WHATSAPP_ARCHITECTURE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/WHATSAPP_ARCHITECTURE.md",
+      "sha256": "fd1048dc198eccbf21dbb93f4d1fa703c632c6f2ca9d3c2eeac6d17ef3a74b84",
+      "size": 2839
+    },
+    {
+      "original_path": "docs/WHATSAPP_IDENTITY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/WHATSAPP_IDENTITY.md",
+      "sha256": "3f90d05656bbbee90139b1de1f5cefddf6a63465932b8e69517d39eeaaab6adf",
+      "size": 1980
+    },
+    {
+      "original_path": "docs/WHATSAPP_RECOVERY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/WHATSAPP_RECOVERY.md",
+      "sha256": "dcde599f5369d38b60799ba04fe8b194727aedd072aa396b2d01c0fbd396e285",
+      "size": 1994
+    },
+    {
+      "original_path": "docs/WHATSAPP_RISK_AND_RECOVERY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/WHATSAPP_RISK_AND_RECOVERY.md",
+      "sha256": "e5551ff1b6b481d08c1220c4bb9208f39f79f40ad03903ab1323899c3cb8e471",
+      "size": 3076
+    },
+    {
+      "original_path": "docs/WHATSAPP_SECURITY.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/WHATSAPP_SECURITY.md",
+      "sha256": "6af9d9230bd91ad378ac465a5813e7dfe863704b68e874d8ec6f2b93cb815a0c",
+      "size": 2868
+    },
+    {
+      "original_path": "docs/ZERO_COST_ARCHITECTURE.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/ZERO_COST_ARCHITECTURE.md",
+      "sha256": "b9478bd06af569cf46617fd813a4fadeff0768de114923b9093d933a70442310",
+      "size": 7781
+    },
+    {
+      "original_path": "FINAL_TREE_MANIFEST.json",
+      "archive_path": "docs/archive/reconciled-baseline/FINAL_TREE_MANIFEST.json",
+      "sha256": "1eed2b819c9a499220f08c271e97425798ded7e31a4c66ba384139d9c3ee2f96",
+      "size": 185853
+    },
+    {
+      "original_path": "JARVIS_PRD.docx",
+      "archive_path": "docs/archive/v1/JARVIS_PRD.docx",
+      "sha256": "32583b8ee309eb69157404b5cd7097c7c25a3730f09af5b6c1aafab29e14bcd9",
+      "size": 68205
+    },
+    {
+      "original_path": "JARVIS_PRD.pdf",
+      "archive_path": "docs/archive/v1/JARVIS_PRD.pdf",
+      "sha256": "3148d9076a8bd4207e7bc92c0265af39018c368abd477c81c3a5b02a89766800",
+      "size": 737148
+    },
+    {
+      "original_path": "JARVIS_PRD_V2_Personal_OS.docx",
+      "archive_path": "docs/archive/v2/JARVIS_PRD_V2_Personal_OS.docx",
+      "sha256": "2ead7d0c515f522a01edc18fd57e49ea46d247c3e8227e5897e5fb31ed0a6fdc",
+      "size": 56388
+    },
+    {
+      "original_path": "JARVIS_PRD_V2_Personal_OS.pdf",
+      "archive_path": "docs/archive/v2/JARVIS_PRD_V2_Personal_OS.pdf",
+      "sha256": "f1dccd327ea9c6809f33a7bb2a9ed5d19b8e26552578dee1d16f22b378380c34",
+      "size": 479833
+    },
+    {
+      "original_path": "JARVIS_V2_MASTER_CONTEXT.md",
+      "archive_path": "docs/archive/v2/JARVIS_V2_MASTER_CONTEXT.md",
+      "sha256": "a99f0f9cc181fda37aa9a136fac8499a5a2ef47a15ccbff60c6e6806ee4edbf2",
+      "size": 6812
+    },
+    {
+      "original_path": "MANIFEST.md",
+      "archive_path": "docs/archive/reconciled-baseline/MANIFEST.md",
+      "sha256": "ea599d937f21515a89ec66aa78ea7f71bcd62739c057327d1e59df0263be165e",
+      "size": 11768
+    },
+    {
+      "original_path": "OPEN_DECISIONS_AND_QUESTIONNAIRE.md",
+      "archive_path": "docs/archive/v2/OPEN_DECISIONS_AND_QUESTIONNAIRE.md",
+      "sha256": "c912f15e3de152a451d93e66502a061d7f7f279f79b52de750112c89df93d571",
+      "size": 5151
+    },
+    {
+      "original_path": "PRD_V2_PERSONAL_OS.md",
+      "archive_path": "docs/archive/v2/PRD_V2_PERSONAL_OS.md",
+      "sha256": "af3aaf7be7fc2b5ff8340f15b3e061e9cb53bc442a80837c4f4663ab52b984b7",
+      "size": 26937
+    },
+    {
+      "original_path": "PRODUCTION_READINESS.md",
+      "archive_path": "docs/archive/reconciled-baseline/PRODUCTION_READINESS.md",
+      "sha256": "c681b407e45c9d9196ea70accc6962b463c57ed84e402cb6fd64e1782e7ee044",
+      "size": 1685
+    },
+    {
+      "original_path": "README.md",
+      "archive_path": "docs/archive/reconciled-baseline/README.md",
+      "sha256": "bd734c853608da21eee196b1e0c1eb4c69cb20fa2534896cc10b19d55f87ae02",
+      "size": 2666
+    },
+    {
+      "original_path": "SOURCE_INDEX.md",
+      "archive_path": "docs/archive/reconciled-baseline/SOURCE_INDEX.md",
+      "sha256": "ffeac25e7ecde36694b77a3f2abc2338fe0205747fa2c8d12a7c228fb1bbfa5e",
+      "size": 2794
+    },
+    {
+      "original_path": "RECONCILIATION_REPORT.md",
+      "archive_path": "docs/archive/reconciliation-2026-10-05/RECONCILIATION_REPORT.md",
+      "sha256": "07e79f9f70a0899d7d81e3e93fd8a74f5c662dd36eec17b513bedbfb0277892d",
+      "size": 8244
+    },
+    {
+      "original_path": "RECONCILIATION_MATRIX.md",
+      "archive_path": "docs/archive/reconciliation-2026-10-05/RECONCILIATION_MATRIX.md",
+      "sha256": "83a33c60c5798167a6c971d7e88521cb92fbae45855fe64f8f56d10c108de3ef",
+      "size": 94947
+    },
+    {
+      "original_path": "RESTORED_C7_ITEMS.md",
+      "archive_path": "docs/archive/reconciliation-2026-10-05/RESTORED_C7_ITEMS.md",
+      "sha256": "e80fb7cdd32d4b6aaf2ca41a9295924a1f681e2c23b68a02bbcad4d263f5b4c5",
+      "size": 5695
+    },
+    {
+      "original_path": "REMOTE_BRANCH_DISPOSITIONS.md",
+      "archive_path": "docs/archive/reconciliation-2026-10-05/REMOTE_BRANCH_DISPOSITIONS.md",
+      "sha256": "7f37216d3d8f2d56187e483b9263eb2d8d7b813a53eeb4bcbd844e5a78e60337",
+      "size": 4192
+    },
+    {
+      "original_path": "UNRESOLVED_CONFLICTS.md",
+      "archive_path": "docs/archive/reconciliation-2026-10-05/UNRESOLVED_CONFLICTS.md",
+      "sha256": "e6181dc06241af5c984472ddf8fd70ce2dde47201e8c03e195f5a1b26185b7f4",
+      "size": 1970
+    },
+    {
+      "original_path": "DEFERRED_VALIDATION.md",
+      "archive_path": "docs/archive/reconciliation-2026-10-05/DEFERRED_VALIDATION.md",
+      "sha256": "1591b2d73ef8467d2f6666eb6c697b22d3cb94de1bbd70416fe0bc0d02d0a26c",
+      "size": 5688
+    },
+    {
+      "original_path": "SECRET_SCAN_SUMMARY.md",
+      "archive_path": "docs/archive/reconciliation-2026-10-05/SECRET_SCAN_SUMMARY.md",
+      "sha256": "bb9dd08d853aeb3123f09ddbf39b16d77e82d1bc74643f7dfec8db911962254c",
+      "size": 2973
+    },
+    {
+      "original_path": "docs/archive/INDEX.md",
+      "archive_path": "docs/archive/reconciled-baseline/docs/archive/INDEX.md",
+      "sha256": "e4c0ba3a80edfdc2298e7a91d0f1d06cea47c33cbcf80bc41b32d49bfdf63054",
+      "size": 649
+    },
+    {
+      "original_path": ".prettierignore",
+      "archive_path": "docs/archive/reconciled-baseline/.prettierignore",
+      "sha256": "4882f4ee4be72ee8f7449f2b28e5595a4e1a4e8baa0d0cbb2c7390682a284167",
+      "size": 169
+    },
+    {
+      "original_path": "eslint.config.mjs",
+      "archive_path": "docs/archive/reconciled-baseline/eslint.config.mjs",
+      "sha256": "4d3c3636095bdcd11bad1d53b6d65d37b4473411134144a2f2e2190926ffe3b5",
+      "size": 830
+    }
+  ]
+}

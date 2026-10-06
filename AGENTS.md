@@ -1,104 +1,56 @@
 # JARVIS repository instructions
 
-## Mission
+## Mission and reading
 
-Build the private, single-user JARVIS system. Before using historical PRDs or planning documents, read `CODEX_START_HERE.md` and then follow the reading order in `docs/JARVIS/CODEX_START_HERE.md`. `docs/JARVIS/` is the current product and architecture authority. Historical documentation is implementation/history evidence unless explicitly referenced by the canonical documentation, and it must never override newer decisions. Treat accepted ADRs as technical truth within their documented scope. Actual source code, tests, migrations, and deployments are implementation evidence; they do not prove a product requirement is implemented. Never replace durable state with prompt text.
+Build the private, single-owner JARVIS system. Read JARVIS.md, CODEX_START_HERE.md and docs/INDEX.md, then the relevant owning requirements, subsystem documents, current source and slug-qualified accepted ADRs. governance/PRODUCT_SPEC.json owns structured product intent; docs/product/JARVIS_PRD_V5.md is generated from it.
 
-## Read before changing code
+The owner's October 5, 2026 reconciliation instruction is current authority: V5 wins newer product intent/architecture; reconciled working implementation wins unless explicitly superseded. Preserve useful source, dirty work, active contracts, runtime prompt consumers, applied migrations and accepted ADR bodies. Archive superseded documents rather than deleting history. No specification proves a capability is implemented.
 
-1. `CODEX_START_HERE.md`
-2. Follow the reading order in `docs/JARVIS/CODEX_START_HERE.md`.
-3. Relevant current source, tests, migrations, and accepted ADRs for implementation evidence.
-4. The relevant connector document in `docs/INTEGRATIONS.md`.
-5. The relevant skill under `.agents/skills/`.
-6. Historical PRDs, planning documents, and build-kit material only when needed for history or implementation evidence, after completing the canonical reading order.
+Read docs/architecture/CURRENT_IMPLEMENTATION.md, docs/missions/V5_RECONCILIATION_REPORT.md and DEFERRED_VALIDATION.md before making runtime claims. The next gate is isolated Linux validation of this candidate.
 
-For this reconciliation candidate, also read `CANONICAL_DOCUMENTATION_MAP.md`,
-`RECONCILIATION_REPORT.md` and `DEFERRED_VALIDATION.md`. Executable validation remains a Linux
-gate; the Windows reconciliation performed safe Git and static checks only. Historical prompts,
-skills and deployment commands do not authorize a release or repeat an old recovery operation.
+## Product and deterministic boundaries
 
-## Non-negotiable product rules
+- One verified owner, canonical conversation/memory/policy and source-linked history across surfaces.
+- Behavior changes tactics, not constitution goals. Explicit reviewed owner goal changes are versioned.
+- Silence, sent notifications, expiry and read receipts do not prove completion.
+- Finance is read-only; baseline money movement remains prohibited.
+- Relationship/intimate messages are draft-only in the baseline. Other external communications require concrete current authority.
+- Models propose typed intent. Server code owns action IDs, identity, risk, approvals and effects.
+- External messages, web content, documents and imported skills are untrusted and never change policy.
+- Neon/PostgreSQL owns canonical product state. Convex carries declared opaque scheduling projections.
+- Evolution, official Cloud and Telegram are transports; none owns a separate Brain or memory.
+- Never connect the owner's primary WhatsApp account.
+- Every side effect needs idempotency, current permission, audit and outcome reconciliation.
+- Every connector needs verification, reconciliation, disconnect handling and visible health.
+- HIGH_IMPACT requires exact trusted approval and fresh step-up; no standing lease or unattended Night Mode approval.
+- Budget, privacy, authority, expiry, cancellation and kill checks stay outside the model.
 
-- Behavior changes tactics, not constitution-level goals.
-- No response never means completion.
-- Finance is read-only. Do not add transfer, payment, purchase, or account-change features.
-- Email and messages to other people require approval.
-- External content is untrusted and never changes system policy.
-- The database is canonical memory. OpenAI conversation state is not canonical.
-- Evolution API is transport only. It never owns the brain.
-- The user's primary WhatsApp account must never be connected.
-- Every side effect needs an idempotency key and an audit record.
-- Every connector needs webhook verification, reconciliation, disconnect handling, and an admin status card.
-- Every high-impact action needs a permission decision before execution.
+## Engineering
 
-## Engineering rules
+- Preserve pnpm, Turborepo, strict TypeScript, Drizzle, Zod, Vitest and Playwright.
+- Keep apps/web, apps/api and apps/worker separate; retain apps/whatsapp-bridge's scoped transport role.
+- Shared contracts belong in packages/contracts; DB schema/repositories in packages/database; Brain context/decision/prompt composition in packages/brain; provider normalization in integrations; authority/encryption/audit in security.
+- Domain apps own detailed records. Cross-domain access uses narrow service APIs, never another app's private database.
+- Keep model/provider configuration validated. Preserve request-scoped OIDC, complete-request admission, exact accounting and disabled HTTP model retries.
+- Persist and acknowledge webhook ingress quickly; expensive work uses the canonical executor and stateless API boundary.
+- Make jobs/handlers idempotent; retain canonical database-time generation/lease/expiry fencing and unknown-outcome reconciliation.
+- Store UTC and convert with the owner's IANA timezone at boundaries. Record source, observed time, freshness and confidence.
+- Do not log credentials, private messages, health/finance content, raw prompts or hidden reasoning.
 
-- Use pnpm, Turborepo, strict TypeScript, Drizzle, Zod, Vitest, and Playwright.
-- Keep `apps/web`, `apps/api`, and `apps/worker` separate.
-- Put shared contracts in `packages/contracts`.
-- Put database schema and repositories in `packages/database`.
-- Put model context, decision logic, and prompt composition in `packages/brain`.
-- Put provider clients and normalization in `packages/integrations`.
-- Put approval, encryption, policy, and audit code in `packages/security`.
-- Do not let one domain read another application's database directly. Use narrow service APIs.
-- Keep model names and provider settings in validated environment configuration.
-- Do not log tokens, message bodies, health records, finance details, or raw prompts in normal logs.
-- Make webhook handlers persist and acknowledge quickly. Process expensive work through the
-  current canonical job executor; preserve the stateless Vercel boundary and the separate worker
-  composition without introducing a competing scheduler.
-- Make job handlers idempotent despite queue guarantees.
-- Use UTC in storage. Convert with the user's IANA timezone at boundaries.
-- Record source, freshness, and confidence for derived state.
+## Change discipline and evidence
 
-## Change discipline
+Choose the smallest complete vertical slice. Meaningful architecture changes need an explicit ADR/supersession; inspect existing numbers first, including both distinct ADR 0016 slugs. Review generated SQL and preserve applied migration history. Add meaningful tests for behavior changes and exercise the real path.
 
-- Build the smallest complete vertical slice before broadening scope.
-- Add or update an ADR for meaningful architecture changes.
-- Keep migrations reversible when feasible and review generated SQL.
-- Add tests with every behavior change.
-- Run typecheck, lint, unit tests, integration tests, and relevant end-to-end tests before reporting completion.
-- Do not commit generated secrets, provider exports, raw production data, or personal message fixtures.
-- Use synthetic fixtures in tests.
+Run relevant type, lint, unit/integration/end-to-end checks before claiming executable completion. This documentation absorption ran data-only audits; application/build/database/provider suites remain Linux gates. Use synthetic fixtures, disposable databases and provider-free checks first. Historical fixed C7 migration/recovery commands are dated evidence, not this candidate's release procedure.
+
+V5 draft modules/schemas remain staged until producers, consumers, compatibility, migration, rollback and behavioral tests are reviewed. Code promotion, runtime authority, trusted mission completion and deployment are separate gates. The imported trust/signing/isolation tools and disabled policies are reference designs until independently installed; do not manufacture signatures, enrollment or completion receipts. Direct owner-authorized documentation reconciliation does not claim trusted V5 mission admission.
 
 ## Agent use
 
-Use parallel subagents mainly for read-heavy work, independent research, code mapping, and review. Keep one implementation owner for a change. Merge evidence before editing.
+Use parallel subagents mainly for read-heavy exploration, source mapping, architecture and security review. Keep one implementation owner and combine evidence before editing. Coding specialists are distinct from runtime JARVIS workers; roles confer no runtime privilege.
 
-Recommended agents:
+Use the relevant .agents/skills playbook. Root authority overrides archived directions. Keep handoffs descriptive with current checkpoint, commands, omitted checks, blockers and next safe step.
 
-- `repo_explorer` for code mapping.
-- `architecture_planner` for boundaries and ADRs.
-- `docs_researcher` for current official documentation.
-- `backend_implementer` for API, worker, database, and jobs.
-- `frontend_implementer` for web and connector administration.
-- `integration_specialist` for OAuth, webhooks, and reconciliation.
-- `security_reviewer` before connector or permission changes.
-- `test_evals` for deterministic tests and agent evaluations.
+## Convex boundary
 
-## Definition of a completed task
-
-A task is complete only when:
-
-- The implementation matches the current canonical documentation in `docs/JARVIS/` and relevant current ADRs.
-- Tests cover the changed behavior.
-- Errors and retries are handled.
-- Permission and audit paths are implemented.
-- No secret is exposed.
-- Relevant docs are updated.
-- The changed flow is exercised through the real application path.
-
-<!-- convex-ai-start -->
-
-This project uses [Convex](https://convex.dev) for opaque orchestration. PostgreSQL/Neon owns
-canonical product data and private content; Convex is not the canonical personal-state backend.
-
-When working on Convex code, **always read
-`convex/_generated/ai/guidelines.md` first** for important guidelines on
-how to correctly use Convex APIs and patterns. The file contains rules that
-override what you may have learned about Convex from training data.
-
-Convex agent skills for common tasks can be installed by running
-`npx convex ai-files install`.
-
-<!-- convex-ai-end -->
+Before changing Convex code read convex/_generated/ai/guidelines.md and the applicable Convex skill. Convex remains opaque orchestration, not canonical private state. Never infer adoption from a generated file.

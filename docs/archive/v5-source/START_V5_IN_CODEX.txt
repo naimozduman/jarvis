@@ -1,0 +1,13 @@
+Start a new JARVIS V5 integration session. Do not restart the project or execute all missions.
+
+Use the actual paths supplied by the owner for the existing repository and the separate extracted V5 pack. The repository may contain deliberate dirty work. Preserve it.
+
+First establish sanitized input and the credential boundary from docs/BUILDER_ISOLATION.md. A second folder in the same unrestricted account is not isolation. If safe code execution is unavailable, perform a document-only audit of sanitized files and report tests not run.
+
+Run only J5-M00 from governance/ROADMAP.json. Read the existing AGENTS.md and candidate V5 AGENTS.md. Report conflicts instead of overwriting active rules. Resolve the engineering context with tools/jarvis-v5/context.py and inspect the real implementation, not only the candidate docs.
+
+Compare the actual branch/HEAD/dirty files, applied-history evidence, prompt loader, schema producers/consumers and CI discovery with governance/RECONCILIATION.json. Produce keep/repair/migrate/replace/retire/unresolved dispositions and an inert per-file integration plan using reconcile.py. The full PRD remains available for product scope; load the exact relevant requirements rather than the entire document on every turn.
+
+Do not reset, clean, stash, push, install providers, migrate a database, expose secrets, pair WhatsApp, deploy or select paid models. Preserve root toolchain files, enrolled trust, accepted ADRs, applied migrations and active contracts. Do not run J5-M01 automatically.
+
+Return the source/checkpoint coverage, collision plan, focused code findings, tests actually run, missing installation evidence, owner decisions and next safe step. Write the handoff to the approved scratch location. Builder output is ready_for_verification, not trusted mission completion.

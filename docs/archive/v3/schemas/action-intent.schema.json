@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JARVIS Action Intent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "actionType",
+    "capability",
+    "arguments",
+    "risk",
+    "idempotencyKey",
+    "reason"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "actionType": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160
+    },
+    "capability": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160
+    },
+    "arguments": {
+      "type": "object"
+    },
+    "risk": {
+      "type": "string",
+      "enum": [
+        "read",
+        "low_risk_internal",
+        "controlled_write",
+        "high_impact",
+        "prohibited"
+      ]
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 512
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 1500
+    },
+    "expiresAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "sourceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "source-reference.schema.json"
+      },
+      "maxItems": 30
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "approvalId": "00000000-0000-4000-8000-000000000003",
+  "ownerId": "00000000-0000-4000-8000-000000000002",
+  "actionId": "00000000-0000-4000-8000-000000000001",
+  "snapshotHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "outcome": "approved",
+  "resolvedAt": "2026-09-25T10:05:00Z",
+  "trustedSurface": "first_party_web",
+  "authMethod": "webauthn_user_verified",
+  "reauthenticatedAt": "2026-09-25T10:00:00Z",
+  "sessionRef": "fixture-session",
+  "deviceRef": "fixture-device",
+  "policyVersion": "fixture-policy-1",
+  "challengeRef": "fixture-challenge",
+  "unexpectedAuthority": true
+}

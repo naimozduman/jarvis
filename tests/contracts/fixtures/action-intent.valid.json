@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "actionType": "calendar.block.create",
+  "arguments": {
+    "title": "Synthetic focus block"
+  },
+  "targetRef": "calendar-fixture",
+  "rationale": "Owner requested a test plan",
+  "evidenceRefs": [
+    "fixture-source-1"
+  ]
+}

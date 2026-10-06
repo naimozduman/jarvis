@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JARVIS Capability",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "name",
+    "risk",
+    "reversibility",
+    "requiresApproval"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,160}$"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "risk": {
+      "type": "string",
+      "enum": [
+        "read",
+        "low_risk_internal",
+        "controlled_write",
+        "high_impact",
+        "prohibited"
+      ]
+    },
+    "reversibility": {
+      "type": "string",
+      "enum": [
+        "reversible",
+        "partially_reversible",
+        "irreversible",
+        "unknown"
+      ]
+    },
+    "requiresApproval": {
+      "type": "boolean"
+    },
+    "requiredScopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "verificationMethod": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    },
+    "reconciliationMethod": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 1000
+    }
+  }
+}

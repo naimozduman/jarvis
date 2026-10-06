@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "proposed",
+  "enabled": false,
+  "ownerApprovalRef": null,
+  "currency": "USD",
+  "unit": "microUSD",
+  "billingTimezone": "UTC",
+  "monthlyCeiling": 50000000,
+  "dailyCeiling": 5000000,
+  "defaultJobCeiling": 1000000,
+  "optionalAnalysisApprovalThreshold": 2000000,
+  "defaultMaxCallsPerJob": 8,
+  "defaultMaxRetries": 2,
+  "defaultMaxElapsedSeconds": 300,
+  "warningFractions": [
+    0.7,
+    0.9
+  ],
+  "onExhaustion": "deny_new_paid_calls_and_defer",
+  "onUnknownCost": "retain_reservation_and_block_new_paid_calls",
+  "silentPaidFallback": false,
+  "covers": [
+    "inference",
+    "voice",
+    "transcription",
+    "speech_synthesis",
+    "metered_tools"
+  ],
+  "subscriptionBillingSeparate": true
+}

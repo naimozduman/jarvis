@@ -1,0 +1,27 @@
+{
+  "stateVersion": 2,
+  "authority": "descriptive_only",
+  "missionId": null,
+  "runId": null,
+  "branch": "reconciliation/2026-10-05",
+  "baseCommit": "0b05116598a7bed142c294326e15471ed03e0b26",
+  "headCommit": null,
+  "headCommitResolution": "Resolve Git HEAD on entry; final self-referential commit hash is recorded outside the repository.",
+  "updatedAt": "2026-10-06T01:36:49.107161+00:00",
+  "dirtyFiles": [],
+  "commandsRef": "docs/missions/V5_RECONCILIATION_CHECKS.json",
+  "phase": "V5 accounted; canonical source/documentation sealed after checks; Linux executable validation pending",
+  "blockers": [
+    "Linux executable validation pending",
+    "Trusted verifier/signing/recovery/isolation not enrolled",
+    "Current provider/deployment/owner baseline not queried"
+  ],
+  "nextSafeStep": "Validate the exact final canonical candidate SHA on isolated Linux with synthetic fixtures and disposable databases.",
+  "nextChat": "Linux validation of the canonical candidate; Odysseus/controller remains later separate scope.",
+  "observationsRef": "governance/OBSERVATIONS.json",
+  "reconciliationRef": "governance/CURRENT_IMPLEMENTATION_MAP.json",
+  "candidateTreeManifest": "FINAL_TREE_MANIFEST.json",
+  "trustedMissionCompletion": false,
+  "maintenance": "Reviewed file edits with a prior-hash comparison; original tools/jarvis-v5/state.py is reference-only.",
+  "dirtyFilesResolution": "This describes the intended final checkpoint; resolve current exact dirty files with git status. Outside V5_COMPLETION_RECORD.json verifies the final clean commit."
+}

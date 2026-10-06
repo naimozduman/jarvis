@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/first-party-app-event/1.0.0-draft",
+  "title": "Normalized App Event",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.first-party-app-event",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "eventId",
+    "ownerId",
+    "appId",
+    "eventType",
+    "occurredAt",
+    "receivedAt",
+    "idempotencyKey",
+    "sourceRecord",
+    "summarySchemaId",
+    "summary",
+    "sensitivity",
+    "supersedesEventId"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "appId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "eventType": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "receivedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256
+    },
+    "sourceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "id",
+        "version"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      }
+    },
+    "summarySchemaId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "summary": {
+      "type": "object",
+      "maxProperties": 64,
+      "description": "Must also pass the capability-specific input schema. Never an authority grant."
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "private",
+        "sensitive",
+        "restricted"
+      ]
+    },
+    "supersedesEventId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

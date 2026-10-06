@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "ownerId": "00000000-0000-4000-8000-000000000002",
+  "kind": "device.availability",
+  "observedAt": "2026-09-25T10:00:00Z",
+  "expiresAt": "2026-09-25T10:05:00Z",
+  "sourceRef": {
+    "schemaVersion": 1,
+    "sourceType": "synthetic",
+    "sourceId": "fixture-source-1",
+    "sourceVersion": "1",
+    "occurredAt": "2026-09-25T10:00:00Z",
+    "observedAt": "2026-09-25T10:00:00Z",
+    "coverage": "fixture only",
+    "informationState": "known",
+    "sensitivity": "normal",
+    "contentHash": null
+  },
+  "valueSchemaId": "jarvis.device-availability:1",
+  "value": {
+    "online": true
+  },
+  "informationState": "known",
+  "sensitivity": "private"
+}

@@ -7,10 +7,18 @@ coverage/
 *.lock
 JARVIS_PRD.docx
 JARVIS_PRD.pdf
-docs/*.md
+docs/**/*.md
 docs/ADR/000*.md
 prompts/
 schemas/
 templates/
 .agents/
 .codex/
+
+# Imported immutable sources and staged reference toolkit keep their source formatting.
+docs/archive/
+docs/design/reference-skills/
+governance/
+tools/jarvis-v5/
+tests/contracts/fixtures/
+integration/

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "authorizationId": "00000000-0000-4000-8000-000000000003",
+  "ownerId": "00000000-0000-4000-8000-000000000002",
+  "actionId": "00000000-0000-4000-8000-000000000001",
+  "actionRevision": 1,
+  "snapshotHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "capabilityId": "calendar.block.create",
+  "executorId": "calendar-fixture",
+  "credentialAccountRef": "fixture-account",
+  "policyVersion": "fixture-policy-1",
+  "killEpoch": 0,
+  "authorityType": "action_approval",
+  "approvalId": "00000000-0000-4000-8000-000000000003",
+  "leaseId": null,
+  "risk": "CONTROLLED_WRITE",
+  "issuedAt": "2026-09-25T10:00:00Z",
+  "expiresAt": "2026-09-25T10:05:00Z",
+  "idempotencyKey": "fixture-operation-0001",
+  "trustedResolverRef": "fixture-resolver"
+}

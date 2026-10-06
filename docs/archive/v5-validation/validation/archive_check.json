@@ -1,0 +1,133 @@
+{
+  "passed": true,
+  "entries": [
+    {
+      "path": "reference/source/JARVIS_PRD_V2_Personal_OS(2)(2)(1).docx",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/source/Muse 2 .txt",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/source/jarvis-builds-deep-dive.pdf",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/source/jarvis-ultimate-synthesis.pdf",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/authority-lease.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/proactive-brief.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/capability.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/first-party-app-event.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/life-ledger-event.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/action-intent.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/world-state.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/skill-record.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/schemas/source-reference.schema.json",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0019-non-forgeable-approval-resolution.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0021-external-agent-runtimes-as-workers.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0023-cost-aware-model-routing.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0024-research-is-evidence-not-product-authority.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0017-role-separation-surfaces-apps-agents-executors.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0022-browser-as-surface-domain-app-and-executor-boundary.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0016-personal-os-core-and-first-party-apps.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0020-hybrid-privacy-tiers.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v3/ADR/0018-procedural-memory-skills.md",
+      "matchesSourceHash": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-009.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-002.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-001.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-004.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-010.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-007.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-003.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-008.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-006.md",
+      "matchesV41OriginalBytes": true
+    },
+    {
+      "path": "reference/v4/proposals/v4-005.md",
+      "matchesV41OriginalBytes": true
+    }
+  ]
+}

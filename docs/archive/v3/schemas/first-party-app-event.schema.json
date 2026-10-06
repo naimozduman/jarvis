@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JARVIS First-Party App Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "eventId",
+    "ownerId",
+    "appId",
+    "eventType",
+    "occurredAt",
+    "idempotencyKey",
+    "sourceRecord",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "appId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,100}$"
+    },
+    "appVersion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 80
+    },
+    "eventType": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 512
+    },
+    "sourceRecord": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        }
+      }
+    },
+    "summary": {
+      "type": "object"
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "private",
+        "sensitive",
+        "restricted"
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "status": "proposed",
+  "enabled": false,
+  "ownerApprovalRef": null,
+  "stepUpMaxAgeSeconds": 300,
+  "defaultLeaseSeconds": 604800,
+  "maximumLeaseSeconds": 2592000,
+  "maximumNightLeaseSeconds": 43200,
+  "standingWriteLeasesAllowed": false,
+  "highImpactViaLeaseAllowed": false,
+  "leaseCreationNeedsStepUp": true,
+  "maximumConcurrentLeasesPerExecutor": 10,
+  "onRenewal": "new_owner_approval",
+  "financeWritesAllowed": false
+}

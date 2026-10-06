@@ -1,0 +1,894 @@
+{
+  "crosswalkVersion": 1,
+  "originalRequirementCount": 93,
+  "entries": [
+    {
+      "requirementId": "REQ-CORE-01",
+      "section": "product",
+      "owner": "docs/architecture/ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CORE-02",
+      "section": "product",
+      "owner": "docs/architecture/ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CORE-03",
+      "section": "product",
+      "owner": "docs/architecture/ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CORE-04",
+      "section": "product",
+      "owner": "docs/architecture/ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-01",
+      "section": "continuity",
+      "owner": "docs/architecture/CONTEXT_AND_MEMORY.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-02",
+      "section": "continuity",
+      "owner": "docs/architecture/CONTEXT_AND_MEMORY.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-03",
+      "section": "continuity",
+      "owner": "docs/architecture/CONTEXT_AND_MEMORY.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-04",
+      "section": "continuity",
+      "owner": "docs/architecture/CONTEXT_AND_MEMORY.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-01",
+      "section": "constitution",
+      "owner": "docs/product/CONSTITUTION_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-02",
+      "section": "constitution",
+      "owner": "docs/product/CONSTITUTION_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-03",
+      "section": "constitution",
+      "owner": "docs/product/CONSTITUTION_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-04",
+      "section": "constitution",
+      "owner": "docs/product/CONSTITUTION_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-01",
+      "section": "memory",
+      "owner": "docs/architecture/MEMORY_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-02",
+      "section": "memory",
+      "owner": "docs/architecture/MEMORY_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-03",
+      "section": "memory",
+      "owner": "docs/architecture/MEMORY_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-04",
+      "section": "memory",
+      "owner": "docs/architecture/MEMORY_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-05",
+      "section": "memory",
+      "owner": "docs/architecture/MEMORY_ENGINE.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-01",
+      "section": "planning",
+      "owner": "docs/architecture/REPLANNING_ENGINE.md",
+      "missionIds": [
+        "J5-M09"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-02",
+      "section": "planning",
+      "owner": "docs/architecture/REPLANNING_ENGINE.md",
+      "missionIds": [
+        "J5-M09"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-03",
+      "section": "planning",
+      "owner": "docs/architecture/REPLANNING_ENGINE.md",
+      "missionIds": [
+        "J5-M09"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-04",
+      "section": "planning",
+      "owner": "docs/architecture/REPLANNING_ENGINE.md",
+      "missionIds": [
+        "J5-M09"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-05",
+      "section": "planning",
+      "owner": "docs/architecture/REPLANNING_ENGINE.md",
+      "missionIds": [
+        "J5-M09"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-01",
+      "section": "history",
+      "owner": "docs/architecture/LIFE_LEDGER.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-02",
+      "section": "history",
+      "owner": "docs/architecture/LIFE_LEDGER.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-03",
+      "section": "history",
+      "owner": "docs/architecture/LIFE_LEDGER.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-04",
+      "section": "history",
+      "owner": "docs/architecture/LIFE_LEDGER.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-05",
+      "section": "history",
+      "owner": "docs/architecture/LIFE_LEDGER.md",
+      "missionIds": [
+        "J5-M12"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-01",
+      "section": "brain",
+      "owner": "docs/architecture/BRAIN_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-02",
+      "section": "brain",
+      "owner": "docs/architecture/BRAIN_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-03",
+      "section": "brain",
+      "owner": "docs/architecture/BRAIN_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-04",
+      "section": "brain",
+      "owner": "docs/architecture/BRAIN_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-05",
+      "section": "brain",
+      "owner": "docs/architecture/BRAIN_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-06",
+      "section": "brain",
+      "owner": "docs/architecture/BRAIN_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-01",
+      "section": "actions",
+      "owner": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "missionIds": [
+        "J5-M18"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-02",
+      "section": "actions",
+      "owner": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "missionIds": [
+        "J5-M18"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-03",
+      "section": "actions",
+      "owner": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "missionIds": [
+        "J5-M18"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-04",
+      "section": "actions",
+      "owner": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "missionIds": [
+        "J5-M18"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-05",
+      "section": "actions",
+      "owner": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "missionIds": [
+        "J5-M18"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-06",
+      "section": "actions",
+      "owner": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "missionIds": [
+        "J5-M18"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-07",
+      "section": "actions",
+      "owner": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "missionIds": [
+        "J5-M18"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-01",
+      "section": "delivery",
+      "owner": "docs/architecture/JOB_LIFECYCLE.md",
+      "missionIds": [
+        "J5-M04"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-02",
+      "section": "delivery",
+      "owner": "docs/architecture/JOB_LIFECYCLE.md",
+      "missionIds": [
+        "J5-M04"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-03",
+      "section": "delivery",
+      "owner": "docs/architecture/JOB_LIFECYCLE.md",
+      "missionIds": [
+        "J5-M04"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-04",
+      "section": "delivery",
+      "owner": "docs/architecture/JOB_LIFECYCLE.md",
+      "missionIds": [
+        "J5-M04"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-05",
+      "section": "delivery",
+      "owner": "docs/architecture/JOB_LIFECYCLE.md",
+      "missionIds": [
+        "J5-M04"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-01",
+      "section": "identity",
+      "owner": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "missionIds": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-02",
+      "section": "identity",
+      "owner": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "missionIds": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-03",
+      "section": "identity",
+      "owner": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "missionIds": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-04",
+      "section": "identity",
+      "owner": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "missionIds": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-05",
+      "section": "identity",
+      "owner": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "missionIds": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-01",
+      "section": "surfaces",
+      "owner": "docs/design/SURFACES_AND_CLIENTS.md",
+      "missionIds": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-02",
+      "section": "surfaces",
+      "owner": "docs/design/SURFACES_AND_CLIENTS.md",
+      "missionIds": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-03",
+      "section": "surfaces",
+      "owner": "docs/design/SURFACES_AND_CLIENTS.md",
+      "missionIds": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-04",
+      "section": "surfaces",
+      "owner": "docs/design/SURFACES_AND_CLIENTS.md",
+      "missionIds": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-01",
+      "section": "voice",
+      "owner": "docs/design/VOICE_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M16"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-02",
+      "section": "voice",
+      "owner": "docs/design/VOICE_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M16"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-03",
+      "section": "voice",
+      "owner": "docs/design/VOICE_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M16"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-04",
+      "section": "voice",
+      "owner": "docs/design/VOICE_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M16"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-01",
+      "section": "android",
+      "owner": "docs/design/ANDROID_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-02",
+      "section": "android",
+      "owner": "docs/design/ANDROID_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-03",
+      "section": "android",
+      "owner": "docs/design/ANDROID_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-04",
+      "section": "android",
+      "owner": "docs/design/ANDROID_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-01",
+      "section": "apps",
+      "owner": "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-02",
+      "section": "apps",
+      "owner": "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-03",
+      "section": "apps",
+      "owner": "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-04",
+      "section": "apps",
+      "owner": "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-05",
+      "section": "apps",
+      "owner": "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-06",
+      "section": "apps",
+      "owner": "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-01",
+      "section": "browser",
+      "owner": "docs/architecture/BROWSER_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M21"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-02",
+      "section": "browser",
+      "owner": "docs/architecture/BROWSER_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M21"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-03",
+      "section": "browser",
+      "owner": "docs/architecture/BROWSER_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M21"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-04",
+      "section": "browser",
+      "owner": "docs/architecture/BROWSER_ARCHITECTURE.md",
+      "missionIds": [
+        "J5-M21"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-01",
+      "section": "workers",
+      "owner": "docs/agents/AGENT_RUNTIME.md",
+      "missionIds": [
+        "J5-M19"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-02",
+      "section": "workers",
+      "owner": "docs/agents/AGENT_RUNTIME.md",
+      "missionIds": [
+        "J5-M19"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-03",
+      "section": "workers",
+      "owner": "docs/agents/AGENT_RUNTIME.md",
+      "missionIds": [
+        "J5-M19"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-04",
+      "section": "workers",
+      "owner": "docs/agents/AGENT_RUNTIME.md",
+      "missionIds": [
+        "J5-M19"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-01",
+      "section": "night",
+      "owner": "docs/product/NIGHT_MODE.md",
+      "missionIds": [
+        "J5-M20"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-02",
+      "section": "night",
+      "owner": "docs/product/NIGHT_MODE.md",
+      "missionIds": [
+        "J5-M20"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-03",
+      "section": "night",
+      "owner": "docs/product/NIGHT_MODE.md",
+      "missionIds": [
+        "J5-M20"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-04",
+      "section": "night",
+      "owner": "docs/product/NIGHT_MODE.md",
+      "missionIds": [
+        "J5-M20"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-01",
+      "section": "operations",
+      "owner": "docs/security/DISASTER_RECOVERY.md",
+      "missionIds": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-02",
+      "section": "operations",
+      "owner": "docs/security/DISASTER_RECOVERY.md",
+      "missionIds": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-03",
+      "section": "operations",
+      "owner": "docs/security/DISASTER_RECOVERY.md",
+      "missionIds": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-04",
+      "section": "operations",
+      "owner": "docs/security/DISASTER_RECOVERY.md",
+      "missionIds": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-05",
+      "section": "operations",
+      "owner": "docs/security/DISASTER_RECOVERY.md",
+      "missionIds": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-06",
+      "section": "operations",
+      "owner": "docs/security/DISASTER_RECOVERY.md",
+      "missionIds": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-01",
+      "section": "engineering",
+      "owner": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "missionIds": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-02",
+      "section": "engineering",
+      "owner": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "missionIds": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-03",
+      "section": "engineering",
+      "owner": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "missionIds": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-04",
+      "section": "engineering",
+      "owner": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "missionIds": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-05",
+      "section": "engineering",
+      "owner": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "missionIds": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-06",
+      "section": "engineering",
+      "owner": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "missionIds": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-07",
+      "section": "engineering",
+      "owner": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "missionIds": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "runtimeProof": null
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/proposed-action/1.0.0-draft",
+  "title": "Server Proposed Action",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.proposed-action",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "actionId",
+    "revision",
+    "ownerId",
+    "actionType",
+    "capabilityId",
+    "capabilityVersion",
+    "executorId",
+    "credentialAccountRef",
+    "targetRefs",
+    "inputSchemaId",
+    "arguments",
+    "risk",
+    "idempotencyKey",
+    "snapshotVersion",
+    "snapshotHash",
+    "policyVersion",
+    "createdAt",
+    "expiresAt",
+    "sourceRefs"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "actionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "actionType": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "capabilityId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "capabilityVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "executorId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "credentialAccountRef": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "targetRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+      },
+      "minItems": 1,
+      "maxItems": 100,
+      "uniqueItems": true
+    },
+    "inputSchemaId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "arguments": {
+      "type": "object",
+      "maxProperties": 64,
+      "description": "Must also pass the capability-specific input schema. Never an authority grant."
+    },
+    "risk": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "LOW_RISK_INTERNAL",
+        "CONTROLLED_WRITE",
+        "HIGH_IMPACT",
+        "PROHIBITED"
+      ]
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256
+    },
+    "snapshotVersion": {
+      "const": 1
+    },
+    "snapshotHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "policyVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "https://jarvis.invalid/contracts/source-reference/1.0.0-draft"
+      },
+      "minItems": 0,
+      "maxItems": 30,
+      "uniqueItems": true
+    }
+  }
+}

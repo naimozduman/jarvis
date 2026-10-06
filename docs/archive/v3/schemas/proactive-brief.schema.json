@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JARVIS Proactive Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "briefId",
+    "ownerId",
+    "periodStart",
+    "periodEnd",
+    "items"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "briefId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "periodStart": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "periodEnd": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "items": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": [
+          "status",
+          "summary"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "info",
+              "needs_attention",
+              "drafted",
+              "waiting_approval",
+              "running",
+              "verified",
+              "failed",
+              "partial",
+              "reconciliation_required"
+            ]
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "sourceRefs": {
+            "type": "array",
+            "items": {
+              "$ref": "source-reference.schema.json"
+            },
+            "maxItems": 20
+          }
+        }
+      }
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

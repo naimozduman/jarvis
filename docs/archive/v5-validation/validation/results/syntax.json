@@ -1,0 +1,205 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "tools/jarvis-v5/common.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/compile_prompts.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/context.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/env_report.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/generate.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/git_snapshot.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/github_candidate.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/impact.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/index.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/isolated_worker.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/isolation_probe.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/mission_runner.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/overlay_plan.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/prepare_builder.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/promotion_evidence.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/reconcile.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/reference_controls.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/render.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/retirement.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/review_evidence.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/schema_tests/test_schemas.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/state.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_pack_tools.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_reference_controls.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_v41_enforcement.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_v5_tools.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/trusted_time.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/v5_checks.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/validate.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/version_gate.py",
+      "kind": "Python AST",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/evidence-signing.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/key_lifecycle.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/mission_gate.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/owner-signing.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/owner_record_signing.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/signed_records.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/tests/trust-gate.test.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/tests/v41-enforcement.test.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/tests/v5-trust.test.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    },
+    {
+      "path": "tools/jarvis-v5/trust-gate.mjs",
+      "kind": "Node syntax check",
+      "passed": true
+    }
+  ]
+}

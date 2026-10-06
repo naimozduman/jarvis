@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "appId": "growth-stats",
+  "version": "1",
+  "authenticationMethod": "owner_session",
+  "ownedRecordTypes": [
+    "meal"
+  ],
+  "eventSchemaIds": [
+    "jarvis.first-party-app-event:1"
+  ],
+  "commandSchemaIds": [],
+  "summarySchemaIds": [
+    "jarvis.meal-summary:1"
+  ],
+  "capabilities": [
+    "nutrition.summary.read"
+  ],
+  "retentionRules": [
+    {
+      "recordType": "meal",
+      "locality": "restricted",
+      "rawRetentionDays": 30,
+      "derivedRetentionDays": 365,
+      "deletePropagation": true
+    }
+  ],
+  "sync": {
+    "strategy": "event_and_reconcile",
+    "replayKeyRequired": true,
+    "correctionVersionRequired": true
+  }
+}

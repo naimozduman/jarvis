@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "assemblyId": "conversation",
+  "contractId": "jarvis.action-intent:1",
+  "status": "draft",
+  "invariantDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "modules": [
+    {
+      "id": "core-system",
+      "version": "4.0.0",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "contentSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "utf8Bytes": 1000,
+  "producerCommit": null,
+  "unexpectedAuthority": true
+}

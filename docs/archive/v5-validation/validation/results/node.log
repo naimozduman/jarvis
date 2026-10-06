@@ -1,0 +1,652 @@
+TAP version 13
+# Subtest: ordinary code now requires exact owner approval
+ok 1 - ordinary code now requires exact owner approval
+  ---
+  duration_ms: 64.397841
+  type: 'test'
+  ...
+# Subtest: protected diff denied unsigned
+ok 2 - protected diff denied unsigned
+  ---
+  duration_ms: 43.743884
+  type: 'test'
+  ...
+# Subtest: exact owner signature admits protected diff
+ok 3 - exact owner signature admits protected diff
+  ---
+  duration_ms: 53.739809
+  type: 'test'
+  ...
+# Subtest: changed head invalidates approval
+ok 4 - changed head invalidates approval
+  ---
+  duration_ms: 59.976138
+  type: 'test'
+  ...
+# Subtest: tampered envelope rejected
+ok 5 - tampered envelope rejected
+  ---
+  duration_ms: 56.828239
+  type: 'test'
+  ...
+# Subtest: expired approval rejected
+ok 6 - expired approval rejected
+  ---
+  duration_ms: 57.492883
+  type: 'test'
+  ...
+# Subtest: unregistered key rejected
+ok 7 - unregistered key rejected
+  ---
+  duration_ms: 51.969592
+  type: 'test'
+  ...
+# Subtest: wrong signature rejected
+ok 8 - wrong signature rejected
+  ---
+  duration_ms: 50.159205
+  type: 'test'
+  ...
+# Subtest: immutable history denied even signed
+ok 9 - immutable history denied even signed
+  ---
+  duration_ms: 51.055881
+  type: 'test'
+  ...
+# Subtest: new history is an authorized append, not an unsigned policy change
+ok 10 - new history is an authorized append, not an unsigned policy change
+  ---
+  duration_ms: 61.501074
+  type: 'test'
+  ...
+# Subtest: candidate checker never executed
+ok 11 - candidate checker never executed
+  ---
+  duration_ms: 38.212941
+  type: 'test'
+  ...
+# Subtest: candidate trust policy cannot change supplied baseline
+ok 12 - candidate trust policy cannot change supplied baseline
+  ---
+  duration_ms: 40.593761
+  type: 'test'
+  ...
+# Subtest: same signature cannot promote another repository identity
+ok 13 - same signature cannot promote another repository identity
+  ---
+  duration_ms: 48.213172
+  type: 'test'
+  ...
+# Subtest: full SHA required, branch name is not accepted
+ok 14 - full SHA required, branch name is not accepted
+  ---
+  duration_ms: 25.172723
+  type: 'test'
+  ...
+# Subtest: glob boundaries and history prefixes
+ok 15 - glob boundaries and history prefixes
+  ---
+  duration_ms: 0.178851
+  type: 'test'
+  ...
+# Subtest: canonical payload refuses noninteger floats
+ok 16 - canonical payload refuses noninteger floats
+  ---
+  duration_ms: 0.123597
+  type: 'test'
+  ...
+# Subtest: invalid trusted verifier clock fails closed
+ok 17 - invalid trusted verifier clock fails closed
+  ---
+  duration_ms: 46.957334
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/api/src/runtime.ts
+ok 18 - protected by default: apps/api/src/runtime.ts
+  ---
+  duration_ms: 60.089781
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/database/src/brain-repository.ts
+ok 19 - protected by default: packages/database/src/brain-repository.ts
+  ---
+  duration_ms: 63.022495
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/config/src/index.ts
+ok 20 - protected by default: packages/config/src/index.ts
+  ---
+  duration_ms: 63.65325
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/executors/src/dispatch.ts
+ok 21 - protected by default: packages/executors/src/dispatch.ts
+  ---
+  duration_ms: 65.853316
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/web/src/approval-view.tsx
+ok 22 - protected by default: apps/web/src/approval-view.tsx
+  ---
+  duration_ms: 65.183949
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/integrations-mail/src/send.ts
+ok 23 - protected by default: packages/integrations-mail/src/send.ts
+  ---
+  duration_ms: 61.691047
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/whatsapp-bridge/src/send.ts
+ok 24 - protected by default: apps/whatsapp-bridge/src/send.ts
+  ---
+  duration_ms: 60.580794
+  type: 'test'
+  ...
+# Subtest: protected by default: convex/new-dispatch.ts
+ok 25 - protected by default: convex/new-dispatch.ts
+  ---
+  duration_ms: 56.991686
+  type: 'test'
+  ...
+# Subtest: protected by default: unknown-new-directory/handler.js
+ok 26 - protected by default: unknown-new-directory/handler.js
+  ---
+  duration_ms: 58.392314
+  type: 'test'
+  ...
+# Subtest: protected by default: Dockerfile
+ok 27 - protected by default: Dockerfile
+  ---
+  duration_ms: 60.64806
+  type: 'test'
+  ...
+# Subtest: protected by default: pnpm-lock.yaml
+ok 28 - protected by default: pnpm-lock.yaml
+  ---
+  duration_ms: 60.365432
+  type: 'test'
+  ...
+# Subtest: protected by default: governance/runs/payload.mjs
+ok 29 - protected by default: governance/runs/payload.mjs
+  ---
+  duration_ms: 63.597064
+  type: 'test'
+  ...
+# Subtest: unsigned removal of dispatch authorization is rejected with policy module untouched
+ok 30 - unsigned removal of dispatch authorization is rejected with policy module untouched
+  ---
+  duration_ms: 52.736897
+  type: 'test'
+  ...
+# Subtest: benign operational JSON does not require a code promotion signature after enrollment
+ok 31 - benign operational JSON does not require a code promotion signature after enrollment
+  ---
+  duration_ms: 44.000727
+  type: 'test'
+  ...
+# Subtest: executable bit removes operational exemption
+ok 32 - executable bit removes operational exemption
+  ---
+  duration_ms: 39.748854
+  type: 'test'
+  ...
+# Subtest: rename out of an operational location still protects destination
+ok 33 - rename out of an operational location still protects destination
+  ---
+  duration_ms: 51.256444
+  type: 'test'
+  ...
+# Subtest: unenrolled policy permits inspection but denies operational promotion
+ok 34 - unenrolled policy permits inspection but denies operational promotion
+  ---
+  duration_ms: 44.362875
+  type: 'test'
+  ...
+# Subtest: version-one/default-allow policy is refused by V4.1
+ok 35 - version-one/default-allow policy is refused by V4.1
+  ---
+  duration_ms: 19.544313
+  type: 'test'
+  ...
+# Subtest: candidate operational exception expansion is not used
+ok 36 - candidate operational exception expansion is not used
+  ---
+  duration_ms: 39.423162
+  type: 'test'
+  ...
+# Subtest: changed-blob limit is enforced
+ok 37 - changed-blob limit is enforced
+  ---
+  duration_ms: 39.229127
+  type: 'test'
+  ...
+# Subtest: symlink under operational folder is rejected
+ok 38 - symlink under operational folder is rejected
+  ---
+  duration_ms: 34.541009
+  type: 'test'
+  ...
+# Subtest: correct independent evidence signature verifies
+ok 39 - correct independent evidence signature verifies
+  ---
+  duration_ms: 2.468793
+  type: 'test'
+  ...
+# Subtest: candidate cannot activate unenrolled evidence trust
+ok 40 - candidate cannot activate unenrolled evidence trust
+  ---
+  duration_ms: 1.145712
+  type: 'test'
+  ...
+# Subtest: wrong-purpose signer rejected
+ok 41 - wrong-purpose signer rejected
+  ---
+  duration_ms: 1.049136
+  type: 'test'
+  ...
+# Subtest: tampered evidence head rejected
+ok 42 - tampered evidence head rejected
+  ---
+  duration_ms: 1.355079
+  type: 'test'
+  ...
+# Subtest: expired evidence rejected
+ok 43 - expired evidence rejected
+  ---
+  duration_ms: 1.101565
+  type: 'test'
+  ...
+# Subtest: future evidence rejected
+ok 44 - future evidence rejected
+  ---
+  duration_ms: 1.076188
+  type: 'test'
+  ...
+# Subtest: governance signature cannot be replayed as evidence
+ok 45 - governance signature cannot be replayed as evidence
+  ---
+  duration_ms: 1.606529
+  type: 'test'
+  ...
+# Subtest: altered signer public key rejected
+ok 46 - altered signer public key rejected
+  ---
+  duration_ms: 1.221848
+  type: 'test'
+  ...
+# Subtest: signed validity window still obeys trusted maximum
+ok 47 - signed validity window still obeys trusted maximum
+  ---
+  duration_ms: 1.746962
+  type: 'test'
+  ...
+# Subtest: invalid evidence verifier clock fails closed
+ok 48 - invalid evidence verifier clock fails closed
+  ---
+  duration_ms: 1.072091
+  type: 'test'
+  ...
+# Subtest: record: valid purpose-separated Ed25519 envelope
+ok 49 - record: valid purpose-separated Ed25519 envelope
+  ---
+  duration_ms: 4.795731
+  type: 'test'
+  ...
+# Subtest: record: same signature rejected for another purpose
+ok 50 - record: same signature rejected for another purpose
+  ---
+  duration_ms: 1.132853
+  type: 'test'
+  ...
+# Subtest: record: tampered payload rejected
+ok 51 - record: tampered payload rejected
+  ---
+  duration_ms: 1.200065
+  type: 'test'
+  ...
+# Subtest: record: revoked signer rejected
+ok 52 - record: revoked signer rejected
+  ---
+  duration_ms: 0.794762
+  type: 'test'
+  ...
+# Subtest: record: uninstalled policy rejected
+ok 53 - record: uninstalled policy rejected
+  ---
+  duration_ms: 1.018089
+  type: 'test'
+  ...
+# Subtest: record: wrong trust epoch rejected
+ok 54 - record: wrong trust epoch rejected
+  ---
+  duration_ms: 0.750735
+  type: 'test'
+  ...
+# Subtest: record: wrong repository rejected
+ok 55 - record: wrong repository rejected
+  ---
+  duration_ms: 0.803415
+  type: 'test'
+  ...
+# Subtest: record: invalid verifier clock fails closed
+ok 56 - record: invalid verifier clock fails closed
+  ---
+  duration_ms: 0.909635
+  type: 'test'
+  ...
+# Subtest: record: expiry equality rejected
+ok 57 - record: expiry equality rejected
+  ---
+  duration_ms: 1.669098
+  type: 'test'
+  ...
+# Subtest: record: future issued-at rejected
+ok 58 - record: future issued-at rejected
+  ---
+  duration_ms: 1.672769
+  type: 'test'
+  ...
+# Subtest: record: overlong validity rejected
+ok 59 - record: overlong validity rejected
+  ---
+  duration_ms: 2.232536
+  type: 'test'
+  ...
+# Subtest: record: mismatched private key fails signing
+ok 60 - record: mismatched private key fails signing
+  ---
+  duration_ms: 0.983918
+  type: 'test'
+  ...
+# Subtest: JSON: escaped duplicate keys rejected
+ok 61 - JSON: escaped duplicate keys rejected
+  ---
+  duration_ms: 0.359174
+  type: 'test'
+  ...
+# Subtest: JSON: nested duplicate keys rejected
+ok 62 - JSON: nested duplicate keys rejected
+  ---
+  duration_ms: 0.15186
+  type: 'test'
+  ...
+# Subtest: JSON: unsafe integer rejected
+ok 63 - JSON: unsafe integer rejected
+  ---
+  duration_ms: 0.111198
+  type: 'test'
+  ...
+# Subtest: JSON: trailing text rejected
+ok 64 - JSON: trailing text rejected
+  ---
+  duration_ms: 0.111458
+  type: 'test'
+  ...
+# Subtest: JSON: excessive nesting rejected
+ok 65 - JSON: excessive nesting rejected
+  ---
+  duration_ms: 0.08642
+  type: 'test'
+  ...
+# Subtest: JSON: valid nested input survives
+ok 66 - JSON: valid nested input survives
+  ---
+  duration_ms: 0.415479
+  type: 'test'
+  ...
+# Subtest: time: normalized impossible day rejected
+ok 67 - time: normalized impossible day rejected
+  ---
+  duration_ms: 0.085619
+  type: 'test'
+  ...
+# Subtest: time: naive local date rejected
+ok 68 - time: naive local date rejected
+  ---
+  duration_ms: 0.060591
+  type: 'test'
+  ...
+# Subtest: mission: transitive prerequisites admit exact definition
+ok 69 - mission: transitive prerequisites admit exact definition
+  ---
+  duration_ms: 7.411637
+  type: 'test'
+  ...
+# Subtest: mission: fresh completed text cannot replace signed receipts
+ok 70 - mission: fresh completed text cannot replace signed receipts
+  ---
+  duration_ms: 3.132287
+  type: 'test'
+  ...
+# Subtest: mission: unrelated receipt does not satisfy missing dependency
+ok 71 - mission: unrelated receipt does not satisfy missing dependency
+  ---
+  duration_ms: 4.37189
+  type: 'test'
+  ...
+# Subtest: mission: audit is narrow even before enrollment
+ok 72 - mission: audit is narrow even before enrollment
+  ---
+  duration_ms: 2.995659
+  type: 'test'
+  ...
+# Subtest: mission: bootstrap preparation is not implementation approval
+ok 73 - mission: bootstrap preparation is not implementation approval
+  ---
+  duration_ms: 4.214413
+  type: 'test'
+  ...
+# Subtest: mission: later mission cannot request audit mode
+ok 74 - mission: later mission cannot request audit mode
+  ---
+  duration_ms: 3.471159
+  type: 'test'
+  ...
+# Subtest: mission: unenrolled trust rejects implementation
+ok 75 - mission: unenrolled trust rejects implementation
+  ---
+  duration_ms: 3.419651
+  type: 'test'
+  ...
+# Subtest: mission: unrelated checkpoint rejected
+ok 76 - mission: unrelated checkpoint rejected
+  ---
+  duration_ms: 4.032177
+  type: 'test'
+  ...
+# Subtest: mission: short checkpoint denied despite permissive ancestry callback
+ok 77 - mission: short checkpoint denied despite permissive ancestry callback
+  ---
+  duration_ms: 4.14599
+  type: 'test'
+  ...
+# Subtest: mission: source text edit invalidates old completion
+ok 78 - mission: source text edit invalidates old completion
+  ---
+  duration_ms: 3.824163
+  type: 'test'
+  ...
+# Subtest: mission: requirement edit invalidates old completion
+ok 79 - mission: requirement edit invalidates old completion
+  ---
+  duration_ms: 5.017277
+  type: 'test'
+  ...
+# Subtest: mission: status-only edit does not alter definition hash
+ok 80 - mission: status-only edit does not alter definition hash
+  ---
+  duration_ms: 1.691968
+  type: 'test'
+  ...
+# Subtest: mission: incomplete bootstrap controls rejected
+ok 81 - mission: incomplete bootstrap controls rejected
+  ---
+  duration_ms: 5.091259
+  type: 'test'
+  ...
+# Subtest: mission: forged bootstrap controls rejected
+ok 82 - mission: forged bootstrap controls rejected
+  ---
+  duration_ms: 3.5842
+  type: 'test'
+  ...
+# Subtest: mission: circular prerequisites rejected
+ok 83 - mission: circular prerequisites rejected
+  ---
+  duration_ms: 2.397725
+  type: 'test'
+  ...
+# Subtest: mission: source symlink rejected
+ok 84 - mission: source symlink rejected
+  ---
+  duration_ms: 1.47441
+  type: 'test'
+  ...
+# Subtest: mission: parent path rejected
+ok 85 - mission: parent path rejected
+  ---
+  duration_ms: 1.320196
+  type: 'test'
+  ...
+# Subtest: mission CLI: real Git ancestry and signed fixtures
+ok 86 - mission CLI: real Git ancestry and signed fixtures
+  ---
+  duration_ms: 85.008696
+  type: 'test'
+  ...
+# Subtest: keys: normal rotation requires old owner and replacement possession
+ok 87 - keys: normal rotation requires old owner and replacement possession
+  ---
+  duration_ms: 3.634095
+  type: 'test'
+  ...
+# Subtest: keys: loss recovery works without missing operational key
+ok 88 - keys: loss recovery works without missing operational key
+  ---
+  duration_ms: 2.737259
+  type: 'test'
+  ...
+# Subtest: keys: compromise recovery does not trust compromised owner signature
+ok 89 - keys: compromise recovery does not trust compromised owner signature
+  ---
+  duration_ms: 4.222935
+  type: 'test'
+  ...
+# Subtest: keys: emergency revocation works without replacement
+ok 90 - keys: emergency revocation works without replacement
+  ---
+  duration_ms: 2.536475
+  type: 'test'
+  ...
+# Subtest: keys: revocation cannot smuggle a replacement
+ok 91 - keys: revocation cannot smuggle a replacement
+  ---
+  duration_ms: 3.038505
+  type: 'test'
+  ...
+# Subtest: keys: missing replacement possession rejected
+ok 92 - keys: missing replacement possession rejected
+  ---
+  duration_ms: 2.90975
+  type: 'test'
+  ...
+# Subtest: keys: missing normal rotation owner proof rejected
+ok 93 - keys: missing normal rotation owner proof rejected
+  ---
+  duration_ms: 3.104814
+  type: 'test'
+  ...
+# Subtest: keys: changed state invalidates signed transition
+ok 94 - keys: changed state invalidates signed transition
+  ---
+  duration_ms: 2.366899
+  type: 'test'
+  ...
+# Subtest: keys: repeated transition rejected
+ok 95 - keys: repeated transition rejected
+  ---
+  duration_ms: 4.073178
+  type: 'test'
+  ...
+# Subtest: keys: duplicate signature does not satisfy threshold
+ok 96 - keys: duplicate signature does not satisfy threshold
+  ---
+  duration_ms: 3.000657
+  type: 'test'
+  ...
+# Subtest: keys: tampered replacement rejected
+ok 97 - keys: tampered replacement rejected
+  ---
+  duration_ms: 3.67054
+  type: 'test'
+  ...
+# Subtest: keys: recovery role cannot be reused as operational key
+ok 98 - keys: recovery role cannot be reused as operational key
+  ---
+  duration_ms: 3.32639
+  type: 'test'
+  ...
+# Subtest: keys: unsupported recovery-root change rejected
+ok 99 - keys: unsupported recovery-root change rejected
+  ---
+  duration_ms: 3.304827
+  type: 'test'
+  ...
+# Subtest: keys: revoked signer rejected
+ok 100 - keys: revoked signer rejected
+  ---
+  duration_ms: 3.162001
+  type: 'test'
+  ...
+# Subtest: keys: exhausted epoch denied
+ok 101 - keys: exhausted epoch denied
+  ---
+  duration_ms: 1.788284
+  type: 'test'
+  ...
+# Subtest: keys: invalid clock denied
+ok 102 - keys: invalid clock denied
+  ---
+  duration_ms: 2.683408
+  type: 'test'
+  ...
+# Subtest: keys: expired request denied
+ok 103 - keys: expired request denied
+  ---
+  duration_ms: 2.620913
+  type: 'test'
+  ...
+# Subtest: keys: two independently held recovery keys enforce threshold
+ok 104 - keys: two independently held recovery keys enforce threshold
+  ---
+  duration_ms: 5.474448
+  type: 'test'
+  ...
+# Subtest: owner signer: preview confirmation binds exact receipt
+ok 105 - owner signer: preview confirmation binds exact receipt
+  ---
+  duration_ms: 30.30905
+  type: 'test'
+  ...
+# Subtest: owner signer: cannot use mission role for arbitrary purpose
+ok 106 - owner signer: cannot use mission role for arbitrary purpose
+  ---
+  duration_ms: 0.662592
+  type: 'test'
+  ...
+# Subtest: owner signer: supports standalone key-transition proof
+ok 107 - owner signer: supports standalone key-transition proof
+  ---
+  duration_ms: 3.587114
+  type: 'test'
+  ...
+1..107
+# tests 107
+# suites 0
+# pass 107
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1195.31883

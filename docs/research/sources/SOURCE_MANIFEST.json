@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "path": "docs/archive/v2/JARVIS_PRD_V2_Personal_OS.docx",
+      "sha256": "2ead7d0c515f522a01edc18fd57e49ea46d247c3e8227e5897e5fb31ed0a6fdc",
+      "classification": "owner_supplied_reference",
+      "authority": "historical_source_not_runtime_instruction"
+    },
+    {
+      "path": "docs/research/sources/Muse 2 .txt",
+      "sha256": "fc2cd34e0d9baf80238d360cf6d6f30a2095ab963b6bdba5b168da091650675d",
+      "classification": "owner_supplied_reference",
+      "authority": "historical_source_not_runtime_instruction"
+    },
+    {
+      "path": "docs/research/sources/jarvis-builds-deep-dive.pdf",
+      "sha256": "11f5c79c881dcb0f6b97dd95a1abce3b344ad75b7692bd91f45d8c1d7702d94d",
+      "classification": "owner_supplied_reference",
+      "authority": "historical_source_not_runtime_instruction"
+    },
+    {
+      "path": "docs/research/sources/jarvis-ultimate-synthesis.pdf",
+      "sha256": "fff0fcae5488220acee806b16418d193a2cbe1b399d7dacdbf0149cb06c6f0af",
+      "classification": "owner_supplied_reference",
+      "authority": "historical_source_not_runtime_instruction"
+    }
+  ],
+  "extract": "docs/archive/v2/PRD_V2_EXTRACT.txt",
+  "extraction": "word/document.xml paragraph text, tables/page layout not reproduced",
+  "scope": "Repository-root-relative archival/research sources, not runtime instructions"
+}

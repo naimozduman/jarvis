@@ -1,0 +1,13 @@
+{
+  "policyVersion": 1,
+  "enabled": false,
+  "repository": "naimozduman/jarvis",
+  "trustEpoch": 1,
+  "signers": [],
+  "maxValiditySeconds": {
+    "mission-completion": 2592000,
+    "trusted-bootstrap": 2592000
+  },
+  "installationEvidence": null,
+  "operatorNote": "Pin reviewed policy and signer set outside candidate control. These validity windows are proposed installation settings, not enrollment."
+}

@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.turbo/
+.next/
+coverage/
+.pnpm-store/
+*.lock
+JARVIS_PRD.docx
+JARVIS_PRD.pdf
+docs/*.md
+docs/ADR/000*.md
+prompts/
+schemas/
+templates/
+.agents/
+.codex/

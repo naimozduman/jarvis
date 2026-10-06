@@ -1,0 +1,116 @@
+{
+  "mapping": [
+    {
+      "oldMission": "J4-M00",
+      "newMission": "J5-M00",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M01",
+      "newMission": "J5-M01",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M02",
+      "newMission": "J5-M02",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M03",
+      "newMission": "J5-M05",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M04",
+      "newMission": "J5-M07",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M05",
+      "newMission": "J5-M08",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M06",
+      "newMission": "J5-M09",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M07",
+      "newMission": "J5-M10",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M08",
+      "newMission": "J5-M11",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M09",
+      "newMission": "J5-M12",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M10",
+      "newMission": "J5-M13",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M11",
+      "newMission": "J5-M15",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M12",
+      "newMission": "J5-M16",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M13",
+      "newMission": "J5-M14",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M14",
+      "newMission": "J5-M17",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M15",
+      "newMission": "J5-M18",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M16",
+      "newMission": "J5-M19",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M17",
+      "newMission": "J5-M20",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M18",
+      "newMission": "J5-M21",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    },
+    {
+      "oldMission": "J4-M19",
+      "newMission": "J5-M23",
+      "completionTransfer": "not automatic; trusted revalidation required"
+    }
+  ],
+  "newReconciliationMissions": [
+    "J5-M03",
+    "J5-M04",
+    "J5-M06",
+    "J5-M22"
+  ],
+  "removalMeaning": "old pack entrypoints removed, not original repository history",
+  "amendments": [
+    "Read-only control-center development does not wait for a 30-day tuning window. Unattended expansion retains that evidence gate.",
+    "Generic executor implementation does not require Android self-control. Device executor activation still requires relevant on-device proof.",
+    "Read/organize browser work does not inherit external-submit authority."
+  ]
+}

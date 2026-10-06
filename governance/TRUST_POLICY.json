@@ -1,0 +1,53 @@
+{
+  "policyVersion": 2,
+  "repository": "naimozduman/jarvis",
+  "protectedPatterns": [
+    "**"
+  ],
+  "operationalExceptions": [
+    "docs/architecture/CURRENT_IMPLEMENTATION.md",
+    "docs/agents/WORKING_STATE.md",
+    "docs/archive/v5-source/DOC_INDEX.original.json",
+    "docs/missions/BUILD_PLAN.md",
+    "BUILD_ORDER.md",
+    "docs/INDEX.md",
+    "docs/archive/v5-source/SHA256SUMS.original.txt",
+    "governance/STATE.json",
+    "governance/OBSERVATIONS.json",
+    "governance/changes/*.json",
+    "governance/runs/*.json",
+    "governance/incidents/*.json",
+    "governance/reviews/*.json"
+  ],
+  "immutableExistingPatterns": [
+    "docs/ADR/[0-9]*",
+    "docs/progress/**",
+    "packages/database/drizzle/**"
+  ],
+  "immutableExceptions": [
+    "docs/ADR/index.md",
+    "docs/missions/V5_PROGRESS_BOUNDARY.md"
+  ],
+  "maxApprovalSeconds": 86400,
+  "maxBlobBytes": 2000000,
+  "trustedKeyIds": [],
+  "bootstrapStatus": "owner_key_not_enrolled",
+  "protectedChecksMustRunFrom": "trusted_base_or_external_checkout",
+  "candidateExecutionAllowed": false,
+  "maxFiles": 20000,
+  "maxTotalBytes": 100000000,
+  "defaultClassification": "protected",
+  "operationalAllowedSuffixes": [
+    ".md",
+    ".json",
+    ".txt"
+  ],
+  "operationalModes": [
+    "100644"
+  ],
+  "requireEnrolledKeyForPromotion": true,
+  "notes": "V5 preserves policy-v2: every changed path is protected unless an exact trusted operational exception matches. UI, call sites, adapters, build config, tests and new paths are not exempt. Operational records are untrusted evidence until separately verified. Audit/inspection does not require key enrollment. Promotion does.",
+  "acceptedBaseBranches": [
+    "main"
+  ]
+}

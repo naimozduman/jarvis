@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/source-reference/1.0.0-draft",
+  "title": "Source Reference",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.source-reference",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sourceType",
+    "sourceId",
+    "sourceVersion",
+    "occurredAt",
+    "observedAt",
+    "coverage",
+    "informationState",
+    "sensitivity",
+    "contentHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "sourceType": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "sourceVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "occurredAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "coverage": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "informationState": {
+      "type": "string",
+      "enum": [
+        "known",
+        "inferred",
+        "stale",
+        "conflicting",
+        "missing",
+        "not_connected"
+      ]
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "private",
+        "sensitive",
+        "restricted"
+      ]
+    },
+    "contentHash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

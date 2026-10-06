@@ -1,7 +1,3 @@
-# Brain evaluation suite
+# Canonical document moved
 
-The provider-free suite is located at `packages/brain/test/evals/phase-two-evals.test.ts` and runs through `pnpm brain:evals`. It uses `FakeModelGateway`, in-memory repositories, the real ContextAssembler, the real model-result materializer, the real Domain proposed-action pipeline, and the real policy evaluator.
-
-The suite contains 49 behavior/invariant scenarios. It covers constitution preservation after missed training, no-response/ghosting, quiet mode, hard overrides and expiry, protected anchors, late wake-up replanning, minimum viable action, deadline ambiguity/conflict, stale/contradictory memory, hypothesis promotion, personality learning bounds, open loops, high-impact approval, finance denial, no external message execution, prompt injection, malformed/unknown actions, constitution-edit attempts, invented evidence, invalid dates, overlaps, reminder budget and critical bypass, owner changes of mind, context ranking/exclusion/redaction/owner scope, duplicate requests/actions, provider failure/no configuration, model-call/deep/cost limits, prompt module selection, explanation safety, telemetry privacy, registry-only behavioral interventions, observed intervention outcomes, and rejection of unavailable owner commitment references.
-
-These tests grade transitions, policy effects, persisted intent boundaries, and invariants. They do not require exact prose from a live model or an OpenAI API key.
+Read [BRAIN_EVALS.md](missions/BRAIN_EVALS.md) for the current document. This path is a navigation-only compatibility entry retained for existing links and bundle checks.

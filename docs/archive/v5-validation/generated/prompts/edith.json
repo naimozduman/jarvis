@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "assemblyId": "edith",
+  "contractId": "jarvis.action-intent",
+  "status": "draft",
+  "invariantDigest": "53a67a36a2d8b55e086306143def118c4361d93108844997b698f16c0283caf5",
+  "modules": [
+    {
+      "id": "core-system",
+      "version": "5.0.0",
+      "sha256": "2b455131c2e686954861cc4e09105dd1c54adb0347524ee7f9dcf1dcad467e34"
+    },
+    {
+      "id": "constitution",
+      "version": "5.0.0",
+      "sha256": "b7c7e3528f4c6cb6b964a07ba85b43b1e23c1ad28e5b114d4bd6bcddf7e87b11"
+    },
+    {
+      "id": "source-grounding",
+      "version": "5.0.0",
+      "sha256": "3d1ac9010462d417a337c171802f02ccedead4fe1afef981a9dfddc11314c22a"
+    },
+    {
+      "id": "uncertainty",
+      "version": "5.0.0",
+      "sha256": "f4cf65b81bdd0ba2e8c74a5b3018c52417da55e76f42e1d92e79d60995f24906"
+    },
+    {
+      "id": "security-privacy",
+      "version": "5.0.0",
+      "sha256": "d9b704d898e125034438d04874e1b6b1d6f69612b6b7c34aae71ee2aea306427"
+    },
+    {
+      "id": "tool-policy",
+      "version": "5.0.0",
+      "sha256": "9210bac654e30062c1384f1f483c71e115fdb6563d52a24f47764b7dd6ce5661"
+    },
+    {
+      "id": "message-writer",
+      "version": "5.0.0",
+      "sha256": "d14f1fbbad03575853b2821210b54dac0364bb083f51de3450902d0364068cc2"
+    },
+    {
+      "id": "mode-edith",
+      "version": "5.0.0",
+      "sha256": "eb4e151ee06c448d33cc9251d3ea3d1ebd9c89e51ef9d292bcd3cfe5ecf3aa3b"
+    },
+    {
+      "id": "browser-operator",
+      "version": "5.0.0",
+      "sha256": "600ab78b250d977f50e03680fb384e8ae1e448175cc7e51663bcd7ce1daf4aad"
+    }
+  ],
+  "contentSha256": "e9b0d45c4137b9311a63a9b0462dcb26d8476f3de5c2ee971e9242d7284232ce",
+  "utf8Bytes": 4967,
+  "producerCommit": null
+}

@@ -1,4 +1,46 @@
 ---
+title: "Design tests and judgment evaluations with incident linkage."
+document_id: ".agents::skills::agent-evals::SKILL"
+status: "active"
+authority_class: "engineering_skill"
+owner_role: "test_evals"
+created_at: "2026-09-25"
+reviewed_at: null
+review_evidence: null
+review_triggers: ["scope_change", "contract_change"]
+pack_version: "5.0.0"
+name: "agent-evals"
+description: "Design tests and judgment evaluations with incident linkage."
+version: "5.0.0"
+---
+
+# Purpose
+
+Design tests and judgment evaluations with incident linkage.
+
+## Scope and handoff
+
+Primary role: `test_evals`. Follow AGENTS.md. Another role may consume this playbook but must not silently take promotion authority.
+
+## Workflow
+1. Map invariant IDs and actual execution paths.
+2. Separate shape, policy, safety, recovery and judgment cases.
+3. Protect existing expected-denial fixtures and mark live probes distinctly.
+4. Record exact commit, suite, fixture/prompt versions and result artifact.
+
+## Read
+- `docs/missions/EVALS_AND_ACCEPTANCE.md`
+- `docs/missions/BRAIN_EVALS.md`
+
+## Evidence and stop
+
+Use synthetic data and exact current source paths. Report unknowns, omitted tests and observed versions. Write the session handoff to governance/STATE.json. Stop on a protected-rule conflict or missing external authority. Do not change the judge to make the feature pass.
+
+## Retained detailed engineering guidance
+
+Follow the current root authority and relevant V5 requirements when older wording differs.
+
+---
 name: agent-evals
 description: Use when adding or changing runtime prompts, decision schemas, model routing, tool behavior, memory extraction, planning, accountability, or safety policies. Also use for regression investigation.
 ---

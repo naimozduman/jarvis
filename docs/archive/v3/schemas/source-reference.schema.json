@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JARVIS Source Reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sourceType",
+    "sourceId"
+  ],
+  "properties": {
+    "sourceType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "occurredAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "freshAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "private",
+        "sensitive",
+        "restricted"
+      ]
+    },
+    "contentHash": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/first-party-app-manifest/1.0.0-draft",
+  "title": "First-Party App Manifest",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.first-party-app-manifest",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "appId",
+    "version",
+    "authenticationMethod",
+    "ownedRecordTypes",
+    "eventSchemaIds",
+    "commandSchemaIds",
+    "summarySchemaIds",
+    "capabilities",
+    "retentionRules",
+    "sync"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "appId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "authenticationMethod": {
+      "type": "string",
+      "enum": [
+        "owner_session",
+        "scoped_service_identity",
+        "enrolled_device"
+      ]
+    },
+    "ownedRecordTypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+      },
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true
+    },
+    "eventSchemaIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      },
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true
+    },
+    "commandSchemaIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      },
+      "minItems": 0,
+      "maxItems": 50,
+      "uniqueItems": true
+    },
+    "summarySchemaIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      },
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+      },
+      "minItems": 0,
+      "maxItems": 50,
+      "uniqueItems": true
+    },
+    "retentionRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "recordType",
+          "locality",
+          "rawRetentionDays",
+          "derivedRetentionDays",
+          "deletePropagation"
+        ],
+        "properties": {
+          "recordType": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+          },
+          "locality": {
+            "type": "string",
+            "enum": [
+              "local_only",
+              "cloud_allowed",
+              "restricted"
+            ]
+          },
+          "rawRetentionDays": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 36500
+          },
+          "derivedRetentionDays": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 36500
+          },
+          "deletePropagation": {
+            "const": true
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true
+    },
+    "sync": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strategy",
+        "replayKeyRequired",
+        "correctionVersionRequired"
+      ],
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "event_and_reconcile",
+            "manual_import"
+          ]
+        },
+        "replayKeyRequired": {
+          "const": true
+        },
+        "correctionVersionRequired": {
+          "const": true
+        }
+      }
+    }
+  }
+}

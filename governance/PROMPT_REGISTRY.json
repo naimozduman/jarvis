@@ -1,0 +1,656 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "activeRuntimeChanged": false,
+  "existingRuntimeRegistry": "packages/brain/src/prompts/registry.ts",
+  "invariantRegistry": "governance/INVARIANTS.json",
+  "modules": [
+    {
+      "id": "core-system",
+      "path": "prompts/runtime/modules/core-system.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Core identity",
+      "invariants": [
+        "INV-CORE-001",
+        "INV-COMPLETE-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "2b455131c2e686954861cc4e09105dd1c54adb0347524ee7f9dcf1dcad467e34"
+    },
+    {
+      "id": "constitution",
+      "path": "prompts/runtime/modules/constitution.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Owner values",
+      "invariants": [
+        "INV-CONSTITUTION-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "b7c7e3528f4c6cb6b964a07ba85b43b1e23c1ad28e5b114d4bd6bcddf7e87b11"
+    },
+    {
+      "id": "source-grounding",
+      "path": "prompts/runtime/modules/source-grounding.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Evidence discipline",
+      "invariants": [
+        "INV-DATA-001",
+        "INV-UNTRUSTED-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "3d1ac9010462d417a337c171802f02ccedead4fe1afef981a9dfddc11314c22a"
+    },
+    {
+      "id": "uncertainty",
+      "path": "prompts/runtime/modules/uncertainty.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Epistemic status",
+      "invariants": [
+        "INV-MEMORY-001",
+        "INV-PRIVACY-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "f4cf65b81bdd0ba2e8c74a5b3018c52417da55e76f42e1d92e79d60995f24906"
+    },
+    {
+      "id": "security-privacy",
+      "path": "prompts/runtime/modules/security-privacy.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Source and egress boundary",
+      "invariants": [
+        "INV-UNTRUSTED-001",
+        "INV-PRIVACY-001",
+        "INV-IDENTITY-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "d9b704d898e125034438d04874e1b6b1d6f69612b6b7c34aae71ee2aea306427"
+    },
+    {
+      "id": "tool-policy",
+      "path": "prompts/runtime/modules/tool-policy.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Action proposals",
+      "invariants": [
+        "INV-AUTH-001",
+        "INV-APPROVAL-001",
+        "INV-FINANCE-001",
+        "INV-STOP-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "9210bac654e30062c1384f1f483c71e115fdb6563d52a24f47764b7dd6ce5661"
+    },
+    {
+      "id": "message-writer",
+      "path": "prompts/runtime/modules/message-writer.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Owner-facing writing",
+      "invariants": [
+        "INV-COMPLETE-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "d14f1fbbad03575853b2821210b54dac0364bb083f51de3450902d0364068cc2"
+    },
+    {
+      "id": "accountability",
+      "path": "prompts/runtime/modules/accountability.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Commitments",
+      "invariants": [
+        "INV-CONSTITUTION-001",
+        "INV-COMPLETE-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "d9316c4496ce49ac08dc15bebd347ffcb5093085420f3c485ea5fd46d4930e13"
+    },
+    {
+      "id": "planner",
+      "path": "prompts/runtime/modules/planner.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Feasible plan",
+      "invariants": [
+        "INV-AUTH-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "6c77e86db54351901aa0b100e88e75dcf000b597102db10f42b7fd14a02a8ced"
+    },
+    {
+      "id": "replanner",
+      "path": "prompts/runtime/modules/replanner.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Disruption recovery",
+      "invariants": [
+        "INV-COMPLETE-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "6d815b6ee2f904fd96576ea6c39167967e14dd7afae8f7027fa139e81940764e"
+    },
+    {
+      "id": "memory-extractor",
+      "path": "prompts/runtime/modules/memory-extractor.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Memory candidates",
+      "invariants": [
+        "INV-MEMORY-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "901442d4d20f946fccfd0e1fc711741a512af2646402089257f35e1f9ea587b5"
+    },
+    {
+      "id": "skill-curator",
+      "path": "prompts/runtime/modules/skill-curator.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Procedure learning",
+      "invariants": [
+        "INV-SKILL-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "4c1aa66c6b73035f25febc852a6ed12c79e59de71e4ebe31d67e884eb04b037c"
+    },
+    {
+      "id": "weekly-review",
+      "path": "prompts/runtime/modules/weekly-review.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Cross-domain review",
+      "invariants": [
+        "INV-COMPLETE-001",
+        "INV-CONSTITUTION-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "ba5dbc0f8aa6027047f4e267f2f72566400c13efdb74c6cedc4ceab5af201bae"
+    },
+    {
+      "id": "email-triage",
+      "path": "prompts/runtime/modules/email-triage.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Read-first email",
+      "invariants": [
+        "INV-UNTRUSTED-001",
+        "INV-APPROVAL-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "19a73f37db64a129612e7380c4f661a9974c082dd36f00c36a2f71fe7368fa0b"
+    },
+    {
+      "id": "finance-observer",
+      "path": "prompts/runtime/modules/finance-observer.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Financial observation",
+      "invariants": [
+        "INV-FINANCE-001",
+        "INV-PRIVACY-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "ed42377240309302bc89428a3372854ae250138d9465f2c01c08806e500acfc1"
+    },
+    {
+      "id": "health-and-training",
+      "path": "prompts/runtime/modules/health-and-training.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Health and training context",
+      "invariants": [
+        "INV-PRIVACY-001",
+        "INV-MEMORY-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "4c1a5354065fe62ff6044d90d0dedf7f299c42c978445cbfdce6122ec68d8d46"
+    },
+    {
+      "id": "historical-reconstruction",
+      "path": "prompts/runtime/modules/historical-reconstruction.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Source-backed history",
+      "invariants": [
+        "INV-DATA-001",
+        "INV-MEMORY-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "12f8d28ddd3426382ab964bbf95b12df8cb3f2a690abce0c6a31ee6091eee8ed"
+    },
+    {
+      "id": "proactive-operator",
+      "path": "prompts/runtime/modules/proactive-operator.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Useful proactive work",
+      "invariants": [
+        "INV-COST-001",
+        "INV-AUTH-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "c386350be4d851973aaec21e86a165082e1702e83602c3107501b27dd0cc3842"
+    },
+    {
+      "id": "voice",
+      "path": "prompts/runtime/modules/voice.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Realtime delivery",
+      "invariants": [
+        "INV-STOP-001",
+        "INV-COMPLETE-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "721937491d16ae4af809c255ab8259a617ef2523d582f029f2f7b9b37bdcccab"
+    },
+    {
+      "id": "night-mode",
+      "path": "prompts/runtime/modules/night-mode.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Overnight delegation",
+      "invariants": [
+        "INV-LEASE-001",
+        "INV-APPROVAL-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "f43cd81f479a40e5a08d03b784df00b66519950cfd07c97b5b30d7ca0fbccde4"
+    },
+    {
+      "id": "browser-operator",
+      "path": "prompts/runtime/modules/browser-operator.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Browser task reasoning",
+      "invariants": [
+        "INV-UNTRUSTED-001",
+        "INV-APPROVAL-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "600ab78b250d977f50e03680fb384e8ae1e448175cc7e51663bcd7ce1daf4aad"
+    },
+    {
+      "id": "relationship-vault",
+      "path": "prompts/runtime/modules/relationship-vault.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Relationship context",
+      "invariants": [
+        "INV-PRIVACY-001",
+        "INV-MEMORY-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "a26cfa84d2d2088ebcd4bf81f000aeb2fb1d768c536f021c6169cac6f35620be"
+    },
+    {
+      "id": "fba-ops",
+      "path": "prompts/runtime/modules/fba-ops.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "FBA operations",
+      "invariants": [
+        "INV-DATA-001",
+        "INV-AUTH-001",
+        "INV-FINANCE-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "278357cda2e3efdf8567f79b0eefd00d8b5dc6f7971440da02e19ab0c0e82b8a"
+    },
+    {
+      "id": "mode-friday",
+      "path": "prompts/runtime/modules/mode-friday.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Tactical style",
+      "invariants": [
+        "INV-AUTH-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "8d18a006e3383347a6cdab06bea7054cddfcfefe2df4b9492ae8b67ed2f785bc"
+    },
+    {
+      "id": "mode-mentor",
+      "path": "prompts/runtime/modules/mode-mentor.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Teaching style",
+      "invariants": [
+        "INV-CORE-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "9242ce4d3f9572abacb57348c489decb3dbad252507c46ce82600e9e2c839383"
+    },
+    {
+      "id": "mode-edith",
+      "path": "prompts/runtime/modules/mode-edith.md",
+      "version": "5.0.0",
+      "status": "draft",
+      "purpose": "Executor style",
+      "invariants": [
+        "INV-AUTH-001",
+        "INV-APPROVAL-001"
+      ],
+      "maxUtf8Bytes": 1800,
+      "contentSha256": "eb4e151ee06c448d33cc9251d3ea3d1ebd9c89e51ef9d292bcd3cfe5ecf3aa3b"
+    }
+  ],
+  "assemblies": [
+    {
+      "id": "conversation",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "memory-extractor",
+        "accountability",
+        "planner"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "replan",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "planner",
+        "replanner",
+        "accountability"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "weekly-review",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "weekly-review",
+        "planner"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "voice",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "voice",
+        "mode-friday"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "edith",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "mode-edith",
+        "browser-operator"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "night-mode",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "night-mode",
+        "proactive-operator"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "research",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "historical-reconstruction",
+        "browser-operator"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "finance",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "finance-observer"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "health",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "health-and-training"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "fba",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "fba-ops"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "mentor",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "mode-mentor"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "relationship",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "relationship-vault"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "skill-curation",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "skill-curator"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "email",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "email-triage"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    },
+    {
+      "id": "proactive",
+      "status": "draft",
+      "modules": [
+        "core-system",
+        "constitution",
+        "source-grounding",
+        "uncertainty",
+        "security-privacy",
+        "tool-policy",
+        "message-writer",
+        "proactive-operator"
+      ],
+      "maxUtf8Bytes": 14000,
+      "outputContract": "jarvis.action-intent",
+      "behaviorEvalIds": [
+        "EVAL-JUDGMENT-001",
+        "EVAL-SAFETY-001"
+      ]
+    }
+  ],
+  "sizeMetric": "UTF-8 bytes, not claimed exact provider token count",
+  "promotionEvidence": null
+}

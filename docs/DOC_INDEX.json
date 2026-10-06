@@ -1,0 +1,5300 @@
+{
+  "indexVersion": 2,
+  "scope": "Explicit reviewed canonical documentation and V5 artifacts; application files use FINAL_TREE_MANIFEST.json.",
+  "sourcePackFiles": 467,
+  "runtimeAdoptionImplied": false,
+  "files": [
+    {
+      "path": ".agents/skills/agent-evals/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "d0f3d1791cd753ebdde643f58c7d7c725cae5b7642ec636d7a2ee435da731652",
+      "bytes": 2938,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/agent-runtime/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "dea4ea18ceaf38115ea0000c204ae7a9ea36db41e67a310a61ff4d9514bcb4b8",
+      "bytes": 1407,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/android-device/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "c04b1c7b450e36c89b980a1013d6338ce509d68c4114fd5eb3c28b03ef910f17",
+      "bytes": 1371,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/browser-executor/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "256ac735e22d18c02f0a6e7414816e35021c13870353ae8c0c9ad0cf9274fa7e",
+      "bytes": 1433,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/connector-integration/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "324f2b3cdd1e641d9373cd3a2c2a679ac48e5e1b9b2542fd9320e06b2a7a6a55",
+      "bytes": 3435,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/database-and-jobs/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "1d1748c4c2663bdbdda14359c962af04f4ced70f972fe11866086708077f6d90",
+      "bytes": 3380,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/deploy-railway-vercel/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "bf3993f9ea7ca54682d37c8977585c7755acd79d3cb390ca1a160a7b3e3ec34f",
+      "bytes": 2086,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/deploy-vercel-convex-neon/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "04be455cfdaea1ca3579550c59875bcc696b96765a5fc02adccc7822d6db99cb",
+      "bytes": 1425,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/evolution-whatsapp/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "0fd2f722043a0b6fe63604b51fc7b60e41f2cc59dcfb33028a48ed9c0c354a90",
+      "bytes": 3585,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/executor-safety/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "783f5982d3a6f1f8e63fbfa225c62f1ce4ad7ba7a72de2acc218c49ea878a38d",
+      "bytes": 1440,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/first-party-apps/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "7f1833660d4246def0396c283efc7a6c923237a0e4e03039b5f7f7aff5bd3d3a",
+      "bytes": 1466,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/governance-enforcement/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "a0a515e7e1b5b3f3fbf2bd5b21a9bfd5bd94d1197d9d0ad7763f2df38665e504",
+      "bytes": 1884,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/incident-and-restore/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "a98e30a49f84dc092f6d58c5071394e4c7e50e8cb5c56cf86fc3697688a0854a",
+      "bytes": 1371,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/jarvis-product-rules/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "6be563bfec320378f0d273c97a57fcf024ab28aac8fe59f52f4f51988cf087cc",
+      "bytes": 3774,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/key-recovery/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "bb62c7000266590bdad084b616c9fe710f9776b792b3b176416213b61f02577f",
+      "bytes": 1353,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/memory-and-context/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "3dd7ea6a9c472594365c472967ce614924a7fd30244aa674d81eb4152d372213",
+      "bytes": 1413,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/operational-drills/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "005f857f7a58af9ca1ed711e69253d7dd7cf49106bd135a126d9bc302254d644",
+      "bytes": 1414,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/progressive-context/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "acc2d55d0aa2d3738a2c3f8059f2abd266ece4764dab8eb32d37c8d3f51c7d64",
+      "bytes": 1259,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/repository-reconciliation/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "8541278484797e3946b5666aa73a6ff0a39efa6382fc0624ecfa090f063b564c",
+      "bytes": 1300,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/runtime-prompts/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "5578027d63c5e1a2974b8f99895f192f65f526a2d2fc9ec7a526e2648afdf3ae",
+      "bytes": 1379,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/schema-evolution/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "44df001d8760af00e189b6de9af765248c82b500b5fddf9e2d0d0c9eb908a409",
+      "bytes": 1382,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/security-and-privacy/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "d65bcfbb0f6fb42586c627b5c4f06db53d44827ebf5779d04c20e9d9fbb1fb3e",
+      "bytes": 3399,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/voice-and-realtime/SKILL.md",
+      "role": "engineering_guidance",
+      "sha256": "2a1e4360079d6fe802be7a5ffa299e3f744326ad90467a4516197b97f8a4009d",
+      "bytes": 1359,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/agent-runtime-engineer.toml",
+      "role": "engineering_guidance",
+      "sha256": "4324aa337e3fa525b4f9a99c170cbcee3d41743da7aafce5e023f3605b7afeef",
+      "bytes": 1084,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/architecture-planner.toml",
+      "role": "engineering_guidance",
+      "sha256": "fcb231e04936c480f49203ac422562d7eeba45819f04879651b08a371a34b6c2",
+      "bytes": 1117,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/backend-implementer.toml",
+      "role": "engineering_guidance",
+      "sha256": "c888cdfb404cde4477cb8b0d4cc50a7b12b94631c9886507be9ab9534042ef2a",
+      "bytes": 1074,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/browser-engineer.toml",
+      "role": "engineering_guidance",
+      "sha256": "3d922ccf1823aa55e1a7943936a2fe6f6052f2d1502784657355285bbc5106e0",
+      "bytes": 1065,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/docs-researcher.toml",
+      "role": "engineering_guidance",
+      "sha256": "8ef8dd971032f7431e11f62a6fb459fcec395e6a089899e98e58032271d59fc1",
+      "bytes": 1134,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/executor-engineer.toml",
+      "role": "engineering_guidance",
+      "sha256": "d673b501f74ea81bcf0e6a38e49c0bc9f0574afb1d80599226fa2c0023f1629e",
+      "bytes": 1116,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/frontend-implementer.toml",
+      "role": "engineering_guidance",
+      "sha256": "c8f6fc5618444099ef3807f49e8b6d12d0ddb88238027b3361f72f7bc05d836c",
+      "bytes": 1116,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/governance-reviewer.toml",
+      "role": "engineering_guidance",
+      "sha256": "f2f2e2b55ec5733454f4a3208a8c32e668675215a60723c92b61074f63c03353",
+      "bytes": 1133,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/integration-specialist.toml",
+      "role": "engineering_guidance",
+      "sha256": "76fa837559b440d3d054561abf001d9732d9e69828994b91c7332ba6ee36a8fb",
+      "bytes": 1155,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/memory-architect.toml",
+      "role": "engineering_guidance",
+      "sha256": "9dbbe16bf661c1d34f4475ad92e69ef0459ea2c15f44b12ec522226824e7ac72",
+      "bytes": 1102,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/mobile-implementer.toml",
+      "role": "engineering_guidance",
+      "sha256": "71532b6362c93f6a41d3a1e1a7130ade6ad827899853f5c0844714e6914f38fc",
+      "bytes": 1114,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/release-operator.toml",
+      "role": "engineering_guidance",
+      "sha256": "89bf18ce5debdef862c9f9615232dbcfebfbec831db17b82b701d66cc8cdce70",
+      "bytes": 1106,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/repo-explorer.toml",
+      "role": "engineering_guidance",
+      "sha256": "a1d7b1adb8b9e3d45bd6462ffc3fb6acfae2d205d91832c595518648cd18a9e5",
+      "bytes": 1058,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/runtime-prompt-engineer.toml",
+      "role": "engineering_guidance",
+      "sha256": "7ea26eb61690e438b86b7866136a15d3a43054c0a0a32cbe095fdffaceb1c3c5",
+      "bytes": 1140,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/security-reviewer.toml",
+      "role": "engineering_guidance",
+      "sha256": "372fe4837ca64cf12cfd404bd16d1047cdbc41f056bab1a83ffa899390e68fb5",
+      "bytes": 1130,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/test-evals.toml",
+      "role": "engineering_guidance",
+      "sha256": "2454339d4e9e7c6ad4b80b364e659c1cbb3a33dc8700bc9fe47006da0e932c9f",
+      "bytes": 1131,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/voice-engineer.toml",
+      "role": "engineering_guidance",
+      "sha256": "6c613fb29e3e796b2fc6dc8c627fc1e4baef86ee404df0150b4a62e41de19520",
+      "bytes": 1119,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/config.toml",
+      "role": "engineering_guidance",
+      "sha256": "950f838568195eaa0137a1e5ffc7c1a0d04473571544546c653ee8da178700bf",
+      "bytes": 678,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7854cfdc19d642495176961585855f6c1157a786d687887dfe52ef0ac8be4b81",
+      "bytes": 5576,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "BUILD_ORDER.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "76d34279dfab6426d5b8ca88fe3292aadd99d9084e497cd77126da9369388a60",
+      "bytes": 494,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "CANONICAL_DOCUMENTATION_MAP.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3315bc1e2a2680aec9b77e528cdffe9034f921a1620e2a202b185b570c4a0256",
+      "bytes": 252,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "CLAUDE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "0d0b381e12dd4ec999d49ecaa8a4496439e8dccf3963e1db86ca4d9bfd5d7f74",
+      "bytes": 267,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "CODEX_START_HERE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8b23e32c39e7ad9eb33711b4ffd89cbc10ce275eb092222961fe5f0982d2b7db",
+      "bytes": 2074,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "CURRENT_IMPLEMENTATION_HANDOFF.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "59f507e6d032b9a6a94146b9ae28fd7a9a80b3b0c24960ed8475617c3c2e8ce2",
+      "bytes": 463,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "DEFERRED_VALIDATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a1425fd8022a59c673d6488909476a8096a2513056e66df2336b167c0eaf0264",
+      "bytes": 6827,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "JARVIS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8b92ac0846ae48ffdc3c96788b800b59f778a401bc2c6da5d9fb19691f4d553a",
+      "bytes": 3405,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "MANIFEST.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "41a93b6385306b0394687899f7fae3c1f3ec7a7102cb9631fa9001f105562272",
+      "bytes": 328,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "PRODUCTION_READINESS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "abd3c034740931a4f96b9027b34f66eb0bb8ce66504b1eda8f5847c8f173bd35",
+      "bytes": 222,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "README.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "93e6d6c901601172d92f0b0a9101ea54ce66ab662e1452e4f20a3013650b403b",
+      "bytes": 650,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "RECONCILIATION_MATRIX.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4d64d702a41084962e4b12f701af54d22767a0a3bcc8134d4dd3f5263145e028",
+      "bytes": 230,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "RECONCILIATION_REPORT.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "dbff9773a4f0a7fc559d3503c11900b85c209e815355c639e9ec18fdd911e47d",
+      "bytes": 230,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "REMOTE_BRANCH_DISPOSITIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5d2a88d686138c79605cb5d8a8c5e14c3c3d725d3bc672347f2921a5844c2683",
+      "bytes": 259,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "RESTORED_C7_ITEMS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1d433465a647d8926028e178a48f25081c9dc5902e5152a33012e31bfa99be5b",
+      "bytes": 241,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "SECRET_SCAN_SUMMARY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "52b731325e630e940b91b075333d925c42e3f97886a1eb1deb420a222ab203bc",
+      "bytes": 787,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "SOURCE_INDEX.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d448966963d763965c581cba06a4a640efedcd2f1c8f7c8421a2a107e5e1c786",
+      "bytes": 270,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "UNRESOLVED_CONFLICTS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d96e28ece2603fca23e44ea3ee713002356315516b16dfa8d5593684657ea48c",
+      "bytes": 398,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ACCOUNTABILITY_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "63c91be42fe6a6e190220a733aed43e05f92b2bc92fe3bbb3d8adf129411f2eb",
+      "bytes": 218,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0001-stack.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "21f2d727fb049547a0571e0514e569fbe243177b7d38ee8b5afc415bb234e06e",
+      "bytes": 979,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0002-evolution-transport.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "944a2af50860f9bfff59406ab6a21b5199c82f5ffd9ca5d5fd0011e1b0406c69",
+      "bytes": 1751,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0003-single-orchestrator.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ae1c0baf84421502fa16811772001ade1ed92612108ebbd1026d4966012c344b",
+      "bytes": 1020,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0004-read-only-finance.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a0e1a40133962f07f612c8b6944d441fe25515a25e4f685460aecdcd1d3e368e",
+      "bytes": 989,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0005-phase-sequence.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e550cc5f0cb047cea1d37a7120e7911c0e5f2a844ab72af22a447c36fddf7625",
+      "bytes": 1863,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0006-contracts-boundary.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "48afd0731495a1662e95d4953d74063e5b4e161a2b9a84df802714d7dde85a2c",
+      "bytes": 1604,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0007-postgres-durable-jobs.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a1b7b20613e04ec0b313b4ac9a53c74978309b348ec1078e0f96d0872d9109bb",
+      "bytes": 1737,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0008-stateless-model-runtime.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ee9d0cc0f0aed891af248462a97e827a796e63faa1a8fcb05b43abdebfd93c8d",
+      "bytes": 890,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0009-brain-action-intent-boundary.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c7a12458eccb29afbe2f27ce3f9cbfdaf26ebe36fbd7563320ca5b32589888e3",
+      "bytes": 907,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0010-deterministic-context-and-epistemic-memory.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a4fa4ea7eb6c45725fbc8557f970e42f89aec16c395924c87690801d4dd32b87",
+      "bytes": 882,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0011-evolution-version-gate-and-owner-only-transport.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ab78c0e3a3e3f8e773886dfff2c000c5c3252f4aa77041e170274482d9d83439",
+      "bytes": 1799,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0012-zero-cost-stateless-runtime.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1c61c96adc3c475b3dc4a66493b9ce1a7c9d7b6c2dd59ceebaf608bb28b1f68a",
+      "bytes": 2856,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0013-opaque-convex-local-bridge.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3892061a28eae0732bb70dc60a553e4e4e30216a0df31b7af750535f11c2cd3b",
+      "bytes": 1796,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0014-canonical-delivery-leases-and-expiry.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5e15c6737123b85acbb1f1af9b393235842c37bd7ec6de3a9ee93d500b5c80bb",
+      "bytes": 1828,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0015-canonical-job-generation-and-expiry.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "343401caef6b7b73fcc69f44c744077b2fcb9b039de45124384690b737be4e7d",
+      "bytes": 8503,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0016-provider-neutral-request-admission.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "92658d83e18b74ab2a6305b37a89339f3c0cb0e42d6386cf8283ed32360e6a0d",
+      "bytes": 4681,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0016-request-scoped-vercel-oidc-and-bounded-recovery.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b3db2d1ee4d24d450d85131e62a705d01fafd610caaff2045ae5dcd1072792a6",
+      "bytes": 3136,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0017-implicit-anchor-preservation-and-model-output-bounds.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8102964c6bf876cc6dc05c426cfaf1a5265534f3b17cdfb6230446f7beab91df",
+      "bytes": 4526,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0018-flexible-only-model-replan-contract.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "575d14ff981b965eeaac5f658cd7df6ae8d7875dc89579ff90eea214d75115c2",
+      "bytes": 4467,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0019-operation-oriented-planning-interface.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5f980a5f5be2cc6f0f92194cb81a7e30ea4e0cbc5917216256f0dcb1a0ca9503",
+      "bytes": 4757,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0020-server-materialized-operation-actions.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "661578d7275b953248912587f5e7d2887197baba6466771e5e16bf9cafa57c97",
+      "bytes": 2838,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0021-deterministic-casual-chat-reasoning.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1f31c89b2bdba4790e668e164bdab98e6bfdaf9e573703fcad3a16cd21f1d50e",
+      "bytes": 1660,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0022-server-materialized-requested-reminders.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6fcaa773c41cc506fe9250b9a9f981bddeef012670897e54fc03bbae182c26ed",
+      "bytes": 5015,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/0023-owner-authored-baseline-review.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7147f49ff4ded33b695afa2fbc52f8fd472a6e049f5f0b555b11dd22a8fe96c4",
+      "bytes": 2700,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/README.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3cca894906f4623d8a786ff63f05b85641f95bead79534c61dc117ca243e9813",
+      "bytes": 1238,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/STATUS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7fccb98edaebb647ebea3edb84bd1378812e6837998d35737c2ce2fef2dfcdd8",
+      "bytes": 919,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/TEMPLATE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "308bf60600113a0660942ce3d512e959fe825a17e00cbc6a7200b24dd9102bb2",
+      "bytes": 1611,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/index.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3688a507a070e2a907cf0c463c9b4d09e1abb22f12151574be1b7bb19112dbfd",
+      "bytes": 8208,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-001.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "76376344393e70f8c99fd69d243d282fb968e5faa7246c22d9e08f49cbf3deb5",
+      "bytes": 2034,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-002.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "33abf7d607d6ac8a26b0032a6cb0576e6be2be19cd61ca29d7b02c4424c9d385",
+      "bytes": 1961,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-003.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "32018116b3fb28b0a0027bd39506ad0291d565ba7a6e6384f0b42cc6bc0ffb61",
+      "bytes": 2018,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-004.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "084e7aba9f50632c76bb3504d27344067ab215dd7ff265ccf1fc3b0f70622319",
+      "bytes": 2049,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-005.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9cd5ecd0d6765bfa6c972a232fcaf16926ea374ea9a92552691b8c2d15dd51a5",
+      "bytes": 2055,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-006.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e28e4353dbb14d6f1d73afbb0c9e3f97e6b0be1fd46b764846538f3ab54ddd0e",
+      "bytes": 1966,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-007.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "f9878bdd1558d7323213f6ed1f484f6ba6b9d0ce5939a384f40658985b283255",
+      "bytes": 2020,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-008.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "88082c101008df8979159794a88261e2fb309425393f5b9a6eb83cbc4008e8e0",
+      "bytes": 1969,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-009.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1af82e3d151321e1281adf1bb34699beda0b8f4d514133d2f511e8eb771da98e",
+      "bytes": 2052,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-010.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3bd6185f65269a311ff3821a886504d87b0e809ee99b8bc4ae2f13abed442607",
+      "bytes": 1969,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-011.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "344f0f9ed5c4b0ab1bdb6d409e34fa5053ab935668b34a9810feebdbe83ee935",
+      "bytes": 1792,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-012.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "295f8d317966a644739c78c5c2c115eceab4f61c02efca81f26e834ab1bdccae",
+      "bytes": 1878,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-013.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4da6222299998ffacb3c9424eae6f85e6583ee494da9b35e76de76003ba647d3",
+      "bytes": 1839,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-014.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b236f8f866a2f4a5b6dbc637d77ea5a2d0db156950c479e4e4630b9030031d48",
+      "bytes": 1826,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/APPROVAL_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c42445fd94ad1ead4abf615a938f639d9b1f122e33267ed29eb58456f1a4d4a4",
+      "bytes": 205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7fb5c85239d2a0a5093ed13d85324d9f23e634ceb90a3bb65b7f311dfa751684",
+      "bytes": 205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/AUDIT_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "2e92ac2f16a0774c54d2c118d9e3931db34d4dd3323c94a7ed1e5efb453c79b2",
+      "bytes": 199,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/AUTHENTICATION_BOUNDARY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e2dcf11b3b085bdfc8602aa353c07e92195f5d1164717e6d9806c10b08add385",
+      "bytes": 223,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BEHAVIOR_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "106d47ef1b576677582b3d6d348cf387cc992b0add54ad066daeba1e078c44ee",
+      "bytes": 206,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BRAIN_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8373e4703f785a186401a14596f043a93134b2917421b7057d385773bb58790b",
+      "bytes": 217,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BRAIN_EVALS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "05c3ce1e1f8743a33f8078480b546bac1aac26ee0927831569042c5d94581d47",
+      "bytes": 199,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BUILD_PLAN.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7703c392ca19a79d0f1c5fd57d2457604c9976cfcd97509ef6a9de7cd77df808",
+      "bytes": 197,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CODEX_SETUP.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "bc720962530d5a0afdfdf2862d1eebcf964485522efb7ac3a8957c3919fd8e35",
+      "bytes": 197,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONSTITUTION_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7ec3419d1f4002d488df6ff588d74648a5f41500d71a640e32ac6301c5ee0370",
+      "bytes": 214,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONTEXT_ASSEMBLY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "2cbee7f1449d7607bf32d3053e442b0e65bb97f5ee2db0fe5064547728f219e8",
+      "bytes": 213,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONVEX_ORCHESTRATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "47bce075ef11832f22baa3f8db1edba5da25070505826759bb3438842b818320",
+      "bytes": 221,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DATA_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "17d747c2eed0a6acd1985a23389fc56fdb34762bbc89353d1dfb23a9234351b9",
+      "bytes": 201,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DECISION_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "23bf2c6c71973797451c6bba74389deb18e8dc02d0a1a9d6629c1e35062c35b3",
+      "bytes": 211,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DEPLOYMENT.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b9a882b2bef0efb7dfc450dbca0d50e248dacc94856b2cf716a2b8bb3ec99634",
+      "bytes": 197,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DOC_INDEX.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": null,
+      "bytes": null,
+      "hashExclusionReason": "recursive index/checksum boundary"
+    },
+    {
+      "path": "docs/DOC_SHA256SUMS.txt",
+      "role": "canonical_documentation_or_support",
+      "sha256": null,
+      "bytes": null,
+      "hashExclusionReason": "recursive index/checksum boundary"
+    },
+    {
+      "path": "docs/EVALS_AND_ACCEPTANCE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5b4354dc6847f39f31a692949e1fefd9642e6fd9743ad377dfc87cc0b867f30c",
+      "bytes": 217,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EVENT_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "adbc3430e22b6d928d2d906ff2096f5d7efff6a280276f108640e243965b5045",
+      "bytes": 203,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EVOLUTION_INTEGRATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e645a462ae838d0c5507f267f8e8e9bee51df9f0fbffe733f5a76fd2d4ed9810",
+      "bytes": 223,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EVOLUTION_VERSION_GATE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "29fb5111ada35f151dea1d3f027565db2aa51899b9d383ef3ce66c96880881de",
+      "bytes": 225,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/INDEX.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8150682ee557b08b510c7445d498071d0c31dec7bd57480e39889a8ed3c5ef77",
+      "bytes": 9272,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/INTEGRATIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ed1ffd886da9b82f8b496ee12966ef490189573c90f1098ea9fbd118e939d438",
+      "bytes": 205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/AI_ROUTER_AND_COSTS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ac9bb5fb7a71c4afdfa035aca8423eeb51565bdb7ac7677ccbee1fc81be796e4",
+      "bytes": 222,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7b804a58265522f39497dde051da2c0f8a1824862e4e64b4a11d060dd2fd63cc",
+      "bytes": 208,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/ARCHIVE_OLD_DIRECTIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6cc026ba7acbdb3d4fb48a96368e3f9551333de3f61e760cbed71f0b83917a0b",
+      "bytes": 234,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/AUTOMATION_AND_CASES.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "f440e724e37f267a47e2e0b1e484c0d913ec424b61e6c5b71e29fc8d93f9831a",
+      "bytes": 224,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/CODEX_START_HERE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b4c93fe0906827f7b7b349d2f884c9d765f728846ec3affdb87568a2467d57a1",
+      "bytes": 206,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/CONTEXT_AND_MEMORY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ea27bcf0ea53171d634f4f403e410b94e7f18ee534cf6415576adc226bccbfda",
+      "bytes": 220,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/COUNCIL_AND_BOARDROOM.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d32c6c717b72e179aa1bdd2fa2e72964be063629d95806ad17be2a44edc2eafc",
+      "bytes": 226,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/DECISIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "0aea967dafc47c47a98f071edd5c5f4874be58a6b2b4dd5ad11bca73d3b99cec",
+      "bytes": 197,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/IMPLEMENTATION_STATUS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d6f18385d2b68eaf9408289fcf6effe0939d58b4352b94bb764d7bbd86d33680",
+      "bytes": 228,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/JARVIS_HOME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8d7a5f16f9dbfac4da795ea314f34bd7110c3728d0960a6d39364008fe62b7bd",
+      "bytes": 200,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/JARVIS_MASTER.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d6b7121e982e039856779a483d8625e0058dbad066ab3752fe6b7ff915de09ed",
+      "bytes": 186,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/MESSAGING_AND_HANDOFF.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "30d4f6ee031d47d513a6e49d8e7f69500ba34bf3aa5dba93699675c9aa1a8aa4",
+      "bytes": 226,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/OPEN_QUESTIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "469dd2d41208c26996624499ce518329e0411fb7ee81f945747d1adad4567715",
+      "bytes": 207,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/OWNER_CONVERSATIONAL_STYLE_PROFILE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "af361fce7505b06064a1eb62654d36b773b1d415d7f05ec6a21f31bc1afadb25",
+      "bytes": 247,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/PASSIVE_CONTEXT_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a6a0802b1dc9abaa4503d13895bf443c0d4a955d699c09d5431457ac0346a28d",
+      "bytes": 222,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/PRD.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e9306e83e3e6d4e8757bfb7cd8b7744f3652ec3620a616326ad6b88479f5c7bc",
+      "bytes": 205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/REQUIREMENTS_LEDGER.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8d8985df4a414bca9f1931628a8625c39b688841cb8ec492a90ff09fbcd2316b",
+      "bytes": 223,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/ROADMAP.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "74ecf9ccf151636769cff133cec1abae4e2572d29fcda00698932a852a5a929b",
+      "bytes": 200,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/SECURITY_PRIVACY_AND_PERMISSIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7e34f98b9d69a38c489ee324311677e771b78739f8e6092f504abedb4b16cced",
+      "bytes": 196,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/SOURCE_INVENTORY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "98b8038c50b9035b1c89c8552ac8b31c7e346a6eaf520f787454de392a42164b",
+      "bytes": 222,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/VALIDATION_AND_COVERAGE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6d6f84389bf38f21ac439eb696ebd733b4474c53ea6e1f39379cdb354a831cb9",
+      "bytes": 236,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JARVIS/VOICE_AND_DEVICE_CONTROL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ef71e9e5ee05be3ecc3bc220b2b2c5cc2bc97034bd70c37d2950a487df108ed7",
+      "bytes": 226,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JOB_LIFECYCLE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fb8a36d4e975a94b5dbee88e0a89dc0998bdcafc6c44067c7b9d2e779d3d6e1a",
+      "bytes": 207,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/LOCAL_WHATSAPP_BRIDGE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "43a464a39527f4a9fe8ed4652a151cdb08e85105a42e410c8460c92b354f987b",
+      "bytes": 223,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MEDIA_PIPELINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "37ca2d7b5baddefda1411f2bbb71b3e0f7031bbe929766d28a19a3569a39fc3e",
+      "bytes": 209,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MEMORY_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "de294b49f73329a78501f3f13d6ad0a6c15cb16929d9fd3e5e74e2ba2181dbe4",
+      "bytes": 207,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MODEL_RUNTIME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c9372caa1a30b9f22d091d036766c431f0ecdb9df4eb45495f1eadff6b998379",
+      "bytes": 207,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/NEON_STAGING.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c805e4bf1a3eb5d12136479fb88bd5f0f6cdfd045500cc676107ae2ef300b22c",
+      "bytes": 201,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/OFFLINE_TRANSPORT.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7631945a6f2b03147579c62496c7979585810673dc54cff981cc32197e387dcf",
+      "bytes": 215,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/OPEN_QUESTIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c95f15222a43a1a1dc1d0fa94429be9cc0c6cdf3c1995a3651a914b8ae26f512",
+      "bytes": 204,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/OUTBOUND_DELIVERY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4882ee03f6edcb2e64e123336e1cff84e174fab335ad674fe3490973e349a3ce",
+      "bytes": 215,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/POLICY_MATRIX.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c54a70af3786ce6fbb39ac4553a37d0f7c115439524fb17e4a1b58ba749315f2",
+      "bytes": 203,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/PRD.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ebff79c86d40b0d9f9725a317bd0339ec821702cb789a9866e7b2e78171b982a",
+      "bytes": 202,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/PROMPT_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "beebcb4ad83ee5643d2544145fa244d1b620a7b1d53361c315a5d7ef3447cc00",
+      "bytes": 219,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/RAILWAY_PHASE3_PLAN.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "885870f98ebef5ea6f7e8671633390d07aee939027f2bd3f055860cc37e47232",
+      "bytes": 219,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/RAILWAY_STAGING.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d737737e9b0451db902342b69e7c606b2d0cab3876743e9b881cac8ac1861f5b",
+      "bytes": 211,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/REMINDER_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e4115e718d65c1fe588e2926772ea026cb8ed97886fc50588c8e031cd92a392c",
+      "bytes": 211,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/REPLANNING_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "30dacd1abc8220a38033c9bc020c989ed457c39131ef31de64d4e39ec7d7deff",
+      "bytes": 215,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/RESEARCH_NOTES.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e9b6564ef4bb4736ad0dbe7942ce1fa4818224c3c709a319cd0fbdf3330abebd",
+      "bytes": 205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SECURITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "0e26bc1347139c397ab25ebd57ffc45ea24f7b69df747c7b8075f727debda286",
+      "bytes": 193,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/STAGING_INFRASTRUCTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "50a26c74e0d1d6d411d2116857f4e0f492f0a1377a853bd7a19648255ce631f9",
+      "bytes": 221,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/STAGING_MIGRATION_WORKFLOW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "59c2b4211f7e47f241f044532ab705c48dab1d08e51894ce222e947f9e0fb3bc",
+      "bytes": 229,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/STAGING_RUNBOOK.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "21cc0cf77988c2e28deae92f77ce8ee690e6e7706797992c2ac63d128637a74c",
+      "bytes": 207,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/VERCEL_AI_GATEWAY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e3b296cb8788868f144d19706ed0da24f29b11fb9e70978f8e9ac5e8d398d8b8",
+      "bytes": 215,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/VERCEL_RUNTIME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "2b419c2708d628895604e39fa1117a5465382374651e53d34bce6d82691cdcd6",
+      "bytes": 209,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8db8506a306ae0a7e7e46713c0f3608dc02432a34f2db45c4169ce24b863ffa5",
+      "bytes": 223,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_IDENTITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "05a9f97c46ece9a99f918d65591740de69607bb519bd0f19745bab6a23777600",
+      "bytes": 215,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_RECOVERY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d3a8907fa98ff68b6127097badd5f242ec629ec5092d3931fa9a3c321f269625",
+      "bytes": 215,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_RISK_AND_RECOVERY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1ce25d7d53f58dbfff4ca88dec0ceaf9a51dca6552956be57b3683af9d49a98d",
+      "bytes": 233,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_SECURITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9ae4d6b68f1270341b6d26099145c92d5d24d8673dd199e04d2b926db0699fb7",
+      "bytes": 215,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ZERO_COST_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3cd0f3021d7cd932073089c4f482d243fe16256ad1b759f61550126de5530d65",
+      "bytes": 225,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/AGENT_RUNTIME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6effd55dfb7a923f95a08b9cf088edbe73c48c40ec81bfc23fd2a6aff19cd252",
+      "bytes": 1994,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/CODEX_SETUP.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6a507a1463f283c95edcac023c9176000921a174a3bad170cebf75a3eea31e10",
+      "bytes": 2843,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/CONTEXT_PACKS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5d903c9aa085bea0be62fed66dbec5f9f2a262cba5b3b079f847e9b8c2c0885c",
+      "bytes": 2385,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/MULTI_AGENT_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "250e229a3e61b96f5336fc4a58eb9edbbc340b219d4720a7d0423f7282da85bb",
+      "bytes": 1734,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/SELF_REVIEW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1fc9e57e77a7b77e8c5482cf5bf82a6ddba2130b69ee2cfaf4222d19c3e1a679",
+      "bytes": 3342,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/SESSION_CONTINUITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a587e77bf74d54b4fa3f32cd0c1ba8104112ee3bc4a6349978aa0f9d90d8311b",
+      "bytes": 2032,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/SKILL_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8022a8179fdbf2c924ad233d5ba65f035b51ba2315c07e30ab4b83f19ba03e9a",
+      "bytes": 2360,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/agents/WORKING_STATE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "22d746fbd99e32067553fbacf39579106e2ddc1ded16c11180366ad5cfd72692",
+      "bytes": 687,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "af8feb15b5fa65325cf96d3db33c2d2d082f2a6e1ece5535a8775e85b9bed01e",
+      "bytes": 3394,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/ARTIFACT_LIFECYCLE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b7c465de0f0ab9ddec5ca3a465b906f57c0e36f8e51eb4167b16d3e94d6eb26a",
+      "bytes": 2158,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/AUTOMATION_AND_CASES.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "38d3559cecb84023c7239c56e5c467a11bd8473d1cbb1d53a6e2788bd74d5d48",
+      "bytes": 1556,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/BRAIN_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "03bed5bd736101f1bd26e574ec8f397579b34f0dd423f754667bfa7e2992d02d",
+      "bytes": 2371,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/BROWSER_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e654f1099b32f8666f03b1bb260b96138fb7c8cebf713fd3caa80be44b65a6fa",
+      "bytes": 2527,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/CONTEXT_AND_MEMORY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "302c2c089d29ca545df7e933d6ac3799e9e2eae875eb5bcf6d53204744f5088c",
+      "bytes": 15673,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/CONTEXT_ASSEMBLY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fa0a413c43154506f746a4afd8c8adebb8375425bcd7e1909ddd5ea19c130583",
+      "bytes": 3789,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/CONTROL_LOOP.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "44a37e3cb554db63f2ce3bfdb2b585236d190f1f5fe69eda75b8853005b4dec7",
+      "bytes": 1746,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/CONVEX_ORCHESTRATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8051cd31ecf0a07533d0e85b6e5e09f6066a9c768b12ce1d5607b641840f31e1",
+      "bytes": 5939,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/CURRENT_IMPLEMENTATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "836b7f9aec62089ef39f101242aab545b6404185832e095c5e8e17b820f47404",
+      "bytes": 6855,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/DATA_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "760138de573185ce2ad0bd15e9229bf9485c4fee2efcdb9053ead5a9df11b996",
+      "bytes": 13111,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/DECISION_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5aceca585375e5c710ed3c7438382d2bcce2b61b06c6c2c124752e3d2e3efd8d",
+      "bytes": 6128,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/EVENT_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "58a79ca44b43b9bfad6c0d0654edffe49a2f3541d266ba5147714215babba534",
+      "bytes": 6591,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/EXECUTOR_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "549e4711845ea57529b74080130937e1b5574721534ff322777a105b668356c6",
+      "bytes": 2971,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/JOB_LIFECYCLE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6a37f090dce14ba395134e07a8e7f142dd4ecb2573a623644993b9886275a3fe",
+      "bytes": 8081,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/JOURNAL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1a8e0e8baf3d84d1d404c4135e2b7d80bdfa15aac5117b0abbd1022814fa2c15",
+      "bytes": 1268,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/LIFE_LEDGER.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "df90d6b30cb8c525eea24c647ec3619a6e54bde398d57926f0ba2412b4b90392",
+      "bytes": 1910,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/MEMORY_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "304f6156a101115ae58c587ac02156a51074d1cffa14178e8bfa58750766c0ad",
+      "bytes": 4531,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/MODEL_RUNTIME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a74e35dd4fdba9ffef486878d00c6ad9460ef0254a361aa8f3fb2351701d143f",
+      "bytes": 5765,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/PRESERVE_EXISTING.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "50768d888251939043241b93a8b178dd3ec32bd64d0556ac2240e468a824d63c",
+      "bytes": 930,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/PROACTIVE_OPERATOR.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4664f0221beb77080dca164ec365b9e110c4eaa546999e3eb7833aa65e0fa621",
+      "bytes": 1890,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/PROMPT_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "af5e7bb76d22b5b8094dad86e4ddb01710be3f15086d92527ef9b0d7ee4eac24",
+      "bytes": 4106,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/RAILWAY_PHASE3_PLAN.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3499a2e5cbb3fccb17352cf38fff00d0aff92d682b1cba5fd67664a96e7ff1d5",
+      "bytes": 3102,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/RAILWAY_STAGING.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d37c65ca523ef34468b63c740c4672c331b50562c1577672092e3375e643c603",
+      "bytes": 2772,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/REMINDER_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4e537ee71ae437776586d0d2b15b8dcbeda228dbc35c71b395966a0026e0fd7b",
+      "bytes": 2235,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/REPLANNING_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "97ebba942f6c94ab3078a61427bc1ad1fd2c3dde416e5a73dd193ba85265c525",
+      "bytes": 2840,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/SCHEMA_EVOLUTION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4857cabf5d192fb3ff7b6fd247c424e8796e217cd5a04ffeaf78cdd6458f5359",
+      "bytes": 2444,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/VERCEL_AI_GATEWAY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a5488a852b53063d05041233f2a415591dd85d35ef7f6282f0afba359a13e85b",
+      "bytes": 9239,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/VERCEL_RUNTIME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "105f993ea7eba60c14117ba0f7b0b5d95cf9d1a44387f285bd083771d2027bdf",
+      "bytes": 16959,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/WORLD_STATE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "f82c232643fd5b58342e4b069ded08fc71b0f4716e09558e068ea257294684ae",
+      "bytes": 1364,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/architecture/ZERO_COST_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "84c574405cb79985021db9edce85b217ca31b3db8ed974d49facfb1029de5e87",
+      "bytes": 854,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/.gitattributes",
+      "role": "historical_source",
+      "sha256": "0d6420248dfd789ff225ff839d09fa0a78f0deb11083ef09ededbe47f2c158a1",
+      "bytes": 90,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/INDEX.md",
+      "role": "historical_source",
+      "sha256": "b3cf8e2e45f91da2b15907c5a7931639fa898597400d929293f5a604643f499a",
+      "bytes": 1489,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/README.md",
+      "role": "historical_source",
+      "sha256": "8a0e1ab6e0a1d314bcc76d5ecaf85e41e284e0367fcddaba7280c8c1d349bcc6",
+      "bytes": 879,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/AI_ROUTER_AND_COSTS.md",
+      "role": "historical_source",
+      "sha256": "b42f651ff1fccf76cbd73a75020b1e7ddb8335d651d69251a28c43721cb8c7ca",
+      "bytes": 17980,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/ARCHITECTURE.md",
+      "role": "historical_source",
+      "sha256": "9fb9339231f930d3beab2e7c175d45982e4fd526f52fbe169ba773e46056b19f",
+      "bytes": 15584,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/ARCHIVE_OLD_DIRECTIONS.md",
+      "role": "historical_source",
+      "sha256": "07be2bcbe472580877ea49b3303ae326aaf6a863c4bb67900eea5f0f37fca9e4",
+      "bytes": 10606,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/AUTOMATION_AND_CASES.md",
+      "role": "historical_source",
+      "sha256": "36cb1d89377aa9ba881bfba6c1dae34686e70d9f481c0d1c372624650d180087",
+      "bytes": 13993,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/CODEX_START_HERE.md",
+      "role": "historical_source",
+      "sha256": "4e7dbb57ba3ed4946cf1b5e0e9e46dd2cae27d3c649327d31c3a13b5a2206c36",
+      "bytes": 5408,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/CONTEXT_AND_MEMORY.md",
+      "role": "historical_source",
+      "sha256": "08397fcbbe1014a24cd64a9234e413a6dd959ffd37ae8d8df306ed53914c2bf2",
+      "bytes": 15370,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/COUNCIL_AND_BOARDROOM.md",
+      "role": "historical_source",
+      "sha256": "b88792f1e875e8313eb9a4e3f8d6613091f6818790f9c101c2ed82c8f0d3dcec",
+      "bytes": 10895,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/DECISIONS.md",
+      "role": "historical_source",
+      "sha256": "1c117ae4ec4b19e0e12d9b2297bf9fdef0da047b8684d01a2482f888166e01b6",
+      "bytes": 25065,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/IMPLEMENTATION_STATUS.md",
+      "role": "historical_source",
+      "sha256": "e6b3e7b2210e940c70363dd4f8ec99ac18e3a3100207817345801213a76cb2ed",
+      "bytes": 26706,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/JARVIS_HOME.md",
+      "role": "historical_source",
+      "sha256": "43678fbcab92b9d108d300fe0407699eb55d760e6e0dbefa06fd42981f915229",
+      "bytes": 7681,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/JARVIS_MASTER.md",
+      "role": "historical_source",
+      "sha256": "4d7e79ffefc976bab130531d397365834237d0d0c8fddf6ffc7576a51807969b",
+      "bytes": 9349,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/MESSAGING_AND_HANDOFF.md",
+      "role": "historical_source",
+      "sha256": "3a136ad0272c574be05f22135a5b2480b9182dd32e6de805a4790859df7ec0fa",
+      "bytes": 15834,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/OPEN_QUESTIONS.md",
+      "role": "historical_source",
+      "sha256": "568b03668444c296c198b4efeade83606b01f4e5256be137683f822e27078d77",
+      "bytes": 12795,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/OWNER_CONVERSATIONAL_STYLE_PROFILE.md",
+      "role": "historical_source",
+      "sha256": "76eb3e1295c32428522afdec61153580d70759b371c48dd701c5f060b63ecaaf",
+      "bytes": 973,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/PASSIVE_CONTEXT_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "09e68e50345a3e519505f9a72fa404502b72510db4bcf0d804306a63a179a4d9",
+      "bytes": 11392,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/PRD.md",
+      "role": "historical_source",
+      "sha256": "4259bbc84797eba77c8b50868c51824447a69806237df0b736d589dd27554522",
+      "bytes": 17933,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/README.md",
+      "role": "historical_source",
+      "sha256": "cb5eb3cebdc0dec75a876cb25714a7217c27d397c40f655376d85e0f7c5c0f57",
+      "bytes": 313,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/REQUIREMENTS_LEDGER.md",
+      "role": "historical_source",
+      "sha256": "b1e7c2a9899313685e92d4a1a1d2dafd135261c30ed126163bfa808099e63819",
+      "bytes": 76211,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/ROADMAP.md",
+      "role": "historical_source",
+      "sha256": "0e5fd9246e1f7cf8bf073f6e444431168dae8544a5336820d1848fcea3cafb3f",
+      "bytes": 9838,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/SECURITY_PRIVACY_AND_PERMISSIONS.md",
+      "role": "historical_source",
+      "sha256": "e534bfdb16c6eeea26531ad6e5e777c7e60b4bd3a83dd6067f68465e364f2876",
+      "bytes": 14619,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/SOURCE_INVENTORY.md",
+      "role": "historical_source",
+      "sha256": "75cbeb19d935a3bd706a6f8992c7c75b84095c7274c7b4a2639f1249feee6b91",
+      "bytes": 10070,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/VALIDATION_AND_COVERAGE.md",
+      "role": "historical_source",
+      "sha256": "ba9f7b1c0207db5edd6ae24704390e35aa88e4c44ca480775922fed44721cc59",
+      "bytes": 14913,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/r1-product/VOICE_AND_DEVICE_CONTROL.md",
+      "role": "historical_source",
+      "sha256": "7f2fac4884277b1451d1827e83f7f8a527563ecda33c0f6b817a1288b68c4876",
+      "bytes": 15660,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.agents/skills/agent-evals/SKILL.md",
+      "role": "historical_source",
+      "sha256": "03ba33158aa78fc54cd07451ec874b16037eed1dd88ed1d4ac533ede30f09ebd",
+      "bytes": 1453,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.agents/skills/connector-integration/SKILL.md",
+      "role": "historical_source",
+      "sha256": "fe3b9e7f9fc8fdc1d49c82268fa46da7004bec97eb51d23c9d6824c31f2353eb",
+      "bytes": 1880,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.agents/skills/database-and-jobs/SKILL.md",
+      "role": "historical_source",
+      "sha256": "fcf5fadee83d9a2d290662f6a7e244fff293a30ce328f621dc88f9d2f4ce3362",
+      "bytes": 1790,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.agents/skills/deploy-railway-vercel/SKILL.md",
+      "role": "historical_source",
+      "sha256": "bf3993f9ea7ca54682d37c8977585c7755acd79d3cb390ca1a160a7b3e3ec34f",
+      "bytes": 2086,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.agents/skills/evolution-whatsapp/SKILL.md",
+      "role": "historical_source",
+      "sha256": "c50839914ab81c0994981d5e0eedc6ac6c78409c0b9d2b201d5fc19bc9b31698",
+      "bytes": 1982,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.agents/skills/jarvis-product-rules/SKILL.md",
+      "role": "historical_source",
+      "sha256": "751de30631f69f7ed08889e3ffe23a53c1cd591e18c476a4a0d56e520da0c795",
+      "bytes": 1965,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.agents/skills/security-and-privacy/SKILL.md",
+      "role": "historical_source",
+      "sha256": "a5876139fc7609c2ddc1d852ff930a189a79c694aa6b2ab6a7a09bf6dfdfed9b",
+      "bytes": 1819,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/architecture-planner.toml",
+      "role": "historical_source",
+      "sha256": "fc3f018981b3e3e532f762ff8cc892a7f7ea8c880048a44382daf3b301cfc691",
+      "bytes": 768,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/backend-implementer.toml",
+      "role": "historical_source",
+      "sha256": "801b53471ca63b52cd2111da7768893c659a042a458dd86d1680e37dffcbd7e3",
+      "bytes": 617,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/docs-researcher.toml",
+      "role": "historical_source",
+      "sha256": "d32ffeec75577b321251cc1d3089bdf8f724aa6e18362853055f275fd82feb9a",
+      "bytes": 736,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/frontend-implementer.toml",
+      "role": "historical_source",
+      "sha256": "67957657d4d274e405712472d7df0e466281a4499c54bcb3e1ee9217cf857571",
+      "bytes": 609,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/integration-specialist.toml",
+      "role": "historical_source",
+      "sha256": "c4807ee774164ee9cfb9e7ef77062b874387173f8638e527faacb779a95d9fe4",
+      "bytes": 696,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/repo-explorer.toml",
+      "role": "historical_source",
+      "sha256": "829971b00c43a1100d8b8c9c9aa73ec33b120a0ffd8620487dea2f41d4dd1158",
+      "bytes": 577,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/security-reviewer.toml",
+      "role": "historical_source",
+      "sha256": "6b1355ee4ea9cecb42b804b988a3b7814012b8ae795f495e813a874b05eb0978",
+      "bytes": 764,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/agents/test-evals.toml",
+      "role": "historical_source",
+      "sha256": "2131f3834da43376c16025679dc0a2e4efb60bf81b562eab13cab3950692d8c8",
+      "bytes": 662,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.codex/config.toml",
+      "role": "historical_source",
+      "sha256": "950f838568195eaa0137a1e5ffc7c1a0d04473571544546c653ee8da178700bf",
+      "bytes": 678,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/.prettierignore",
+      "role": "historical_source",
+      "sha256": "4882f4ee4be72ee8f7449f2b28e5595a4e1a4e8baa0d0cbb2c7390682a284167",
+      "bytes": 169,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/AGENTS.md",
+      "role": "historical_source",
+      "sha256": "e10a3caad8e6a673263dba6e7a5a99e2fbc1368323e3e930e8ee82782106e925",
+      "bytes": 5790,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/ARCHIVE_README.md",
+      "role": "historical_source",
+      "sha256": "b38287db35730feb1217e8eecc38ac6828d70ad868897452d13042c0f9295078",
+      "bytes": 314,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/BUILD_ORDER.md",
+      "role": "historical_source",
+      "sha256": "2807fd16c7ebc3d05febde8cb091b0069768aac80de074fbf528bb4b8992fd7a",
+      "bytes": 1593,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/CANONICAL_DOCUMENTATION_MAP.md",
+      "role": "historical_source",
+      "sha256": "2aada1d85eb75e1f143e77fd29f634aa45e2f0d3ef876c022bb89ee40086a4a9",
+      "bytes": 9196,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/CLAUDE.md",
+      "role": "historical_source",
+      "sha256": "5d04fb717c7b325bc82576f9f55a9d404cb243736c0d1a846a8767cac1019284",
+      "bytes": 471,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/CODEX_START_HERE.md",
+      "role": "historical_source",
+      "sha256": "77164436e24720032224dd59aff3a8773400d0ccf2481b468a10b571a097407d",
+      "bytes": 1080,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/CURRENT_IMPLEMENTATION_HANDOFF.md",
+      "role": "historical_source",
+      "sha256": "05629d48353452831f2b79efd1664aa38332ac800b3716560c20ac37e9895dde",
+      "bytes": 9413,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/FINAL_TREE_MANIFEST.json",
+      "role": "historical_source",
+      "sha256": "1eed2b819c9a499220f08c271e97425798ded7e31a4c66ba384139d9c3ee2f96",
+      "bytes": 185853,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/MANIFEST.md",
+      "role": "historical_source",
+      "sha256": "ea599d937f21515a89ec66aa78ea7f71bcd62739c057327d1e59df0263be165e",
+      "bytes": 11768,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/PRODUCTION_READINESS.md",
+      "role": "historical_source",
+      "sha256": "c681b407e45c9d9196ea70accc6962b463c57ed84e402cb6fd64e1782e7ee044",
+      "bytes": 1685,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/README.md",
+      "role": "historical_source",
+      "sha256": "bd734c853608da21eee196b1e0c1eb4c69cb20fa2534896cc10b19d55f87ae02",
+      "bytes": 2666,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/SOURCE_INDEX.md",
+      "role": "historical_source",
+      "sha256": "ffeac25e7ecde36694b77a3f2abc2338fe0205747fa2c8d12a7c228fb1bbfa5e",
+      "bytes": 2794,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/ACCOUNTABILITY_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "8455806ddc70cb1b5a0a7e4b3ddaae0b7956d23c7516c3220b94f76a1ddfbf10",
+      "bytes": 859,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/APPROVAL_MODEL.md",
+      "role": "historical_source",
+      "sha256": "51eaf1166a2e61bc244ff8a90571aa3fb41b146dcc980993b76a95e71162f2ba",
+      "bytes": 1704,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/ARCHITECTURE.md",
+      "role": "historical_source",
+      "sha256": "07570a0df563c72ec3ca201b5e29540de6e5aae10fdc1920f696b2f854557024",
+      "bytes": 8112,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/AUDIT_MODEL.md",
+      "role": "historical_source",
+      "sha256": "3cf61e077c8e73e40509e0755dca6a8f1764f42b5793fdf6797f01882cf0ebb6",
+      "bytes": 1686,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/AUTHENTICATION_BOUNDARY.md",
+      "role": "historical_source",
+      "sha256": "7b251ac92fef0956dc2cc84415e79da391f38884bdb59cb6f381380475ba4c11",
+      "bytes": 2333,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/BEHAVIOR_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "4e3604bdbbc712503d9681ae97314e2d1076cd4e4e5994193290d7e28bb376f6",
+      "bytes": 1293,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/BRAIN_ARCHITECTURE.md",
+      "role": "historical_source",
+      "sha256": "f6b118ad1df492ae9fe937c7a36fb162ba045da9e84bda34e5208015f0a95cc2",
+      "bytes": 2319,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/BRAIN_EVALS.md",
+      "role": "historical_source",
+      "sha256": "c22d646f4fef1a5b4a81b47de739da75911cea2da210c6720e67a411f1e162cc",
+      "bytes": 1447,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/BUILD_PLAN.md",
+      "role": "historical_source",
+      "sha256": "67011524a92a44d7e5b20802425e0df02bbc05fe478d2344254e1451d982e0d8",
+      "bytes": 5817,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/CODEX_SETUP.md",
+      "role": "historical_source",
+      "sha256": "5163f31f606c5f2a3902bc4998aa0bb4bb76a9d1fc2206a26600c35e6b3dce80",
+      "bytes": 2024,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/CONSTITUTION_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "14e31e467518bf9dd747bd9d7fa1420e2d52edf9237c6f89d5d24c9612bcf442",
+      "bytes": 1102,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/CONTEXT_ASSEMBLY.md",
+      "role": "historical_source",
+      "sha256": "52a5939cdd884b6f980830cb7b36c9d728f42ca0f86a11b5b2558306b644fa46",
+      "bytes": 1136,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/CONVEX_ORCHESTRATION.md",
+      "role": "historical_source",
+      "sha256": "8b9c1aa2c39c6bd6d59778267d0b1e3e36fa88c195dd6ee3e31048f37f1a85de",
+      "bytes": 3767,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/DATA_MODEL.md",
+      "role": "historical_source",
+      "sha256": "4d469d74bec93cc652bf5404952e15ae6a660ee9b134d252b114d9cde46421d1",
+      "bytes": 9107,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/DECISION_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "5dd28e60ae210bc62770db827f1bc6aae488ffd1db95a6eb69a7c0ccdb5254f5",
+      "bytes": 3455,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/DEPLOYMENT.md",
+      "role": "historical_source",
+      "sha256": "5a1dd78f86a4aa2cb1eda13c24a0e63b45af389ec4b49b55affd0d9ba5c3a685",
+      "bytes": 4753,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/EVALS_AND_ACCEPTANCE.md",
+      "role": "historical_source",
+      "sha256": "9b16c9e5fc2395ecd45a3f52db811f35297f298f79061bf28b1e416f9d7d85c0",
+      "bytes": 3639,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/EVENT_MODEL.md",
+      "role": "historical_source",
+      "sha256": "1c9cb42d1ef7de65c8f19fc6156f24a6e2359dbe94077a08ff0916b6050c803a",
+      "bytes": 4193,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/EVOLUTION_INTEGRATION.md",
+      "role": "historical_source",
+      "sha256": "fb3dee8c695ce768c2366fea8121c4375cad0ab6b50a12ef06b25f340829440f",
+      "bytes": 2842,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/EVOLUTION_VERSION_GATE.md",
+      "role": "historical_source",
+      "sha256": "aede790c5c4cb42e5be033d0b9894959685bbbc1c87a338ed655233bd34875b1",
+      "bytes": 5233,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/INTEGRATIONS.md",
+      "role": "historical_source",
+      "sha256": "426e15d7f11a76bd8ea01b57ceb1d9f1d1ffd032d3771e55a6663edcdf341c2a",
+      "bytes": 10955,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/JOB_LIFECYCLE.md",
+      "role": "historical_source",
+      "sha256": "8a68a1918846ee3e8451524c2f13ea9d1e69b52d167f5805d22227d89cc1d7f8",
+      "bytes": 4718,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/LOCAL_WHATSAPP_BRIDGE.md",
+      "role": "historical_source",
+      "sha256": "66fcf22c707edf7efc0a82c3fcd6f7d2091c0609ca373959eac3295b1b82920e",
+      "bytes": 4196,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/MEDIA_PIPELINE.md",
+      "role": "historical_source",
+      "sha256": "2b98303c8359b459604c055ea56bb76c6a24e567c7e4e750c9ac041aa7d26a8b",
+      "bytes": 1086,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/MEMORY_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "1b59d6f8d4cce9ee48d6bdce1b58c7147a62a8480b569fe20cd099a9bd9ac176",
+      "bytes": 1756,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/MODEL_RUNTIME.md",
+      "role": "historical_source",
+      "sha256": "6cb99cc9d28e7635347ba5099753fd7203d600d6755debd9cb8049a2ec298760",
+      "bytes": 2718,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/NEON_STAGING.md",
+      "role": "historical_source",
+      "sha256": "3824b0a6fe4d2edd1389e00c96e7c20ff9426acbd22f958c93072c5fe4933b66",
+      "bytes": 1738,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/OFFLINE_TRANSPORT.md",
+      "role": "historical_source",
+      "sha256": "e136562a446fc2ac3406efc4b935fd1a028562becde31b6021845c2f199611d4",
+      "bytes": 3882,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/OPEN_QUESTIONS.md",
+      "role": "historical_source",
+      "sha256": "389569eb19a6cae4676421b6d93b299a991893797ff4c96ec9098a5e33df17d7",
+      "bytes": 2176,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/OUTBOUND_DELIVERY.md",
+      "role": "historical_source",
+      "sha256": "038b094405cf5881e849b0a6ef70ad8a361c1a3b68acc7bad81aa0cdae2a025e",
+      "bytes": 2871,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/POLICY_MATRIX.md",
+      "role": "historical_source",
+      "sha256": "ad35339236bbe33b0dd1056b86630d74402e2a572d65af2c386a7c7d2344d417",
+      "bytes": 1969,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/PROMPT_ARCHITECTURE.md",
+      "role": "historical_source",
+      "sha256": "9d825a88f8f1f465f125ca9fe6a53fc4006dafc3764f3de53c47e8b397db6048",
+      "bytes": 1015,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/RAILWAY_PHASE3_PLAN.md",
+      "role": "historical_source",
+      "sha256": "4015da7e5788432704673e175d611f50534191e818082346bb2da353d3fa565d",
+      "bytes": 3086,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/RAILWAY_STAGING.md",
+      "role": "historical_source",
+      "sha256": "d37c65ca523ef34468b63c740c4672c331b50562c1577672092e3375e643c603",
+      "bytes": 2772,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/REMINDER_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "60df43c62af548a220f51ad909ac22471914535ea72a66a8245a50dc2e61e50e",
+      "bytes": 1003,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/REPLANNING_ENGINE.md",
+      "role": "historical_source",
+      "sha256": "a87207abac0eae9d0ca2f88b3459f2cd4e931f0a679955ce0879dcfe8b38dde5",
+      "bytes": 1011,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/RESEARCH_NOTES.md",
+      "role": "historical_source",
+      "sha256": "a4818022f0b595eef999fefe5e4587f23b49795d83c2b5fd10767e7d84b52039",
+      "bytes": 8680,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/SECURITY.md",
+      "role": "historical_source",
+      "sha256": "4832adb39526c08902319afa5b139dda9067d27e7b223c7d115bdfc658471ddf",
+      "bytes": 4698,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/STAGING_INFRASTRUCTURE.md",
+      "role": "historical_source",
+      "sha256": "de600e645ba3b47ea6eda4dfce9f1a0e0b867d8659223183b2a67b4e4efaa15d",
+      "bytes": 4106,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/STAGING_MIGRATION_WORKFLOW.md",
+      "role": "historical_source",
+      "sha256": "a7957a8ea0fcf62e39d9cdc395b708a969653de7edf213e92de0fa56d6c6ab9d",
+      "bytes": 10636,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/STAGING_RUNBOOK.md",
+      "role": "historical_source",
+      "sha256": "574015140ba4976e95728c0ae2275a1226e16ce322d45ff7f035023b6661daec",
+      "bytes": 3750,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/VERCEL_AI_GATEWAY.md",
+      "role": "historical_source",
+      "sha256": "3f9e6f62f15b21090b864db3238bec941b8986ebd295003cec96742f34af38dd",
+      "bytes": 7146,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/VERCEL_RUNTIME.md",
+      "role": "historical_source",
+      "sha256": "a124f3dd4bea6dd8100d9bf799d0bcc715ed5ad2b85b4242949aa30e4ab01144",
+      "bytes": 14288,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/WHATSAPP_ARCHITECTURE.md",
+      "role": "historical_source",
+      "sha256": "fd1048dc198eccbf21dbb93f4d1fa703c632c6f2ca9d3c2eeac6d17ef3a74b84",
+      "bytes": 2839,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/WHATSAPP_IDENTITY.md",
+      "role": "historical_source",
+      "sha256": "3f90d05656bbbee90139b1de1f5cefddf6a63465932b8e69517d39eeaaab6adf",
+      "bytes": 1980,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/WHATSAPP_RECOVERY.md",
+      "role": "historical_source",
+      "sha256": "dcde599f5369d38b60799ba04fe8b194727aedd072aa396b2d01c0fbd396e285",
+      "bytes": 1994,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/WHATSAPP_RISK_AND_RECOVERY.md",
+      "role": "historical_source",
+      "sha256": "e5551ff1b6b481d08c1220c4bb9208f39f79f40ad03903ab1323899c3cb8e471",
+      "bytes": 3076,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/WHATSAPP_SECURITY.md",
+      "role": "historical_source",
+      "sha256": "6af9d9230bd91ad378ac465a5813e7dfe863704b68e874d8ec6f2b93cb815a0c",
+      "bytes": 2868,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/ZERO_COST_ARCHITECTURE.md",
+      "role": "historical_source",
+      "sha256": "b9478bd06af569cf46617fd813a4fadeff0768de114923b9093d933a70442310",
+      "bytes": 7781,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/docs/archive/INDEX.md",
+      "role": "historical_source",
+      "sha256": "e4c0ba3a80edfdc2298e7a91d0f1d06cea47c33cbcf80bc41b32d49bfdf63054",
+      "bytes": 649,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciled-baseline/eslint.config.mjs",
+      "role": "historical_source",
+      "sha256": "4d3c3636095bdcd11bad1d53b6d65d37b4473411134144a2f2e2190926ffe3b5",
+      "bytes": 830,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/DEFERRED_VALIDATION.md",
+      "role": "historical_source",
+      "sha256": "1591b2d73ef8467d2f6666eb6c697b22d3cb94de1bbd70416fe0bc0d02d0a26c",
+      "bytes": 5688,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/README.md",
+      "role": "historical_source",
+      "sha256": "992848049e3c23ffab87b620a05f0580b5f9770c7513fac4f558370d8cbbdd23",
+      "bytes": 328,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/RECONCILIATION_MATRIX.md",
+      "role": "historical_source",
+      "sha256": "83a33c60c5798167a6c971d7e88521cb92fbae45855fe64f8f56d10c108de3ef",
+      "bytes": 94947,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/RECONCILIATION_REPORT.md",
+      "role": "historical_source",
+      "sha256": "07e79f9f70a0899d7d81e3e93fd8a74f5c662dd36eec17b513bedbfb0277892d",
+      "bytes": 8244,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/REMOTE_BRANCH_DISPOSITIONS.md",
+      "role": "historical_source",
+      "sha256": "7f37216d3d8f2d56187e483b9263eb2d8d7b813a53eeb4bcbd844e5a78e60337",
+      "bytes": 4192,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/RESTORED_C7_ITEMS.md",
+      "role": "historical_source",
+      "sha256": "e80fb7cdd32d4b6aaf2ca41a9295924a1f681e2c23b68a02bbcad4d263f5b4c5",
+      "bytes": 5695,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/SECRET_SCAN_SUMMARY.md",
+      "role": "historical_source",
+      "sha256": "bb9dd08d853aeb3123f09ddbf39b16d77e82d1bc74643f7dfec8db911962254c",
+      "bytes": 2973,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/reconciliation-2026-10-05/UNRESOLVED_CONFLICTS.md",
+      "role": "historical_source",
+      "sha256": "e6181dc06241af5c984472ddf8fd70ce2dde47201e8c03e195f5a1b26185b7f4",
+      "bytes": 1970,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v1/JARVIS_PRD.docx",
+      "role": "historical_source",
+      "sha256": "32583b8ee309eb69157404b5cd7097c7c25a3730f09af5b6c1aafab29e14bcd9",
+      "bytes": 68205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v1/JARVIS_PRD.pdf",
+      "role": "historical_source",
+      "sha256": "3148d9076a8bd4207e7bc92c0265af39018c368abd477c81c3a5b02a89766800",
+      "bytes": 737148,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v1/PRD.md",
+      "role": "historical_source",
+      "sha256": "cf083f77330743efaa11b9576600e3e87ee2e50b10913516be7f5c8d48077de7",
+      "bytes": 54850,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v1/README.md",
+      "role": "historical_source",
+      "sha256": "2f006665457570106e4cec12ba788907a436f35f419a159a94b55deda859ad4e",
+      "bytes": 305,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/CODEX_DOCUMENTATION_ONLY_PROMPT.md",
+      "role": "historical_source",
+      "sha256": "aebb13f12e565b872e9862ca320c460ed5b5e649beda776bb8d5f648859b0c5a",
+      "bytes": 2183,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/JARVIS_PRD_V2_Personal_OS.docx",
+      "role": "historical_source",
+      "sha256": "2ead7d0c515f522a01edc18fd57e49ea46d247c3e8227e5897e5fb31ed0a6fdc",
+      "bytes": 56388,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/JARVIS_PRD_V2_Personal_OS.pdf",
+      "role": "historical_source",
+      "sha256": "f1dccd327ea9c6809f33a7bb2a9ed5d19b8e26552578dee1d16f22b378380c34",
+      "bytes": 479833,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/JARVIS_V2_MASTER_CONTEXT.md",
+      "role": "historical_source",
+      "sha256": "a99f0f9cc181fda37aa9a136fac8499a5a2ef47a15ccbff60c6e6806ee4edbf2",
+      "bytes": 6812,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/OPEN_DECISIONS_AND_QUESTIONNAIRE.md",
+      "role": "historical_source",
+      "sha256": "c912f15e3de152a451d93e66502a061d7f7f279f79b52de750112c89df93d571",
+      "bytes": 5151,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/PRD_V2_EXTRACT.txt",
+      "role": "historical_source",
+      "sha256": "2fd91b931081b82bca88faf30036c936d0563f47f3ac30bc4b2bd054e6ab8bcc",
+      "bytes": 39145,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/PRD_V2_PERSONAL_OS.md",
+      "role": "historical_source",
+      "sha256": "af3aaf7be7fc2b5ff8340f15b3e061e9cb53bc442a80837c4f4663ab52b984b7",
+      "bytes": 26937,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v2/README.md",
+      "role": "historical_source",
+      "sha256": "2dd35fa2b67936e86d14a26ffaa244f1a6d5ed8e37b501d0465c08ace3acaf8a",
+      "bytes": 305,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0016-personal-os-core-and-first-party-apps.md",
+      "role": "historical_source",
+      "sha256": "6fa801340ea9150d152f31d907945cda97ac338f923e6462a8a963a2f54a9106",
+      "bytes": 1185,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0017-role-separation-surfaces-apps-agents-executors.md",
+      "role": "historical_source",
+      "sha256": "baad188b4e32e07d31ce3e852094928a48aa7d1ce4897f650b32dd96d4dd7079",
+      "bytes": 998,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0018-procedural-memory-skills.md",
+      "role": "historical_source",
+      "sha256": "7c1fecffe50c57dc4cd7b50a9fb6bd1cdbb17f5973dd7484f13eca3fe9af7f1f",
+      "bytes": 861,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0019-non-forgeable-approval-resolution.md",
+      "role": "historical_source",
+      "sha256": "46955dacb874c3a88796913f6e4bffd8e731169ac541519e7b8b2f025008d61f",
+      "bytes": 844,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0020-hybrid-privacy-tiers.md",
+      "role": "historical_source",
+      "sha256": "6a67d191b6db258626f0a1f15489059384850eb64d6074585486076f62ee44d9",
+      "bytes": 940,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0021-external-agent-runtimes-as-workers.md",
+      "role": "historical_source",
+      "sha256": "196082f5fe79f1d43e38d98248bafa303984b838c98a9474c10d77c663108ece",
+      "bytes": 878,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0022-browser-as-surface-domain-app-and-executor-boundary.md",
+      "role": "historical_source",
+      "sha256": "37421967b33b8c24174fc50b6f7123301b91b2931cafd5556e23e88afa5aaca8",
+      "bytes": 945,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0023-cost-aware-model-routing.md",
+      "role": "historical_source",
+      "sha256": "572e135d9d337cb735ae0499b4425e60b519be8dde5ce7f96c629f37d5ae8172",
+      "bytes": 1112,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/ADR/0024-research-is-evidence-not-product-authority.md",
+      "role": "historical_source",
+      "sha256": "72cd67cbdf3d697e45aa0d566b73bfa61e2bea0ea45cb2c91fc01db8fd8d0fce",
+      "bytes": 962,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/action-intent.schema.json",
+      "role": "historical_source",
+      "sha256": "e231a752ed63338fd6ca8aa97dee8a5c5a660ce04946e6c2666e19887799240d",
+      "bytes": 1217,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/authority-lease.schema.json",
+      "role": "historical_source",
+      "sha256": "6887f0a0bfb6cd04c7f0519ebee21ddd8c0d8aebd7b4a4e8609ee6facbfffc2a",
+      "bytes": 1293,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/capability.schema.json",
+      "role": "historical_source",
+      "sha256": "9e4dadc44c6fe93ed1ceaad39718192b88ed1aaba8df2ab985cea44b2b84733f",
+      "bytes": 1278,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/first-party-app-event.schema.json",
+      "role": "historical_source",
+      "sha256": "0581246cd75d76c2941f34d51cc04def9b6f926ae6201e20941a091b9e40b660",
+      "bytes": 1599,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/life-ledger-event.schema.json",
+      "role": "historical_source",
+      "sha256": "fd1b179845ce5cadf292888e2e263850bbe5007dd6a8e0c8624804633bd73c58",
+      "bytes": 1379,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/proactive-brief.schema.json",
+      "role": "historical_source",
+      "sha256": "ceed3bed4acfab555ba85e7302aa9834d28ec39d6285e347bfe5b49539699e67",
+      "bytes": 1584,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/skill-record.schema.json",
+      "role": "historical_source",
+      "sha256": "0e3801c46510b2c24675e88c4f324adf183824c11bae4efb2323235055dab209",
+      "bytes": 1695,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/source-reference.schema.json",
+      "role": "historical_source",
+      "sha256": "2664a7fc3536195011ece1455cc5749870fad8ad499ec6ef1afe3289edb8e350",
+      "bytes": 1031,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v3/schemas/world-state.schema.json",
+      "role": "historical_source",
+      "sha256": "8299f65d5f711a6f76257b447cc17289e26668f89ef92c3ee9a4edf197d6f85d",
+      "bytes": 883,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4.1/ACCEPTANCE.md",
+      "role": "historical_source",
+      "sha256": "082370e67b64c8bd587fb037645c13609e4b7f875fe17bad7bb67013bdbb20d5",
+      "bytes": 4638,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4.1/validation/preservation.json",
+      "role": "historical_source",
+      "sha256": "1568d5a719925468b37e841c70feab649b40999747fe5873ee7fcd998ec2afab",
+      "bytes": 16906,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4.1/validation/report.json",
+      "role": "historical_source",
+      "sha256": "d3a50a97db1982242fd4fe86d6823867bd4fc176b5870d957fc0ae8125c45b34",
+      "bytes": 7133,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4.1/validation/results/node.log",
+      "role": "historical_source",
+      "sha256": "5d8a290bfc7d8dfcb59fd53af0a54969d84ed2849864afdc47e749d433ef2fb1",
+      "bytes": 7619,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4.1/validation/results/python.log",
+      "role": "historical_source",
+      "sha256": "2b59c2ef7afe8669072836decc9053147b13993252db4c3b751268aca8ffbcec",
+      "bytes": 14940,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4.1/validation/results/schemas.log",
+      "role": "historical_source",
+      "sha256": "8cf3a09dcfeef47f172371bbd09a7b87a1df20161b478882c9ce7065253c9625",
+      "bytes": 24798,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4.1/validation/static-validation.json",
+      "role": "historical_source",
+      "sha256": "844486f66bacc6f3e49d1ebd6c107ec0b22d98f93105956423add66497fb36f9",
+      "bytes": 396,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-001.md",
+      "role": "historical_source",
+      "sha256": "db2763a9d2aec3383b5812d47de25f25ec736963baaa81380ad7080d59aafb55",
+      "bytes": 2058,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-002.md",
+      "role": "historical_source",
+      "sha256": "3e2d44b9177b79d15986af477329cef6141b1c9c1ab4dbd50657bf8dbdbc72f5",
+      "bytes": 1982,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-003.md",
+      "role": "historical_source",
+      "sha256": "b59a3764ba8a804a4f20397be47b1c117e70464f91d04ae703683a83d6ba45e3",
+      "bytes": 2038,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-004.md",
+      "role": "historical_source",
+      "sha256": "207f9ef5d69eeb092ce20b475d2ca8a44f8d16c9c030c142e8b60fb5b4cc7403",
+      "bytes": 2067,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-005.md",
+      "role": "historical_source",
+      "sha256": "1b3b13d65933de0a6587606a1c185dc9a7e36096c58657d2a7fa9a4166ca74c7",
+      "bytes": 2062,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-006.md",
+      "role": "historical_source",
+      "sha256": "a87249180a9db843a26eaad5a495dbec241ca0cebe7307ae16879591858701b6",
+      "bytes": 1993,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-007.md",
+      "role": "historical_source",
+      "sha256": "e3721b71a33b9e2894cdceddd46e084cf80b3da5c9c4add57ddc4daef309f739",
+      "bytes": 2038,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-008.md",
+      "role": "historical_source",
+      "sha256": "c37a71623edd473cf4e32a4b47b84fce9a78e0031e03102aae07d413737a9a43",
+      "bytes": 1999,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-009.md",
+      "role": "historical_source",
+      "sha256": "b59f77dd568ab120f0a9a1d342f117cfc612460adce6f4ff8aec3313a1f9bb5c",
+      "bytes": 2076,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v4/proposals/v4-010.md",
+      "role": "historical_source",
+      "sha256": "7449f62797b08c6b9afbbec0c4c2ab36c9a44e2fa4468f1b7f83efed99083d6f",
+      "bytes": 1980,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-source/CHANGELOG.md",
+      "role": "historical_source",
+      "sha256": "a5a40e7fbac2c53d08c1f2e96254082a03705b96f9295fb5d42dc02236deb5fc",
+      "bytes": 1941,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-source/DOC_INDEX.original.json",
+      "role": "historical_source",
+      "sha256": "86a93cc734908075fd6ee22bab8842bf29d65e7655ebfae67491228439d5bbc3",
+      "bytes": 135366,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-source/JARVIS_V5_SOURCE_467_FILES.zip",
+      "role": "historical_source",
+      "sha256": "744385cdc46dfff8c94a32d7389492b4c2b9bce4e0617f173d9ce2e057364de1",
+      "bytes": 1513465,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-source/README.md",
+      "role": "historical_source",
+      "sha256": "09e433f2115fbe218d2206716b0280e60ff5897d4e76ab466909302d6f6081d6",
+      "bytes": 992,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-source/SHA256SUMS.original.txt",
+      "role": "historical_source",
+      "sha256": "4227f70caffc15b445a34364d323f7234ed956ff8e71773874e47512b1d48048",
+      "bytes": 43513,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-source/START_V5_IN_CODEX.txt",
+      "role": "historical_source",
+      "sha256": "f818213592f4be1f229917a454736931174c4b5199f77fec3c3bf1ab56486c9b",
+      "bytes": 1817,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/README.md",
+      "role": "historical_source",
+      "sha256": "263272ada39dc1ab511f84896139a8d265469524ab0a648944a34c96cbd55bee",
+      "bytes": 723,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/VALIDATION_REPORT.md",
+      "role": "historical_source",
+      "sha256": "192f916eb929d92d2524f3b1fcdb47ab7508d5fe7645119bacd39bad1476456a",
+      "bytes": 3960,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/conversation.json",
+      "role": "historical_source",
+      "sha256": "06c4922a4210bf20f0f703cbaa72eab03a43ac13e242143170054f197749924a",
+      "bytes": 1868,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/conversation.txt",
+      "role": "historical_source",
+      "sha256": "9c00de2dd0888dedb29c92efcd753a0143e60e31577a16c1422acace5073cf08",
+      "bytes": 5290,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/edith.json",
+      "role": "historical_source",
+      "sha256": "4618bb64288236a0ba42364b4360c0a8ae0d35c791ba83c42efb374853c7d90f",
+      "bytes": 1712,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/edith.txt",
+      "role": "historical_source",
+      "sha256": "e9b0d45c4137b9311a63a9b0462dcb26d8476f3de5c2ee971e9242d7284232ce",
+      "bytes": 4967,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/email.json",
+      "role": "historical_source",
+      "sha256": "5e36c8e8ef42c24f8df4a43aef1f70239dc547eacfd4c068526a3d0579f72687",
+      "bytes": 1560,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/email.txt",
+      "role": "historical_source",
+      "sha256": "cd9c0b3fdff4b2b9d7e835ec833b0b9a2563444ab707f743ec73a620814918c0",
+      "bytes": 4687,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/fba.json",
+      "role": "historical_source",
+      "sha256": "94e22f093c7235b1bc72b169cc9856ad1621f73953d9a50df64bb68384c70768",
+      "bytes": 1553,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/fba.txt",
+      "role": "historical_source",
+      "sha256": "3952db3ab92a6125c56c2701a4f478e529ee45d794362c954fda3af81bfc526f",
+      "bytes": 4736,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/finance.json",
+      "role": "historical_source",
+      "sha256": "6c160e9382282ba0f0e0e8bb24b256cefbe9258c476d86b0d317ac80a335f5e3",
+      "bytes": 1566,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/finance.txt",
+      "role": "historical_source",
+      "sha256": "1998e3385d7c76ab9a709b6b0646205c9d4371a28966275b6f2b350fd18df23b",
+      "bytes": 4707,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/health.json",
+      "role": "historical_source",
+      "sha256": "89823e03eb6bec6951a1a7d012b6058740ba36b71d284671063d4ea119e62513",
+      "bytes": 1568,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/health.txt",
+      "role": "historical_source",
+      "sha256": "a60a7450a152f9c4019854153e615cf5a76592d646e9aae54f30e41b19669dd7",
+      "bytes": 4753,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/mentor.json",
+      "role": "historical_source",
+      "sha256": "bab9ca9f45779101ab0d139078775ce2c36d0be372f469771e9c8bba30b19053",
+      "bytes": 1560,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/mentor.txt",
+      "role": "historical_source",
+      "sha256": "5ef27078afa68b467b57bb5e841f54410bdbc4759113f04ac3d995d248f6f7b9",
+      "bytes": 4627,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/night-mode.json",
+      "role": "historical_source",
+      "sha256": "74f44090bc701692e4c7e80b262845524589dcaba4e5498429f5208b88eb9600",
+      "bytes": 1719,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/night-mode.txt",
+      "role": "historical_source",
+      "sha256": "c0b2cf98458f28726b521fd1237e48094101c8f4d71572a55691f927290c9cd2",
+      "bytes": 5409,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/proactive.json",
+      "role": "historical_source",
+      "sha256": "8126fb6e0716ae39e3c110ec957281cc30e4c5452d30418231189989eff0e837",
+      "bytes": 1570,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/proactive.txt",
+      "role": "historical_source",
+      "sha256": "9eba677cb971cdb2df833010b179468ee4c599aa6163aaa353e3ced9cf65f4bb",
+      "bytes": 4918,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/relationship.json",
+      "role": "historical_source",
+      "sha256": "86dc229931a6549e55c9ba0307e6806667032783d59892244dec119e3f160c15",
+      "bytes": 1573,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/relationship.txt",
+      "role": "historical_source",
+      "sha256": "0a38879c0fbae76fe5cde3dcaacc366cb74d1b4db4e3743bae9b6e47f1da6964",
+      "bytes": 4715,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/replan.json",
+      "role": "historical_source",
+      "sha256": "16e4aeae06df76d9ed89953fd90f572f2d60fb1cb84232a3a96ae6b312a5ff8a",
+      "bytes": 1855,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/replan.txt",
+      "role": "historical_source",
+      "sha256": "fab107508906c25ff57b5e2fa6edb8b62c3f578cecf1943570909c0f3033c9c2",
+      "bytes": 5285,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/research.json",
+      "role": "historical_source",
+      "sha256": "e442e9ff701b38baf6caaa02c28d7f8455baef2664e0f87d8eba17974ce0776f",
+      "bytes": 1730,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/research.txt",
+      "role": "historical_source",
+      "sha256": "7309229a9350f81378adba705a68ca88f58ab42ff0e97a6b0b2e4c6fc0e3b1c8",
+      "bytes": 5034,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/skill-curation.json",
+      "role": "historical_source",
+      "sha256": "f059357235289d6bdebecab25052d99c5b29e398e6eda9cf87764de4c0e40f06",
+      "bytes": 1570,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/skill-curation.txt",
+      "role": "historical_source",
+      "sha256": "20b89d4b4256ed66a8c59bfd4775eb82edd1bec1b02e2f922987dbb317667e1e",
+      "bytes": 4887,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/voice.json",
+      "role": "historical_source",
+      "sha256": "561db5273df3d633d3e5c74a332166bbbdc55caaf066c57f00ea43c2227f6943",
+      "bytes": 1702,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/voice.txt",
+      "role": "historical_source",
+      "sha256": "f171cbe2c814c619cad3a0e2cd602962b98c491a6ec50dbb15c7c3e85ea12d60",
+      "bytes": 4942,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/weekly-review.json",
+      "role": "historical_source",
+      "sha256": "3be5474f761c3c51bd29b2a9221ebd0c35abc261dfcbd277fd98606c59d596e0",
+      "bytes": 1714,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/generated/prompts/weekly-review.txt",
+      "role": "historical_source",
+      "sha256": "d5c5f0e4e01c5db8b6a2ce6b81d2df114db0067aebf97c153e7e9ca0e8e08154",
+      "bytes": 4959,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/archive_check.json",
+      "role": "historical_source",
+      "sha256": "79c66fd1409b55896d6086fea68c7cb0f3684df23518b386e15711ee88da5d2a",
+      "bytes": 3573,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/context_metrics.json",
+      "role": "historical_source",
+      "sha256": "937e6baefbfb954def57020d2fbe4d88ba9d3bd47987a6144b3325e4fc76fec8",
+      "bytes": 5120,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/iterations/signing-input-first-run.log",
+      "role": "historical_source",
+      "sha256": "b4957cbfc6d67e6ae66a50784388be2243c7bfa46642c7330376c1730c3854cc",
+      "bytes": 26864,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/report.json",
+      "role": "historical_source",
+      "sha256": "22041234fe6a362d4f761ecf30cd4f6276a8d5b7cd77530c1d2a17982f23d0cd",
+      "bytes": 12593,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/results/node.log",
+      "role": "historical_source",
+      "sha256": "71b2f7d03a048867cccb19e88cc2d9f224fcb15b6204daa48d4d858f2d25ff97",
+      "bytes": 17393,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/results/python.log",
+      "role": "historical_source",
+      "sha256": "5c1182e8f303f8a4e1b0a29a1d942f87f7904af74a3d4c0f7c99b61486181271",
+      "bytes": 20575,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/results/schema.log",
+      "role": "historical_source",
+      "sha256": "f9e17915df826b5b7cdf52a88e53b2491c9dc5df3be48b5432b8be8365eda4d1",
+      "bytes": 24798,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/results/structure.json",
+      "role": "historical_source",
+      "sha256": "efa4523a033693f2369741cd8572caa75d4245eb617caf26b8a1444f2307481a",
+      "bytes": 583,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/archive/v5-validation/validation/results/syntax.json",
+      "role": "historical_source",
+      "sha256": "049b39eee611bc622007420069c7b6c3a1e58e59c9c0576249728e5afe5e2cba",
+      "bytes": 4640,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/ANDROID_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b99354ab850f312fc238e3ada3c0476c40f9edca3af60160ed81dc7d500a9808",
+      "bytes": 1767,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/JARVIS_HOME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "cc632db74a116d85720073bebca42c05f7522d5ab6f19629c03a410566f6099a",
+      "bytes": 8317,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/PASSIVE_CONTEXT_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1df0687060021793d4270f93e2be49c6aa9697ef910b13f7eb318abe10ea81d5",
+      "bytes": 11740,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/SURFACES_AND_CLIENTS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "bc42b1e5baa78bbc06e43c13b3f7007e277dfbbf0c9cbcdc0ddb4b83c7c71003",
+      "bytes": 1366,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/VOICE_AND_DEVICE_CONTROL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "283ceae496cceeed122c6d6e404a0086997c916ebfcb7989cbb8d444dd455a05",
+      "bytes": 15991,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/VOICE_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ebd0bbcdede9fb27020969b8cb5261ccbfbda20ece8bd2322c1b5f8164524ed4",
+      "bytes": 2240,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/artifacts-builder/LICENSE.txt",
+      "role": "design_reference",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "bytes": 11357,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/artifacts-builder/SKILL.md",
+      "role": "design_reference",
+      "sha256": "8455a64e627d203fd7b43df64c83d8870cb98907aae21edce4ec8eeef651d850",
+      "bytes": 3079,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/artifacts-builder/scripts/bundle-artifact.sh",
+      "role": "design_reference",
+      "sha256": "abf0e480bf6585b56fab8526a407dfb7dc740812bddd70c636e1e8f3df5f9618",
+      "bytes": 1517,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/artifacts-builder/scripts/init-artifact.sh",
+      "role": "design_reference",
+      "sha256": "355e5dd4382aaaee91f01f1627eaeab30b2676ffa8d9b3ec328a1ae450ebccaa",
+      "bytes": 9924,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/artifacts-builder/scripts/shadcn-components.tar.gz",
+      "role": "design_reference",
+      "sha256": "1296f069e825de7933de7e8ac63672495cacce3f88f2dc45554dbcddbcbca60f",
+      "bytes": 19967,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/design-accessibility-review/SKILL.md",
+      "role": "design_reference",
+      "sha256": "ef42982af0d51238dda2ab16d08626712891bdd41864876c32d1e7b13fb3124f",
+      "bytes": 4278,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/design-design-critique/SKILL.md",
+      "role": "design_reference",
+      "sha256": "3a4f260eb9f60b431782bf6d90f22afb480c0c67860267a032df58a3e1bd19cd",
+      "bytes": 3923,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/design-design-handoff/SKILL.md",
+      "role": "design_reference",
+      "sha256": "38f1efc807928030654218443ad07f6a37ac82de6b4d627a03113a3568d787b7",
+      "bytes": 3953,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/design-design-system/SKILL.md",
+      "role": "design_reference",
+      "sha256": "fb31bd0144c43955106f01927126ae9fd2d4148be44c8d5887b3391f40c31445",
+      "bytes": 5600,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/design-research-synthesis/SKILL.md",
+      "role": "design_reference",
+      "sha256": "40048615dc81fc8b9b06104769498214d61a35ae4518a0995a12bbbd0ab945a1",
+      "bytes": 3014,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/design-user-research/SKILL.md",
+      "role": "design_reference",
+      "sha256": "fa18fc13d0f44aa869102962ef9466417ade726d659465195a40fbcf08cee156",
+      "bytes": 1751,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/design-ux-copy/SKILL.md",
+      "role": "design_reference",
+      "sha256": "d46a00a62ec637e9ca9d5f7823ea3e0a4ec26dffc53bb5035f59b48ebfcdcde7",
+      "bytes": 3436,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/emil-design-eng/SKILL.md",
+      "role": "design_reference",
+      "sha256": "433b5a239cda18e0576e4e558532e7e53512e21fafe5b85db4894c28ec399b72",
+      "bytes": 27335,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/frontend-design-plugin/SKILL.md",
+      "role": "design_reference",
+      "sha256": "2a43ac4549e0817082c2a298e51fd579c63a7a936321b10dbbefcc5003d441fc",
+      "bytes": 9556,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/frontend-design-public/LICENSE.txt",
+      "role": "design_reference",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "bytes": 10174,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/frontend-design-public/SKILL.md",
+      "role": "design_reference",
+      "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+      "bytes": 9390,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/LICENSE.txt",
+      "role": "design_reference",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "bytes": 11357,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/SKILL.md",
+      "role": "design_reference",
+      "sha256": "b2370e4b4408f452e7597408d286e7e0c4c2ed3770b07a12d95d13c7c386bc47",
+      "bytes": 3128,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/theme-showcase.pdf",
+      "role": "design_reference",
+      "sha256": "3e126eca9fe99088051f7cb984c97cedb31c7d9e09ce0ba5d61bd01e70a0d253",
+      "bytes": 124310,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/arctic-frost.md",
+      "role": "design_reference",
+      "sha256": "868a75a8fb5b2a61d0f0ab87c437fe632d3cbab6371c418f06aa2816ac109ae0",
+      "bytes": 544,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/botanical-garden.md",
+      "role": "design_reference",
+      "sha256": "222cb8e7496abc9b75b29453c809fb9839e7e4b01fa45deecdd896b38d087765",
+      "bytes": 519,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/desert-rose.md",
+      "role": "design_reference",
+      "sha256": "bd065b8629be3b64655183927e248e3d892a27b8d184b009cfba89c96102744f",
+      "bytes": 496,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/forest-canopy.md",
+      "role": "design_reference",
+      "sha256": "ecb722efa24688e808b5bf323c334ca2349e989cfddd72ce8400ce5d4c4bd3e7",
+      "bytes": 506,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/golden-hour.md",
+      "role": "design_reference",
+      "sha256": "3444a00df971d3c2f06b665e21a2e9eb5d7d7d6f6281f2758773b8345776a139",
+      "bytes": 528,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/midnight-galaxy.md",
+      "role": "design_reference",
+      "sha256": "0e134c4c0324df41e34ac314269aa6829cd378cf3c304b31858d0cd158d2f944",
+      "bytes": 513,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/modern-minimalist.md",
+      "role": "design_reference",
+      "sha256": "b8bc572b75948d4df69c401af703b9262ed6820a3ceb270da30a529e92763614",
+      "bytes": 549,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/ocean-depths.md",
+      "role": "design_reference",
+      "sha256": "a7ad8eec85341dbfcb2665da827a4b6a4baee08ab3335ac02421f18e6b46b2e2",
+      "bytes": 555,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/sunset-boulevard.md",
+      "role": "design_reference",
+      "sha256": "658af11ab04be4923692571081ffb42a428141ae537703117b9236d9f8ee22a3",
+      "bytes": 558,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/theme-factory-wow/themes/tech-innovation.md",
+      "role": "design_reference",
+      "sha256": "183648163026dd5eeba3df5effa335b55ba333c3ee1fe215278605e55f40a52a",
+      "bytes": 547,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/typeset/SKILL.md",
+      "role": "design_reference",
+      "sha256": "32108f34bbc76567fe563016c5327530a0d2669d603e7f9d4554a42285041fbb",
+      "bytes": 5777,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/design/reference-skills/webapp-testing/SKILL.md",
+      "role": "design_reference",
+      "sha256": "51b7349e77ec63b7744a6f63647e7566a0b4d2e301121cc10e8c2113af6556a2",
+      "bytes": 3913,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/DOMAIN_APP_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "eefb8a192a34a661ef69cbabaea6ae1eaee09ac76f81865804e07df4171e8454",
+      "bytes": 2212,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/DOMAIN_INTEGRATION_CARDS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "500501d1e089a67d463e587180868dea8d654aa6c2c4934a23fbecb4c81fdd46",
+      "bytes": 4071,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/EVOLUTION_INTEGRATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "813042453d38b46751b8694b6c70c06432c8451b2cbca62549d857d7fda1aa48",
+      "bytes": 4831,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/EVOLUTION_VERSION_GATE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "45e282afcc75cbebd4037ada75948273cd50dfc8ba2a29026fba31185f1774f7",
+      "bytes": 7415,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/FIRST_PARTY_SDK.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6fd063a9592b58a67dbeb7cd8013b59c9aa06db49b7a007d9c0e043adaa1443a",
+      "bytes": 2444,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/INTEGRATIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fdee949692f3ed27d9388fa8020142fcd5786ccb7dcc36c7aa31e11002962d88",
+      "bytes": 12994,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/LOCAL_WHATSAPP_BRIDGE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "497e4429ecb9c0824d14271f28667c694c13e13c94d62794bbc655d7cca14f08",
+      "bytes": 6483,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/MEDIA_PIPELINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4b15313f6a7767a35a842d68350cf27b4b420b2427b59c555f1ee6c4737c2578",
+      "bytes": 1454,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/MESSAGING_AND_HANDOFF.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "595a04312e20bf4cbac7fe3bfcc4aa23c2087496a95ef4cf6908b205ad6b05f5",
+      "bytes": 17306,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/OFFLINE_TRANSPORT.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "f11fdd6e465bbcf3b86fce5dd7b187f917438c799f5a8b603206b90605adbff1",
+      "bytes": 6222,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/OUTBOUND_DELIVERY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "264e2441cf8d9c14e6463e30e21734ddbec2fd49fae49cbe41cfd2f91e92538e",
+      "bytes": 4985,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/WHATSAPP_ARCHITECTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "81097aae4245b3d8464b9b428f7793ea54fd65c2927366c7f511b3b9cdc5fc39",
+      "bytes": 5458,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/WHATSAPP_IDENTITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b2635e6d91190fd0fba436607414311fe0253aea490b194a4a9bdd2dc4c157b8",
+      "bytes": 3709,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/WHATSAPP_RECOVERY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9b932c361c40efe227333e69da1d3451f0b302c7446fa382c5b717cb498c774e",
+      "bytes": 3820,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/WHATSAPP_RISK_AND_RECOVERY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5c1a671430a3d114fc9064328bf20df2bedcfb2506b83b191d932b5a2b97a95e",
+      "bytes": 5088,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/integrations/WHATSAPP_SECURITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4bb024b7f72f260aed36f635083b8505e5c8a665c6b5c8deacf03cdd744ee4fa",
+      "bytes": 4828,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/APPLY_PLAN.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "47d017520524bdbe20aab5ed582602ed034deeb470e860063627a438d36c71c7",
+      "bytes": 931,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/BRAIN_EVALS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9c99db8fbb6fa285eba8d3d49acfb9e5b103cfa68490e029d1d90932eddfeeaa",
+      "bytes": 4061,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/BUILD_PLAN.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "65aafc3145b8026fd5b286ef5d442f31fe2d4dfcd7caa1b03199c2218a84207c",
+      "bytes": 3770,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/DEPLOYMENT.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a8661c7a4f72305f60c460d9d0afca49de24e3eb20b1ca25f3cff717b20551c1",
+      "bytes": 1989,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/EVALS_AND_ACCEPTANCE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "991ec4d1dc9792662ab75916cde8e6c911a09845a1a52b67f64c9cbf2d48cf40",
+      "bytes": 7206,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M00.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5015258da032a3cc84b99c6e4fa5defa3fb57bbfa28e118e5e64ce8e29c788dc",
+      "bytes": 4430,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M01.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ce7eec11afb7002ce459295415de7736265a91f8ba5bbdb71d7d9b25bf904aa6",
+      "bytes": 4626,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M02.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "635b84e202b50664cf2de3e2aae85188939d48551477541879f52e949a8e0531",
+      "bytes": 4429,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M03.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d596895fcd53b707377b4190b790019c456789976067d3972553869c8500d8a3",
+      "bytes": 4552,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M04.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d7d3188f54486aab0e7b4abc3af8f7d35faedf2a264272730bb66b3806c5678a",
+      "bytes": 4558,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M05.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "276827d3004a3aae519e142565c005a2e2821ac459021a5e0682a557daf2a4bb",
+      "bytes": 4538,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M06.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1ddc0f9466a37efaf8cb6ff7bc26db55b8aa464ef04ab8aaf88ed9351dc38e02",
+      "bytes": 4428,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M07.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "113489f97f087210205946ae1819cbcec0b06d699daa24629911ffee6296c837",
+      "bytes": 4413,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M08.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d85f29efa46cca0df999ba7f224c05ad4cf35f2bd9891481c7fed34a68167946",
+      "bytes": 4457,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M09.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "da984ace269d8ecaa2301e7482a632433bff5b0bde278853dcbd932834b224b6",
+      "bytes": 4484,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M10.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1cdcfa69ffe2af19f776784f0c489e4ecd68d380bcd2f00b2e462600ac0f34da",
+      "bytes": 4361,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M11.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "09188b34f3daf9ed9733cf288a1812816241f5a8e60bd38d583f5a9d36d29bc7",
+      "bytes": 4342,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M12.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5cceeeb8c3cc3b3811a1cee7149506b454d902c0f36381785be7237b89d34937",
+      "bytes": 4360,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M13.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "cdf211337255ccbfc5e091eca0ad8caa90f882d3a92907436b4591727a7bfc91",
+      "bytes": 4351,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M14.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5a20d786a7b5f95e294788bbde5d69e35ec30e5d0d5fc627b7d642d273c14895",
+      "bytes": 4403,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M15.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c88bb5eadf030d9a485d507357855c6e0e2556ccdf3ec342572e901853abccc3",
+      "bytes": 4277,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M16.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "72f413df46c9ae129a329b3fbaf3ccdc51e3953212f8cd76cd17de1fba191103",
+      "bytes": 4295,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M17.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "46ad243396345b31b633e7f2859a282e07220d7de4e532952efcf283186b636c",
+      "bytes": 4278,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M18.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3a64cc40aed59979ce2568eefd13ab7c2b261c174697df22a9d36387534baaa9",
+      "bytes": 4557,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M19.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1972e6c7a3cf13a8e07e6f8a7d035f6176a2ccdefccd646c13c704359e100278",
+      "bytes": 4291,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M20.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3a2dbc434b2e4fcd0b55a86dfce2735d0b302c430162cc9258172e0debf1e4e6",
+      "bytes": 4233,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M21.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "95886d887be925308e62c0f0ec6d9344757f0d620c619e976cda218ba6e95187",
+      "bytes": 4323,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M22.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c36242ba33fd1b8a97deb37d6242dbfb9dfc004f3d5565f492ba3c94b51cef5b",
+      "bytes": 4355,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/J5-M23.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ed025a65fdec4c7726b65b97848ca43ee8a03683f86b5cc1a291fb43b054a220",
+      "bytes": 4345,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/NEON_STAGING.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "bd6806bbcc9db8c32eec60c2dd1d0357d627977f2d37d9f5b648daf0cf47b8ee",
+      "bytes": 1471,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/OPERATIONS_HEALTH.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "bc64d867b78dc50520ec7a7c4d88a194e59475b665892d4aa6f913d26b6dab32",
+      "bytes": 2586,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/PRODUCTION_READINESS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b975f46f779c39b568f8ed6b56a7a0a50098905805773f332e57c49082691aba",
+      "bytes": 894,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/REPOSITORY_RECONCILIATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "27fd00fedb4568ce6d3a5f9d8e9ce3f1ced2edf4d6a94d999d83ea0e0eb876fe",
+      "bytes": 3610,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/STAGING_INFRASTRUCTURE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c64886fe3f2b0d682cb9ca5df95c5dc74af62c5e721d2cfc75b71157921ddfd8",
+      "bytes": 1199,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/STAGING_MIGRATION_WORKFLOW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "0014784fab000d1a38ec7aad6b2a3e264bed2ada694e52c3c21e2ba279ee6ca7",
+      "bytes": 1398,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/STAGING_RUNBOOK.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "f26638fd86b1bfb782cca2e988a232b1505bb197e581499eec1a3ba948b892ab",
+      "bytes": 1786,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/V5_BASELINE_ARCHIVE_MANIFEST.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8030c2b8a025ff066f6053282c6c37051f9efcf2c7ee436e66e5b6eb6c7acbeb",
+      "bytes": 29436,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/V5_IMPLEMENTATION_PRESERVATION_BASELINE.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "04efadc67b4f1353dd9ffe22e18b316fe63e3397bf0b508219961eebd19269ec",
+      "bytes": 69450,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/V5_PROGRESS_BOUNDARY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b9a27e56bb066d19723b65c59ab2f65173cee85a003d70faff783ee36829595d",
+      "bytes": 1198,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/V5_RECONCILIATION_CHECKS.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "01ab75190ef05062d646fb5c9136228cc2628406ec169c38cadf972275d28555",
+      "bytes": 130898,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/V5_RECONCILIATION_MANIFEST.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "253560fe286dc589ea18302f11b560de9722e74d9588a53a0ae93dffceb2b556",
+      "bytes": 523335,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/V5_RECONCILIATION_MATRIX.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "96cea5248a1cb5005b8ce11ad1d267e428c86e908c5c143d51fd6f0ae92c852b",
+      "bytes": 110440,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/V5_RECONCILIATION_REPORT.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c7f34b72c12638435a0b097da8d4f734ea8bfe5217ecbe069f2441a8b28cc7c5",
+      "bytes": 9529,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/reviews/README.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "17cda7ecedefd4ae5c09b93cf2a8209fe37cdbaedd2235e40a40461ded8ab556",
+      "bytes": 624,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/reviews/V5_FINAL_GOVERNANCE_REVIEW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "2aa5f3bc0b8d92d3a9ffc4b7f790a4bcb3e0b6b520e3e5bb1994c0c54a474ebc",
+      "bytes": 17133,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/reviews/V5_FINAL_PRODUCT_REVIEW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "0c8a93df80247c21d4529e3db7c64f1ce4c69465f28eb98c3852fe9ca2775cb8",
+      "bytes": 8347,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/reviews/V5_GOVERNANCE_REVIEW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5aa6c9b171284131a3cd7bcb3b0b034f49047c6919d6adee563a11cd8580e5ae",
+      "bytes": 31692,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/reviews/V5_IMPLEMENTATION_REVIEW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "82c140f3ef1b90d6878c4c6a8522fdf247c3f81f949e6b2a40bed8f9763b0f8a",
+      "bytes": 34935,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/missions/reviews/V5_PRODUCT_REVIEW.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ff1199c3b24005f1f4f06306cebb2a87bdb4d61664c5b0cad06aaa68ddd0d25f",
+      "bytes": 44111,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/ACCOUNTABILITY_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "75ba53ca96787d524de4e99da3ac96ff85758d58accb6044d80fd4667ccb3a0e",
+      "bytes": 2662,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/BEHAVIOR_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "969c73f10c2719fbc6c1cb6a5a0c11853079907551e770fdac2361d70ba573c3",
+      "bytes": 1545,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/CONSTITUTION_ENGINE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5a61ede4280dd83621caba519fbd2f450206d146fbfe6ae49078ac10f372e227",
+      "bytes": 1236,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/DECISIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6de5f35dcfbf4b61eeacf53ee3fe28cb02562d481cb95dd60e5e698b0698e372",
+      "bytes": 4948,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/JARVIS_PRD_V5.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "52bf41332826ea6ce7b1ff91fd4b1dfae5de301ca1d9c6b1c31d93a1a2d0a3ea",
+      "bytes": 38908,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/MODES.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ce1b0501bd6b8ef4a3a1ebdd1084705a62071eb21d5f8c4c8f64966c4c557188",
+      "bytes": 1290,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/NIGHT_MODE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "45916226e4366bcd307387537041dfd62e8b8265927dd7ebec01a8cf6be05fff",
+      "bytes": 2736,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/OPEN_QUESTIONS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7f4bc8df8af74a60f2bdcba86fce1d239739e61cdec6ec26f3039f30f1edcbba",
+      "bytes": 3044,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/OWNER_CONVERSATIONAL_STYLE_PROFILE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6c46cf3d7fa51acd4b6b0b22e0c0987bebdd8010ca4257d1859d12b35ca2643e",
+      "bytes": 1278,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/PRODUCT_MAP.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9be9a014573d825c1dc2b925a4f17632c174eea491492a3d8325b76699188dad",
+      "bytes": 2068,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/product/REQUIREMENTS_CROSSWALK.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3e4b4f9b09da43dfc80dca37bd9840d87aa67f26549ec2a7e9e820d8f9c943b4",
+      "bytes": 13082,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/casual-chat-fast-comparison-20261001.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fa4155091620feaab0f5acd95210acd4635de4e7c6a19a7d6178d69634902109",
+      "bytes": 49243,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/casual-chat-routing-20261001.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "65705b8d4fbaa3b9ac9915a616b4ee1b0785903aea323ac67daa499026421d38",
+      "bytes": 6606,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/daily-use-evidence-20261002.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4765eac3daf67566aedd79cc532d99b91904196782ac9283f028d48ec119c141",
+      "bytes": 15605,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/daily-use-tuning-20261002.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d2e8f769f15fb92e4d1e6cf39d67cf54497664364e48dc91f959dc3d1a6d7d98",
+      "bytes": 9967,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/owner-bootstrap-20261002.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "287f851199828560a61e00492da4268dc9813f94242dfed7799a44330ad58829",
+      "bytes": 7787,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/owner-bootstrap-evidence-20261002.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d601fe136366604893014e1ed691487468b7dc4ff944526a80d7d5287850e9a4",
+      "bytes": 8163,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-0.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a86462a4a49de4b99b329cd8ec4a90ced27708b9a44ca56d7a1d29c763c5d79d",
+      "bytes": 4915,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-1.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3f4d518c4b6e4c5ff62163735c19aa6161d00edeba2ed8e3b6193539c4660dc9",
+      "bytes": 2876,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-2.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9bfcc755f27c14b5b2af8b5ef3f94c220d055137fcd0e681b3522785b5457e3e",
+      "bytes": 2583,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-3-5.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8430e6df7a3909453f637c95f5ebaab31bb5ef3207eda3dd3ab0833fd968dd81",
+      "bytes": 2647,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-3-6.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7aaea5534180eacb69320b3ce7743287e3fe4daddaab5bbbc307f025b85f0611",
+      "bytes": 13570,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-3-6c-2.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "f5b968fd4d1589fb0ca37b0edac69ff05c7cebf48303b98506511481707c88be",
+      "bytes": 15247,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-3-6c-3.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fd13e3a5475ce9c5fccb176348f9f29aa71cba449eabb85759f21fea81c80ee2",
+      "bytes": 10346,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-3-6c-4.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e32d4d5c633cd657908aef23b392d2e77961c73c4e103aea3aba26e410ae1cb3",
+      "bytes": 8860,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/phase-3.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "08fab1d37ef72bdf0bcf3c8ed410cb9dcf01aa9ba2395a9c411cc5217a57835c",
+      "bytes": 2913,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/reminder-final-send-20261002.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6e2275e69dfbd92e68425f9762b9cd5804e6d1ea4c2702d23b82c16f93084938",
+      "bytes": 8263,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/reminder-final-send-evidence-20261002.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b1f549535f0de2c1ca450497fe694bbb4f10d39f6e004d17061f1ee6b74a8f96",
+      "bytes": 8211,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/reminder-lifecycle-20261001.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "2149ddf047ac89bee6a9ba08f3e022a36bc3105fb6bdb93cdfe9c1bfea035d93",
+      "bytes": 12942,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/reminder-live-verification-20261001.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "586fb1c566e41cd2603c8cf6cc13b7c01ffeb1f6d8ac3bd122759ef813eb643d",
+      "bytes": 21672,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/telegram-early-typing-2026-10-01.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8bb032d6b72c9139a3a906603c501ff5af02ab72e38b548b008d06aaa93d6255",
+      "bytes": 2568,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/2026-09-external-build-lessons.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1141ee4b9b282636cf4a781cbb9f2f5de045e271c1684fc0f3e0261c1d937cc8",
+      "bytes": 10592,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/HISTORICAL_RECONSTRUCTION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "783daba752011d0b4eaf95ae1253f182503b3a6807cb1b5b3a86abbc413dc25b",
+      "bytes": 1360,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/RESEARCH_NOTES.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "54e14e621f133960b81d3a11bcb5cc6291c5f384bee920d3a342b8be498f56a6",
+      "bytes": 992,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/sources/Muse 2 .txt",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fc2cd34e0d9baf80238d360cf6d6f30a2095ab963b6bdba5b168da091650675d",
+      "bytes": 62994,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/sources/SOURCE_MANIFEST.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c84e92e93f576532a44535472dc00c09e2c3613b8991cfa6b3571b3e3346917b",
+      "bytes": 1350,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/sources/jarvis-builds-deep-dive.pdf",
+      "role": "canonical_documentation_or_support",
+      "sha256": "11f5c79c881dcb0f6b97dd95a1abce3b344ad75b7692bd91f45d8c1d7702d94d",
+      "bytes": 426993,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/sources/jarvis-ultimate-synthesis.pdf",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fff0fcae5488220acee806b16418d193a2cbe1b399d7dacdbf0149cb06c6f0af",
+      "bytes": 475322,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/APPROVAL_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8631fd07904f3ff47c7463495b474057439ce16d1696e58c0a45a1ab0d613dc9",
+      "bytes": 6044,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/AUDIT_MODEL.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b3d27c2b85dd657245aff9be3faec94edc39f6e8cb84def94d31611352a46b67",
+      "bytes": 4326,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fa2ab02115b65d9c029bbe2d1dd29b2a45d78fac7492b2005433096127334e9d",
+      "bytes": 5704,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/BUILDER_ISOLATION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "09c6988eed5261e1f7af637bddc8c4aabbb45a401a0b01ac535a280bfb12c48a",
+      "bytes": 8508,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/CAPABILITY_AND_AUTHORITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9aa8b48a54a793995730b99efdf0b5d952a4e29e024edd9c8c8323e25872e563",
+      "bytes": 2801,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/COST_AND_MODEL_POLICY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d1b991007318d9612d2f5b2947619c900236642e971669728c33d61ed8775369",
+      "bytes": 5196,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/DISASTER_RECOVERY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "55dde6208190479593e13cd3ec1f9fd4e0e7a508c5d6687974c62d3e09a0d767",
+      "bytes": 3899,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/DOCUMENTATION_GOVERNANCE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "06d67470f2fcdb9abbe8d2f19e9984f7f19e23d9b6b252c308957571cacffc51",
+      "bytes": 9288,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/ENFORCEMENT_STATUS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8ed0e8f2665d348814fefe8674bbbcdf9ff421a75d2ded16adfb5a3f983abdec",
+      "bytes": 4759,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/INCIDENT_RESPONSE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "15d6f32520fadf882a4e1e8dc5a3a5f3a9bf0399558be19ed7599c7f194065e6",
+      "bytes": 3443,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/KEY_LIFECYCLE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5bbb48bfcaf2b1b9842f9ea05e6de5a4e242c082efd8e12e88403fabea1f5491",
+      "bytes": 7358,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/KILL_SWITCH_DRILLS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8c4cb0c330f5abe3f07336d9a9008f03b2b21f6721ceb62a7f19ba40b3e7c189",
+      "bytes": 2298,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/MISSION_ADMISSION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3581b787b2cd032444039f501488029ee26b4c1e491ea74a6b358bcee8e7cbd6",
+      "bytes": 4685,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/POLICY_MATRIX.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e0cd081b45536adda608d44307e9611de373bdbee7a858a2519e499e4d2abc34",
+      "bytes": 4549,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/PRIVACY_TIERS.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "00c9fc8146516fb00070de07814036e353b23aca4f11d80fa477fec4a5466722",
+      "bytes": 2505,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/REVIEW_ACCEPTANCE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "79a9bced759a25ab243fcb8f8aed2176a295c4fbabac10b13107750bf50cf727",
+      "bytes": 1439,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/REVIEW_DISPOSITION.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "63ddf053e9c3c9d020ce5313cc427f92b60d8a88a18ded2754024c5a8bf950f8",
+      "bytes": 3779,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/SECURITY.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "fb2b578b1c5de543e00d14cffa3736ba7fd8cb55b62a193db6b2bf9364ceb0f0",
+      "bytes": 3898,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/SUPPLY_CHAIN.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "b8aa3facc242fd635d04977eb1c137f1756da7522497b37c096d5646e5e5a920",
+      "bytes": 2742,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/TRUSTED_TIME.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d967bf4ef743a5a5968bd47301f04c1d9be0501bbd8d8d980716d9e78f814c0d",
+      "bytes": 3478,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/TRUST_BOOTSTRAP.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "90ba0db278aae0ab7801477660ac01de079d9490ddfb644e57945b74a4542936",
+      "bytes": 5653,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/security/VERIFICATION_EVIDENCE.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "de983864630bed1fa67c7b913532116de4e9b89b8aa4153e6fccac94fe97e8b8",
+      "bytes": 11166,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/AGENT_REGISTRY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "d9eca2675683bc70af6ceca8f83a8952a488425550ec21a1aac7a5260166fc7b",
+      "bytes": 8688,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/ARTIFACT_POLICY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "a056ea785d7c2a94931780c0ac88471fd81b6ea61ba6372470ea1d4ab4c53beb",
+      "bytes": 1411,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/ARTIFACT_REGISTRY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "f029e44008dfdd9efe3aa97947ac44c012834f2d5383c987eada925c96b8b59e",
+      "bytes": 495536,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/CONTEXT_REGISTRY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "ccee89b2e19fc103bdb06cf86a03c3003c9f5ebfdb5d9fb9104a6b42584e3567",
+      "bytes": 10099,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/CONTROL_MATRIX.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "aeaeeb97d6efaa922a000b5673341c5e46136798456c902ecd2831fc81bcd74b",
+      "bytes": 8100,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/CURRENT_IMPLEMENTATION_MAP.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "b467c3ec7f9872a9bbfaaeaa944989613e9cbe94684fb9eccdd6b8aa727d2ef7",
+      "bytes": 3787,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/DOCUMENTATION_MANAGED_PATHS.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "cf46604b2174835cc2e10899830a08bd2d0df8e81130fd6fc26e23500bc9788d",
+      "bytes": 37466,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/EVAL_CATALOG.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "cf293c21b35645cebf6f3e20419ad34206021dbb57e689cc4789a256d2520f6e",
+      "bytes": 8668,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/EVIDENCE_POLICY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "6285faf20a29ad401d0ecf951f09dc6713240b2ea8349236d7d5271c49ba8cfb",
+      "bytes": 1377,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/IMPLEMENTATION_MAP.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "b73271142fad75599feacd341ecf14dfaf618be9a4f43bef2f2272ec50f0bb4d",
+      "bytes": 13825,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/INVARIANTS.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "508c67139201a900e13bacc48ae7ca5db3cf61aa48a3d09ed5e7de974db84040",
+      "bytes": 8424,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/MISSION_POLICY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "a20f233af19404fe0b7033d18f204037126c9d61e81a8331a82c3e8ec1801f3d",
+      "bytes": 408,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/MISSION_TRANSITION.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "d12a8371982ea557fd66cf4328a38bfb10942260c34c2841a2776d5e74f65918",
+      "bytes": 3541,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/OBSERVATIONS.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "586c3a69db0469c9db4507cf1a656359eca296596807c796d92902bbce105142",
+      "bytes": 3722,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/OWNER_DECISIONS.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "f251e6da906620602357d9ec02e8a43e963f203c8b08819402055810b8057327",
+      "bytes": 1577,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/PRODUCT_SPEC.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "02d1928938fafebbb6703b3a288530818a6b0ef5c2392b459d62879179d01f03",
+      "bytes": 54339,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/PROMPT_REGISTRY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "f7ff4734c165ff2c10726cfc7c946044994e91463f7e62ec703d31d4a5a42c03",
+      "bytes": 17476,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/RECONCILIATION.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "d46825a402e0b67484051c204bac8762c16534f67e64d2618f97eddf3117da0d",
+      "bytes": 6185,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/REQUIREMENTS_CROSSWALK.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "0e86f31475ead99abeac8c9a34285fad0c69b0e5268629a0b024d268133260fc",
+      "bytes": 20542,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/REQUIREMENT_TRACE.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "1452345da1df2109a55dd4645a005c07b09fbb3f05066d8ff248197592e1e78e",
+      "bytes": 26485,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/RESEARCH_SOURCES.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "217cdab15ae80004d3a62cdf270ee82d73835f6415d681686345a8604fc15677",
+      "bytes": 12474,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/RETIREMENTS.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "9f5daa75c2c46de83f064342811920a09020626f6458277d7eada5ed77aef41e",
+      "bytes": 136,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/REVIEW_DISPOSITION.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "1671fa2bbaac94862c5b3f48769bfbd7a4a9e8c6ec396b5e8f6dbb10b1b6ec4f",
+      "bytes": 10662,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/ROADMAP.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "b2b69fd6e2a05aad42a31c0958bba7301640e022aa19c68aa527c18a45ae0453",
+      "bytes": 30474,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/SCHEMA_REGISTRY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "e019a8e70014fd7aeac6527bec783bf77269524cef67f2d964997afd89cf8adb",
+      "bytes": 10401,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/SOURCE_ARCHIVE.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "f0dcb8f7248dc1c8854c1eafdc98dbd9018e3833401eb5e92167382c5d3c720b",
+      "bytes": 5578,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/STATE.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "903a967726f511372848b6218fc36b9d21820ce9560db815b9d484feb7c24a6e",
+      "bytes": 1567,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/TRUST_POLICY.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "7bade74256d709aadbf8b08cbc9c27adbed72789e141dc76be56c71af937b989",
+      "bytes": 1690,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/VERSION_TRANSITION.json",
+      "role": "governance_design_or_descriptive_registry",
+      "sha256": "13259c446e2e2ca5a92e326806b247c33f9062c27363303278b79f8ee61e5a28",
+      "bytes": 2450,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/codex/config.fragment.toml",
+      "role": "staged_design_or_example",
+      "sha256": "eee6e808d76af0595dd25431d0f17027f5e2f46b9dea7fc65e5763b65328cdd6",
+      "bytes": 661,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/codex/isolated-config.example.toml",
+      "role": "staged_design_or_example",
+      "sha256": "ff7e39eafb05aaefe0f25dfeba5408ef11f53fdb65f0acd5a3f13acea8e8ad14",
+      "bytes": 898,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/github/README.md",
+      "role": "staged_design_or_example",
+      "sha256": "edd39634e6d9bc6b7a0bad8204686d13356ddb0c638ebf13b082a1c62a24acdb",
+      "bytes": 2915,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/github/governance-gate.yml",
+      "role": "staged_design_or_example",
+      "sha256": "d193526af581624738d7e776173d612383b1e0c7725029a2bb414d291ed734cf",
+      "bytes": 4333,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/accountability.md",
+      "role": "staged_design_or_example",
+      "sha256": "d9316c4496ce49ac08dc15bebd347ffcb5093085420f3c485ea5fd46d4930e13",
+      "bytes": 741,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/browser-operator.md",
+      "role": "staged_design_or_example",
+      "sha256": "600ab78b250d977f50e03680fb384e8ae1e448175cc7e51663bcd7ce1daf4aad",
+      "bytes": 751,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/constitution.md",
+      "role": "staged_design_or_example",
+      "sha256": "b7c7e3528f4c6cb6b964a07ba85b43b1e23c1ad28e5b114d4bd6bcddf7e87b11",
+      "bytes": 731,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/core-system.md",
+      "role": "staged_design_or_example",
+      "sha256": "2b455131c2e686954861cc4e09105dd1c54adb0347524ee7f9dcf1dcad467e34",
+      "bytes": 750,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/email-triage.md",
+      "role": "staged_design_or_example",
+      "sha256": "19a73f37db64a129612e7380c4f661a9974c082dd36f00c36a2f71fe7368fa0b",
+      "bytes": 708,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/fba-ops.md",
+      "role": "staged_design_or_example",
+      "sha256": "278357cda2e3efdf8567f79b0eefd00d8b5dc6f7971440da02e19ab0c0e82b8a",
+      "bytes": 758,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/finance-observer.md",
+      "role": "staged_design_or_example",
+      "sha256": "ed42377240309302bc89428a3372854ae250138d9465f2c01c08806e500acfc1",
+      "bytes": 739,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/health-and-training.md",
+      "role": "staged_design_or_example",
+      "sha256": "4c1a5354065fe62ff6044d90d0dedf7f299c42c978445cbfdce6122ec68d8d46",
+      "bytes": 799,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/historical-reconstruction.md",
+      "role": "staged_design_or_example",
+      "sha256": "12f8d28ddd3426382ab964bbf95b12df8cb3f2a690abce0c6a31ee6091eee8ed",
+      "bytes": 769,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/memory-extractor.md",
+      "role": "staged_design_or_example",
+      "sha256": "901442d4d20f946fccfd0e1fc711741a512af2646402089257f35e1f9ea587b5",
+      "bytes": 724,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/message-writer.md",
+      "role": "staged_design_or_example",
+      "sha256": "d14f1fbbad03575853b2821210b54dac0364bb083f51de3450902d0364068cc2",
+      "bytes": 752,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/mode-edith.md",
+      "role": "staged_design_or_example",
+      "sha256": "eb4e151ee06c448d33cc9251d3ea3d1ebd9c89e51ef9d292bcd3cfe5ecf3aa3b",
+      "bytes": 675,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/mode-friday.md",
+      "role": "staged_design_or_example",
+      "sha256": "8d18a006e3383347a6cdab06bea7054cddfcfefe2df4b9492ae8b67ed2f785bc",
+      "bytes": 643,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/mode-mentor.md",
+      "role": "staged_design_or_example",
+      "sha256": "9242ce4d3f9572abacb57348c489decb3dbad252507c46ce82600e9e2c839383",
+      "bytes": 618,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/night-mode.md",
+      "role": "staged_design_or_example",
+      "sha256": "f43cd81f479a40e5a08d03b784df00b66519950cfd07c97b5b30d7ca0fbccde4",
+      "bytes": 733,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/planner.md",
+      "role": "staged_design_or_example",
+      "sha256": "6c77e86db54351901aa0b100e88e75dcf000b597102db10f42b7fd14a02a8ced",
+      "bytes": 654,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/proactive-operator.md",
+      "role": "staged_design_or_example",
+      "sha256": "c386350be4d851973aaec21e86a165082e1702e83602c3107501b27dd0cc3842",
+      "bytes": 749,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/relationship-vault.md",
+      "role": "staged_design_or_example",
+      "sha256": "a26cfa84d2d2088ebcd4bf81f000aeb2fb1d768c536f021c6169cac6f35620be",
+      "bytes": 746,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/replanner.md",
+      "role": "staged_design_or_example",
+      "sha256": "6d815b6ee2f904fd96576ea6c39167967e14dd7afae8f7027fa139e81940764e",
+      "bytes": 718,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/security-privacy.md",
+      "role": "staged_design_or_example",
+      "sha256": "d9b704d898e125034438d04874e1b6b1d6f69612b6b7c34aae71ee2aea306427",
+      "bytes": 781,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/skill-curator.md",
+      "role": "staged_design_or_example",
+      "sha256": "4c1aa66c6b73035f25febc852a6ed12c79e59de71e4ebe31d67e884eb04b037c",
+      "bytes": 741,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/source-grounding.md",
+      "role": "staged_design_or_example",
+      "sha256": "3d1ac9010462d417a337c171802f02ccedead4fe1afef981a9dfddc11314c22a",
+      "bytes": 736,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/tool-policy.md",
+      "role": "staged_design_or_example",
+      "sha256": "9210bac654e30062c1384f1f483c71e115fdb6563d52a24f47764b7dd6ce5661",
+      "bytes": 779,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/uncertainty.md",
+      "role": "staged_design_or_example",
+      "sha256": "f4cf65b81bdd0ba2e8c74a5b3018c52417da55e76f42e1d92e79d60995f24906",
+      "bytes": 754,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/voice.md",
+      "role": "staged_design_or_example",
+      "sha256": "721937491d16ae4af809c255ab8259a617ef2523d582f029f2f7b9b37bdcccab",
+      "bytes": 713,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/weekly-review.md",
+      "role": "staged_design_or_example",
+      "sha256": "ba5dbc0f8aa6027047f4e267f2f72566400c13efdb74c6cedc4ceab5af201bae",
+      "bytes": 733,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/README.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "2c22e328cf0e6c98c6ba61a81605bac5888128d64e2ff0fd52e8093e1854628b",
+      "bytes": 1266,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/action-intent.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "b61664ebfa1c319c6615b03ae2ddd85014dc3b9dd7507a593a69a1a1d2776e17",
+      "bytes": 1470,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/approval-resolution.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "cbe88a7905ea60cd1657054e187af7d10961ea5ca0f28df2a5c782741238d2ad",
+      "bytes": 2166,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/authority-lease.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "02b0d6ec055e10836ef206f9b776d9a7eaca038c8e13bf3f6a56e9bcad21321a",
+      "bytes": 4022,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/capability.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "707af99f9b5fd37caca174dfd4e20b1a0497f755fc517d43dfb8bca78e3e8274",
+      "bytes": 2040,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/execution-authorization.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "21d99ae88ad382658aaab9328a235f3ba252f7bd85bf72e9a911818df2dc29b7",
+      "bytes": 4826,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/executor-manifest.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "240879001dacff0c463274d2f754c3edd72244a153d8213b01ceb840ee858149",
+      "bytes": 2882,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/first-party-app-event.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "9094d41d16521331e307b8fd5cdc4994edc18a22c98efae3a98938ceb56495d7",
+      "bytes": 2550,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/first-party-app-manifest.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "b999530c10511bc576b92c5817a046a714a5aa1a89d9962f4e8340e560509e1a",
+      "bytes": 3889,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/life-ledger-event.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "0f20c63b0c6c6fa02853bd5881bff4d26d90f8c1d7940e5d4c10e1e184477ae6",
+      "bytes": 2460,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/proactive-brief.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "785cadc33309da9be0c0d76e7d36c26fc156acc2d0d35e18c58255014959a458",
+      "bytes": 2318,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/prompt-assembly.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "effa6156c1382de797d4cf83bc6b4008917b5be72ddbfcb6e55fb090b807eb1e",
+      "bytes": 2202,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/proposed-action.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "b5c991ac4638266802a793567ed0b43e08638fb9efe8201712eaf491ea89a8fa",
+      "bytes": 3209,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/skill-record.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "ef7bfc166640d89010427c944050a5de0f7943bff826a7d3db823d8157485062",
+      "bytes": 2900,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/source-reference.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "37461caf0dc94309a2d2fea7e450d7f5220229dc1a3c3a4939f5ab533d076c02",
+      "bytes": 1940,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/world-state.schema.json",
+      "role": "staged_design_or_example",
+      "sha256": "e99efe9482074b8c5aa8809990e8e5e9fc1cfd8707e359c92d556ec54f7c3b48",
+      "bytes": 1781,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/authority-lease.json",
+      "role": "staged_design_or_example",
+      "sha256": "3e7fd19ab542ca3db41541cf836aef89836b8043efa8d60867b29c5c3719bfd1",
+      "bytes": 722,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/bootstrap-receipt.json",
+      "role": "staged_design_or_example",
+      "sha256": "46ce1166c44f82565691fd322c200f8821f3037ee61d94e40155cac2b3f73305",
+      "bytes": 543,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/capability-manifest.json",
+      "role": "staged_design_or_example",
+      "sha256": "896d32a10da6b52c1b553375c3369c61b02cebdc4c3a5da0b767e057054b163e",
+      "bytes": 386,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/change-impact.json",
+      "role": "staged_design_or_example",
+      "sha256": "0503ee3413fed85c39d38e17b6d24e83d43d9d48171869603e5a31893a9683c0",
+      "bytes": 250,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/connector-card-spec.md",
+      "role": "staged_design_or_example",
+      "sha256": "aa258cc170f7a9d816c95d7fd36735b64d2ec97fcecbf5892b0c35a18d1f5cae",
+      "bytes": 845,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/executor-manifest.json",
+      "role": "staged_design_or_example",
+      "sha256": "0dbf2417a96be7bd70d6c3822cbd34beaba8f3a88fb92f14a63eb4492b845904",
+      "bytes": 1017,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/first-party-app-manifest.json",
+      "role": "staged_design_or_example",
+      "sha256": "1a70021e12400c2bac826ef00710b08a58ec35476d03ab8efd21b1753fadf7fe",
+      "bytes": 675,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/health-check.json",
+      "role": "staged_design_or_example",
+      "sha256": "897709acb5d46f9f571f6eb2f8e8da08854c3739902c83540b0bbc4f905804d0",
+      "bytes": 250,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/incident-record.json",
+      "role": "staged_design_or_example",
+      "sha256": "b10c102724df79b685ac3acb693f922c34c17cd9aae4080aceb0ad3cda71e459",
+      "bytes": 459,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/key-state.proposed.json",
+      "role": "staged_design_or_example",
+      "sha256": "e25b858ca8858ca7ecb45dbdbfc4b511107f03f874fa2811efe6d1b47e9cb749",
+      "bytes": 182,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/mission-run.json",
+      "role": "staged_design_or_example",
+      "sha256": "458dd674e1c5e46cf1fac1fde9eae8a32d288e22199f5d13923b51fb4a9f1945",
+      "bytes": 461,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/policies/authority-expansion.proposed.json",
+      "role": "staged_design_or_example",
+      "sha256": "49781ee3a2e8e5967f86f2db05fbe1ce14bcbcacbd21c5e5d31c727566162e36",
+      "bytes": 485,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/policies/authority.proposed.json",
+      "role": "staged_design_or_example",
+      "sha256": "924de0adc1e9cc2a92692cc5691ba22dc8ab2d6822176e9a3b296a82da35e29d",
+      "bytes": 458,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/policies/interruptions.proposed.json",
+      "role": "staged_design_or_example",
+      "sha256": "faa4347216e57eafa01968652f8be151473fc26411024c1a513f9af7aeb196f4",
+      "bytes": 571,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/policies/runtime-budget.proposed.json",
+      "role": "staged_design_or_example",
+      "sha256": "af5dc2c50609bc3319248e12fc916cb2064ea9a936b9f7f80f76ac35a03092b7",
+      "bytes": 743,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/recovery-plan.json",
+      "role": "staged_design_or_example",
+      "sha256": "13d8954fbe54c2a982feacd5dca997182e10d84cd5c0da118e6fa43c9542b088",
+      "bytes": 226,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/release-record.json",
+      "role": "staged_design_or_example",
+      "sha256": "ad1888d84037ee72d6114773086de0c10b5ab8000275155331d4582154206132",
+      "bytes": 452,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/retirement-proposal.json",
+      "role": "staged_design_or_example",
+      "sha256": "4e37097efbd5c6e9ff00957c2b6cf5af6e23a5f97f81684ac1de662e6c6b5966",
+      "bytes": 152,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/runbook-template.md",
+      "role": "staged_design_or_example",
+      "sha256": "c9557837e1a1e2af415b77b4618330af88099586f0d1146c673b6c0cbd0971bd",
+      "bytes": 523,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/session-handoff.json",
+      "role": "staged_design_or_example",
+      "sha256": "49e6ad5e3b096f6fba25e6ee63279b6a2deba1fbae69d7a5889f643e7cc087ae",
+      "bytes": 466,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/v5/skill-template.md",
+      "role": "staged_design_or_example",
+      "sha256": "a19bc409aabfc313b3bf0eca8e115adf54a874db80ac5e3a50997dfba3a2cda2",
+      "bytes": 819,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/action-intent.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4e20f272269ccf5762dc99d94db0cf0e39d440873a66acafa7e79bc441a90710",
+      "bytes": 285,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/action-intent.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "70eda8f2d645bc1f11b7a6b9bffc584c4e075fda60041fb6154395828c6217be",
+      "bytes": 254,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/approval-resolution.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a0f3faa6563b65b0f22e598eb1644e0187e6501607ca4a03b2eb7f7910c4067a",
+      "bytes": 644,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/approval-resolution.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "0856cfd20f0b055bbda95c812a0f7aac4a2fafa03357995fef29a01b098a61bf",
+      "bytes": 613,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/authority-lease.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "647184cf45ece79d1d0b172b9cf7eba5a85168a2cffd4a2d86df32ae4e37df2e",
+      "bytes": 753,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/authority-lease.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "3e7fd19ab542ca3db41541cf836aef89836b8043efa8d60867b29c5c3719bfd1",
+      "bytes": 722,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/capability.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5ca2d0232afe084f56c67b12659ce6b624d4c394adc6001e7e706ef5f5eebd90",
+      "bytes": 417,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/capability.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "896d32a10da6b52c1b553375c3369c61b02cebdc4c3a5da0b767e057054b163e",
+      "bytes": 386,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/execution-authorization.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "07732c69af75e001ef9fb3e9835bd7b2ac968b543e269b8364e347432917e5e7",
+      "bytes": 824,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/execution-authorization.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5a7adaa11937d5c215d978e2eef368f587c01735fd6e73832148307b65cb47cf",
+      "bytes": 793,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/executor-manifest.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "4ae7f72a929942c3499082cda298052185f682b1f147ca524ab3de5376a7817f",
+      "bytes": 1048,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/executor-manifest.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "0dbf2417a96be7bd70d6c3822cbd34beaba8f3a88fb92f14a63eb4492b845904",
+      "bytes": 1017,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-event.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "5451df130de78d75c084d81649b76a282c87d1bbdee31ea0e2c01dab9138b460",
+      "bytes": 573,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-event.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "e213484d35b4aa4ce6caab646f45b44cbb32297fb73387fa89a2970fce9b81f7",
+      "bytes": 542,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-manifest.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "793a98276183e82afb6cfe6a3c56e9a9389a776fc189fa912422d58b058b3793",
+      "bytes": 706,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-manifest.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "1a70021e12400c2bac826ef00710b08a58ec35476d03ab8efd21b1753fadf7fe",
+      "bytes": 675,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/life-ledger-event.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "a9d37d269b6301b843906454e47fb7ac524de4e502ea465e28f935d31695c802",
+      "bytes": 887,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/life-ledger-event.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "55ea51ef0760fe13a120a61f57fc21cd6f866714cc9c6e8669c3f8f7ef4eb52c",
+      "bytes": 856,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proactive-brief.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "f89be9c379e80a67622d31f01bb78d3606af0d1a70fa27f274caa2e53dfe46a7",
+      "bytes": 854,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proactive-brief.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "44229db1f62dfd0f0d110d8219099a6a852309d7fa3a8961cdfa57e9eef69896",
+      "bytes": 823,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/prompt-assembly.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "055db2b11884bc61cc3d2068c1e6daf7c8da81a718bb32e46261119acdf7b1c1",
+      "bytes": 542,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/prompt-assembly.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "9c8b01217353960b479b864bf0d2643691b2b6facced33001d122a0c8142afc7",
+      "bytes": 511,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proposed-action.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "405e6e7ee6fcf1c3d9e09bbd5ca56ee5eb03659d53da0b31d2f9d145353ed139",
+      "bytes": 1201,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proposed-action.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "c5c3d83263e1b33e9d49399a13eb9fd8c25354f61ac4b049b43e9aa5823981a1",
+      "bytes": 1170,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/skill-record.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "535273ec9977bb9bd49c2488b174d98abb92a125df20a5f67afc74bb19a59979",
+      "bytes": 887,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/skill-record.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "cbf76f07161e93711836053c52de21a115ae9f6a7b636dff34e9ac0744a0e2bb",
+      "bytes": 856,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/source-reference.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "7e67ededc3cdc0503edcc1eb060a9ee64c36e3f54e1bbb77c3d8dd5e8991a7ba",
+      "bytes": 334,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/source-reference.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "6a6740ba4ebee75d49db9b233f9059d84cf445929cb51e981372494481933da1",
+      "bytes": 303,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/world-state.invalid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "8635518042572b059c564ce4780a4a7100ac4b07f53719686ed056ec809de987",
+      "bytes": 709,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/world-state.valid.json",
+      "role": "canonical_documentation_or_support",
+      "sha256": "ef8c33c197489103ab7183d8cb05aabe336d95fdba1b14dd88d0daddfafe8ed9",
+      "bytes": 678,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-docs/README.md",
+      "role": "canonical_documentation_or_support",
+      "sha256": "d712bf4db584117e738cbcf266b31920583c2ad67d2cfca54c60f13cabbbb21f",
+      "bytes": 1337,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-docs/manage.py",
+      "role": "canonical_documentation_or_support",
+      "sha256": "755d5729ae96e5c6e7cfff791e243dbc1dfffb2ce750421b3494493a97520cee",
+      "bytes": 9334,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-docs/tests/test_manage.py",
+      "role": "canonical_documentation_or_support",
+      "sha256": "800df48dbad2dc0ee1f518c5cbd23cf51ae7fe79a8083aeb03dea790a12f84ba",
+      "bytes": 2392,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/README.md",
+      "role": "reference_tooling",
+      "sha256": "b03f80cf8053e9a138a2254ce526faffa5356284a0523b4a268f1ad218ff0721",
+      "bytes": 1228,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/common.py",
+      "role": "reference_tooling",
+      "sha256": "a598f97b201a23a56c4553cf5f67de41470abe4a6bf393d94918f4d8629e5d6f",
+      "bytes": 4026,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/compile_prompts.py",
+      "role": "reference_tooling",
+      "sha256": "6229dc0a9824fc9fd78fe8a17eade833875f90372aa7eaa8313a218ace81caf2",
+      "bytes": 2654,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/context.py",
+      "role": "reference_tooling",
+      "sha256": "e3a07666d7a5512da4df88f8e1de8466b07e5bc6f43edf41067d9f5cec23a658",
+      "bytes": 4387,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/env_report.py",
+      "role": "reference_tooling",
+      "sha256": "5026d8aaab10b542417f550b470f022c6adb89784e10de55304c8eb9411fca72",
+      "bytes": 1933,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/evidence-signing.mjs",
+      "role": "reference_tooling",
+      "sha256": "6bb677c4c8c75fc77f73a267bc453763bf0b2e20af4ce9ed97173b8d54a9a129",
+      "bytes": 4320,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/generate.py",
+      "role": "reference_tooling",
+      "sha256": "b2bad9e1319c3436f70878ec7664ca4d31670ab99acfccce2f16b016c86bd00c",
+      "bytes": 10917,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/git_snapshot.py",
+      "role": "reference_tooling",
+      "sha256": "6468d0ce451d4ed182f91a0408978909aed84d755fce0911171530b9ffceb881",
+      "bytes": 2330,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/github_candidate.py",
+      "role": "reference_tooling",
+      "sha256": "05b53ffac8039afe3af9bea4d6d70b3562379c562d6c43484f599f58f968d0f4",
+      "bytes": 5144,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/impact.py",
+      "role": "reference_tooling",
+      "sha256": "defa49c948640bb7bcf818862283b42c44e6187319a3b09f11717f1678109a81",
+      "bytes": 5411,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/index.py",
+      "role": "reference_tooling",
+      "sha256": "d924efdbe9e0dbd154fedaeb23128a478760117cd87d624532795bc0397d83ae",
+      "bytes": 2180,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/isolated_worker.py",
+      "role": "reference_tooling",
+      "sha256": "48243705059b31738d3e9296d29f22071e57f57e71d2077bf07e97f5ebdbc933",
+      "bytes": 9979,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/isolation_probe.py",
+      "role": "reference_tooling",
+      "sha256": "383588c426b43e78aca24a1a1795f4fe84d8e665cced687989b7607d7fd3b241",
+      "bytes": 1881,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/key_lifecycle.mjs",
+      "role": "reference_tooling",
+      "sha256": "e138e8189a57342c27177e74086529652a07382027215e83ef175864a1e8587a",
+      "bytes": 5828,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/mission_gate.mjs",
+      "role": "reference_tooling",
+      "sha256": "6070a4ce9f8ea57cc0076bd99981964ea0d86e5adf17d1d1465cd06d87e9709b",
+      "bytes": 6077,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/mission_runner.py",
+      "role": "reference_tooling",
+      "sha256": "2098e2cf4ac90e011fd98b77199472d168afd6e7cdada0d27425c23daca529e5",
+      "bytes": 3394,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/overlay_plan.py",
+      "role": "reference_tooling",
+      "sha256": "b53f994e4a05ed55f086a9fcaab2936998316f3b3624e577f49e4b4a2c58c422",
+      "bytes": 2293,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/owner-signing.mjs",
+      "role": "reference_tooling",
+      "sha256": "de3b6cca6fe881e32cebec04a4c94b7f95a264e2e9b3ddaee13336c3fb053393",
+      "bytes": 3288,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/owner_record_signing.mjs",
+      "role": "reference_tooling",
+      "sha256": "59f1fa40ea9ea10ed811bcec64fc3d2dcb46a26c041c804cfec0a97383bcda78",
+      "bytes": 2850,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/prepare_builder.py",
+      "role": "reference_tooling",
+      "sha256": "23e067291de2f1828d27191fca5faf148d2a79182e6b86e3ff7290f2791b4bc7",
+      "bytes": 4317,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/promotion_evidence.py",
+      "role": "reference_tooling",
+      "sha256": "605483e0c7fc5b6e0190201f89a230f8b1136729e37032183eab58a97452a826",
+      "bytes": 23668,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/reconcile.py",
+      "role": "reference_tooling",
+      "sha256": "3cf942e0616e57ec9a351ee97a78f4401ac075a0f3fc7e3a6c7f326d05c9638d",
+      "bytes": 3091,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/reference_controls.py",
+      "role": "reference_tooling",
+      "sha256": "1a3ee1d263569dd66dafca8136025c363493d428947bf2c0e76dd650e07d08c3",
+      "bytes": 7219,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/render.py",
+      "role": "reference_tooling",
+      "sha256": "b887009963239bea86c23530ecfb75075ebccd11b894135c2acdcca89d6bd114",
+      "bytes": 399,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/requirements-schema.txt",
+      "role": "reference_tooling",
+      "sha256": "4209a7cb3bfbc28ab50bdc6b3a209c0326bc9e77a2818be1b383c39b8ecd6177",
+      "bytes": 198,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/retirement.py",
+      "role": "reference_tooling",
+      "sha256": "6f12a60833435ff7d48b37937616ed7a14f02b7d4513d96d263c89fd782a9315",
+      "bytes": 2111,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/review_evidence.py",
+      "role": "reference_tooling",
+      "sha256": "66c59218ecc5891af6bc0b817e080180c090ee4442fa7c8ff5fff0da0b01a9cc",
+      "bytes": 2611,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/schema_tests/test_schemas.py",
+      "role": "reference_tooling",
+      "sha256": "5017b69e3ed9d798f704c3d8cadc2104675b2f4a5188bf5b13499648942212ed",
+      "bytes": 2243,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/signed_records.mjs",
+      "role": "reference_tooling",
+      "sha256": "647de4bb4ad178568d8c0c94d80a1560392ee8554b9f676733950c51b7068cfd",
+      "bytes": 4524,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/state.py",
+      "role": "reference_tooling",
+      "sha256": "8acff50a66c33e32a7227a71b7df76cdc5a29f35643b9dbae31c5fafa1575a8f",
+      "bytes": 2785,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_pack_tools.py",
+      "role": "reference_tooling",
+      "sha256": "7c91ea3353f039ada11794c89bb723396a39cb60c311fedf0c6616b1244af159",
+      "bytes": 7286,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_reference_controls.py",
+      "role": "reference_tooling",
+      "sha256": "e8a37f0059de3ca670f225553b5645a280c8a1c7804788206ae92cfe658906ed",
+      "bytes": 5230,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_v41_enforcement.py",
+      "role": "reference_tooling",
+      "sha256": "eb5332ef4ed208f65edbe99e3bfe2c27739d6c2f6b0d827ac9a7c98f0c5bb031",
+      "bytes": 24943,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_v5_tools.py",
+      "role": "reference_tooling",
+      "sha256": "cf73482c3a637b3ad074a310905fe956c806cca3f8362c15d7e3c9615cd0a521",
+      "bytes": 11972,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/trust-gate.test.mjs",
+      "role": "reference_tooling",
+      "sha256": "bcf5fff01aec81a6350f3aa1e21587b52b5a80be33e824aaabaaa4dfbf1862a0",
+      "bytes": 5696,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/v41-enforcement.test.mjs",
+      "role": "reference_tooling",
+      "sha256": "8605d1c30563d582f9a1eace00be8a017c043ecaa312e554d562451169b6dd53",
+      "bytes": 7990,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/v5-trust.test.mjs",
+      "role": "reference_tooling",
+      "sha256": "efc0e42a09bfcafd15b838ce163b2fc7ab46caaf757799acad8f0675a0400669",
+      "bytes": 16366,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/trust-gate.mjs",
+      "role": "reference_tooling",
+      "sha256": "c591e995fe4b9d16cfe0ec32ba4ff0a201fe7f51d440fac6a904c5a3a40cb7f0",
+      "bytes": 9879,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/trusted_time.py",
+      "role": "reference_tooling",
+      "sha256": "ef0223b253edcf178dab09de136e5672c4ae478aa8e50f6d4378a8d173144f6e",
+      "bytes": 1625,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/v5_checks.py",
+      "role": "reference_tooling",
+      "sha256": "03e4aacac05fd42cccab17f5da53ad58937b12e7fc0635cdda9f08274f6f5398",
+      "bytes": 3629,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/validate.py",
+      "role": "reference_tooling",
+      "sha256": "103b34156446e1ad224a57aadf0832dcb8eda3f211c814a7f429d0c83ce2a215",
+      "bytes": 11930,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/version_gate.py",
+      "role": "reference_tooling",
+      "sha256": "3b290c33614e2c8989a3406d7fc9346dd9b9f5add070a0d586d627a199c08e30",
+      "bytes": 1431,
+      "hashExclusionReason": null
+    }
+  ]
+}

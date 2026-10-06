@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "skillId": "00000000-0000-4000-8000-000000000001",
+  "version": 1,
+  "name": "Synthetic reconciliation procedure",
+  "purpose": "Test source mapping",
+  "status": "draft",
+  "procedure": [
+    "Read exact record version",
+    "Compare expected state"
+  ],
+  "requiredCapabilities": [
+    "record.read"
+  ],
+  "verification": [
+    "Record versions match"
+  ],
+  "sourceRefs": [
+    {
+      "schemaVersion": 1,
+      "sourceType": "synthetic",
+      "sourceId": "fixture-source-1",
+      "sourceVersion": "1",
+      "occurredAt": "2026-09-25T10:00:00Z",
+      "observedAt": "2026-09-25T10:00:00Z",
+      "coverage": "fixture only",
+      "informationState": "known",
+      "sensitivity": "normal",
+      "contentHash": null
+    }
+  ],
+  "reviewEvidenceRef": null,
+  "reviewAt": "2026-10-25T10:00:00Z",
+  "grantsAuthority": false
+}

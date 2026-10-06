@@ -1,0 +1,61 @@
+{
+  "policyVersion": 2,
+  "requiredMarkdownFields": [
+    "title",
+    "document_id",
+    "status",
+    "authority_class",
+    "owner_role",
+    "created_at",
+    "reviewed_at",
+    "review_evidence",
+    "review_triggers",
+    "pack_version"
+  ],
+  "statuses": [
+    "draft",
+    "active",
+    "reference",
+    "historical",
+    "superseded",
+    "planned",
+    "ready",
+    "generated"
+  ],
+  "classes": [
+    "protected",
+    "orientation",
+    "evidence",
+    "template",
+    "reference",
+    "historical",
+    "generated",
+    "mission",
+    "runtime_prompt",
+    "engineering_skill"
+  ],
+  "triggers": [
+    "scope_change",
+    "contract_change",
+    "policy_change",
+    "prompt_change",
+    "model_change",
+    "provider_change",
+    "incident",
+    "phase_transition",
+    "session_end",
+    "schema_change",
+    "governance_change"
+  ],
+  "archiveExemptPrefixes": [
+    "docs/archive/"
+  ],
+  "indexExclusions": [
+    "docs/DOC_INDEX.json",
+    "docs/DOC_SHA256SUMS.txt"
+  ],
+  "reviewDateRequiresEvidence": true,
+  "scope": "Current documentation lifecycle/metadata design; not enrolled trust classification or authorization.",
+  "metadataAppliesTo": "Authored V5 frontmatter documents and playbooks. Canonical orientation, compatibility pointers, generated views and preserved source/evidence use their explicit index role; historical bytes are not rewritten.",
+  "runtimeAuthorityGranted": false
+}

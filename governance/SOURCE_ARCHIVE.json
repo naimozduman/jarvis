@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "sourceZipSha256": "8dc0aa58852cb39074b59aea34ad77bb3b09c8c7533d0c3deac2d379e4c02821",
+  "files": [
+    {
+      "path": "docs/archive/v3/schemas/authority-lease.schema.json",
+      "sha256": "6887f0a0bfb6cd04c7f0519ebee21ddd8c0d8aebd7b4a4e8609ee6facbfffc2a",
+      "originalOverlayPath": "schemas/v3/authority-lease.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/proactive-brief.schema.json",
+      "sha256": "ceed3bed4acfab555ba85e7302aa9834d28ec39d6285e347bfe5b49539699e67",
+      "originalOverlayPath": "schemas/v3/proactive-brief.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/capability.schema.json",
+      "sha256": "9e4dadc44c6fe93ed1ceaad39718192b88ed1aaba8df2ab985cea44b2b84733f",
+      "originalOverlayPath": "schemas/v3/capability.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/first-party-app-event.schema.json",
+      "sha256": "0581246cd75d76c2941f34d51cc04def9b6f926ae6201e20941a091b9e40b660",
+      "originalOverlayPath": "schemas/v3/first-party-app-event.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/life-ledger-event.schema.json",
+      "sha256": "fd1b179845ce5cadf292888e2e263850bbe5007dd6a8e0c8624804633bd73c58",
+      "originalOverlayPath": "schemas/v3/life-ledger-event.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/action-intent.schema.json",
+      "sha256": "e231a752ed63338fd6ca8aa97dee8a5c5a660ce04946e6c2666e19887799240d",
+      "originalOverlayPath": "schemas/v3/action-intent.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/world-state.schema.json",
+      "sha256": "8299f65d5f711a6f76257b447cc17289e26668f89ef92c3ee9a4edf197d6f85d",
+      "originalOverlayPath": "schemas/v3/world-state.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/skill-record.schema.json",
+      "sha256": "0e3801c46510b2c24675e88c4f324adf183824c11bae4efb2323235055dab209",
+      "originalOverlayPath": "schemas/v3/skill-record.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/schemas/source-reference.schema.json",
+      "sha256": "2664a7fc3536195011ece1455cc5749870fad8ad499ec6ef1afe3289edb8e350",
+      "originalOverlayPath": "schemas/v3/source-reference.schema.json",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0019-non-forgeable-approval-resolution.md",
+      "sha256": "46955dacb874c3a88796913f6e4bffd8e731169ac541519e7b8b2f025008d61f",
+      "originalOverlayPath": "docs/ADR/0019-non-forgeable-approval-resolution.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0021-external-agent-runtimes-as-workers.md",
+      "sha256": "196082f5fe79f1d43e38d98248bafa303984b838c98a9474c10d77c663108ece",
+      "originalOverlayPath": "docs/ADR/0021-external-agent-runtimes-as-workers.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0023-cost-aware-model-routing.md",
+      "sha256": "572e135d9d337cb735ae0499b4425e60b519be8dde5ce7f96c629f37d5ae8172",
+      "originalOverlayPath": "docs/ADR/0023-cost-aware-model-routing.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0024-research-is-evidence-not-product-authority.md",
+      "sha256": "72cd67cbdf3d697e45aa0d566b73bfa61e2bea0ea45cb2c91fc01db8fd8d0fce",
+      "originalOverlayPath": "docs/ADR/0024-research-is-evidence-not-product-authority.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0017-role-separation-surfaces-apps-agents-executors.md",
+      "sha256": "baad188b4e32e07d31ce3e852094928a48aa7d1ce4897f650b32dd96d4dd7079",
+      "originalOverlayPath": "docs/ADR/0017-role-separation-surfaces-apps-agents-executors.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0022-browser-as-surface-domain-app-and-executor-boundary.md",
+      "sha256": "37421967b33b8c24174fc50b6f7123301b91b2931cafd5556e23e88afa5aaca8",
+      "originalOverlayPath": "docs/ADR/0022-browser-as-surface-domain-app-and-executor-boundary.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0016-personal-os-core-and-first-party-apps.md",
+      "sha256": "6fa801340ea9150d152f31d907945cda97ac338f923e6462a8a963a2f54a9106",
+      "originalOverlayPath": "docs/ADR/0016-personal-os-core-and-first-party-apps.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0020-hybrid-privacy-tiers.md",
+      "sha256": "6a67d191b6db258626f0a1f15489059384850eb64d6074585486076f62ee44d9",
+      "originalOverlayPath": "docs/ADR/0020-hybrid-privacy-tiers.md",
+      "byteComparisonToInputZip": true
+    },
+    {
+      "path": "docs/archive/v3/ADR/0018-procedural-memory-skills.md",
+      "sha256": "7c1fecffe50c57dc4cd7b50a9fb6bd1cdbb17f5973dd7484f13eca3fe9af7f1f",
+      "originalOverlayPath": "docs/ADR/0018-procedural-memory-skills.md",
+      "byteComparisonToInputZip": true
+    }
+  ],
+  "currentScope": "Retained original-pack history with relocated current destinations; originalOverlayPath/removedPackEntryPoints/from are historical identities, not current required files or deletion instructions.",
+  "applicationRuntimeAdoptionImplied": false
+}

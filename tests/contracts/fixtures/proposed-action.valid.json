@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "actionId": "00000000-0000-4000-8000-000000000001",
+  "revision": 1,
+  "ownerId": "00000000-0000-4000-8000-000000000002",
+  "actionType": "calendar.block.create",
+  "capabilityId": "calendar.block.create",
+  "capabilityVersion": "1",
+  "executorId": "calendar-fixture",
+  "credentialAccountRef": "fixture-account",
+  "targetRefs": [
+    "fixture-calendar"
+  ],
+  "inputSchemaId": "jarvis.calendar-block-input:1",
+  "arguments": {
+    "title": "Synthetic block"
+  },
+  "risk": "CONTROLLED_WRITE",
+  "idempotencyKey": "fixture-operation-0001",
+  "snapshotVersion": 1,
+  "snapshotHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "policyVersion": "fixture-policy-1",
+  "createdAt": "2026-09-25T10:00:00Z",
+  "expiresAt": "2026-09-25T10:05:00Z",
+  "sourceRefs": [
+    {
+      "schemaVersion": 1,
+      "sourceType": "synthetic",
+      "sourceId": "fixture-source-1",
+      "sourceVersion": "1",
+      "occurredAt": "2026-09-25T10:00:00Z",
+      "observedAt": "2026-09-25T10:00:00Z",
+      "coverage": "fixture only",
+      "informationState": "known",
+      "sensitivity": "normal",
+      "contentHash": null
+    }
+  ]
+}

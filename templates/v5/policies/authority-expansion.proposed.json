@@ -1,0 +1,16 @@
+{
+  "profileVersion": 1,
+  "enabled": false,
+  "ownerApprovalRef": null,
+  "delaySecondsByChangeClass": {},
+  "scope": [
+    "governance-root replacement",
+    "global spending increase",
+    "new high-impact executor",
+    "weaker approval or stop policy"
+  ],
+  "ordinaryActionsUnaffected": true,
+  "cancelWindowSupportedByDesign": true,
+  "runtimeImplementation": "not_implemented",
+  "emergencyAction": "revoke or narrow immediately; expansion still requires an enrolled policy"
+}

@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "observations": [
+    {
+      "id": "git-main-20260925",
+      "subsystem": "repository",
+      "environment": "github-main",
+      "status": "observed",
+      "observedAt": "2026-09-25T11:00:00Z",
+      "timePrecision": "packaging_window_not_provider_server_time",
+      "source": "GitHub branch endpoint read during V4 packaging",
+      "commit": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "facts": {
+        "branchProtected": false,
+        "commitMessage": "test: add fixed C7 staging lifecycle harness"
+      },
+      "coverage": "GitHub main metadata only. No local worktree or deployment inspection."
+    },
+    {
+      "id": "ci-20260925",
+      "subsystem": "ci",
+      "environment": "repository-source",
+      "status": "observed",
+      "observedAt": "2026-09-25T11:00:00Z",
+      "timePrecision": "packaging_window_not_provider_server_time",
+      "source": ".github/workflows/ci.yml at 481b262817095fdc070871c22c7897d21b4f3fcf",
+      "facts": {
+        "explicitBrainEvals": true,
+        "explicitTransportEvals": true,
+        "explicitOrchestrationEvals": true,
+        "explicitBridgeEvals": true
+      },
+      "coverage": "Source workflow was read. Runs were not executed during packaging."
+    },
+    {
+      "id": "local-worktree-unknown",
+      "subsystem": "local-worktree",
+      "environment": "live",
+      "status": "unknown",
+      "observedAt": null,
+      "source": null,
+      "facts": {},
+      "coverage": "Not queried in this packaging pass."
+    },
+    {
+      "id": "vercel-unknown",
+      "subsystem": "vercel",
+      "environment": "live",
+      "status": "unknown",
+      "observedAt": null,
+      "source": null,
+      "facts": {},
+      "coverage": "Not queried in this packaging pass."
+    },
+    {
+      "id": "convex-unknown",
+      "subsystem": "convex",
+      "environment": "live",
+      "status": "unknown",
+      "observedAt": null,
+      "source": null,
+      "facts": {},
+      "coverage": "Not queried in this packaging pass."
+    },
+    {
+      "id": "neon-unknown",
+      "subsystem": "neon",
+      "environment": "live",
+      "status": "unknown",
+      "observedAt": null,
+      "source": null,
+      "facts": {},
+      "coverage": "Not queried in this packaging pass."
+    },
+    {
+      "id": "whatsapp-unknown",
+      "subsystem": "whatsapp",
+      "environment": "live",
+      "status": "unknown",
+      "observedAt": null,
+      "source": null,
+      "facts": {},
+      "coverage": "Not queried in this packaging pass."
+    },
+    {
+      "id": "billing-unknown",
+      "subsystem": "billing",
+      "environment": "live",
+      "status": "unknown",
+      "observedAt": null,
+      "source": null,
+      "facts": {},
+      "coverage": "Not queried in this packaging pass."
+    },
+    {
+      "id": "trusted-gate-unknown",
+      "subsystem": "trusted-gate",
+      "environment": "live",
+      "status": "unknown",
+      "observedAt": null,
+      "source": null,
+      "facts": {},
+      "coverage": "Not queried in this packaging pass."
+    },
+    {
+      "id": "git-main-20260926",
+      "subsystem": "repository",
+      "environment": "github-main",
+      "status": "observed",
+      "observedAt": "2026-09-26T21:00:00Z",
+      "timePrecision": "approximate_packaging_window_not_provider_server_time",
+      "source": "GitHub branch endpoint and six pinned source reads during V5 packaging",
+      "commit": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "facts": {
+        "branchProtected": false,
+        "exactSourceEvidence": "governance/RECONCILIATION.json"
+      },
+      "coverage": "Main metadata and scoped code reads only; no full repository, local worktree, provider/deployment or ruleset audit."
+    }
+  ]
+}

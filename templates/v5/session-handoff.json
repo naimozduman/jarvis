@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "recordType": "session-handoff",
+  "description": "A bounded end-of-session report",
+  "repository": "naimozduman/jarvis",
+  "baseSha": null,
+  "headSha": null,
+  "createdAt": null,
+  "createdBy": null,
+  "environment": null,
+  "status": "not_started",
+  "evidenceRefs": [],
+  "limitations": [],
+  "missionId": null,
+  "dirtyPaths": [],
+  "changedPaths": [],
+  "commands": [],
+  "blockers": [],
+  "nextSafeStep": null,
+  "docsImpact": []
+}

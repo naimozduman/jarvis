@@ -1,0 +1,3931 @@
+{
+  "indexVersion": 1,
+  "scope": "V5 managed engineering files, not untouched application source",
+  "packVersion": "5.0.0",
+  "files": [
+    {
+      "path": ".agents/skills/agent-evals/SKILL.md",
+      "title": "Design tests and judgment evaluations with incident linkage.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "e1f3ac6353bf1bfeb43d119d63940681574988e31538b96660f79c99aa407fa6",
+      "bytes": 1331,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/agent-runtime/SKILL.md",
+      "title": "Integrate bounded worker runtimes without delegating Core authority.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "e2af1b708bcae29b1be3d0dffbb2500a33ddf3c4c95f6dfd5344ef73f89a0c5b",
+      "bytes": 1393,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/android-device/SKILL.md",
+      "title": "Build Android context and policy with owner-visible local boundaries.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "b7c52993fde55d71915d30aeb41ee5036a833b3bb39b4136213c45e14373fee7",
+      "bytes": 1351,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/browser-executor/SKILL.md",
+      "title": "Review and build browser integration with isolated credentials.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "5106a1d0a218c206669fccd5f3a017a897ade2077f6dd1bc054574e10c234633",
+      "bytes": 1407,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/connector-integration/SKILL.md",
+      "title": "Integrate an external provider through normalized Core contracts.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "fafb84b3359c8aa4aaa477494cf5c54bc6d8945b0a22d1fb1b6698dca4c2df54",
+      "bytes": 1397,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/database-and-jobs/SKILL.md",
+      "title": "Preserve canonical transactions, migrations and durable work.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "1c16fbcecaa1d1a74be8e45daccc5383423b65362866d52e9121fe7c2b2af0e2",
+      "bytes": 1419,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/deploy-vercel-convex-neon/SKILL.md",
+      "title": "Verify and release current deployment architecture.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "2a4717d72c362fca8859e7602c133b3af1249c26c8a7fdaeb52b3e1ac109dfd1",
+      "bytes": 1398,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/evolution-whatsapp/SKILL.md",
+      "title": "Maintain the dedicated-account WhatsApp bridge boundary.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "b1507f5fb1b2a7bb51258743b59ad8fc90d0d6c02f311bddd43fbab07fe2b915",
+      "bytes": 1428,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/executor-safety/SKILL.md",
+      "title": "Implement exact authorized side effects and reconciliation.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "4d923cee13b3ba875019462be8bd24b05b8dc0fecde3f763e29b8cf4be509a38",
+      "bytes": 1409,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/first-party-apps/SKILL.md",
+      "title": "Connect existing domain apps through explicit ownership and versioned events.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "9bb522cd67eeefd37864aad693b2e4202090ef702850828ad4b10272f1baad5f",
+      "bytes": 1440,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/governance-enforcement/SKILL.md",
+      "title": "Operate protected-promotion and evidence boundaries.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "6c64e9d0d3ce01feb4c5978a8050cc1691a7586d4425b1ddd40784437846c48d",
+      "bytes": 1403,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/incident-and-restore/SKILL.md",
+      "title": "Contain incidents and restore canonical state",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "64296a2fdfe22e9b5fd817e9df7869b0327644cfffc457114ae68c2c70f15f03",
+      "bytes": 1344,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/jarvis-product-rules/SKILL.md",
+      "title": "Preserve product invariants without duplicating security policy.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "3e514d531a5be4a892028eb275abaf64bde85edac14de8d87da22b7b1ee29ba2",
+      "bytes": 1556,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/key-recovery/SKILL.md",
+      "title": "Review signing key recovery and rotation",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "bab1cd45a646753cf0f18dfba415bfb0eb1a88bdb39ee281092d722dd99e2bde",
+      "bytes": 1335,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/memory-and-context/SKILL.md",
+      "title": "Build typed memory and source-backed reconstruction.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "ef569675e8e8ebd7ae9073beab6e05a38ac55f6bcacbfe442256e6fc90c91742",
+      "bytes": 1374,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/operational-drills/SKILL.md",
+      "title": "Verify enabled controls with safe external staging drills.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "7eb1a498401d6e362ffaa7f07c43dabb8611bc4903865517c15d0524af29dd85",
+      "bytes": 1396,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/progressive-context/SKILL.md",
+      "title": "Resolve bounded Codex task context",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "c6b19c7ca645ea661fdb2e00c43f7f76e77ef7ae25214d026d178dd3b52b93c5",
+      "bytes": 1245,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/repository-reconciliation/SKILL.md",
+      "title": "Reconcile existing JARVIS code",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "c3c393422f0bc147d81b889d64ef55e0cd5cb0c34be8bc2a7ae709de21c0d8a6",
+      "bytes": 1291,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/runtime-prompts/SKILL.md",
+      "title": "Maintain explicit versioned runtime prompt assemblies.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "2471af8eb2efe4387c282b149bb329938f7879f1ec6f9cd1447cfd91a7aa368d",
+      "bytes": 1357,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/schema-evolution/SKILL.md",
+      "title": "Promote wire contracts without prose/import drift.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "54e623ec3471d10bd9ead6c3eb09e5ba7e4921c048a2c78fdbc7f70498346d6e",
+      "bytes": 1356,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/security-and-privacy/SKILL.md",
+      "title": "Review threat boundaries, egress, authentication and authority.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "d69e098f3e14a05656b09df3921b160f592e1e46b76047768a7984a2f564dc7b",
+      "bytes": 1417,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".agents/skills/voice-and-realtime/SKILL.md",
+      "title": "Integrate speech without losing canonical action state.",
+      "kind": "engineering_skill",
+      "status": "active",
+      "sha256": "4ddcf134cbfd04daec89863525c4d734f1e4db2e94d7ef1eb743da5fe1e93479",
+      "bytes": 1343,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/agent-runtime-engineer.toml",
+      "title": "agent-runtime-engineer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "527e17f7efa30fb06a1fbd343c128fcde394fc3a285b6ebc040c9dba2a63a19d",
+      "bytes": 1047,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/architecture-planner.toml",
+      "title": "architecture-planner.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "d3f018bcd66e2360b6cb17d734333c284d2b6fa2e0eae418dd02682e37034fdc",
+      "bytes": 1080,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/backend-implementer.toml",
+      "title": "backend-implementer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "bfd4b21343356529684f2508a8db261a99c54341beb766fa4413412faac45325",
+      "bytes": 1037,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/browser-engineer.toml",
+      "title": "browser-engineer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "e80858d25ca67040856d126e4e296f873087fc118a132bf3ba46fe9b77f41810",
+      "bytes": 1028,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/docs-researcher.toml",
+      "title": "docs-researcher.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "0df9a33c8adbb0981b83732a564909e6926aedc849f84c76fa8eb2ba51352ba8",
+      "bytes": 1097,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/executor-engineer.toml",
+      "title": "executor-engineer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "25690d6795af2b1a8265ffab778f1594ea71d18e46d1afb07cd8fe8c4a1219a1",
+      "bytes": 1079,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/frontend-implementer.toml",
+      "title": "frontend-implementer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "2e22b119a3f66f2965bb33b5bdb9a491b77b59662e55c4c2561dc8f765020206",
+      "bytes": 1079,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/governance-reviewer.toml",
+      "title": "governance-reviewer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "a239fcf5ef05c379e5e2aa41cff0ed8b10f7341b01eec3f546fc9f71d0693494",
+      "bytes": 1096,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/integration-specialist.toml",
+      "title": "integration-specialist.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "108bd9c3f7b6af5340b91a853219f7d31e683efbdfcb5d6ed08a0c90b211d00a",
+      "bytes": 1118,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/memory-architect.toml",
+      "title": "memory-architect.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "acd053ddf789ca88af0b60c27e32bac733ec3bdaf711d2ac98db3aecbfff7bd5",
+      "bytes": 1065,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/mobile-implementer.toml",
+      "title": "mobile-implementer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "ce258b9f07e4d8173a3e4e5f3d58e163a1854007da3dd26e21bc6905a27ca064",
+      "bytes": 1077,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/release-operator.toml",
+      "title": "release-operator.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "240a5c3e13c123057ea9ce90bcea430ac96680e1725337a8536328e01dc7d27f",
+      "bytes": 1069,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/repo-explorer.toml",
+      "title": "repo-explorer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "02272209cc283763622fcb4dc80ed408f1668535b1148e513337be68a6c5a970",
+      "bytes": 1021,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/runtime-prompt-engineer.toml",
+      "title": "runtime-prompt-engineer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "604966376f11885ccc64471e3b04405736db309f5a30ea6875ec802e3a9ab98c",
+      "bytes": 1103,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/security-reviewer.toml",
+      "title": "security-reviewer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "1aea962038511ef126713e8f5df046790933da28cd36a82737cc613f152ccce8",
+      "bytes": 1093,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/test-evals.toml",
+      "title": "test-evals.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "be137ce57e97f293fd1484541e830ff64a86cf1099ea45514ea0b5869f826d6c",
+      "bytes": 1094,
+      "hashExclusionReason": null
+    },
+    {
+      "path": ".codex/agents/voice-engineer.toml",
+      "title": "voice-engineer.toml",
+      "kind": "coding_agent",
+      "status": "pack_artifact",
+      "sha256": "fe0045282d9b9797550dfb971f9665273a760a6d143a04246c0ca8743f3f8e19",
+      "bytes": 1082,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "AGENTS.md",
+      "title": "JARVIS V5 builder entry",
+      "kind": "orientation",
+      "status": "active",
+      "sha256": "da5744c2b9000e8a5bf1009a622542eb68c50264c12359a9a634677b2ec4dd2c",
+      "bytes": 3579,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "APPLY_PLAN.md",
+      "title": "V5 integration and preservation plan",
+      "kind": "orientation",
+      "status": "active",
+      "sha256": "cb619c06fc4ee72067038405f231f097be943a70e0289e44070f761d038adf14",
+      "bytes": 2242,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "BUILD_ORDER.md",
+      "title": "V5 build order",
+      "kind": "generated",
+      "status": "generated",
+      "sha256": "02085bb1e6989e1b19560584340a04e2e43035dcad1e1bdf174be07483dea507",
+      "bytes": 703,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "CHANGELOG.md",
+      "title": "V5 release changes",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "a5a40e7fbac2c53d08c1f2e96254082a03705b96f9295fb5d42dc02236deb5fc",
+      "bytes": 1941,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "CLAUDE.md",
+      "title": "Claude-compatible JARVIS entry",
+      "kind": "orientation",
+      "status": "active",
+      "sha256": "8357f1856fd807cd9fe4bc043998036e8bdfa5924cc57e70ba241096f7d108d7",
+      "bytes": 834,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "MANIFEST.md",
+      "title": "V5 file manifest",
+      "kind": "generated",
+      "status": "generated",
+      "sha256": "0b583b2e678a534b3ac8961b01d4404f118c82518c5fe06e792d17535d89c742",
+      "bytes": 25754,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "PRESERVE_EXISTING.md",
+      "title": "Existing repository preservation",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "96d5120f7f27e375aae2f38e0c420332c6a1563282363679a344b8325e3b0a92",
+      "bytes": 1874,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "PRODUCTION_READINESS.md",
+      "title": "Release Gates and Evidence Ownership",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "6b97008e3c503ae6edee79848620379580430e704997c02c85b8c32dcb99d87c",
+      "bytes": 2260,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "README.md",
+      "title": "JARVIS V5 engineering pack",
+      "kind": "orientation",
+      "status": "active",
+      "sha256": "21644430fca94485241cf9398ef3bb9228c20dbb4128d950cb2c0661c54497da",
+      "bytes": 1587,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "REVIEW_DISPOSITION.md",
+      "title": "V5 review findings and disposition",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "63ddf053e9c3c9d020ce5313cc427f92b60d8a88a18ded2754024c5a8bf950f8",
+      "bytes": 3779,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "SHA256SUMS.txt",
+      "title": "SHA256SUMS.txt",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": null,
+      "bytes": null,
+      "hashExclusionReason": "recursive self/index boundary"
+    },
+    {
+      "path": "SOURCE_INDEX.md",
+      "title": "V5 source and evidence index",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "a0ecffd22220d55a909f07d04580d7e03400916296c83f2cdc231f0d148139fc",
+      "bytes": 1952,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "START_HERE.md",
+      "title": "Start JARVIS V5",
+      "kind": "orientation",
+      "status": "active",
+      "sha256": "8a5204c6147a3b0d0dcf30ee5c65898f0e608e1e783312d6f38c7d5fa33e7b7c",
+      "bytes": 2603,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "VALIDATION_REPORT.md",
+      "title": "JARVIS V5 local validation results",
+      "kind": "evidence",
+      "status": "draft",
+      "sha256": "192f916eb929d92d2524f3b1fcdb47ab7508d5fe7645119bacd39bad1476456a",
+      "bytes": 3960,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ACCOUNTABILITY_ENGINE.md",
+      "title": "Accountability Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "e79e4f80288f02c8369977744c0bb8c3849f41a6404cd2e67d5c34f516cd25de",
+      "bytes": 1287,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/README.md",
+      "title": "ADR proposals and immutable accepted history",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "3cca894906f4623d8a786ff63f05b85641f95bead79534c61dc117ca243e9813",
+      "bytes": 1238,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/TEMPLATE.md",
+      "title": "Architecture Decision Template",
+      "kind": "template",
+      "status": "draft",
+      "sha256": "308bf60600113a0660942ce3d512e959fe825a17e00cbc6a7200b24dd9102bb2",
+      "bytes": 1611,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-001.md",
+      "title": "V5-001 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "14376e8cbb16612d366d639570ac778a9469510b36e730f35a89022645207d83",
+      "bytes": 2033,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-002.md",
+      "title": "V5-002 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "2ed1f5100e4010769e33d2e03c4e80a7ee8f8f7ce11a843308e860db5ec28018",
+      "bytes": 1956,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-003.md",
+      "title": "V5-003 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "b79a0e043c5b9fe2df7f4e68a24bb3f2413d9bc7539191cc185b437dbd38fb95",
+      "bytes": 2013,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-004.md",
+      "title": "V5-004 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "8629abe44a9d2cbb2fdd0090b5001a791719efd5720887508924c146559b22d8",
+      "bytes": 2048,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-005.md",
+      "title": "V5-005 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "9aeb8599565611489d485e7237079c25bc7d0ef60a9cb0865bab4a965648f5c1",
+      "bytes": 2054,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-006.md",
+      "title": "V5-006 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "c9d70693543124c2c5b49e8f40b3f124888464ff01f466545030d60c7d3096d4",
+      "bytes": 1967,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-007.md",
+      "title": "V5-007 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "0348057ac1eb654b81b7790399e58af5bd1519787bf4c4ce4b599489c486e294",
+      "bytes": 2019,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-008.md",
+      "title": "V5-008 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "2b9686b636e5b8ec85bbf6f8145f61af28b6de979b09fff6743a9768a5fa0e57",
+      "bytes": 1970,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-009.md",
+      "title": "V5-009 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "500fa63c7fc1804ab86b72574cdfcc9667b01d950e35cb3a233828fe940f88b7",
+      "bytes": 2060,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-010.md",
+      "title": "V5-010 carried-forward design proposal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "a785f40f987ae28f757000becb4f851b4e69e03685e1936e3f3667b746969053",
+      "bytes": 1969,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-011.md",
+      "title": "V5-011 Explicit existing-code reconciliation",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "344f0f9ed5c4b0ab1bdb6d409e34fa5053ab935668b34a9810feebdbe83ee935",
+      "bytes": 1792,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-012.md",
+      "title": "V5-012 Purpose-separated mission admission and key recovery",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "295f8d317966a644739c78c5c2c115eceab4f61c02efca81f26e834ab1bdccae",
+      "bytes": 1878,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-013.md",
+      "title": "V5-013 Progressive product context and artifact lifecycle",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "4da6222299998ffacb3c9424eae6f85e6583ee494da9b35e76de76003ba647d3",
+      "bytes": 1839,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ADR/proposals/v5/v5-014.md",
+      "title": "V5-014 Trusted time and restore-safe execution",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "b236f8f866a2f4a5b6dbc637d77ea5a2d0db156950c479e4e4630b9030031d48",
+      "bytes": 1826,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/AGENT_RUNTIME.md",
+      "title": "Agent Runtime V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "db5690a41547fcd2c89026f96c9f4b26ac173410baa4476a56658e60d248accf",
+      "bytes": 1901,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ANDROID_ARCHITECTURE.md",
+      "title": "Android Architecture",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "ad83de60c1237aa311dfde233470598702fdf9b03812de4c9bec76d697e80d31",
+      "bytes": 1674,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/APPROVAL_MODEL.md",
+      "title": "Trusted Action Approval",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "3a1726d48770973925404830c07032b17c165384d2b4b81f1df814fa72392294",
+      "bytes": 3824,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "title": "System Architecture V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "10589b3a7b9a1c73bbf1ff2fb3259f8dee022dfc94c208a9d0a2170220aa8514",
+      "bytes": 3152,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ARTIFACT_LIFECYCLE.md",
+      "title": "Artifact retirement and removal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "0547c5e4b8bdaee51d1deb1413bc9e815cd10e7ae2094e9c7cd8ea5d4a2c238a",
+      "bytes": 2065,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/AUDIT_MODEL.md",
+      "title": "Audit Model V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "dfc49a733f99522f74cfe0c49129cc140b4a8e487a43d5894471ebe8c0790074",
+      "bytes": 2124,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/AUTHENTICATION_BOUNDARY.md",
+      "title": "Identity Enrollment and Per-Action Authentication",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "16d4243a81246a2afa2f43649a13444fbdc57dd4fad415508f1a720b038c8948",
+      "bytes": 2855,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BEHAVIOR_ENGINE.md",
+      "title": "Behavior Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "bb7ca413a2dc63e0ec99b362c56f9143fda3258dae54ae9e527ba0594e6510e3",
+      "bytes": 1452,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BRAIN_ARCHITECTURE.md",
+      "title": "Brain Architecture V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "9985f894dc5af5000181de7c5dec4581a77da6267b5b5c01065e153c8ff89183",
+      "bytes": 2278,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BRAIN_EVALS.md",
+      "title": "Brain Evaluation Coverage",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "3acd498d48751a14abfe22d62f9a28c92149d1db9acce3502724bd713eff8685",
+      "bytes": 2089,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BROWSER_ARCHITECTURE.md",
+      "title": "Browser Architecture V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "14af84b8fcf773dfa2c71afe4f3b398049491f0eaaa29b938bc7f173cb5c80ab",
+      "bytes": 2434,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BUILDER_ISOLATION.md",
+      "title": "Builder Session and Worker Isolation",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "8f2e954453e7c6464367b9a87941ecceee6abd53e02f7b214180e601586a5a4d",
+      "bytes": 8415,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/BUILD_PLAN.md",
+      "title": "V5 generated build plan",
+      "kind": "generated",
+      "status": "generated",
+      "sha256": "aa499849142f400a1939e5fb8821404317e004c91a6a5161920d72a4816cdd89",
+      "bytes": 3729,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CAPABILITY_AND_AUTHORITY.md",
+      "title": "Capability and Authority Boundaries",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "ade1fcecfd05d8f99ed7fa34acceb1d241c10d1992782fc18330f5c45d757ff6",
+      "bytes": 2708,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CODEX_SETUP.md",
+      "title": "Codex setup and task routing",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "43f461acf9aab832749431588c283e1619748bd2b54fa4179b760c4de935fc54",
+      "bytes": 2566,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONSTITUTION_ENGINE.md",
+      "title": "Constitution Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "1b1097a966a58ead74795684625623d5c47ea919c239f6e3a5fdf58a87771927",
+      "bytes": 1143,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONTEXT_ASSEMBLY.md",
+      "title": "Bounded Source-Backed Context",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "af54820a3007567df603b92287c3e5d08111ff6890770ce6173b79074c83d006",
+      "bytes": 1952,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONTEXT_PACKS.md",
+      "title": "Progressive task context",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "8520873bd9e61018e36b4b665b2cf87353da0de5312d3680a86f1a5a1da11be1",
+      "bytes": 2274,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONTROL_LOOP.md",
+      "title": "Control Loop with Admission and Outcome State",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "bc1d712dfbe45beed3587f55b667fe9fdeb5160d8e91c42d2013c905f88d2387",
+      "bytes": 1653,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CONVEX_ORCHESTRATION.md",
+      "title": "Convex Orchestration",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "1e4411d1e6ac389f2a5ab40d58118eecc1adcf0a9b12d5c98c70c7c3bacdc34d",
+      "bytes": 1656,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/COST_AND_MODEL_POLICY.md",
+      "title": "Budget Admission and Model Routing",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "e32f26e75bd2d3c39a4da8926c27b7451ebf2a656128259521d4f575946e3e80",
+      "bytes": 3558,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/CURRENT_IMPLEMENTATION.md",
+      "title": "Focused implementation evidence and unknowns",
+      "kind": "evidence",
+      "status": "draft",
+      "sha256": "83eb47547721f073f5fb060cc95e227779ef48c068d2ba3ea3f97c4a90f78b92",
+      "bytes": 1575,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DATA_MODEL.md",
+      "title": "Canonical Data Model V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "01829f718a3bf1d58d180820e77e7b791e2027ab106d3d218f9c7e2730d4f76b",
+      "bytes": 3485,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DECISION_ENGINE.md",
+      "title": "Decision Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "52badf97f73cce4b6b3dd1e095d8d61835bfedfe4ee7566f1ecd6885f73c72b6",
+      "bytes": 2157,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DEPLOYMENT.md",
+      "title": "Deployment Architecture",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "8286e2c2ab0fc4ed33d7ce09cd75c75e76d6e765558d9a64a7b9c7438bf601df",
+      "bytes": 1449,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DISASTER_RECOVERY.md",
+      "title": "Backup and restore without repeated side effects",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "446a321cd0e5fe925410e2b6944026b52dbe30483d96cf8ddc8eda807d900d13",
+      "bytes": 3803,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DOCUMENTATION_GOVERNANCE.md",
+      "title": "Documentation and Builder Governance V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "951b8e85273258b04709eaa278b179c1c925483b734ca45635f8762c3a03a1f5",
+      "bytes": 6942,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DOC_INDEX.json",
+      "title": "DOC_INDEX.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": null,
+      "bytes": null,
+      "hashExclusionReason": "recursive self/index boundary"
+    },
+    {
+      "path": "docs/DOMAIN_APP_ARCHITECTURE.md",
+      "title": "Domain App Architecture",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "2dd69980efd173266424fe0b2f7d9a336f6ef2c566110166c5784b546767cb68",
+      "bytes": 2119,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/DOMAIN_INTEGRATION_CARDS.md",
+      "title": "Domain app integration work orders",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "c45abbc68c6bab0ade4cc8f651fa01f76aad96cf15bf8f3c5ac56680ae82f2cf",
+      "bytes": 3978,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ENFORCEMENT_STATUS.md",
+      "title": "V5 enforcement status",
+      "kind": "generated",
+      "status": "generated",
+      "sha256": "8cbcfbe8b6412840d92212426d1a63d0ea28c5d629e984e2a680515be79aaf83",
+      "bytes": 4089,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EVALS_AND_ACCEPTANCE.md",
+      "title": "Evaluation Evidence and Freshness",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "6282aa9d4ad82e4f19a4a6b40a5482511ac0a6d9cf223e4ac37ddb4db8664e6d",
+      "bytes": 3042,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EVENT_MODEL.md",
+      "title": "Event Model",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "5dc160ae4c342743d4ad05c10ae7362bef63f82befdf3ac93bd5024f13223689",
+      "bytes": 1882,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EVOLUTION_INTEGRATION.md",
+      "title": "Evolution Integration Boundary",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "3e003dc35fcc15d45ee2d19ae2ad3cb07b077bd8c409afc2ec9f68947dd11dd6",
+      "bytes": 1473,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EVOLUTION_VERSION_GATE.md",
+      "title": "Evolution and WhatsApp Library Security Gate",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "3ff0f439db05fec0828904eb11c27ad87a96ed926ba96aa0f9c1d48d36dd621d",
+      "bytes": 1666,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/EXECUTOR_ARCHITECTURE.md",
+      "title": "Executor Contract and Dispatch State",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "9d2eb0e08edb7179c404a118a1b7ccb53ea23d5591a3002ffb4dd96656b07a45",
+      "bytes": 2878,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/FIRST_PARTY_SDK.md",
+      "title": "First Party Sdk V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "14cdfc58f1c5ea0e95cf0e5f1d9a355ed24a7ac7052cb3815734598e26d36801",
+      "bytes": 2351,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/HISTORICAL_RECONSTRUCTION.md",
+      "title": "Historical Reconstruction",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "d3cf1f767172a7115793635400be7a6a9eeff88027b86048e0c2d453f977c00a",
+      "bytes": 1267,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/INCIDENT_RESPONSE.md",
+      "title": "Incident response and controlled reenablement",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "10abab5962f27a1551a2b12c6dc2956da07125ae2aec8bc0b1ee31ce476193e9",
+      "bytes": 3350,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/INTEGRATIONS.md",
+      "title": "Integration Architecture V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "e1182a4d46d078649c3e13c24da3126b86266fb9aaa83b683388730cb9dd76f2",
+      "bytes": 1530,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JOB_LIFECYCLE.md",
+      "title": "Durable Job Lifecycle",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "62b2ae8ace3ce1c69509aa4e5681e3340337dca3276c0de0ecc9ffd478ee4591",
+      "bytes": 2847,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/JOURNAL.md",
+      "title": "JARVIS Journal",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "ff3a89524818ac71fb08c7e088189a15afd178dd9385109beff9af3cd4872699",
+      "bytes": 1175,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/KEY_LIFECYCLE.md",
+      "title": "Governance key lifecycle and recovery",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "7f0a904ed97eb4557a9d538280db61584a607756c4264529137265ee1aab0f64",
+      "bytes": 7265,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/KILL_SWITCH_DRILLS.md",
+      "title": "Independent Stop Paths and Drills",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "7122b06461cf1f0c57475a92516703b7a6a9ec62d3a4c505475d2d63a1f52fb6",
+      "bytes": 2205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/LIFE_LEDGER.md",
+      "title": "Life Ledger V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "843446d751cf12c33ac8fb6056120e89684845d23ead64d6c5dde77e74108daf",
+      "bytes": 1817,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/LOCAL_WHATSAPP_BRIDGE.md",
+      "title": "Local WhatsApp Bridge",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "98b02dd5a45ea8693e9480c95ac42ca7c635b168e58a1bfb42f1335578f9933b",
+      "bytes": 1308,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MEDIA_PIPELINE.md",
+      "title": "Media Pipeline V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "d98dbf15ffa976e51d3a6b5c76366de2c23f86039841f32e0057bb9a36fa2063",
+      "bytes": 1361,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MEMORY_ENGINE.md",
+      "title": "Memory Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "dd7359ba963eae8a3bcfd22da21e87d34524b36f00a3ba441ebaf162d9f5fc76",
+      "bytes": 2259,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MISSION_ADMISSION.md",
+      "title": "Mission admission and signed completion",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "198c940d45120733e3359c871b3c5af67dfc9b8f114c6bbd4953c78a5853e716",
+      "bytes": 4592,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MODEL_RUNTIME.md",
+      "title": "Model Runtime V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "58be96d8601e87375b1f484a545edcc25e44b430045685219950fdb6871a5523",
+      "bytes": 2548,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MODES.md",
+      "title": "Modes Without New Authority",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "a7f30ce473b69f2469119c35008085635da765af2800320d0dbb10578502fb17",
+      "bytes": 1197,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/MULTI_AGENT_ARCHITECTURE.md",
+      "title": "Multi-Agent Architecture",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "83b63d8543dd8f9aefcdeff1b6f34706023e4961b9cfc35afabc5de7362ad39c",
+      "bytes": 1641,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/NEON_STAGING.md",
+      "title": "Neon Staging",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "811630c9d5158ea023b5946b204d61cd128f96f54708a1e59fc0b0b592621c86",
+      "bytes": 1378,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/NIGHT_MODE.md",
+      "title": "Night Mode with Finite Enrollment",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "f4b9c1817ee7ae38babb2a7aa8d8ef4c1430f16aadb908581a8c04b23a5d06bd",
+      "bytes": 2156,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/OFFLINE_TRANSPORT.md",
+      "title": "Offline Transport and Reconnect",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "9b9f7121503cc32eeb2df50af3e121f486be678092f98b8d3b91adfab675b041",
+      "bytes": 1369,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/OPEN_QUESTIONS.md",
+      "title": "Owner Decisions and Live Gaps",
+      "kind": "evidence",
+      "status": "reference",
+      "sha256": "e35c9ae1388d4e02a81f635cf5d2a88e9a1af61247adac06840cc14ea41545b6",
+      "bytes": 1472,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/OPERATIONS_HEALTH.md",
+      "title": "Operational health beyond HTTP 200",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "25b99615cfc54dbd797ab1efd5a7fe2956dab8c7ff3ca94c3549cc9c7e04b9a0",
+      "bytes": 2490,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/OUTBOUND_DELIVERY.md",
+      "title": "Durable Outbound Delivery",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "f4adf874798233257f21f4876ee335ff0b85502e9f62ce6a0fa8e5a3ebdf11b6",
+      "bytes": 1598,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/POLICY_MATRIX.md",
+      "title": "Deterministic Policy Matrix",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "9f01d4dbaf501981455864af640a81a00bb739ef9285e3038dc125a2571b4ff4",
+      "bytes": 2064,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/PRD.md",
+      "title": "JARVIS V5 complete product specification",
+      "kind": "generated",
+      "status": "generated",
+      "sha256": "c6b88c2ec8477b6b24fdfb70f33ed5bac4765e129c2f85b35c06ff56635512c0",
+      "bytes": 38684,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/PRIVACY_TIERS.md",
+      "title": "Privacy Tiers",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "e2d4dd851d2443af78956655706b251081e48674b4ee4546ccf2078d22c46258",
+      "bytes": 2412,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/PROACTIVE_OPERATOR.md",
+      "title": "Proactive Work and Interruption Budget",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "d9dc028d4225c4b2703d82dedcb04d48d0faebe85d3d1aaf3adad2a1a751d71d",
+      "bytes": 1797,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/PRODUCT_MAP.md",
+      "title": "JARVIS Product Map",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "fcb7b4a124165b561f2f6eabf4ce4c53359db92c8eab13eba773f30299386bd7",
+      "bytes": 1975,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/PROMPT_ARCHITECTURE.md",
+      "title": "Prompt Source, Assembly and Adoption",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "e10e100babd68cd57e21eb32b08df0519bc24311e6baa073b0405e5883ca3e10",
+      "bytes": 2575,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/REMINDER_ENGINE.md",
+      "title": "Reminder and Ghosting Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "43d0694f1f0e05cb580d5a01b0bbc00e3d6fc65ad4465e9c305dfbae24f0d4d9",
+      "bytes": 1368,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/REPLANNING_ENGINE.md",
+      "title": "Replanning Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "337bdb22ee3649f9b7accd458644d8389ce1f8cc66d1c9c318685fa414d902d1",
+      "bytes": 1313,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/REPOSITORY_RECONCILIATION.md",
+      "title": "Existing code reconciliation and takeover",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "39a67052fd38067a28b2c7f9c03b368af7b8839a907a7d3ce805e6c084407302",
+      "bytes": 3517,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/RESEARCH_NOTES.md",
+      "title": "Research Intake and Adoption",
+      "kind": "reference",
+      "status": "draft",
+      "sha256": "95c8b79bd6215a410c760385f7a1dfe2841953c51971cecd8c321952aa23dd17",
+      "bytes": 908,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/REVIEW_ACCEPTANCE.md",
+      "title": "V5 review acceptance boundary",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "6818764882a74ffcd42d1493bb33ff149f295676b96a3b17a5164c5452125ef5",
+      "bytes": 1332,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SCHEMA_EVOLUTION.md",
+      "title": "Contract lifecycle and compatibility",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "f69a5983607a58b78668861819d26a015cf88eff6dff696d60b7ab2d2f561539",
+      "bytes": 2351,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SECURITY.md",
+      "title": "Security and Builder Threat Model",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "29de8993dce47565171651d278084827640d12f56a2749ba58a6d0a58c441260",
+      "bytes": 3805,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SELF_REVIEW.md",
+      "title": "V5 self-review and limitations",
+      "kind": "evidence",
+      "status": "draft",
+      "sha256": "c1cd85f39bb9419b632a6d202ef723b6ac24cbebd44da85541ea2c8f943b30ea",
+      "bytes": 3249,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SESSION_CONTINUITY.md",
+      "title": "One current handoff and preserved history",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "45d8322f6818baeb040d8cc0ae2d55a066f3ab687edcab3aa59ffa11590cb010",
+      "bytes": 1530,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SKILL_ENGINE.md",
+      "title": "Skill Engine V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "3e568c7192e9c48de430dc2c4a28e07d753c08423d3b36f8e37332949c55c78c",
+      "bytes": 2267,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/STAGING_INFRASTRUCTURE.md",
+      "title": "Staging Infrastructure",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "5325804bf4e3aeeb5248dcd82d61626e51d50fc7fd0a79c9b241894f4fb2aa7a",
+      "bytes": 1106,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/STAGING_MIGRATION_WORKFLOW.md",
+      "title": "Staging Migration Workflow",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "af5325ca70f86826fcb1d5a96550f113610f3d0ad32ccd880931d5c1a0ad69ec",
+      "bytes": 1305,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/STAGING_RUNBOOK.md",
+      "title": "Staging Runbook V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "6a1d91fce338dce94762ed99d5efac7488dc6a08d87744b425428dd8bd053072",
+      "bytes": 1693,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SUPPLY_CHAIN.md",
+      "title": "Supply-chain and privileged build boundaries",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "54df6a80980ef57f416e795c9121c87e5fb7846c8cbe41ecbc05ed01be4a8ca0",
+      "bytes": 2649,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/SURFACES_AND_CLIENTS.md",
+      "title": "Surfaces and Clients",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "8bcbcfc42a5a5d472264b110aff5fa5c47f58c6bd955265bf1b5453518805ccf",
+      "bytes": 1273,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/TRUSTED_TIME.md",
+      "title": "Trusted time and expiry boundaries",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "ddbc621c652193467339001cc6f44e76d8389b30ebee47e45b1d1791912771c3",
+      "bytes": 3385,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/TRUST_BOOTSTRAP.md",
+      "title": "V5 Trust Installation",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "23dc6d9cbe19005644c660435febbe044ef903856e58cc4246cd17aca3d05c1d",
+      "bytes": 5560,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/VERCEL_AI_GATEWAY.md",
+      "title": "AI Gateway Boundary",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "2a929e9ffae617c661982d43f3e4932466d9c8cab11f1e26d545734a15258f35",
+      "bytes": 1594,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/VERCEL_RUNTIME.md",
+      "title": "Vercel Stateless Runtime",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "fe1fdd70286fb73d4e858a2231955994257c47825412a40029430b1083c449c3",
+      "bytes": 2166,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/VERIFICATION_EVIDENCE.md",
+      "title": "Authenticated Verification Evidence",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "172d7e51c62fd40bc5b5d1f90f7e287e340671d1262be406e7b8cd8682011a80",
+      "bytes": 11073,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/VOICE_ARCHITECTURE.md",
+      "title": "Realtime Voice as a Core Surface",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "ebad95f9f463598fc2085fb28a48486d2bd69b40b96b0de72f51b681d293f00e",
+      "bytes": 2147,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_ARCHITECTURE.md",
+      "title": "WhatsApp Architecture V5",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "73126e8d0c40820774a6a3c50b6ce5885f47ac78212b0ba7dc6648506f19dfc6",
+      "bytes": 1638,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_IDENTITY.md",
+      "title": "WhatsApp Owner Identity",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "96e0896305228cdd6f03cce6573a9bdc2b39e76612b5d560166d14906807bc23",
+      "bytes": 1213,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_RECOVERY.md",
+      "title": "WhatsApp Recovery",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "11c15deb2db9b789b0ec265d2e28dafd4ca2ca60bb8ccd5edbfb6c6a20a717a1",
+      "bytes": 1310,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_RISK_AND_RECOVERY.md",
+      "title": "WhatsApp Risk Register",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "13a3c0ddadd60419c1925d3a3cfb1b9306f2ac5538aaba09c95d5f4b6b95d13e",
+      "bytes": 1496,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WHATSAPP_SECURITY.md",
+      "title": "WhatsApp Security",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "56d95ed8dd3cd7f19d310b8f3c51df50fe84369d2a1e0d6b1be859d961ac6020",
+      "bytes": 1444,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WORKING_STATE.md",
+      "title": "Current engineering handoff",
+      "kind": "generated",
+      "status": "generated",
+      "sha256": "b3e5f1a66b127490755f1dbfd9cb13127c1226e8b9d10719b1caada4e3f7d170",
+      "bytes": 1200,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/WORLD_STATE.md",
+      "title": "World State",
+      "kind": "protected",
+      "status": "draft",
+      "sha256": "ffe966f7624ab9ca6a9aec19a269a2560739ae8b74e50f3a9c10e8bb8fdc8b45",
+      "bytes": 1271,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/ZERO_COST_ARCHITECTURE.md",
+      "title": "Historical Zero-Cost Strategy",
+      "kind": "historical",
+      "status": "historical",
+      "sha256": "fa3440043cd15bd350a0280e3bda35999b8bc2556260d0ec8bf8f9105bc430d4",
+      "bytes": 762,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/progress/README.md",
+      "title": "Progress and Session Evidence",
+      "kind": "evidence",
+      "status": "draft",
+      "sha256": "8b4d21000496bb7248d91aba272a3186660321c9ae914bc8729638864afd6b7f",
+      "bytes": 1092,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "docs/research/2026-09-external-build-lessons.md",
+      "title": "External Build Lessons and Evidence",
+      "kind": "reference",
+      "status": "draft",
+      "sha256": "f0f9e2d07e249b43323925b8c20d324cf365a415101d9265b28913ffcaf25786",
+      "bytes": 10499,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/conversation.json",
+      "title": "conversation.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "06c4922a4210bf20f0f703cbaa72eab03a43ac13e242143170054f197749924a",
+      "bytes": 1868,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/conversation.txt",
+      "title": "conversation.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "9c00de2dd0888dedb29c92efcd753a0143e60e31577a16c1422acace5073cf08",
+      "bytes": 5290,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/edith.json",
+      "title": "edith.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "4618bb64288236a0ba42364b4360c0a8ae0d35c791ba83c42efb374853c7d90f",
+      "bytes": 1712,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/edith.txt",
+      "title": "edith.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "e9b0d45c4137b9311a63a9b0462dcb26d8476f3de5c2ee971e9242d7284232ce",
+      "bytes": 4967,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/email.json",
+      "title": "email.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "5e36c8e8ef42c24f8df4a43aef1f70239dc547eacfd4c068526a3d0579f72687",
+      "bytes": 1560,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/email.txt",
+      "title": "email.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "cd9c0b3fdff4b2b9d7e835ec833b0b9a2563444ab707f743ec73a620814918c0",
+      "bytes": 4687,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/fba.json",
+      "title": "fba.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "94e22f093c7235b1bc72b169cc9856ad1621f73953d9a50df64bb68384c70768",
+      "bytes": 1553,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/fba.txt",
+      "title": "fba.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "3952db3ab92a6125c56c2701a4f478e529ee45d794362c954fda3af81bfc526f",
+      "bytes": 4736,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/finance.json",
+      "title": "finance.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "6c160e9382282ba0f0e0e8bb24b256cefbe9258c476d86b0d317ac80a335f5e3",
+      "bytes": 1566,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/finance.txt",
+      "title": "finance.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "1998e3385d7c76ab9a709b6b0646205c9d4371a28966275b6f2b350fd18df23b",
+      "bytes": 4707,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/health.json",
+      "title": "health.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "89823e03eb6bec6951a1a7d012b6058740ba36b71d284671063d4ea119e62513",
+      "bytes": 1568,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/health.txt",
+      "title": "health.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "a60a7450a152f9c4019854153e615cf5a76592d646e9aae54f30e41b19669dd7",
+      "bytes": 4753,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/mentor.json",
+      "title": "mentor.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "bab9ca9f45779101ab0d139078775ce2c36d0be372f469771e9c8bba30b19053",
+      "bytes": 1560,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/mentor.txt",
+      "title": "mentor.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "5ef27078afa68b467b57bb5e841f54410bdbc4759113f04ac3d995d248f6f7b9",
+      "bytes": 4627,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/night-mode.json",
+      "title": "night-mode.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "74f44090bc701692e4c7e80b262845524589dcaba4e5498429f5208b88eb9600",
+      "bytes": 1719,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/night-mode.txt",
+      "title": "night-mode.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "c0b2cf98458f28726b521fd1237e48094101c8f4d71572a55691f927290c9cd2",
+      "bytes": 5409,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/proactive.json",
+      "title": "proactive.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "8126fb6e0716ae39e3c110ec957281cc30e4c5452d30418231189989eff0e837",
+      "bytes": 1570,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/proactive.txt",
+      "title": "proactive.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "9eba677cb971cdb2df833010b179468ee4c599aa6163aaa353e3ced9cf65f4bb",
+      "bytes": 4918,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/relationship.json",
+      "title": "relationship.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "86dc229931a6549e55c9ba0307e6806667032783d59892244dec119e3f160c15",
+      "bytes": 1573,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/relationship.txt",
+      "title": "relationship.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "0a38879c0fbae76fe5cde3dcaacc366cb74d1b4db4e3743bae9b6e47f1da6964",
+      "bytes": 4715,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/replan.json",
+      "title": "replan.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "16e4aeae06df76d9ed89953fd90f572f2d60fb1cb84232a3a96ae6b312a5ff8a",
+      "bytes": 1855,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/replan.txt",
+      "title": "replan.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "fab107508906c25ff57b5e2fa6edb8b62c3f578cecf1943570909c0f3033c9c2",
+      "bytes": 5285,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/research.json",
+      "title": "research.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "e442e9ff701b38baf6caaa02c28d7f8455baef2664e0f87d8eba17974ce0776f",
+      "bytes": 1730,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/research.txt",
+      "title": "research.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "7309229a9350f81378adba705a68ca88f58ab42ff0e97a6b0b2e4c6fc0e3b1c8",
+      "bytes": 5034,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/skill-curation.json",
+      "title": "skill-curation.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "f059357235289d6bdebecab25052d99c5b29e398e6eda9cf87764de4c0e40f06",
+      "bytes": 1570,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/skill-curation.txt",
+      "title": "skill-curation.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "20b89d4b4256ed66a8c59bfd4775eb82edd1bec1b02e2f922987dbb317667e1e",
+      "bytes": 4887,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/voice.json",
+      "title": "voice.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "561db5273df3d633d3e5c74a332166bbbdc55caaf066c57f00ea43c2227f6943",
+      "bytes": 1702,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/voice.txt",
+      "title": "voice.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "f171cbe2c814c619cad3a0e2cd602962b98c491a6ec50dbb15c7c3e85ea12d60",
+      "bytes": 4942,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/weekly-review.json",
+      "title": "weekly-review.json",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "3be5474f761c3c51bd29b2a9221ebd0c35abc261dfcbd277fd98606c59d596e0",
+      "bytes": 1714,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "generated/prompts/weekly-review.txt",
+      "title": "weekly-review.txt",
+      "kind": "generated_preview",
+      "status": "pack_artifact",
+      "sha256": "d5c5f0e4e01c5db8b6a2ce6b81d2df114db0067aebf97c153e7e9ca0e8e08154",
+      "bytes": 4959,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/AGENT_REGISTRY.json",
+      "title": "AGENT_REGISTRY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "d9eca2675683bc70af6ceca8f83a8952a488425550ec21a1aac7a5260166fc7b",
+      "bytes": 8688,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/ARTIFACT_POLICY.json",
+      "title": "ARTIFACT_POLICY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "c02ccdf0659dee45a49ce3f7dc7315320a5be4d20a3ac79a9199bfae3ff23850",
+      "bytes": 1013,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/ARTIFACT_REGISTRY.json",
+      "title": "ARTIFACT_REGISTRY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "95776a25981cca43f360ab43841c5f7f067a3476593a29cd9a086feabaeb6fef",
+      "bytes": 183989,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/CONTEXT_REGISTRY.json",
+      "title": "CONTEXT_REGISTRY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "00d5b975c13e139c01062b4f298b70cadf8a5ad640b2268dcf8ae950d1ed4ad5",
+      "bytes": 9692,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/CONTROL_MATRIX.json",
+      "title": "CONTROL_MATRIX.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "aff77b6000fe9d0cb3b5b06b8164405138e03a5fdd564b5de1f766e6c3a80f2c",
+      "bytes": 8064,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/EVAL_CATALOG.json",
+      "title": "EVAL_CATALOG.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "cf293c21b35645cebf6f3e20419ad34206021dbb57e689cc4789a256d2520f6e",
+      "bytes": 8668,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/EVIDENCE_POLICY.json",
+      "title": "EVIDENCE_POLICY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "6285faf20a29ad401d0ecf951f09dc6713240b2ea8349236d7d5271c49ba8cfb",
+      "bytes": 1377,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/IMPLEMENTATION_MAP.json",
+      "title": "IMPLEMENTATION_MAP.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "1214ff8465159dd59ae2400aeba4f2951d9e2421b32cccd4e5871f108d2bde60",
+      "bytes": 13274,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/INVARIANTS.json",
+      "title": "INVARIANTS.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "53a67a36a2d8b55e086306143def118c4361d93108844997b698f16c0283caf5",
+      "bytes": 8205,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/MISSION_POLICY.json",
+      "title": "MISSION_POLICY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "a20f233af19404fe0b7033d18f204037126c9d61e81a8331a82c3e8ec1801f3d",
+      "bytes": 408,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/MISSION_TRANSITION.json",
+      "title": "MISSION_TRANSITION.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "d12a8371982ea557fd66cf4328a38bfb10942260c34c2841a2776d5e74f65918",
+      "bytes": 3541,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/OBSERVATIONS.json",
+      "title": "OBSERVATIONS.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "586c3a69db0469c9db4507cf1a656359eca296596807c796d92902bbce105142",
+      "bytes": 3722,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/OWNER_DECISIONS.json",
+      "title": "OWNER_DECISIONS.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "981c6937cc8657020916d124af781a101760bd0c517c86b603e30f785c2e6183",
+      "bytes": 1571,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/PRODUCT_SPEC.json",
+      "title": "PRODUCT_SPEC.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "03c9a7632df9ebd4846068fa6daa4ffba6430e35d7e71ad557092cc98de7ec2d",
+      "bytes": 53790,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/PROMPT_REGISTRY.json",
+      "title": "PROMPT_REGISTRY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "f7ff4734c165ff2c10726cfc7c946044994e91463f7e62ec703d31d4a5a42c03",
+      "bytes": 17476,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/RECONCILIATION.json",
+      "title": "RECONCILIATION.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "8ede96d3c3b94a3fc50453175491260ac81cd2fbc9cef843203de75da917d0d9",
+      "bytes": 5927,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/REQUIREMENT_TRACE.json",
+      "title": "REQUIREMENT_TRACE.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "1452345da1df2109a55dd4645a005c07b09fbb3f05066d8ff248197592e1e78e",
+      "bytes": 26485,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/RESEARCH_SOURCES.json",
+      "title": "RESEARCH_SOURCES.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "217cdab15ae80004d3a62cdf270ee82d73835f6415d681686345a8604fc15677",
+      "bytes": 12474,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/RETIREMENTS.json",
+      "title": "RETIREMENTS.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "9f5daa75c2c46de83f064342811920a09020626f6458277d7eada5ed77aef41e",
+      "bytes": 136,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/REVIEW_DISPOSITION.json",
+      "title": "REVIEW_DISPOSITION.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "1671fa2bbaac94862c5b3f48769bfbd7a4a9e8c6ec396b5e8f6dbb10b1b6ec4f",
+      "bytes": 10662,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/ROADMAP.json",
+      "title": "ROADMAP.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "7a489820f8165ccbcf029ab0027bf99a791893f4570f0ba698b299d03204a034",
+      "bytes": 29422,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/SCHEMA_REGISTRY.json",
+      "title": "SCHEMA_REGISTRY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "870d411d93fdfd311ee0443aea8a6cc23bf9cf6b4c77e1982f014ec13ab8f298",
+      "bytes": 10179,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/SOURCE_ARCHIVE.json",
+      "title": "SOURCE_ARCHIVE.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "d179927ecc93026e5fb1426fe7dd6b69fb839a9b6a18165a5d6ae24b4a0a9c9a",
+      "bytes": 5261,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/STATE.json",
+      "title": "STATE.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "c36c424db5f46a8c72b126d458096c9561efe04cb32b4113451f29493c617029",
+      "bytes": 739,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/TRUST_POLICY.json",
+      "title": "TRUST_POLICY.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "8ddf685b4f7ee2755f5d36125242a3333c2e4704552754d2d51c8e37e1b2a075",
+      "bytes": 1586,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "governance/VERSION_TRANSITION.json",
+      "title": "VERSION_TRANSITION.json",
+      "kind": "governance_registry",
+      "status": "pack_artifact",
+      "sha256": "8f61ba607258ec421652ac8ca67f924e226e0d5d641f2ba9e2550dfebfd15634",
+      "bytes": 2187,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/codex/config.fragment.toml",
+      "title": "config.fragment.toml",
+      "kind": "integration_example",
+      "status": "pack_artifact",
+      "sha256": "eee6e808d76af0595dd25431d0f17027f5e2f46b9dea7fc65e5763b65328cdd6",
+      "bytes": 661,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/codex/isolated-config.example.toml",
+      "title": "isolated-config.example.toml",
+      "kind": "integration_example",
+      "status": "pack_artifact",
+      "sha256": "ff7e39eafb05aaefe0f25dfeba5408ef11f53fdb65f0acd5a3f13acea8e8ad14",
+      "bytes": 898,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/github/README.md",
+      "title": "Trusted GitHub Workflow Integration",
+      "kind": "orientation",
+      "status": "draft",
+      "sha256": "edd39634e6d9bc6b7a0bad8204686d13356ddb0c638ebf13b082a1c62a24acdb",
+      "bytes": 2915,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "integration/github/governance-gate.yml",
+      "title": "governance-gate.yml",
+      "kind": "integration_example",
+      "status": "pack_artifact",
+      "sha256": "d193526af581624738d7e776173d612383b1e0c7725029a2bb414d291ed734cf",
+      "bytes": 4333,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M00.md",
+      "title": "J5-M00 Preserve and inventory the actual repository",
+      "kind": "mission",
+      "status": "ready",
+      "sha256": "3cb382f7086bfd2a2371603f9ef8114c645602b59f715ddbf895343868b8dca4",
+      "bytes": 4405,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M01.md",
+      "title": "J5-M01 Install trusted governance and rehearse recovery",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "714f7d0e751bfc76783cc26443ab6289de745246654f63be765f33cdb832efc3",
+      "bytes": 4581,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M02.md",
+      "title": "J5-M02 Decide each existing subsystem disposition",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "cc4e960ae9e38d1e3909711f8ed314b6be995865c8599558cf2699622f8028e0",
+      "bytes": 4394,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M03.md",
+      "title": "J5-M03 Reconcile the existing Brain and prompt runtime",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "fb6e9dce46523e9b8ca567950fa3335a61a7f01c8709193ed06dda1a764f7662",
+      "bytes": 4500,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M04.md",
+      "title": "J5-M04 Reconcile infrastructure and durable execution",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "242edc71d554a3d2df3c63c2c3f7958d368aa7016801a81806652eee4425da7c",
+      "bytes": 4497,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M05.md",
+      "title": "J5-M05 Prove model admission and one bounded live probe",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "03e30516552344bbe501c26a06ababe518f99e726792e1810690e74de7822445",
+      "bytes": 4494,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M06.md",
+      "title": "J5-M06 Build recovery and incident readiness for private data",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "581fb6fe45862b946f7097863324552d32991e11e32327ca7e844820d3716946",
+      "bytes": 4392,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M07.md",
+      "title": "J5-M07 Deliver Surface Zero and trusted owner identity",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "3916e72a08b81b9cdf1b6900bdb4bd9fcf4317b60815f37ca26a2dce5244b5a8",
+      "bytes": 4379,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M08.md",
+      "title": "J5-M08 Connect the dedicated WhatsApp transport",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "7bfaa7c49614b21da7375f97bab3eeb6c825ed00a78455c147a8ce9315d50177",
+      "bytes": 4405,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M09.md",
+      "title": "J5-M09 Tune daily usefulness, modes and accountability",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "ff21462909bf2ab12f0096757d34eff00eaab2d35b6e44533c86df03f23b1ccd",
+      "bytes": 4438,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M10.md",
+      "title": "J5-M10 Complete the owner control center",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "24de3500303affaeb895782d2049508563ce68f42ca6c9f09a2b5f353a0b5fb8",
+      "bytes": 4323,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M11.md",
+      "title": "J5-M11 Add read-first Gmail and Calendar integration",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "fc459381b9527262c5c25d76cd5a87cd3be224db33633aa71ec044b8a008a0c8",
+      "bytes": 4307,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M12.md",
+      "title": "J5-M12 Build Life Ledger, Journal and idea continuity",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "642e39916732876a5efe7258e5d44c381defb0995312e8b5526c2cb8808fabc1",
+      "bytes": 4312,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M13.md",
+      "title": "J5-M13 Adopt Personal OS contracts and procedural memory",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "5360fd95d648073e7281b78001f3a84b579bb5c3e63da9ac8d971a755b24877b",
+      "bytes": 4305,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M14.md",
+      "title": "J5-M14 Connect existing domain apps one at a time",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "feba22c36a8d27ff9486a2a5e5c50ae6114f7f12cf85b38b1128a8cd57a28f02",
+      "bytes": 4364,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M15.md",
+      "title": "J5-M15 Build Android companion and controlled device context",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "32952d97ec08c6823833bddf272edbb48442723d4b5b67ad44f41e7e58c7bdf5",
+      "bytes": 4248,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M16.md",
+      "title": "J5-M16 Build measured realtime voice",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "1e7007b2b69d9ecd03a3afc05343c7f355a4b3ae5487db76296a372e7b58b6f2",
+      "bytes": 4266,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M17.md",
+      "title": "J5-M17 Implement owner-enrolled device self-control",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "d51603b69dcdd73e673a480b2c9f70ca41a73e04dbe250f731fac3696f0a6aab",
+      "bytes": 4254,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M18.md",
+      "title": "J5-M18 Implement the first external executor safely",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "20e876f6ccd2afd52de0c03dfa10d880fedcf76cc3156a10a5dcc7071434a4d1",
+      "bytes": 4508,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M19.md",
+      "title": "J5-M19 Introduce bounded worker delegation",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "a817a57317472b2dfbb53222edcfc8c202e29967e0679fcfdf95fd03fa7fd675",
+      "bytes": 4268,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M20.md",
+      "title": "J5-M20 Enroll finite Night Mode",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "7859c0c5edd29f8d174bdacc5d39a1b0817fef796904516ce20ea9d79aa6e5e9",
+      "bytes": 4203,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M21.md",
+      "title": "J5-M21 Build the browser and research surface",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "f3c7b6b7ccd3b4a7cb38eb1d961801346400f837cec9a0f215df629cc53cdef2",
+      "bytes": 4288,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M22.md",
+      "title": "J5-M22 Harden supply chain and recurring operations",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "1f700be42d9a130933ad6863a72e8e4d77531370bed4b71dc57bd4562b86b987",
+      "bytes": 4319,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "missions/J5-M23.md",
+      "title": "J5-M23 Promote a bounded usable release",
+      "kind": "mission",
+      "status": "planned",
+      "sha256": "e6ce4d356f3e110399e957e9be209e7bfa6e4a08ce16329c3d674eb0ba810f7d",
+      "bytes": 4304,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/START_V5_IN_CODEX.txt",
+      "title": "START_V5_IN_CODEX.txt",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "f818213592f4be1f229917a454736931174c4b5199f77fec3c3bf1ab56486c9b",
+      "bytes": 1817,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/accountability.md",
+      "title": "Commitments runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "d9316c4496ce49ac08dc15bebd347ffcb5093085420f3c485ea5fd46d4930e13",
+      "bytes": 741,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/browser-operator.md",
+      "title": "Browser task reasoning runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "600ab78b250d977f50e03680fb384e8ae1e448175cc7e51663bcd7ce1daf4aad",
+      "bytes": 751,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/constitution.md",
+      "title": "Owner values runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "b7c7e3528f4c6cb6b964a07ba85b43b1e23c1ad28e5b114d4bd6bcddf7e87b11",
+      "bytes": 731,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/core-system.md",
+      "title": "Core identity runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "2b455131c2e686954861cc4e09105dd1c54adb0347524ee7f9dcf1dcad467e34",
+      "bytes": 750,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/email-triage.md",
+      "title": "Read-first email runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "19a73f37db64a129612e7380c4f661a9974c082dd36f00c36a2f71fe7368fa0b",
+      "bytes": 708,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/fba-ops.md",
+      "title": "FBA operations runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "278357cda2e3efdf8567f79b0eefd00d8b5dc6f7971440da02e19ab0c0e82b8a",
+      "bytes": 758,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/finance-observer.md",
+      "title": "Financial observation runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "ed42377240309302bc89428a3372854ae250138d9465f2c01c08806e500acfc1",
+      "bytes": 739,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/health-and-training.md",
+      "title": "Health and training context runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "4c1a5354065fe62ff6044d90d0dedf7f299c42c978445cbfdce6122ec68d8d46",
+      "bytes": 799,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/historical-reconstruction.md",
+      "title": "Source-backed history runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "12f8d28ddd3426382ab964bbf95b12df8cb3f2a690abce0c6a31ee6091eee8ed",
+      "bytes": 769,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/memory-extractor.md",
+      "title": "Memory candidates runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "901442d4d20f946fccfd0e1fc711741a512af2646402089257f35e1f9ea587b5",
+      "bytes": 724,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/message-writer.md",
+      "title": "Owner-facing writing runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "d14f1fbbad03575853b2821210b54dac0364bb083f51de3450902d0364068cc2",
+      "bytes": 752,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/mode-edith.md",
+      "title": "Executor style runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "eb4e151ee06c448d33cc9251d3ea3d1ebd9c89e51ef9d292bcd3cfe5ecf3aa3b",
+      "bytes": 675,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/mode-friday.md",
+      "title": "Tactical style runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "8d18a006e3383347a6cdab06bea7054cddfcfefe2df4b9492ae8b67ed2f785bc",
+      "bytes": 643,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/mode-mentor.md",
+      "title": "Teaching style runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "9242ce4d3f9572abacb57348c489decb3dbad252507c46ce82600e9e2c839383",
+      "bytes": 618,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/night-mode.md",
+      "title": "Overnight delegation runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "f43cd81f479a40e5a08d03b784df00b66519950cfd07c97b5b30d7ca0fbccde4",
+      "bytes": 733,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/planner.md",
+      "title": "Feasible plan runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "6c77e86db54351901aa0b100e88e75dcf000b597102db10f42b7fd14a02a8ced",
+      "bytes": 654,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/proactive-operator.md",
+      "title": "Useful proactive work runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "c386350be4d851973aaec21e86a165082e1702e83602c3107501b27dd0cc3842",
+      "bytes": 749,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/relationship-vault.md",
+      "title": "Relationship context runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "a26cfa84d2d2088ebcd4bf81f000aeb2fb1d768c536f021c6169cac6f35620be",
+      "bytes": 746,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/replanner.md",
+      "title": "Disruption recovery runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "6d815b6ee2f904fd96576ea6c39167967e14dd7afae8f7027fa139e81940764e",
+      "bytes": 718,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/security-privacy.md",
+      "title": "Source and egress boundary runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "d9b704d898e125034438d04874e1b6b1d6f69612b6b7c34aae71ee2aea306427",
+      "bytes": 781,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/skill-curator.md",
+      "title": "Procedure learning runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "4c1aa66c6b73035f25febc852a6ed12c79e59de71e4ebe31d67e884eb04b037c",
+      "bytes": 741,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/source-grounding.md",
+      "title": "Evidence discipline runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "3d1ac9010462d417a337c171802f02ccedead4fe1afef981a9dfddc11314c22a",
+      "bytes": 736,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/tool-policy.md",
+      "title": "Action proposals runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "9210bac654e30062c1384f1f483c71e115fdb6563d52a24f47764b7dd6ce5661",
+      "bytes": 779,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/uncertainty.md",
+      "title": "Epistemic status runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "f4cf65b81bdd0ba2e8c74a5b3018c52417da55e76f42e1d92e79d60995f24906",
+      "bytes": 754,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/voice.md",
+      "title": "Realtime delivery runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "721937491d16ae4af809c255ab8259a617ef2523d582f029f2f7b9b37bdcccab",
+      "bytes": 713,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "prompts/runtime/modules/weekly-review.md",
+      "title": "Cross-domain review runtime module",
+      "kind": "runtime_prompt",
+      "status": "draft",
+      "sha256": "ba5dbc0f8aa6027047f4e267f2f72566400c13efdb74c6cedc4ceab5af201bae",
+      "bytes": 733,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/README.md",
+      "title": "README.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "8a0e1ab6e0a1d314bcc76d5ecaf85e41e284e0367fcddaba7280c8c1d349bcc6",
+      "bytes": 879,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/source/JARVIS_PRD_V2_Personal_OS(2)(2)(1).docx",
+      "title": "JARVIS_PRD_V2_Personal_OS(2)(2)(1).docx",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "2ead7d0c515f522a01edc18fd57e49ea46d247c3e8227e5897e5fb31ed0a6fdc",
+      "bytes": 56388,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/source/Muse 2 .txt",
+      "title": "Muse 2 .txt",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "fc2cd34e0d9baf80238d360cf6d6f30a2095ab963b6bdba5b168da091650675d",
+      "bytes": 62994,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/source/PRD_V2_EXTRACT.txt",
+      "title": "PRD_V2_EXTRACT.txt",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "2fd91b931081b82bca88faf30036c936d0563f47f3ac30bc4b2bd054e6ab8bcc",
+      "bytes": 39145,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/source/SOURCE_MANIFEST.json",
+      "title": "SOURCE_MANIFEST.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "75700863fdda057ef1357774d49fd472f8def6e4fdfa77a69b89a329ec3352ad",
+      "bytes": 1238,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/source/jarvis-builds-deep-dive.pdf",
+      "title": "jarvis-builds-deep-dive.pdf",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "11f5c79c881dcb0f6b97dd95a1abce3b344ad75b7692bd91f45d8c1d7702d94d",
+      "bytes": 426993,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/source/jarvis-ultimate-synthesis.pdf",
+      "title": "jarvis-ultimate-synthesis.pdf",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "fff0fcae5488220acee806b16418d193a2cbe1b399d7dacdbf0149cb06c6f0af",
+      "bytes": 475322,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0016-personal-os-core-and-first-party-apps.md",
+      "title": "0016-personal-os-core-and-first-party-apps.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "6fa801340ea9150d152f31d907945cda97ac338f923e6462a8a963a2f54a9106",
+      "bytes": 1185,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0017-role-separation-surfaces-apps-agents-executors.md",
+      "title": "0017-role-separation-surfaces-apps-agents-executors.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "baad188b4e32e07d31ce3e852094928a48aa7d1ce4897f650b32dd96d4dd7079",
+      "bytes": 998,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0018-procedural-memory-skills.md",
+      "title": "0018-procedural-memory-skills.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "7c1fecffe50c57dc4cd7b50a9fb6bd1cdbb17f5973dd7484f13eca3fe9af7f1f",
+      "bytes": 861,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0019-non-forgeable-approval-resolution.md",
+      "title": "0019-non-forgeable-approval-resolution.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "46955dacb874c3a88796913f6e4bffd8e731169ac541519e7b8b2f025008d61f",
+      "bytes": 844,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0020-hybrid-privacy-tiers.md",
+      "title": "0020-hybrid-privacy-tiers.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "6a67d191b6db258626f0a1f15489059384850eb64d6074585486076f62ee44d9",
+      "bytes": 940,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0021-external-agent-runtimes-as-workers.md",
+      "title": "0021-external-agent-runtimes-as-workers.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "196082f5fe79f1d43e38d98248bafa303984b838c98a9474c10d77c663108ece",
+      "bytes": 878,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0022-browser-as-surface-domain-app-and-executor-boundary.md",
+      "title": "0022-browser-as-surface-domain-app-and-executor-boundary.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "37421967b33b8c24174fc50b6f7123301b91b2931cafd5556e23e88afa5aaca8",
+      "bytes": 945,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0023-cost-aware-model-routing.md",
+      "title": "0023-cost-aware-model-routing.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "572e135d9d337cb735ae0499b4425e60b519be8dde5ce7f96c629f37d5ae8172",
+      "bytes": 1112,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/ADR/0024-research-is-evidence-not-product-authority.md",
+      "title": "0024-research-is-evidence-not-product-authority.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "72cd67cbdf3d697e45aa0d566b73bfa61e2bea0ea45cb2c91fc01db8fd8d0fce",
+      "bytes": 962,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/action-intent.schema.json",
+      "title": "action-intent.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "e231a752ed63338fd6ca8aa97dee8a5c5a660ce04946e6c2666e19887799240d",
+      "bytes": 1217,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/authority-lease.schema.json",
+      "title": "authority-lease.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "6887f0a0bfb6cd04c7f0519ebee21ddd8c0d8aebd7b4a4e8609ee6facbfffc2a",
+      "bytes": 1293,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/capability.schema.json",
+      "title": "capability.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "9e4dadc44c6fe93ed1ceaad39718192b88ed1aaba8df2ab985cea44b2b84733f",
+      "bytes": 1278,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/first-party-app-event.schema.json",
+      "title": "first-party-app-event.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "0581246cd75d76c2941f34d51cc04def9b6f926ae6201e20941a091b9e40b660",
+      "bytes": 1599,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/life-ledger-event.schema.json",
+      "title": "life-ledger-event.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "fd1b179845ce5cadf292888e2e263850bbe5007dd6a8e0c8624804633bd73c58",
+      "bytes": 1379,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/proactive-brief.schema.json",
+      "title": "proactive-brief.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "ceed3bed4acfab555ba85e7302aa9834d28ec39d6285e347bfe5b49539699e67",
+      "bytes": 1584,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/skill-record.schema.json",
+      "title": "skill-record.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "0e3801c46510b2c24675e88c4f324adf183824c11bae4efb2323235055dab209",
+      "bytes": 1695,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/source-reference.schema.json",
+      "title": "source-reference.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "2664a7fc3536195011ece1455cc5749870fad8ad499ec6ef1afe3289edb8e350",
+      "bytes": 1031,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v3/schemas/world-state.schema.json",
+      "title": "world-state.schema.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "8299f65d5f711a6f76257b447cc17289e26668f89ef92c3ee9a4edf197d6f85d",
+      "bytes": 883,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4.1/ACCEPTANCE.md",
+      "title": "ACCEPTANCE.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "082370e67b64c8bd587fb037645c13609e4b7f875fe17bad7bb67013bdbb20d5",
+      "bytes": 4638,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4.1/validation/preservation.json",
+      "title": "preservation.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "1568d5a719925468b37e841c70feab649b40999747fe5873ee7fcd998ec2afab",
+      "bytes": 16906,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4.1/validation/report.json",
+      "title": "report.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "d3a50a97db1982242fd4fe86d6823867bd4fc176b5870d957fc0ae8125c45b34",
+      "bytes": 7133,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4.1/validation/results/node.log",
+      "title": "node.log",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "5d8a290bfc7d8dfcb59fd53af0a54969d84ed2849864afdc47e749d433ef2fb1",
+      "bytes": 7619,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4.1/validation/results/python.log",
+      "title": "python.log",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "2b59c2ef7afe8669072836decc9053147b13993252db4c3b751268aca8ffbcec",
+      "bytes": 14940,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4.1/validation/results/schemas.log",
+      "title": "schemas.log",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "8cf3a09dcfeef47f172371bbd09a7b87a1df20161b478882c9ce7065253c9625",
+      "bytes": 24798,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4.1/validation/static-validation.json",
+      "title": "static-validation.json",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "844486f66bacc6f3e49d1ebd6c107ec0b22d98f93105956423add66497fb36f9",
+      "bytes": 396,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-001.md",
+      "title": "v4-001.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "db2763a9d2aec3383b5812d47de25f25ec736963baaa81380ad7080d59aafb55",
+      "bytes": 2058,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-002.md",
+      "title": "v4-002.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "3e2d44b9177b79d15986af477329cef6141b1c9c1ab4dbd50657bf8dbdbc72f5",
+      "bytes": 1982,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-003.md",
+      "title": "v4-003.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "b59a3764ba8a804a4f20397be47b1c117e70464f91d04ae703683a83d6ba45e3",
+      "bytes": 2038,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-004.md",
+      "title": "v4-004.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "207f9ef5d69eeb092ce20b475d2ca8a44f8d16c9c030c142e8b60fb5b4cc7403",
+      "bytes": 2067,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-005.md",
+      "title": "v4-005.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "1b3b13d65933de0a6587606a1c185dc9a7e36096c58657d2a7fa9a4166ca74c7",
+      "bytes": 2062,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-006.md",
+      "title": "v4-006.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "a87249180a9db843a26eaad5a495dbec241ca0cebe7307ae16879591858701b6",
+      "bytes": 1993,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-007.md",
+      "title": "v4-007.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "e3721b71a33b9e2894cdceddd46e084cf80b3da5c9c4add57ddc4daef309f739",
+      "bytes": 2038,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-008.md",
+      "title": "v4-008.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "c37a71623edd473cf4e32a4b47b84fce9a78e0031e03102aae07d413737a9a43",
+      "bytes": 1999,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-009.md",
+      "title": "v4-009.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "b59f77dd568ab120f0a9a1d342f117cfc612460adce6f4ff8aec3313a1f9bb5c",
+      "bytes": 2076,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "reference/v4/proposals/v4-010.md",
+      "title": "v4-010.md",
+      "kind": "archival_source",
+      "status": "reference",
+      "sha256": "7449f62797b08c6b9afbbec0c4c2ab36c9a44e2fa4468f1b7f83efed99083d6f",
+      "bytes": 1980,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/README.md",
+      "title": "Draft Contract Boundary",
+      "kind": "orientation",
+      "status": "active",
+      "sha256": "2c22e328cf0e6c98c6ba61a81605bac5888128d64e2ff0fd52e8093e1854628b",
+      "bytes": 1266,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/action-intent.schema.json",
+      "title": "action-intent.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "b61664ebfa1c319c6615b03ae2ddd85014dc3b9dd7507a593a69a1a1d2776e17",
+      "bytes": 1470,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/approval-resolution.schema.json",
+      "title": "approval-resolution.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "cbe88a7905ea60cd1657054e187af7d10961ea5ca0f28df2a5c782741238d2ad",
+      "bytes": 2166,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/authority-lease.schema.json",
+      "title": "authority-lease.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "02b0d6ec055e10836ef206f9b776d9a7eaca038c8e13bf3f6a56e9bcad21321a",
+      "bytes": 4022,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/capability.schema.json",
+      "title": "capability.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "707af99f9b5fd37caca174dfd4e20b1a0497f755fc517d43dfb8bca78e3e8274",
+      "bytes": 2040,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/execution-authorization.schema.json",
+      "title": "execution-authorization.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "21d99ae88ad382658aaab9328a235f3ba252f7bd85bf72e9a911818df2dc29b7",
+      "bytes": 4826,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/executor-manifest.schema.json",
+      "title": "executor-manifest.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "240879001dacff0c463274d2f754c3edd72244a153d8213b01ceb840ee858149",
+      "bytes": 2882,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/first-party-app-event.schema.json",
+      "title": "first-party-app-event.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "9094d41d16521331e307b8fd5cdc4994edc18a22c98efae3a98938ceb56495d7",
+      "bytes": 2550,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/first-party-app-manifest.schema.json",
+      "title": "first-party-app-manifest.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "b999530c10511bc576b92c5817a046a714a5aa1a89d9962f4e8340e560509e1a",
+      "bytes": 3889,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/life-ledger-event.schema.json",
+      "title": "life-ledger-event.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "0f20c63b0c6c6fa02853bd5881bff4d26d90f8c1d7940e5d4c10e1e184477ae6",
+      "bytes": 2460,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/proactive-brief.schema.json",
+      "title": "proactive-brief.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "785cadc33309da9be0c0d76e7d36c26fc156acc2d0d35e18c58255014959a458",
+      "bytes": 2318,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/prompt-assembly.schema.json",
+      "title": "prompt-assembly.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "effa6156c1382de797d4cf83bc6b4008917b5be72ddbfcb6e55fb090b807eb1e",
+      "bytes": 2202,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/proposed-action.schema.json",
+      "title": "proposed-action.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "b5c991ac4638266802a793567ed0b43e08638fb9efe8201712eaf491ea89a8fa",
+      "bytes": 3209,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/skill-record.schema.json",
+      "title": "skill-record.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "ef7bfc166640d89010427c944050a5de0f7943bff826a7d3db823d8157485062",
+      "bytes": 2900,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/source-reference.schema.json",
+      "title": "source-reference.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "37461caf0dc94309a2d2fea7e450d7f5220229dc1a3c3a4939f5ab533d076c02",
+      "bytes": 1940,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "schemas/drafts/world-state.schema.json",
+      "title": "world-state.schema.json",
+      "kind": "draft_contract",
+      "status": "pack_artifact",
+      "sha256": "e99efe9482074b8c5aa8809990e8e5e9fc1cfd8707e359c92d556ec54f7c3b48",
+      "bytes": 1781,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/authority-lease.json",
+      "title": "authority-lease.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "3e7fd19ab542ca3db41541cf836aef89836b8043efa8d60867b29c5c3719bfd1",
+      "bytes": 722,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/bootstrap-receipt.json",
+      "title": "bootstrap-receipt.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "46ce1166c44f82565691fd322c200f8821f3037ee61d94e40155cac2b3f73305",
+      "bytes": 543,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/capability-manifest.json",
+      "title": "capability-manifest.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "896d32a10da6b52c1b553375c3369c61b02cebdc4c3a5da0b767e057054b163e",
+      "bytes": 386,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/change-impact.json",
+      "title": "change-impact.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "0503ee3413fed85c39d38e17b6d24e83d43d9d48171869603e5a31893a9683c0",
+      "bytes": 250,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/connector-card-spec.md",
+      "title": "Connector Card Spec",
+      "kind": "template",
+      "status": "reference",
+      "sha256": "aa258cc170f7a9d816c95d7fd36735b64d2ec97fcecbf5892b0c35a18d1f5cae",
+      "bytes": 845,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/executor-manifest.json",
+      "title": "executor-manifest.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "0dbf2417a96be7bd70d6c3822cbd34beaba8f3a88fb92f14a63eb4492b845904",
+      "bytes": 1017,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/first-party-app-manifest.json",
+      "title": "first-party-app-manifest.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "1a70021e12400c2bac826ef00710b08a58ec35476d03ab8efd21b1753fadf7fe",
+      "bytes": 675,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/health-check.json",
+      "title": "health-check.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "897709acb5d46f9f571f6eb2f8e8da08854c3739902c83540b0bbc4f905804d0",
+      "bytes": 250,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/incident-record.json",
+      "title": "incident-record.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "b10c102724df79b685ac3acb693f922c34c17cd9aae4080aceb0ad3cda71e459",
+      "bytes": 459,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/key-state.proposed.json",
+      "title": "key-state.proposed.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "e25b858ca8858ca7ecb45dbdbfc4b511107f03f874fa2811efe6d1b47e9cb749",
+      "bytes": 182,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/mission-run.json",
+      "title": "mission-run.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "458dd674e1c5e46cf1fac1fde9eae8a32d288e22199f5d13923b51fb4a9f1945",
+      "bytes": 461,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/policies/authority-expansion.proposed.json",
+      "title": "authority-expansion.proposed.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "49781ee3a2e8e5967f86f2db05fbe1ce14bcbcacbd21c5e5d31c727566162e36",
+      "bytes": 485,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/policies/authority.proposed.json",
+      "title": "authority.proposed.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "924de0adc1e9cc2a92692cc5691ba22dc8ab2d6822176e9a3b296a82da35e29d",
+      "bytes": 458,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/policies/interruptions.proposed.json",
+      "title": "interruptions.proposed.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "faa4347216e57eafa01968652f8be151473fc26411024c1a513f9af7aeb196f4",
+      "bytes": 571,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/policies/runtime-budget.proposed.json",
+      "title": "runtime-budget.proposed.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "af5dc2c50609bc3319248e12fc916cb2064ea9a936b9f7f80f76ac35a03092b7",
+      "bytes": 743,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/recovery-plan.json",
+      "title": "recovery-plan.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "13d8954fbe54c2a982feacd5dca997182e10d84cd5c0da118e6fa43c9542b088",
+      "bytes": 226,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/release-record.json",
+      "title": "release-record.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "ad1888d84037ee72d6114773086de0c10b5ab8000275155331d4582154206132",
+      "bytes": 452,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/retirement-proposal.json",
+      "title": "retirement-proposal.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "4e37097efbd5c6e9ff00957c2b6cf5af6e23a5f97f81684ac1de662e6c6b5966",
+      "bytes": 152,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/runbook-template.md",
+      "title": "Runbook Template",
+      "kind": "template",
+      "status": "reference",
+      "sha256": "c9557837e1a1e2af415b77b4618330af88099586f0d1146c673b6c0cbd0971bd",
+      "bytes": 523,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/session-handoff.json",
+      "title": "session-handoff.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "49e6ad5e3b096f6fba25e6ee63279b6a2deba1fbae69d7a5889f643e7cc087ae",
+      "bytes": 466,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "templates/skill-template.md",
+      "title": "Skill Template",
+      "kind": "template",
+      "status": "reference",
+      "sha256": "a19bc409aabfc313b3bf0eca8e115adf54a874db80ac5e3a50997dfba3a2cda2",
+      "bytes": 819,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/action-intent.invalid.json",
+      "title": "action-intent.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "4e20f272269ccf5762dc99d94db0cf0e39d440873a66acafa7e79bc441a90710",
+      "bytes": 285,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/action-intent.valid.json",
+      "title": "action-intent.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "70eda8f2d645bc1f11b7a6b9bffc584c4e075fda60041fb6154395828c6217be",
+      "bytes": 254,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/approval-resolution.invalid.json",
+      "title": "approval-resolution.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "a0f3faa6563b65b0f22e598eb1644e0187e6501607ca4a03b2eb7f7910c4067a",
+      "bytes": 644,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/approval-resolution.valid.json",
+      "title": "approval-resolution.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "0856cfd20f0b055bbda95c812a0f7aac4a2fafa03357995fef29a01b098a61bf",
+      "bytes": 613,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/authority-lease.invalid.json",
+      "title": "authority-lease.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "647184cf45ece79d1d0b172b9cf7eba5a85168a2cffd4a2d86df32ae4e37df2e",
+      "bytes": 753,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/authority-lease.valid.json",
+      "title": "authority-lease.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "3e7fd19ab542ca3db41541cf836aef89836b8043efa8d60867b29c5c3719bfd1",
+      "bytes": 722,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/capability.invalid.json",
+      "title": "capability.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "5ca2d0232afe084f56c67b12659ce6b624d4c394adc6001e7e706ef5f5eebd90",
+      "bytes": 417,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/capability.valid.json",
+      "title": "capability.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "896d32a10da6b52c1b553375c3369c61b02cebdc4c3a5da0b767e057054b163e",
+      "bytes": 386,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/execution-authorization.invalid.json",
+      "title": "execution-authorization.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "07732c69af75e001ef9fb3e9835bd7b2ac968b543e269b8364e347432917e5e7",
+      "bytes": 824,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/execution-authorization.valid.json",
+      "title": "execution-authorization.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "5a7adaa11937d5c215d978e2eef368f587c01735fd6e73832148307b65cb47cf",
+      "bytes": 793,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/executor-manifest.invalid.json",
+      "title": "executor-manifest.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "4ae7f72a929942c3499082cda298052185f682b1f147ca524ab3de5376a7817f",
+      "bytes": 1048,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/executor-manifest.valid.json",
+      "title": "executor-manifest.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "0dbf2417a96be7bd70d6c3822cbd34beaba8f3a88fb92f14a63eb4492b845904",
+      "bytes": 1017,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-event.invalid.json",
+      "title": "first-party-app-event.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "5451df130de78d75c084d81649b76a282c87d1bbdee31ea0e2c01dab9138b460",
+      "bytes": 573,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-event.valid.json",
+      "title": "first-party-app-event.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "e213484d35b4aa4ce6caab646f45b44cbb32297fb73387fa89a2970fce9b81f7",
+      "bytes": 542,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-manifest.invalid.json",
+      "title": "first-party-app-manifest.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "793a98276183e82afb6cfe6a3c56e9a9389a776fc189fa912422d58b058b3793",
+      "bytes": 706,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/first-party-app-manifest.valid.json",
+      "title": "first-party-app-manifest.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "1a70021e12400c2bac826ef00710b08a58ec35476d03ab8efd21b1753fadf7fe",
+      "bytes": 675,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/life-ledger-event.invalid.json",
+      "title": "life-ledger-event.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "a9d37d269b6301b843906454e47fb7ac524de4e502ea465e28f935d31695c802",
+      "bytes": 887,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/life-ledger-event.valid.json",
+      "title": "life-ledger-event.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "55ea51ef0760fe13a120a61f57fc21cd6f866714cc9c6e8669c3f8f7ef4eb52c",
+      "bytes": 856,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proactive-brief.invalid.json",
+      "title": "proactive-brief.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "f89be9c379e80a67622d31f01bb78d3606af0d1a70fa27f274caa2e53dfe46a7",
+      "bytes": 854,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proactive-brief.valid.json",
+      "title": "proactive-brief.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "44229db1f62dfd0f0d110d8219099a6a852309d7fa3a8961cdfa57e9eef69896",
+      "bytes": 823,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/prompt-assembly.invalid.json",
+      "title": "prompt-assembly.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "055db2b11884bc61cc3d2068c1e6daf7c8da81a718bb32e46261119acdf7b1c1",
+      "bytes": 542,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/prompt-assembly.valid.json",
+      "title": "prompt-assembly.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "9c8b01217353960b479b864bf0d2643691b2b6facced33001d122a0c8142afc7",
+      "bytes": 511,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proposed-action.invalid.json",
+      "title": "proposed-action.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "405e6e7ee6fcf1c3d9e09bbd5ca56ee5eb03659d53da0b31d2f9d145353ed139",
+      "bytes": 1201,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/proposed-action.valid.json",
+      "title": "proposed-action.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "c5c3d83263e1b33e9d49399a13eb9fd8c25354f61ac4b049b43e9aa5823981a1",
+      "bytes": 1170,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/skill-record.invalid.json",
+      "title": "skill-record.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "535273ec9977bb9bd49c2488b174d98abb92a125df20a5f67afc74bb19a59979",
+      "bytes": 887,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/skill-record.valid.json",
+      "title": "skill-record.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "cbf76f07161e93711836053c52de21a115ae9f6a7b636dff34e9ac0744a0e2bb",
+      "bytes": 856,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/source-reference.invalid.json",
+      "title": "source-reference.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "7e67ededc3cdc0503edcc1eb060a9ee64c36e3f54e1bbb77c3d8dd5e8991a7ba",
+      "bytes": 334,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/source-reference.valid.json",
+      "title": "source-reference.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "6a6740ba4ebee75d49db9b233f9059d84cf445929cb51e981372494481933da1",
+      "bytes": 303,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/world-state.invalid.json",
+      "title": "world-state.invalid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "8635518042572b059c564ce4780a4a7100ac4b07f53719686ed056ec809de987",
+      "bytes": 709,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tests/contracts/fixtures/world-state.valid.json",
+      "title": "world-state.valid.json",
+      "kind": "synthetic_fixture",
+      "status": "pack_artifact",
+      "sha256": "ef8c33c197489103ab7183d8cb05aabe336d95fdba1b14dd88d0daddfafe8ed9",
+      "bytes": 678,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/README.md",
+      "title": "V5 Governance Tools",
+      "kind": "orientation",
+      "status": "draft",
+      "sha256": "bb635e27e03df4e58d1152247ab57d53638db63d19ee270a9a5893e336306d4d",
+      "bytes": 10444,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/common.py",
+      "title": "common.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "a598f97b201a23a56c4553cf5f67de41470abe4a6bf393d94918f4d8629e5d6f",
+      "bytes": 4026,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/compile_prompts.py",
+      "title": "compile_prompts.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "6229dc0a9824fc9fd78fe8a17eade833875f90372aa7eaa8313a218ace81caf2",
+      "bytes": 2654,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/context.py",
+      "title": "context.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "e3a07666d7a5512da4df88f8e1de8466b07e5bc6f43edf41067d9f5cec23a658",
+      "bytes": 4387,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/env_report.py",
+      "title": "env_report.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "5026d8aaab10b542417f550b470f022c6adb89784e10de55304c8eb9411fca72",
+      "bytes": 1933,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/evidence-signing.mjs",
+      "title": "evidence-signing.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "6bb677c4c8c75fc77f73a267bc453763bf0b2e20af4ce9ed97173b8d54a9a129",
+      "bytes": 4320,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/generate.py",
+      "title": "generate.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "2ca8aebcf3e7e933988088c6e0b7f3d14bdd50232e25bef0e60334a09f3aafd0",
+      "bytes": 10727,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/git_snapshot.py",
+      "title": "git_snapshot.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "6468d0ce451d4ed182f91a0408978909aed84d755fce0911171530b9ffceb881",
+      "bytes": 2330,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/github_candidate.py",
+      "title": "github_candidate.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "05b53ffac8039afe3af9bea4d6d70b3562379c562d6c43484f599f58f968d0f4",
+      "bytes": 5144,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/impact.py",
+      "title": "impact.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "defa49c948640bb7bcf818862283b42c44e6187319a3b09f11717f1678109a81",
+      "bytes": 5411,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/index.py",
+      "title": "index.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "079042463ab89945824bcadd502dcd323d75a9687415db6b225056a4e965409b",
+      "bytes": 1994,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/isolated_worker.py",
+      "title": "isolated_worker.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "48243705059b31738d3e9296d29f22071e57f57e71d2077bf07e97f5ebdbc933",
+      "bytes": 9979,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/isolation_probe.py",
+      "title": "isolation_probe.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "383588c426b43e78aca24a1a1795f4fe84d8e665cced687989b7607d7fd3b241",
+      "bytes": 1881,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/key_lifecycle.mjs",
+      "title": "key_lifecycle.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "e138e8189a57342c27177e74086529652a07382027215e83ef175864a1e8587a",
+      "bytes": 5828,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/mission_gate.mjs",
+      "title": "mission_gate.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "6070a4ce9f8ea57cc0076bd99981964ea0d86e5adf17d1d1465cd06d87e9709b",
+      "bytes": 6077,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/mission_runner.py",
+      "title": "mission_runner.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "2098e2cf4ac90e011fd98b77199472d168afd6e7cdada0d27425c23daca529e5",
+      "bytes": 3394,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/overlay_plan.py",
+      "title": "overlay_plan.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "b53f994e4a05ed55f086a9fcaab2936998316f3b3624e577f49e4b4a2c58c422",
+      "bytes": 2293,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/owner-signing.mjs",
+      "title": "owner-signing.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "de3b6cca6fe881e32cebec04a4c94b7f95a264e2e9b3ddaee13336c3fb053393",
+      "bytes": 3288,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/owner_record_signing.mjs",
+      "title": "owner_record_signing.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "59f1fa40ea9ea10ed811bcec64fc3d2dcb46a26c041c804cfec0a97383bcda78",
+      "bytes": 2850,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/prepare_builder.py",
+      "title": "prepare_builder.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "23e067291de2f1828d27191fca5faf148d2a79182e6b86e3ff7290f2791b4bc7",
+      "bytes": 4317,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/promotion_evidence.py",
+      "title": "promotion_evidence.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "605483e0c7fc5b6e0190201f89a230f8b1136729e37032183eab58a97452a826",
+      "bytes": 23668,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/reconcile.py",
+      "title": "reconcile.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "3cf942e0616e57ec9a351ee97a78f4401ac075a0f3fc7e3a6c7f326d05c9638d",
+      "bytes": 3091,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/reference_controls.py",
+      "title": "reference_controls.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "1a3ee1d263569dd66dafca8136025c363493d428947bf2c0e76dd650e07d08c3",
+      "bytes": 7219,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/render.py",
+      "title": "render.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "b887009963239bea86c23530ecfb75075ebccd11b894135c2acdcca89d6bd114",
+      "bytes": 399,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/requirements-schema.txt",
+      "title": "requirements-schema.txt",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "4209a7cb3bfbc28ab50bdc6b3a209c0326bc9e77a2818be1b383c39b8ecd6177",
+      "bytes": 198,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/retirement.py",
+      "title": "retirement.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "6f12a60833435ff7d48b37937616ed7a14f02b7d4513d96d263c89fd782a9315",
+      "bytes": 2111,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/review_evidence.py",
+      "title": "review_evidence.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "66c59218ecc5891af6bc0b817e080180c090ee4442fa7c8ff5fff0da0b01a9cc",
+      "bytes": 2611,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/schema_tests/test_schemas.py",
+      "title": "test_schemas.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "5017b69e3ed9d798f704c3d8cadc2104675b2f4a5188bf5b13499648942212ed",
+      "bytes": 2243,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/signed_records.mjs",
+      "title": "signed_records.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "647de4bb4ad178568d8c0c94d80a1560392ee8554b9f676733950c51b7068cfd",
+      "bytes": 4524,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/state.py",
+      "title": "state.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "8acff50a66c33e32a7227a71b7df76cdc5a29f35643b9dbae31c5fafa1575a8f",
+      "bytes": 2785,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_pack_tools.py",
+      "title": "test_pack_tools.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "7c91ea3353f039ada11794c89bb723396a39cb60c311fedf0c6616b1244af159",
+      "bytes": 7286,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_reference_controls.py",
+      "title": "test_reference_controls.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "e8a37f0059de3ca670f225553b5645a280c8a1c7804788206ae92cfe658906ed",
+      "bytes": 5230,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_v41_enforcement.py",
+      "title": "test_v41_enforcement.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "eb5332ef4ed208f65edbe99e3bfe2c27739d6c2f6b0d827ac9a7c98f0c5bb031",
+      "bytes": 24943,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/test_v5_tools.py",
+      "title": "test_v5_tools.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "cf73482c3a637b3ad074a310905fe956c806cca3f8362c15d7e3c9615cd0a521",
+      "bytes": 11972,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/trust-gate.test.mjs",
+      "title": "trust-gate.test.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "bcf5fff01aec81a6350f3aa1e21587b52b5a80be33e824aaabaaa4dfbf1862a0",
+      "bytes": 5696,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/v41-enforcement.test.mjs",
+      "title": "v41-enforcement.test.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "8605d1c30563d582f9a1eace00be8a017c043ecaa312e554d562451169b6dd53",
+      "bytes": 7990,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/tests/v5-trust.test.mjs",
+      "title": "v5-trust.test.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "efc0e42a09bfcafd15b838ce163b2fc7ab46caaf757799acad8f0675a0400669",
+      "bytes": 16366,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/trust-gate.mjs",
+      "title": "trust-gate.mjs",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "c591e995fe4b9d16cfe0ec32ba4ff0a201fe7f51d440fac6a904c5a3a40cb7f0",
+      "bytes": 9879,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/trusted_time.py",
+      "title": "trusted_time.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "ef0223b253edcf178dab09de136e5672c4ae478aa8e50f6d4378a8d173144f6e",
+      "bytes": 1625,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/v5_checks.py",
+      "title": "v5_checks.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "03e4aacac05fd42cccab17f5da53ad58937b12e7fc0635cdda9f08274f6f5398",
+      "bytes": 3629,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/validate.py",
+      "title": "validate.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "103b34156446e1ad224a57aadf0832dcb8eda3f211c814a7f429d0c83ce2a215",
+      "bytes": 11930,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "tools/jarvis-v5/version_gate.py",
+      "title": "version_gate.py",
+      "kind": "executable_or_test_tool",
+      "status": "pack_artifact",
+      "sha256": "3b290c33614e2c8989a3406d7fc9346dd9b9f5add070a0d586d627a199c08e30",
+      "bytes": 1431,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/archive_check.json",
+      "title": "archive_check.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "79c66fd1409b55896d6086fea68c7cb0f3684df23518b386e15711ee88da5d2a",
+      "bytes": 3573,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/context_metrics.json",
+      "title": "context_metrics.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "937e6baefbfb954def57020d2fbe4d88ba9d3bd47987a6144b3325e4fc76fec8",
+      "bytes": 5120,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/iterations/signing-input-first-run.log",
+      "title": "signing-input-first-run.log",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "b4957cbfc6d67e6ae66a50784388be2243c7bfa46642c7330376c1730c3854cc",
+      "bytes": 26864,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/report.json",
+      "title": "report.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "22041234fe6a362d4f761ecf30cd4f6276a8d5b7cd77530c1d2a17982f23d0cd",
+      "bytes": 12593,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/results/node.log",
+      "title": "node.log",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "71b2f7d03a048867cccb19e88cc2d9f224fcb15b6204daa48d4d858f2d25ff97",
+      "bytes": 17393,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/results/python.log",
+      "title": "python.log",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "5c1182e8f303f8a4e1b0a29a1d942f87f7904af74a3d4c0f7c99b61486181271",
+      "bytes": 20575,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/results/schema.log",
+      "title": "schema.log",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "f9e17915df826b5b7cdf52a88e53b2491c9dc5df3be48b5432b8be8365eda4d1",
+      "bytes": 24798,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/results/structure.json",
+      "title": "structure.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "efa4523a033693f2369741cd8572caa75d4245eb617caf26b8a1444f2307481a",
+      "bytes": 583,
+      "hashExclusionReason": null
+    },
+    {
+      "path": "validation/results/syntax.json",
+      "title": "syntax.json",
+      "kind": "document_or_template",
+      "status": "pack_artifact",
+      "sha256": "049b39eee611bc622007420069c7b6c3a1e58e59c9c0576249728e5afe5e2cba",
+      "bytes": 4640,
+      "hashExclusionReason": null
+    }
+  ]
+}

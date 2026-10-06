@@ -1,0 +1,408 @@
+{
+  "registryVersion": 1,
+  "status": "candidate",
+  "alwaysFiles": [
+    "AGENTS.md",
+    "governance/STATE.json"
+  ],
+  "maxPacketUtf8Bytes": 70000,
+  "absoluteMaxPacketUtf8Bytes": 150000,
+  "topics": [
+    {
+      "id": "product",
+      "requiredFiles": [
+        "docs/architecture/ARCHITECTURE.md",
+        ".agents/skills/jarvis-product-rules/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-DATA-001"
+      ],
+      "requirementIds": [
+        "REQ-CORE-01",
+        "REQ-CORE-02",
+        "REQ-CORE-03",
+        "REQ-CORE-04"
+      ]
+    },
+    {
+      "id": "engineering",
+      "requiredFiles": [
+        "docs/missions/REPOSITORY_RECONCILIATION.md",
+        "docs/agents/SESSION_CONTINUITY.md",
+        ".agents/skills/jarvis-product-rules/SKILL.md",
+        ".agents/skills/governance-enforcement/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-HISTORY-001",
+        "INV-MISSION-001"
+      ],
+      "requirementIds": [
+        "REQ-ENG-01",
+        "REQ-ENG-02",
+        "REQ-ENG-03",
+        "REQ-ENG-04",
+        "REQ-ENG-05",
+        "REQ-ENG-06",
+        "REQ-ENG-07"
+      ]
+    },
+    {
+      "id": "brain",
+      "requiredFiles": [
+        "docs/architecture/BRAIN_ARCHITECTURE.md",
+        "docs/architecture/PROMPT_ARCHITECTURE.md",
+        "docs/security/COST_AND_MODEL_POLICY.md",
+        ".agents/skills/runtime-prompts/SKILL.md",
+        ".agents/skills/agent-evals/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-AUTH-001",
+        "INV-COST-001",
+        "INV-SCHEMA-001",
+        "INV-MEMORY-001"
+      ],
+      "requirementIds": [
+        "REQ-BRAIN-01",
+        "REQ-BRAIN-02",
+        "REQ-BRAIN-03",
+        "REQ-BRAIN-04",
+        "REQ-BRAIN-05",
+        "REQ-BRAIN-06"
+      ]
+    },
+    {
+      "id": "memory",
+      "requiredFiles": [
+        "docs/architecture/MEMORY_ENGINE.md",
+        "docs/architecture/LIFE_LEDGER.md",
+        "docs/agents/SKILL_ENGINE.md",
+        ".agents/skills/memory-and-context/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-MEMORY-001",
+        "INV-CONSTITUTION-001",
+        "INV-PRIVACY-001",
+        "INV-SKILL-001"
+      ],
+      "requirementIds": [
+        "REQ-CAPTURE-01",
+        "REQ-CAPTURE-02",
+        "REQ-CAPTURE-03",
+        "REQ-CAPTURE-04",
+        "REQ-CONST-01",
+        "REQ-CONST-02",
+        "REQ-CONST-03",
+        "REQ-CONST-04",
+        "REQ-MEM-01",
+        "REQ-MEM-02",
+        "REQ-MEM-03",
+        "REQ-MEM-04",
+        "REQ-MEM-05",
+        "REQ-HIST-01",
+        "REQ-HIST-02",
+        "REQ-HIST-03",
+        "REQ-HIST-04",
+        "REQ-HIST-05"
+      ]
+    },
+    {
+      "id": "planning",
+      "requiredFiles": [
+        "docs/product/ACCOUNTABILITY_ENGINE.md",
+        "docs/architecture/REPLANNING_ENGINE.md",
+        "docs/architecture/REMINDER_ENGINE.md",
+        ".agents/skills/jarvis-product-rules/SKILL.md",
+        ".agents/skills/agent-evals/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-COMPLETE-001",
+        "INV-CONSTITUTION-001",
+        "INV-STOP-001"
+      ],
+      "requirementIds": [
+        "REQ-PLAN-01",
+        "REQ-PLAN-02",
+        "REQ-PLAN-03",
+        "REQ-PLAN-04",
+        "REQ-PLAN-05"
+      ]
+    },
+    {
+      "id": "orchestration",
+      "requiredFiles": [
+        "docs/architecture/JOB_LIFECYCLE.md",
+        "docs/architecture/CONVEX_ORCHESTRATION.md",
+        "docs/security/TRUSTED_TIME.md",
+        ".agents/skills/database-and-jobs/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-ORCH-001",
+        "INV-TIME-001",
+        "INV-COMPLETE-001"
+      ],
+      "requirementIds": [
+        "REQ-JOB-01",
+        "REQ-JOB-02",
+        "REQ-JOB-03",
+        "REQ-JOB-04",
+        "REQ-JOB-05"
+      ]
+    },
+    {
+      "id": "identity",
+      "requiredFiles": [
+        "docs/security/AUTHENTICATION_BOUNDARY.md",
+        "docs/integrations/WHATSAPP_IDENTITY.md",
+        ".agents/skills/connector-integration/SKILL.md",
+        ".agents/skills/security-and-privacy/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-IDENTITY-001",
+        "INV-APPROVAL-001",
+        "INV-PRIVACY-001"
+      ],
+      "requirementIds": [
+        "REQ-ID-01",
+        "REQ-ID-02",
+        "REQ-ID-03",
+        "REQ-ID-04",
+        "REQ-ID-05"
+      ]
+    },
+    {
+      "id": "authority",
+      "requiredFiles": [
+        "docs/architecture/EXECUTOR_ARCHITECTURE.md",
+        "docs/security/APPROVAL_MODEL.md",
+        "docs/security/KILL_SWITCH_DRILLS.md",
+        ".agents/skills/executor-safety/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-AUTH-001",
+        "INV-APPROVAL-001",
+        "INV-FINANCE-001",
+        "INV-LEASE-001",
+        "INV-STOP-001",
+        "INV-TIME-001"
+      ],
+      "requirementIds": [
+        "REQ-AUTH-01",
+        "REQ-AUTH-02",
+        "REQ-AUTH-03",
+        "REQ-AUTH-04",
+        "REQ-AUTH-05",
+        "REQ-AUTH-06",
+        "REQ-AUTH-07"
+      ]
+    },
+    {
+      "id": "surfaces",
+      "requiredFiles": [
+        "docs/design/SURFACES_AND_CLIENTS.md",
+        "docs/security/APPROVAL_MODEL.md",
+        ".agents/skills/first-party-apps/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-IDENTITY-001",
+        "INV-APPROVAL-001"
+      ],
+      "requirementIds": [
+        "REQ-SURF-01",
+        "REQ-SURF-02",
+        "REQ-SURF-03",
+        "REQ-SURF-04"
+      ]
+    },
+    {
+      "id": "voice",
+      "requiredFiles": [
+        "docs/design/VOICE_ARCHITECTURE.md",
+        "docs/security/COST_AND_MODEL_POLICY.md",
+        ".agents/skills/voice-and-realtime/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-STOP-001",
+        "INV-APPROVAL-001",
+        "INV-PRIVACY-001",
+        "INV-COST-001"
+      ],
+      "requirementIds": [
+        "REQ-VOICE-01",
+        "REQ-VOICE-02",
+        "REQ-VOICE-03",
+        "REQ-VOICE-04"
+      ]
+    },
+    {
+      "id": "android",
+      "requiredFiles": [
+        "docs/design/ANDROID_ARCHITECTURE.md",
+        "docs/architecture/WORLD_STATE.md",
+        ".agents/skills/android-device/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-IDENTITY-001",
+        "INV-PRIVACY-001",
+        "INV-LEASE-001"
+      ],
+      "requirementIds": [
+        "REQ-ANDROID-01",
+        "REQ-ANDROID-02",
+        "REQ-ANDROID-03",
+        "REQ-ANDROID-04"
+      ]
+    },
+    {
+      "id": "apps",
+      "requiredFiles": [
+        "docs/integrations/FIRST_PARTY_SDK.md",
+        "docs/integrations/DOMAIN_INTEGRATION_CARDS.md",
+        "docs/architecture/SCHEMA_EVOLUTION.md",
+        ".agents/skills/first-party-apps/SKILL.md",
+        ".agents/skills/connector-integration/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-DATA-001",
+        "INV-SCHEMA-001",
+        "INV-IDENTITY-001"
+      ],
+      "requirementIds": [
+        "REQ-APP-01",
+        "REQ-APP-02",
+        "REQ-APP-03",
+        "REQ-APP-04",
+        "REQ-APP-05",
+        "REQ-APP-06"
+      ]
+    },
+    {
+      "id": "browser",
+      "requiredFiles": [
+        "docs/architecture/BROWSER_ARCHITECTURE.md",
+        "docs/architecture/EXECUTOR_ARCHITECTURE.md",
+        ".agents/skills/browser-executor/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-UNTRUSTED-001",
+        "INV-AUTH-001",
+        "INV-PRIVACY-001"
+      ],
+      "requirementIds": [
+        "REQ-BROWSER-01",
+        "REQ-BROWSER-02",
+        "REQ-BROWSER-03",
+        "REQ-BROWSER-04"
+      ]
+    },
+    {
+      "id": "workers",
+      "requiredFiles": [
+        "docs/agents/AGENT_RUNTIME.md",
+        "docs/agents/MULTI_AGENT_ARCHITECTURE.md",
+        ".agents/skills/agent-runtime/SKILL.md",
+        ".agents/skills/executor-safety/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-AUTH-001",
+        "INV-SKILL-001",
+        "INV-COST-001"
+      ],
+      "requirementIds": [
+        "REQ-WORK-01",
+        "REQ-WORK-02",
+        "REQ-WORK-03",
+        "REQ-WORK-04"
+      ]
+    },
+    {
+      "id": "night",
+      "requiredFiles": [
+        "docs/product/NIGHT_MODE.md",
+        "docs/architecture/PROACTIVE_OPERATOR.md",
+        "docs/security/APPROVAL_MODEL.md",
+        ".agents/skills/security-and-privacy/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-LEASE-001",
+        "INV-APPROVAL-001",
+        "INV-PRIVACY-001"
+      ],
+      "requirementIds": [
+        "REQ-NIGHT-01",
+        "REQ-NIGHT-02",
+        "REQ-NIGHT-03",
+        "REQ-NIGHT-04"
+      ]
+    },
+    {
+      "id": "operations",
+      "requiredFiles": [
+        "docs/security/DISASTER_RECOVERY.md",
+        "docs/security/INCIDENT_RESPONSE.md",
+        "docs/missions/OPERATIONS_HEALTH.md",
+        ".agents/skills/operational-drills/SKILL.md"
+      ],
+      "optionalFiles": [],
+      "invariantIds": [
+        "INV-CORE-001",
+        "INV-BUILDER-001",
+        "INV-RECOVERY-001",
+        "INV-TIME-001",
+        "INV-STOP-001"
+      ],
+      "requirementIds": [
+        "REQ-OPS-01",
+        "REQ-OPS-02",
+        "REQ-OPS-03",
+        "REQ-OPS-04",
+        "REQ-OPS-05",
+        "REQ-OPS-06"
+      ]
+    }
+  ]
+}

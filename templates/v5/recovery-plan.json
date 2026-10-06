@@ -1,0 +1,11 @@
+{
+  "status": "proposed",
+  "ownerApprovalRef": null,
+  "rpoSeconds": null,
+  "rtoSeconds": null,
+  "backupFrequency": null,
+  "retentionDays": null,
+  "custody": null,
+  "syntheticRestoreEvidence": null,
+  "enabled": false
+}

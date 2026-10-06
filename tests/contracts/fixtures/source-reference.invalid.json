@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "sourceType": "synthetic",
+  "sourceId": "fixture-source-1",
+  "sourceVersion": "1",
+  "occurredAt": "2026-09-25T10:00:00Z",
+  "observedAt": "2026-09-25T10:00:00Z",
+  "coverage": "fixture only",
+  "informationState": "known",
+  "sensitivity": "normal",
+  "contentHash": null,
+  "unexpectedAuthority": true
+}

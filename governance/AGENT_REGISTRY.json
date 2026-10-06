@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "agents": [
+    {
+      "name": "repo_explorer",
+      "path": ".codex/agents/repo-explorer.toml",
+      "mode": "read-only",
+      "skills": [
+        "jarvis-product-rules",
+        "database-and-jobs",
+        "progressive-context"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "architecture_planner",
+      "path": ".codex/agents/architecture-planner.toml",
+      "mode": "read-only",
+      "skills": [
+        "jarvis-product-rules",
+        "schema-evolution",
+        "first-party-apps",
+        "repository-reconciliation"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "docs_researcher",
+      "path": ".codex/agents/docs-researcher.toml",
+      "mode": "read-only",
+      "skills": [
+        "connector-integration",
+        "governance-enforcement"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "backend_implementer",
+      "path": ".codex/agents/backend-implementer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "database-and-jobs",
+        "agent-runtime"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "frontend_implementer",
+      "path": ".codex/agents/frontend-implementer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "first-party-apps",
+        "security-and-privacy"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "integration_specialist",
+      "path": ".codex/agents/integration-specialist.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "connector-integration",
+        "evolution-whatsapp",
+        "first-party-apps"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "security_reviewer",
+      "path": ".codex/agents/security-reviewer.toml",
+      "mode": "read-only",
+      "skills": [
+        "security-and-privacy",
+        "executor-safety"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "test_evals",
+      "path": ".codex/agents/test-evals.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "agent-evals",
+        "schema-evolution"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "memory_architect",
+      "path": ".codex/agents/memory-architect.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "memory-and-context",
+        "first-party-apps"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "runtime_prompt_engineer",
+      "path": ".codex/agents/runtime-prompt-engineer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "runtime-prompts",
+        "agent-evals"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "voice_engineer",
+      "path": ".codex/agents/voice-engineer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "voice-and-realtime",
+        "executor-safety"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "mobile_implementer",
+      "path": ".codex/agents/mobile-implementer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "android-device",
+        "first-party-apps"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "agent_runtime_engineer",
+      "path": ".codex/agents/agent-runtime-engineer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "agent-runtime",
+        "executor-safety"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "release_operator",
+      "path": ".codex/agents/release-operator.toml",
+      "mode": "read-only",
+      "skills": [
+        "deploy-vercel-convex-neon",
+        "operational-drills",
+        "incident-and-restore"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "executor_engineer",
+      "path": ".codex/agents/executor-engineer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "executor-safety",
+        "database-and-jobs"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "browser_engineer",
+      "path": ".codex/agents/browser-engineer.toml",
+      "mode": "workspace-write",
+      "skills": [
+        "browser-executor",
+        "executor-safety"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    },
+    {
+      "name": "governance_reviewer",
+      "path": ".codex/agents/governance-reviewer.toml",
+      "mode": "read-only",
+      "skills": [
+        "governance-enforcement",
+        "schema-evolution",
+        "key-recovery"
+      ],
+      "reasoningEffort": "high",
+      "modelSelection": "inherit verified host model"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-evals",
+      "path": ".agents/skills/agent-evals/SKILL.md",
+      "leadAgent": "test_evals"
+    },
+    {
+      "name": "agent-runtime",
+      "path": ".agents/skills/agent-runtime/SKILL.md",
+      "leadAgent": "agent_runtime_engineer"
+    },
+    {
+      "name": "android-device",
+      "path": ".agents/skills/android-device/SKILL.md",
+      "leadAgent": "mobile_implementer"
+    },
+    {
+      "name": "browser-executor",
+      "path": ".agents/skills/browser-executor/SKILL.md",
+      "leadAgent": "browser_engineer"
+    },
+    {
+      "name": "connector-integration",
+      "path": ".agents/skills/connector-integration/SKILL.md",
+      "leadAgent": "integration_specialist"
+    },
+    {
+      "name": "database-and-jobs",
+      "path": ".agents/skills/database-and-jobs/SKILL.md",
+      "leadAgent": "backend_implementer"
+    },
+    {
+      "name": "deploy-vercel-convex-neon",
+      "path": ".agents/skills/deploy-vercel-convex-neon/SKILL.md",
+      "leadAgent": "release_operator"
+    },
+    {
+      "name": "evolution-whatsapp",
+      "path": ".agents/skills/evolution-whatsapp/SKILL.md",
+      "leadAgent": "integration_specialist"
+    },
+    {
+      "name": "first-party-apps",
+      "path": ".agents/skills/first-party-apps/SKILL.md",
+      "leadAgent": "integration_specialist"
+    },
+    {
+      "name": "jarvis-product-rules",
+      "path": ".agents/skills/jarvis-product-rules/SKILL.md",
+      "leadAgent": "architecture_planner"
+    },
+    {
+      "name": "memory-and-context",
+      "path": ".agents/skills/memory-and-context/SKILL.md",
+      "leadAgent": "memory_architect"
+    },
+    {
+      "name": "runtime-prompts",
+      "path": ".agents/skills/runtime-prompts/SKILL.md",
+      "leadAgent": "runtime_prompt_engineer"
+    },
+    {
+      "name": "security-and-privacy",
+      "path": ".agents/skills/security-and-privacy/SKILL.md",
+      "leadAgent": "security_reviewer"
+    },
+    {
+      "name": "voice-and-realtime",
+      "path": ".agents/skills/voice-and-realtime/SKILL.md",
+      "leadAgent": "voice_engineer"
+    },
+    {
+      "name": "executor-safety",
+      "path": ".agents/skills/executor-safety/SKILL.md",
+      "leadAgent": "executor_engineer"
+    },
+    {
+      "name": "governance-enforcement",
+      "path": ".agents/skills/governance-enforcement/SKILL.md",
+      "leadAgent": "governance_reviewer"
+    },
+    {
+      "name": "schema-evolution",
+      "path": ".agents/skills/schema-evolution/SKILL.md",
+      "leadAgent": "architecture_planner"
+    },
+    {
+      "name": "operational-drills",
+      "path": ".agents/skills/operational-drills/SKILL.md",
+      "leadAgent": "release_operator"
+    },
+    {
+      "name": "repository-reconciliation",
+      "path": ".agents/skills/repository-reconciliation/SKILL.md",
+      "leadAgent": "architecture_planner"
+    },
+    {
+      "name": "key-recovery",
+      "path": ".agents/skills/key-recovery/SKILL.md",
+      "leadAgent": "governance_reviewer"
+    },
+    {
+      "name": "incident-and-restore",
+      "path": ".agents/skills/incident-and-restore/SKILL.md",
+      "leadAgent": "release_operator"
+    },
+    {
+      "name": "progressive-context",
+      "path": ".agents/skills/progressive-context/SKILL.md",
+      "leadAgent": "repo_explorer"
+    }
+  ]
+}

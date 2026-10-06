@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/approval-resolution/1.0.0-draft",
+  "title": "Trusted Approval Resolution Evidence",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.approval-resolution",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "approvalId",
+    "ownerId",
+    "actionId",
+    "snapshotHash",
+    "outcome",
+    "resolvedAt",
+    "trustedSurface",
+    "authMethod",
+    "reauthenticatedAt",
+    "sessionRef",
+    "deviceRef",
+    "policyVersion",
+    "challengeRef"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "approvalId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "actionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "snapshotHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "rejected",
+        "expired",
+        "revoked"
+      ]
+    },
+    "resolvedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "trustedSurface": {
+      "type": "string",
+      "enum": [
+        "first_party_web",
+        "first_party_android"
+      ]
+    },
+    "authMethod": {
+      "type": "string",
+      "enum": [
+        "webauthn_user_verified",
+        "hardware_key_user_verified"
+      ]
+    },
+    "reauthenticatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sessionRef": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "deviceRef": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    },
+    "policyVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "challengeRef": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "decisions": [
+    {
+      "id": "owner-budget-history",
+      "status": "historical_owner_context",
+      "valueUsd": 50,
+      "period": "initial AI budget",
+      "source": "personal-context retrieval of owner conversation 2026-09-10, not re-enrollment in this turn",
+      "activatesRuntime": false
+    },
+    {
+      "id": "assistant-sixty-dollar-profile",
+      "status": "not_owner_approved",
+      "valueUsd": 60,
+      "source": "earlier assistant proposal in this conversation",
+      "activatesRuntime": false
+    },
+    {
+      "id": "v5-budget-enrollment",
+      "status": "pending_owner_approval",
+      "proposal": "templates/v5/policies/runtime-budget.proposed.json",
+      "ownerApprovalRef": null
+    },
+    {
+      "id": "v5-lease-enrollment",
+      "status": "pending_owner_approval",
+      "proposal": "templates/v5/policies/authority.proposed.json",
+      "ownerApprovalRef": null
+    },
+    {
+      "id": "v5-interruptions",
+      "status": "pending_owner_approval",
+      "proposal": "templates/v5/policies/interruptions.proposed.json",
+      "ownerApprovalRef": null
+    },
+    {
+      "id": "v5-recovery-custody",
+      "status": "pending_owner_approval",
+      "proposal": "templates/v5/recovery-plan.json",
+      "ownerApprovalRef": null,
+      "activatesRuntime": false
+    },
+    {
+      "id": "v5-authority-expansion-delay",
+      "status": "pending_owner_approval",
+      "proposal": "templates/v5/policies/authority-expansion.proposed.json",
+      "ownerApprovalRef": null,
+      "activatesRuntime": false
+    }
+  ]
+}

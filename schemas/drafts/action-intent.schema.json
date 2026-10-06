@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/action-intent/1.0.0-draft",
+  "title": "Model Action Intent",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.action-intent",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "actionType",
+    "arguments",
+    "targetRef",
+    "rationale",
+    "evidenceRefs"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "actionType": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "arguments": {
+      "type": "object",
+      "maxProperties": 64,
+      "description": "Must also pass the capability-specific input schema. Never an authority grant."
+    },
+    "targetRef": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1500
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$"
+      },
+      "minItems": 0,
+      "maxItems": 24,
+      "uniqueItems": true
+    }
+  }
+}

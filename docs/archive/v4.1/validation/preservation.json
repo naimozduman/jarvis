@@ -1,0 +1,486 @@
+{
+  "runtimeDraftSchemas": [
+    {
+      "path": "schemas/v4/action-intent.schema.json",
+      "sha256": "b61664ebfa1c319c6615b03ae2ddd85014dc3b9dd7507a593a69a1a1d2776e17",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/approval-resolution.schema.json",
+      "sha256": "cbe88a7905ea60cd1657054e187af7d10961ea5ca0f28df2a5c782741238d2ad",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/authority-lease.schema.json",
+      "sha256": "02b0d6ec055e10836ef206f9b776d9a7eaca038c8e13bf3f6a56e9bcad21321a",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/capability.schema.json",
+      "sha256": "707af99f9b5fd37caca174dfd4e20b1a0497f755fc517d43dfb8bca78e3e8274",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/execution-authorization.schema.json",
+      "sha256": "21d99ae88ad382658aaab9328a235f3ba252f7bd85bf72e9a911818df2dc29b7",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/executor-manifest.schema.json",
+      "sha256": "240879001dacff0c463274d2f754c3edd72244a153d8213b01ceb840ee858149",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/first-party-app-event.schema.json",
+      "sha256": "9094d41d16521331e307b8fd5cdc4994edc18a22c98efae3a98938ceb56495d7",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/first-party-app-manifest.schema.json",
+      "sha256": "b999530c10511bc576b92c5817a046a714a5aa1a89d9962f4e8340e560509e1a",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/life-ledger-event.schema.json",
+      "sha256": "0f20c63b0c6c6fa02853bd5881bff4d26d90f8c1d7940e5d4c10e1e184477ae6",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/proactive-brief.schema.json",
+      "sha256": "785cadc33309da9be0c0d76e7d36c26fc156acc2d0d35e18c58255014959a458",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/prompt-assembly.schema.json",
+      "sha256": "effa6156c1382de797d4cf83bc6b4008917b5be72ddbfcb6e55fb090b807eb1e",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/proposed-action.schema.json",
+      "sha256": "b5c991ac4638266802a793567ed0b43e08638fb9efe8201712eaf491ea89a8fa",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/skill-record.schema.json",
+      "sha256": "ef7bfc166640d89010427c944050a5de0f7943bff826a7d3db823d8157485062",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/source-reference.schema.json",
+      "sha256": "37461caf0dc94309a2d2fea7e450d7f5220229dc1a3c3a4939f5ab533d076c02",
+      "unchanged": true
+    },
+    {
+      "path": "schemas/v4/world-state.schema.json",
+      "sha256": "e99efe9482074b8c5aa8809990e8e5e9fc1cfd8707e359c92d556ec54f7c3b48",
+      "unchanged": true
+    }
+  ],
+  "runtimePromptBodies": [
+    {
+      "path": "prompts/runtime/v4/accountability.md",
+      "sha256": "1e489074b4184a4d31bc1af57bc85039f2401ec620adc383eb002c24b516c261",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/browser-operator.md",
+      "sha256": "1c70c56bfce08b1ba08497695ce6094570f79dddb1161392cceec4bfd3229e5b",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/constitution.md",
+      "sha256": "65e303b270ebe16f93e8b1c7dbbf350a19e99c60369df0c582b6a983f4681e53",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/core-system.md",
+      "sha256": "9d61b7014c304c2a03dc2ab797d1264707a43d6690e7c7cd960e08a1c17a55d2",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/email-triage.md",
+      "sha256": "11bdd24a275df5e5c4c2e73596b0a6009537e019b480f86a1fd328f5b36e5623",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/fba-ops.md",
+      "sha256": "7c63ba7777c136e53c34dd04e5d68ee8bee84649e068596cdd62722b0ccbd053",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/finance-observer.md",
+      "sha256": "f378ef11a50494210cb46a9b23807010ad739ffa0d723dd6f2094df079cd123d",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/health-and-training.md",
+      "sha256": "c442635095857da672febdb2344dc256445c9e134877bc3b6afc8ac966fa6853",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/historical-reconstruction.md",
+      "sha256": "5b7f3e32b0019b11dc49f0392c36fe632c576b3d5c6d86642c0115a171bf17b3",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/memory-extractor.md",
+      "sha256": "2ea70d22923167034d512353eb1aee284da4dd536b2c48f3e49430337756169b",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/message-writer.md",
+      "sha256": "9808d5a0f411b08be59a57e9a12120dfb691bd2bee16cea9c527e6ca1d95bb73",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/mode-edith.md",
+      "sha256": "a17bb2a9e7a24e60b3d1c01959c72e8c8d7bd4bf42563717b80d8d847154a19e",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/mode-friday.md",
+      "sha256": "06bac23953e5e98ac194cb7bf2b8f2f5ba4bf9eca99b1fd49903713d09be8760",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/mode-mentor.md",
+      "sha256": "4142b2dde337d790168cff0531d89bd41a4b5e51a44c786ab0201b84755b0786",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/night-mode.md",
+      "sha256": "d62d0b7bbba3cf200bd088aff6f185fefb3813eb33fed8e738e39b60ff51068e",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/planner.md",
+      "sha256": "b51cf366f8cce1ab70476acf480033fec422486ef396f3febaf6a9eb801a81a0",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/proactive-operator.md",
+      "sha256": "ed4b188134c5d5d7b0db12af2475446f06e13b8abd560a09e3feab0d0138aa4e",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/relationship-vault.md",
+      "sha256": "c2a6c96375306dc1069115b7c66a772241872fac4cce2ad75b8e8d1ac2ccd869",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/replanner.md",
+      "sha256": "94ec4f093e3a74155232ff02300a76e55a2327e262573093dc6a53bb6c96aaf0",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/security-privacy.md",
+      "sha256": "9f11b123f30b417ee519dc7e49b0257a319c51cb7bc9014fb720e8eb084f9f56",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/skill-curator.md",
+      "sha256": "839663ede19e6e7294d995867bb0a5d952158bd625263a5b25862a13784bcaa3",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/source-grounding.md",
+      "sha256": "1152c7332c35a77aa7f1c523e32d62588792d21556faf02a0c33e5eea257e302",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/tool-policy.md",
+      "sha256": "22a03b59a5afda97e0aa4485f175716ccca7a0e531f7d034a5dae026901c69ea",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/uncertainty.md",
+      "sha256": "91ca72c69e94977018b9d22cee2aba9e3d546383e1c3b9d5c7c5d05e6e7e6958",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/voice.md",
+      "sha256": "03b5b88266b62fb9c9aaff4377c5457f3edf39a35250c6c42b2b9b8cdb315d7f",
+      "unchanged": true
+    },
+    {
+      "path": "prompts/runtime/v4/weekly-review.md",
+      "sha256": "4e1a867d5b62b4ddc41bf83570fa311b2639988204910d78504b99d2e41b26b3",
+      "unchanged": true
+    }
+  ],
+  "archivalReferences": [
+    {
+      "path": "reference/README.md",
+      "sha256": "8a0e1ab6e0a1d314bcc76d5ecaf85e41e284e0367fcddaba7280c8c1d349bcc6",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0016-personal-os-core-and-first-party-apps.md",
+      "sha256": "6fa801340ea9150d152f31d907945cda97ac338f923e6462a8a963a2f54a9106",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0017-role-separation-surfaces-apps-agents-executors.md",
+      "sha256": "baad188b4e32e07d31ce3e852094928a48aa7d1ce4897f650b32dd96d4dd7079",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0018-procedural-memory-skills.md",
+      "sha256": "7c1fecffe50c57dc4cd7b50a9fb6bd1cdbb17f5973dd7484f13eca3fe9af7f1f",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0019-non-forgeable-approval-resolution.md",
+      "sha256": "46955dacb874c3a88796913f6e4bffd8e731169ac541519e7b8b2f025008d61f",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0020-hybrid-privacy-tiers.md",
+      "sha256": "6a67d191b6db258626f0a1f15489059384850eb64d6074585486076f62ee44d9",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0021-external-agent-runtimes-as-workers.md",
+      "sha256": "196082f5fe79f1d43e38d98248bafa303984b838c98a9474c10d77c663108ece",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0022-browser-as-surface-domain-app-and-executor-boundary.md",
+      "sha256": "37421967b33b8c24174fc50b6f7123301b91b2931cafd5556e23e88afa5aaca8",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0023-cost-aware-model-routing.md",
+      "sha256": "572e135d9d337cb735ae0499b4425e60b519be8dde5ce7f96c629f37d5ae8172",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/ADR/0024-research-is-evidence-not-product-authority.md",
+      "sha256": "72cd67cbdf3d697e45aa0d566b73bfa61e2bea0ea45cb2c91fc01db8fd8d0fce",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/action-intent.schema.json",
+      "sha256": "e231a752ed63338fd6ca8aa97dee8a5c5a660ce04946e6c2666e19887799240d",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/authority-lease.schema.json",
+      "sha256": "6887f0a0bfb6cd04c7f0519ebee21ddd8c0d8aebd7b4a4e8609ee6facbfffc2a",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/capability.schema.json",
+      "sha256": "9e4dadc44c6fe93ed1ceaad39718192b88ed1aaba8df2ab985cea44b2b84733f",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/first-party-app-event.schema.json",
+      "sha256": "0581246cd75d76c2941f34d51cc04def9b6f926ae6201e20941a091b9e40b660",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/life-ledger-event.schema.json",
+      "sha256": "fd1b179845ce5cadf292888e2e263850bbe5007dd6a8e0c8624804633bd73c58",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/proactive-brief.schema.json",
+      "sha256": "ceed3bed4acfab555ba85e7302aa9834d28ec39d6285e347bfe5b49539699e67",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/skill-record.schema.json",
+      "sha256": "0e3801c46510b2c24675e88c4f324adf183824c11bae4efb2323235055dab209",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/source-reference.schema.json",
+      "sha256": "2664a7fc3536195011ece1455cc5749870fad8ad499ec6ef1afe3289edb8e350",
+      "unchanged": true
+    },
+    {
+      "path": "reference/v3/schemas/world-state.schema.json",
+      "sha256": "8299f65d5f711a6f76257b447cc17289e26668f89ef92c3ee9a4edf197d6f85d",
+      "unchanged": true
+    }
+  ],
+  "disabledOwnerProfiles": [
+    {
+      "path": "templates/policies/runtime-budget.proposed.json",
+      "sha256": "af5dc2c50609bc3319248e12fc916cb2064ea9a936b9f7f80f76ac35a03092b7",
+      "unchanged": true
+    },
+    {
+      "path": "templates/policies/authority.proposed.json",
+      "sha256": "924de0adc1e9cc2a92692cc5691ba22dc8ab2d6822176e9a3b296a82da35e29d",
+      "unchanged": true
+    },
+    {
+      "path": "templates/policies/interruptions.proposed.json",
+      "sha256": "faa4347216e57eafa01968652f8be151473fc26411024c1a513f9af7aeb196f4",
+      "unchanged": true
+    }
+  ],
+  "canonicalInvariants": [
+    {
+      "path": "governance/INVARIANTS.json",
+      "sha256": "ef40b2e56d9bcd878083ce2671866186950c245e71f91e78321e74535a72e9ec",
+      "unchanged": true
+    }
+  ],
+  "compiledPreviews": [
+    {
+      "path": "generated/prompts/conversation.json",
+      "sha256": "9658baf4412b7c72f3db47b1a4b59eae0741111dddd25df0f9a87084b690300f",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/conversation.txt",
+      "sha256": "fb01a23a8c567ef75ea60e33e8ade6f00a2d803e650b73fc025b43e1b5fadb13",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/edith.json",
+      "sha256": "1c02d6617543d548960cdc49cfe8c1a8b37f737a598fca834752dc9e5155857f",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/edith.txt",
+      "sha256": "b3ba7c42bd00fc8674403da977113d6e9dbe3aae5ff9077fb7da66ece1ca549a",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/email.json",
+      "sha256": "f0e73d29dfe62b06659d1f0f1b8d998f97d594562f48749106b11e476cf4d003",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/email.txt",
+      "sha256": "3e735fa4cfdb8a66bc317d6ef5d2f3fb8ca5cf25c8a0422292848cfea4516954",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/fba.json",
+      "sha256": "3eefb367ccbb7cf8fd66bcdd4af27514866628605680abe02460975a6ef42b98",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/fba.txt",
+      "sha256": "6d2e4d385e0c7ffcd6eb0e0ba6eb97ee5fa0c7dd6dfd72a3b6a280c44c3b9057",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/finance.json",
+      "sha256": "0df9301b432549cef36c8ed175445764f296ee15cf2e62405df6af02ee00155b",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/finance.txt",
+      "sha256": "3fe946b4c5440c758bcf4b05520633e89dc8877d3c96b104d6a9f002043744aa",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/health.json",
+      "sha256": "358ec387497c62d0cc1d0e18a301431d4a67efb39e7172e53b855d70eec11116",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/health.txt",
+      "sha256": "35bada45d330f0380c21158c20b80a600e55239844f407b04a36f234a504c369",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/mentor.json",
+      "sha256": "7a06b8a9d7197b98c3ea36df915787ade1c37b8aee9e49a777a108193f32099c",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/mentor.txt",
+      "sha256": "10a0cf24475e6d7cf8b89846bc010e87f23d59f03d22866af17da038c50e805c",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/night-mode.json",
+      "sha256": "a1254f572bfa702496b61a74c1c30473c9e965f82381007863c67b3dc6498edc",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/night-mode.txt",
+      "sha256": "ccd9508903c9bbbf79b74df34dc87fbbcdd1f9b3651238a3bf00f4e5918b4013",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/proactive.json",
+      "sha256": "5f66d98e310c755cf602f218811fe08517ea1062edfcdff1e6c952739ac15137",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/proactive.txt",
+      "sha256": "f013519a039d87120e2251ffa6a2c4c8cd1c4326b126e31dff1b114eeda7fae4",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/relationship.json",
+      "sha256": "7fda797e744971f4781f9a169096559482ba2e5f4b0474bd5597245d5f7c2d48",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/relationship.txt",
+      "sha256": "00cdc5b767a3ffae4cd0c57b0560ba9fc341cd586ac5fd86ddc12d61c09773ff",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/replan.json",
+      "sha256": "02c92f64e16520bfacc1e68848d37bd93d5b17674b3fad50a0b1a402fcaed2fa",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/replan.txt",
+      "sha256": "f023ed01c6e605e5d8745b18fab2875ab47273b45f0ffd7c96aa908100f87a09",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/research.json",
+      "sha256": "5dbac6bd07609ddeb2e99acdb67843a42441357531179a93af9f56cb623bf563",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/research.txt",
+      "sha256": "f8cd014c2bacd32b715cf87d6a4a650850a0f100957b2c2d5bd5dc11f8e4f77f",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/skill-curation.json",
+      "sha256": "ea368b1e2f354a27111ed3be50eddfae50d414db0cc43f7c3da23d80864b3d59",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/skill-curation.txt",
+      "sha256": "d3be07c983f4b4a05035f42916a8d77af50064e9a5e3524e12a47ee47ce6282b",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/voice.json",
+      "sha256": "489a9bd00c0eb4e7c037e4c54e6763413a2deb9ad6b65540db10e4e99b501be4",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/voice.txt",
+      "sha256": "5b1ef47598b98263acde5c89c626841bab09a0c94170084f5669f28d4ef5460d",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/weekly-review.json",
+      "sha256": "c16118331eb02f917eaa034c5e37df098f749c84c3fc200187b43c4ac8ee5aea",
+      "unchanged": true
+    },
+    {
+      "path": "generated/prompts/weekly-review.txt",
+      "sha256": "cf137021452922a21e53e5d91e95313b28c521762acb4dbf187728f20d31304c",
+      "unchanged": true
+    }
+  ],
+  "missionOrderAndStatesUnchanged": true,
+  "noApplicationMachineConfigReplacements": true
+}

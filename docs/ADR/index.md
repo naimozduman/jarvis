@@ -15,7 +15,7 @@ rewrite either accepted record.
 | ADR | Recorded status | Scope / implication |
 | --- | --- | --- |
 | [0001 — split Vercel, Railway, and Neon](0001-stack.md) | Superseded in Phase 3.6 | Historical staging rationale; the Railway runtime portion is superseded by ADR 0012. |
-| [0002 — Evolution as a replaceable transport](0002-evolution-transport.md) | Accepted with operational risk | Historical Evolution boundary; current transport direction and separate enablement gates live in docs/JARVIS and current source. |
+| [0002 — Evolution as a replaceable transport](0002-evolution-transport.md) | Accepted with operational risk | Historical Evolution boundary; current transport direction and separate enablement gates live in the current canonical index and current source. |
 | [0003 — one runtime orchestrator](0003-single-orchestrator.md) | Accepted | Original orchestration boundary; read alongside later Brain/job decisions and current source. |
 | [0004 — finance remains read-only](0004-read-only-finance.md) | Accepted | No present finance-write authority; future product direction does not grant money movement. |
 | [0005 — data-first phase sequence](0005-phase-sequence.md) | Accepted | Historical Phase 0–6 build sequence; current product roadmap remains separate from proof of implementation. |
@@ -63,3 +63,22 @@ Object retention, production key custody, recovery, provider eligibility and con
 retain their documented unresolved gates. The separate V5 pack does not assign status or governance
 to these ADRs. One-off recovery and fixed migration procedures remain historical operational
 material, requiring a separately reviewed target and explicit release authority before any reuse.
+
+## V5 documentation absorption and proposals
+
+[Current product decisions](../product/DECISIONS.md) records the owner-authorized documentation supersession. All original numbered ADR bodies/filenames are preserved. Imported V5 proposals do not receive repository numbers or acceptance by this import.
+
+- [V5-001](proposals/v5/v5-001.md)
+- [V5-002](proposals/v5/v5-002.md)
+- [V5-003](proposals/v5/v5-003.md)
+- [V5-004](proposals/v5/v5-004.md)
+- [V5-005](proposals/v5/v5-005.md)
+- [V5-006](proposals/v5/v5-006.md)
+- [V5-007](proposals/v5/v5-007.md)
+- [V5-008](proposals/v5/v5-008.md)
+- [V5-009](proposals/v5/v5-009.md)
+- [V5-010](proposals/v5/v5-010.md)
+- [V5-011](proposals/v5/v5-011.md)
+- [V5-012](proposals/v5/v5-012.md)
+- [V5-013](proposals/v5/v5-013.md)
+- [V5-014](proposals/v5/v5-014.md)

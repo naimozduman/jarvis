@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    "Evidence policy not enrolled: local checks pass without granting promotion."
+  ],
+  "counts": {
+    "managedFiles": 400,
+    "markdownFiles": 215,
+    "agents": 17,
+    "skills": 18,
+    "missions": 20,
+    "draftContracts": 15,
+    "promptAssemblies": 15
+  },
+  "scope": "structural pack validation; not deployed runtime certification"
+}

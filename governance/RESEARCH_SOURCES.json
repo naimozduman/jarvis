@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Provenance and candidates, not product authority",
+  "systems": [
+    {
+      "id": "RES-01",
+      "system": "Hermes Agent",
+      "sourceUrl": "https://github.com/NousResearch/hermes-agent",
+      "providedReportLocator": "Muse 2 .txt, section 1; jarvis-builds-deep-dive.pdf, pp. 6-7",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Staged turns, bounded iterations, persistent sessions and learned skills.",
+      "disposition": "Study runtime boundaries or use as a worker. Do not replace canonical Core. Exact repository internals/version claims in Muse were not re-audited for this pack.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-02",
+      "system": "memU",
+      "sourceUrl": "https://github.com/NevaMind-AI/memU",
+      "providedReportLocator": "Muse 2 .txt, section 7; ultimate-synthesis, p. 19",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Separate memory/skill tracks and readable memory files.",
+      "disposition": "Candidate portable skill archive and retrieval adapter. Host synthesis is not zero-cost or automatically correct merely because the service makes no LLM calls.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-03",
+      "system": "mem0",
+      "sourceUrl": "https://github.com/mem0ai/mem0",
+      "providedReportLocator": "Muse 2 .txt, section 6",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Retrieve before proposing ADD/UPDATE/DELETE rather than append contradictory facts.",
+      "disposition": "Candidate extraction design. Core validates promotion and keeps source evidence. LLM extraction is not authoritative state.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-04",
+      "system": "Honcho",
+      "sourceUrl": "https://github.com/plastic-labs/honcho",
+      "providedReportLocator": "Muse 2 .txt, section 8",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Reasoned user representations beyond individual facts.",
+      "disposition": "Candidate hypothesis subsystem only. Inferred user models remain editable hypotheses, never constitution or permission.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-05",
+      "system": "Stanford OpenJarvis",
+      "sourceUrl": "https://github.com/open-jarvis/OpenJarvis",
+      "providedReportLocator": "Muse 2 .txt, section 2; ultimate-synthesis, pp. 14-15",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Separation of model, engine, agents, tools/memory and learning, with explicit evaluation.",
+      "disposition": "Candidate local-worker/evaluation patterns. Do not conflate with Arcus, OpenClaw or unrelated projects sharing the name.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-06",
+      "system": "OpenClaw",
+      "sourceUrl": "https://github.com/openclaw/openclaw",
+      "providedReportLocator": "ultimate-synthesis, p. 20",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Gateway, channels and device companion pattern.",
+      "disposition": "Candidate executor/gateway adapter. Distinct from Arcus. No channel support or safety guarantees are presumed from the report alone.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-07",
+      "system": "Arcus, @avoshuu",
+      "sourceUrl": "https://www.instagram.com/reel/DaZ_kOquhmK/",
+      "providedReportLocator": "deep-dive, p. 9; ultimate-synthesis, p. 9",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "One identity across desktop, watch, phone and messaging.",
+      "disposition": "Interface inspiration. Report labels internals undisclosed. Not a reproducible local-model or security recipe.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-08",
+      "system": "Alex, @alexcandothat",
+      "sourceUrl": "https://www.instagram.com/reel/Dc2C4fHNr4Y/",
+      "providedReportLocator": "deep-dive, p. 11; ultimate-synthesis, p. 5",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Capture, transcribe, normalize, retrieve and act.",
+      "disposition": "Candidate ingestion discipline, not a mandate to record everything. Fletcher mechanics are described as unverified; do not invent its ranking algorithm.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-09",
+      "system": "Chloe, @chloeshy.ai",
+      "sourceUrl": "https://www.instagram.com/reel/DbBPiy4vcz4/",
+      "providedReportLocator": "deep-dive, p. 10; ultimate-synthesis, p. 6",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Business data read, interpret, brief and propose operations through tools.",
+      "disposition": "Candidate FBA read-only workflow. Existence of RevenueCat/Meta/Playwright does not prove the creator harness. Revenue divided by ad spend alone is not necessarily attributed ROAS.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-10",
+      "system": "Playwright MCP",
+      "sourceUrl": "https://github.com/microsoft/playwright-mcp",
+      "providedReportLocator": "Muse 2 .txt, section 10",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Structured browser observation before screenshot fallback.",
+      "disposition": "Candidate browser executor. Tool annotations are hints, not authorization. UI actions must revalidate origin, target and observed result.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-11",
+      "system": "Retell AI",
+      "sourceUrl": "https://docs.retellai.com/",
+      "providedReportLocator": "deep-dive, pp. 4, 19; Muse 2 .txt, section 14",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Telephony as a separately metered and permissioned transport.",
+      "disposition": "Candidate calling adapter only after a concrete approved use case. No current price/latency commitment is imported.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-12",
+      "system": "adewaskar JARVIS",
+      "sourceUrl": "https://github.com/adewaskar/jarvis",
+      "providedReportLocator": "Muse 2 .txt, section 5",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Headless coding-agent host behind a browser face, streaming and reconnect/session concerns.",
+      "disposition": "Candidate worker integration. Inheriting local MCP servers is a risk, not blanket authorization. Do not run a coding agent with owner credentials as Core.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-13",
+      "system": "eadmin2 JARVIS",
+      "sourceUrl": "https://github.com/eadmin2/jarvis_ai",
+      "providedReportLocator": "Muse 2 .txt, section 4; ultimate-synthesis, p. 16",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Voice and text continuity, streaming TTS, redaction and interruption bookkeeping.",
+      "disposition": "Candidate voice adapter. Retain generated, spoken and interrupted segments separately, without rewriting action history.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-14",
+      "system": "FatihMakes Mark-LIII",
+      "sourceUrl": "https://github.com/FatihMakes",
+      "providedReportLocator": "Muse 2 .txt, section 3",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "UI-resolved confirmation instead of model-supplied confirmed=true.",
+      "disposition": "Exact repo locator not supplied in the source excerpt. Treat implementation detail as report-attributed. JARVIS uses per-action pending records, not a single global confirmation.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-15",
+      "system": "LiveKit",
+      "sourceUrl": "https://docs.livekit.io/agents/",
+      "providedReportLocator": "Muse 2 .txt, section 12; ultimate-synthesis, p. 13",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Realtime media transport and interruption across mobile/web.",
+      "disposition": "Candidate voice transport. The two reports describe different cascade/native-audio wiring, so the exact tutorial recipe remains unresolved.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-16",
+      "system": "Nate no-code stack",
+      "sourceUrl": "https://www.youtube.com/watch?v=KUvSzvFeZls",
+      "providedReportLocator": "deep-dive, pp. 7-8",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Voice tools dispatch to workflow webhooks.",
+      "disposition": "Candidate long-tail connector pattern. Voice, workflow orchestration and canonical memory remain separate. No n8n install is required by V4.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-17",
+      "system": "Donna/CortexOS",
+      "sourceUrl": "https://www.instagram.com/agentic.james/",
+      "providedReportLocator": "ultimate-synthesis, p. 17",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Shared task store with a messaging entrypoint and multiple workers.",
+      "disposition": "Candidate UI/work coordination. Report says source is paywalled. Do not present reconstructed integration code as verified.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-18",
+      "system": "Z.E.R.O",
+      "sourceUrl": "https://www.instagram.com/reel/DZcSLefuxRU/",
+      "providedReportLocator": "deep-dive, pp. 14-15",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Operator loop: purpose, tools, memory, authority and feedback.",
+      "disposition": "Framing only. Reports disclose no reproducible implementation. V4 definitions derive authority from own accepted rules, not a creator claim.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-19",
+      "system": "Offline voice reference",
+      "sourceUrl": "https://www.youtube.com/watch?v=H0TbxYPXqzY",
+      "providedReportLocator": "deep-dive, pp. 5-6",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Local wake, speech recognition and speech synthesis as separate privacy stages.",
+      "disposition": "Candidate local tier. Local capture does not make later cloud reasoning or cloud TTS local.",
+      "verifiedAt": null
+    },
+    {
+      "id": "RES-20",
+      "system": "Qendresa Life Admin Brain",
+      "sourceUrl": "https://github.com/kju4q/ai-weekend-builds",
+      "providedReportLocator": "ultimate-synthesis, p. 18",
+      "evidence": "report_attributed_not_independently_reproduced_in_v4",
+      "lesson": "Local document retrieval with source references and optional cloud answer generation.",
+      "disposition": "Candidate source retrieval pattern. A retrieval result is evidence content, not permission or a remembered fact.",
+      "verifiedAt": null
+    }
+  ],
+  "verifiedToolingSources": [
+    {
+      "id": "OFF-CODEX-SKILLS",
+      "url": "https://developers.openai.com/codex/skills",
+      "checkedAt": "2026-09-26",
+      "scope": "SKILL.md progressive disclosure and .agents/skills lookup, not arbitrary plugin availability"
+    },
+    {
+      "id": "OFF-CODEX-AGENTS",
+      "url": "https://developers.openai.com/codex/subagents",
+      "checkedAt": "2026-09-26",
+      "scope": "TOML role name, description and developer_instructions, model optional"
+    },
+    {
+      "id": "OFF-CODEX-CONFIG",
+      "url": "https://developers.openai.com/codex/config-reference",
+      "checkedAt": "2026-09-26",
+      "scope": "Sandbox and environment keys; retired untrusted approval policy avoided; validate installed host before merge"
+    },
+    {
+      "id": "OFF-GH-SECURITY",
+      "url": "https://docs.github.com/en/actions/reference/security/secure-use",
+      "checkedAt": "2026-09-26",
+      "scope": "Untrusted candidate execution separated from privileged workflows"
+    },
+    {
+      "id": "OFF-PG-TIME",
+      "url": "https://www.postgresql.org/docs/current/functions-datetime.html",
+      "checkedAt": "2026-09-26",
+      "scope": "transaction/statement/current wall clock distinction"
+    },
+    {
+      "id": "OFF-NIST-KEYS",
+      "url": "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final",
+      "checkedAt": "2026-09-26",
+      "scope": "General key lifecycle principles, not certification of custom V5 protocol"
+    }
+  ]
+}

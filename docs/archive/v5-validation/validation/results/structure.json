@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "errors": [],
+  "warnings": [
+    "Evidence policy not enrolled: local checks pass without granting promotion.",
+    "Structural validation does not authenticate installation evidence or prove a trusted runner. Pack profiles ship unenrolled."
+  ],
+  "counts": {
+    "managedFiles": 436,
+    "markdownFiles": 202,
+    "agents": 17,
+    "skills": 22,
+    "missions": 24,
+    "draftContracts": 15,
+    "promptAssemblies": 15,
+    "productRequirements": 93,
+    "contextTopics": 16
+  },
+  "scope": "structural pack validation; not deployed runtime certification"
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "recordType": "incident-record",
+  "description": "Failure and regression linkage",
+  "repository": "naimozduman/jarvis",
+  "baseSha": null,
+  "headSha": null,
+  "createdAt": null,
+  "createdBy": null,
+  "environment": null,
+  "status": "not_started",
+  "evidenceRefs": [],
+  "limitations": [],
+  "incidentId": null,
+  "invariants": [],
+  "regressionRefs": [],
+  "notTestableReason": null,
+  "severity": null,
+  "resolvedAt": null
+}

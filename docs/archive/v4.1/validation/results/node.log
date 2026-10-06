@@ -1,0 +1,286 @@
+TAP version 13
+# Subtest: ordinary code now requires exact owner approval
+ok 1 - ordinary code now requires exact owner approval
+  ---
+  duration_ms: 53.60721
+  type: 'test'
+  ...
+# Subtest: protected diff denied unsigned
+ok 2 - protected diff denied unsigned
+  ---
+  duration_ms: 32.681067
+  type: 'test'
+  ...
+# Subtest: exact owner signature admits protected diff
+ok 3 - exact owner signature admits protected diff
+  ---
+  duration_ms: 40.9467
+  type: 'test'
+  ...
+# Subtest: changed head invalidates approval
+ok 4 - changed head invalidates approval
+  ---
+  duration_ms: 47.466548
+  type: 'test'
+  ...
+# Subtest: tampered envelope rejected
+ok 5 - tampered envelope rejected
+  ---
+  duration_ms: 47.099022
+  type: 'test'
+  ...
+# Subtest: expired approval rejected
+ok 6 - expired approval rejected
+  ---
+  duration_ms: 45.325486
+  type: 'test'
+  ...
+# Subtest: unregistered key rejected
+ok 7 - unregistered key rejected
+  ---
+  duration_ms: 41.402278
+  type: 'test'
+  ...
+# Subtest: wrong signature rejected
+ok 8 - wrong signature rejected
+  ---
+  duration_ms: 48.201797
+  type: 'test'
+  ...
+# Subtest: immutable history denied even signed
+ok 9 - immutable history denied even signed
+  ---
+  duration_ms: 99.906085
+  type: 'test'
+  ...
+# Subtest: new history is an authorized append, not an unsigned policy change
+ok 10 - new history is an authorized append, not an unsigned policy change
+  ---
+  duration_ms: 58.782101
+  type: 'test'
+  ...
+# Subtest: candidate checker never executed
+ok 11 - candidate checker never executed
+  ---
+  duration_ms: 31.780193
+  type: 'test'
+  ...
+# Subtest: candidate trust policy cannot change supplied baseline
+ok 12 - candidate trust policy cannot change supplied baseline
+  ---
+  duration_ms: 35.506296
+  type: 'test'
+  ...
+# Subtest: same signature cannot promote another repository identity
+ok 13 - same signature cannot promote another repository identity
+  ---
+  duration_ms: 45.297775
+  type: 'test'
+  ...
+# Subtest: full SHA required, branch name is not accepted
+ok 14 - full SHA required, branch name is not accepted
+  ---
+  duration_ms: 20.384432
+  type: 'test'
+  ...
+# Subtest: glob boundaries and history prefixes
+ok 15 - glob boundaries and history prefixes
+  ---
+  duration_ms: 0.215552
+  type: 'test'
+  ...
+# Subtest: canonical payload refuses noninteger floats
+ok 16 - canonical payload refuses noninteger floats
+  ---
+  duration_ms: 0.203024
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/api/src/runtime.ts
+ok 17 - protected by default: apps/api/src/runtime.ts
+  ---
+  duration_ms: 54.273838
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/database/src/brain-repository.ts
+ok 18 - protected by default: packages/database/src/brain-repository.ts
+  ---
+  duration_ms: 46.374983
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/config/src/index.ts
+ok 19 - protected by default: packages/config/src/index.ts
+  ---
+  duration_ms: 45.970387
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/executors/src/dispatch.ts
+ok 20 - protected by default: packages/executors/src/dispatch.ts
+  ---
+  duration_ms: 45.837814
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/web/src/approval-view.tsx
+ok 21 - protected by default: apps/web/src/approval-view.tsx
+  ---
+  duration_ms: 50.688485
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/integrations-mail/src/send.ts
+ok 22 - protected by default: packages/integrations-mail/src/send.ts
+  ---
+  duration_ms: 52.846261
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/whatsapp-bridge/src/send.ts
+ok 23 - protected by default: apps/whatsapp-bridge/src/send.ts
+  ---
+  duration_ms: 49.877306
+  type: 'test'
+  ...
+# Subtest: protected by default: convex/new-dispatch.ts
+ok 24 - protected by default: convex/new-dispatch.ts
+  ---
+  duration_ms: 53.664189
+  type: 'test'
+  ...
+# Subtest: protected by default: unknown-new-directory/handler.js
+ok 25 - protected by default: unknown-new-directory/handler.js
+  ---
+  duration_ms: 101.294682
+  type: 'test'
+  ...
+# Subtest: protected by default: Dockerfile
+ok 26 - protected by default: Dockerfile
+  ---
+  duration_ms: 46.055705
+  type: 'test'
+  ...
+# Subtest: protected by default: pnpm-lock.yaml
+ok 27 - protected by default: pnpm-lock.yaml
+  ---
+  duration_ms: 53.375147
+  type: 'test'
+  ...
+# Subtest: protected by default: governance/runs/payload.mjs
+ok 28 - protected by default: governance/runs/payload.mjs
+  ---
+  duration_ms: 47.416907
+  type: 'test'
+  ...
+# Subtest: unsigned removal of dispatch authorization is rejected with policy module untouched
+ok 29 - unsigned removal of dispatch authorization is rejected with policy module untouched
+  ---
+  duration_ms: 44.617647
+  type: 'test'
+  ...
+# Subtest: benign operational JSON does not require a code promotion signature after enrollment
+ok 30 - benign operational JSON does not require a code promotion signature after enrollment
+  ---
+  duration_ms: 36.902512
+  type: 'test'
+  ...
+# Subtest: executable bit removes operational exemption
+ok 31 - executable bit removes operational exemption
+  ---
+  duration_ms: 30.430257
+  type: 'test'
+  ...
+# Subtest: rename out of an operational location still protects destination
+ok 32 - rename out of an operational location still protects destination
+  ---
+  duration_ms: 34.768041
+  type: 'test'
+  ...
+# Subtest: unenrolled policy permits inspection but denies operational promotion
+ok 33 - unenrolled policy permits inspection but denies operational promotion
+  ---
+  duration_ms: 36.796282
+  type: 'test'
+  ...
+# Subtest: version-one/default-allow policy is refused by V4.1
+ok 34 - version-one/default-allow policy is refused by V4.1
+  ---
+  duration_ms: 16.460754
+  type: 'test'
+  ...
+# Subtest: candidate operational exception expansion is not used
+ok 35 - candidate operational exception expansion is not used
+  ---
+  duration_ms: 31.576623
+  type: 'test'
+  ...
+# Subtest: changed-blob limit is enforced
+ok 36 - changed-blob limit is enforced
+  ---
+  duration_ms: 27.828006
+  type: 'test'
+  ...
+# Subtest: symlink under operational folder is rejected
+ok 37 - symlink under operational folder is rejected
+  ---
+  duration_ms: 29.289919
+  type: 'test'
+  ...
+# Subtest: correct independent evidence signature verifies
+ok 38 - correct independent evidence signature verifies
+  ---
+  duration_ms: 1.9901
+  type: 'test'
+  ...
+# Subtest: candidate cannot activate unenrolled evidence trust
+ok 39 - candidate cannot activate unenrolled evidence trust
+  ---
+  duration_ms: 1.127337
+  type: 'test'
+  ...
+# Subtest: wrong-purpose signer rejected
+ok 40 - wrong-purpose signer rejected
+  ---
+  duration_ms: 1.181969
+  type: 'test'
+  ...
+# Subtest: tampered evidence head rejected
+ok 41 - tampered evidence head rejected
+  ---
+  duration_ms: 1.28216
+  type: 'test'
+  ...
+# Subtest: expired evidence rejected
+ok 42 - expired evidence rejected
+  ---
+  duration_ms: 1.040047
+  type: 'test'
+  ...
+# Subtest: future evidence rejected
+ok 43 - future evidence rejected
+  ---
+  duration_ms: 1.045956
+  type: 'test'
+  ...
+# Subtest: governance signature cannot be replayed as evidence
+ok 44 - governance signature cannot be replayed as evidence
+  ---
+  duration_ms: 1.754337
+  type: 'test'
+  ...
+# Subtest: altered signer public key rejected
+ok 45 - altered signer public key rejected
+  ---
+  duration_ms: 1.13566
+  type: 'test'
+  ...
+# Subtest: signed validity window still obeys trusted maximum
+ok 46 - signed validity window still obeys trusted maximum
+  ---
+  duration_ms: 1.913084
+  type: 'test'
+  ...
+1..46
+# tests 46
+# suites 0
+# pass 46
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1022.662589

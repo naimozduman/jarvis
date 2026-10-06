@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "baseSha": null,
+  "headSha": null,
+  "areas": [],
+  "unmappedPaths": [],
+  "scope": "Template only. Each changed mapped area needs docsUpdated or noContractImpactReason, plus testEvidence with exact-head run references."
+}

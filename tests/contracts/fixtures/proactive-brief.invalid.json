@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "briefId": "00000000-0000-4000-8000-000000000001",
+  "ownerId": "00000000-0000-4000-8000-000000000002",
+  "periodStart": "2026-09-25T10:00:00Z",
+  "periodEnd": "2026-09-25T10:05:00Z",
+  "generatedAt": "2026-09-25T10:05:00Z",
+  "interruptionClass": "normal",
+  "items": [
+    {
+      "status": "drafted",
+      "summary": "Synthetic draft awaiting review",
+      "sourceRefs": [
+        {
+          "schemaVersion": 1,
+          "sourceType": "synthetic",
+          "sourceId": "fixture-source-1",
+          "sourceVersion": "1",
+          "occurredAt": "2026-09-25T10:00:00Z",
+          "observedAt": "2026-09-25T10:00:00Z",
+          "coverage": "fixture only",
+          "informationState": "known",
+          "sensitivity": "normal",
+          "contentHash": null
+        }
+      ]
+    }
+  ],
+  "unexpectedAuthority": true
+}

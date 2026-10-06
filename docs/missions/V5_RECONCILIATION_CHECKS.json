@@ -1,0 +1,2705 @@
+{
+  "checkVersion": 1,
+  "checkedAtUtc": "2026-10-06T01:50:41.819431+00:00",
+  "baselineCommit": "0b05116598a7bed142c294326e15471ed03e0b26",
+  "phase": "V5 canonical source/documentation accounting complete",
+  "checks": {
+    "origins": {
+      "sourceFiles": 467,
+      "sourceZipMembers": 467,
+      "sourceFailures": [],
+      "archiveFailures": [],
+      "publishedChecksums": 435,
+      "originalAndSnapshotUnchanged": true,
+      "sourceZipSha256": "744385cdc46dfff8c94a32d7389492b4c2b9bce4e0617f173d9ce2e057364de1",
+      "pass": true
+    },
+    "preservation": {
+      "baselineFiles": 397,
+      "exactProtectedFiles": 395,
+      "intentionalAncillaryChanges": [
+        ".prettierignore",
+        "eslint.config.mjs"
+      ],
+      "unexpectedChanges": [],
+      "archivedBaselineFiles": 117,
+      "archiveByteFailures": [],
+      "archiveHashSource": "Exact captured baseline working bytes; Git blob comparison additionally permits historical newline normalization.",
+      "numberedAdrBodies": 24,
+      "adrFailures": [],
+      "newApplicationOrInstalledWorkflowFiles": [],
+      "forbiddenBuildOrCredentialPaths": [],
+      "pass": true
+    },
+    "requirements": {
+      "productSections": 19,
+      "requirementIds": 93,
+      "requirementAndAcceptanceTextsExact": true,
+      "crosswalkIds": 93,
+      "missingCrosswalkIds": [],
+      "missions": 24,
+      "missionDagFailures": [],
+      "pass": true
+    },
+    "staticData": {
+      "counts": {
+        "jsonParsed": 181,
+        "tomlParsed": 29,
+        "pythonParsed": 33
+      },
+      "failures": [],
+      "pass": true,
+      "repositoryApplicationCodeExecuted": false
+    },
+    "links": {
+      "localLinksChecked": 573,
+      "intentionalExampleOrExternalIgnored": 0,
+      "failures": [],
+      "archiveAndDesignExamplesNotRewritten": true,
+      "pass": true
+    },
+    "registries": {
+      "resolvedPaths": 750,
+      "failures": [],
+      "plannedReferences": [
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/0/sourcePackPaths/0",
+          "reference": ".agents/skills/agent-evals/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/1/sourcePackPaths/0",
+          "reference": ".agents/skills/agent-runtime/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/2/sourcePackPaths/0",
+          "reference": ".agents/skills/android-device/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/3/sourcePackPaths/0",
+          "reference": ".agents/skills/browser-executor/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/4/sourcePackPaths/0",
+          "reference": ".agents/skills/connector-integration/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/5/sourcePackPaths/0",
+          "reference": ".agents/skills/database-and-jobs/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/7/sourcePackPaths/0",
+          "reference": ".agents/skills/deploy-vercel-convex-neon/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/8/sourcePackPaths/0",
+          "reference": ".agents/skills/evolution-whatsapp/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/9/sourcePackPaths/0",
+          "reference": ".agents/skills/executor-safety/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/10/sourcePackPaths/0",
+          "reference": ".agents/skills/first-party-apps/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/11/sourcePackPaths/0",
+          "reference": ".agents/skills/governance-enforcement/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/12/sourcePackPaths/0",
+          "reference": ".agents/skills/incident-and-restore/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/13/sourcePackPaths/0",
+          "reference": ".agents/skills/jarvis-product-rules/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/14/sourcePackPaths/0",
+          "reference": ".agents/skills/key-recovery/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/15/sourcePackPaths/0",
+          "reference": ".agents/skills/memory-and-context/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/16/sourcePackPaths/0",
+          "reference": ".agents/skills/operational-drills/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/17/sourcePackPaths/0",
+          "reference": ".agents/skills/progressive-context/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/18/sourcePackPaths/0",
+          "reference": ".agents/skills/repository-reconciliation/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/19/sourcePackPaths/0",
+          "reference": ".agents/skills/runtime-prompts/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/20/sourcePackPaths/0",
+          "reference": ".agents/skills/schema-evolution/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/21/sourcePackPaths/0",
+          "reference": ".agents/skills/security-and-privacy/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/22/sourcePackPaths/0",
+          "reference": ".agents/skills/voice-and-realtime/SKILL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/23/sourcePackPaths/0",
+          "reference": ".codex/agents/agent-runtime-engineer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/24/sourcePackPaths/0",
+          "reference": ".codex/agents/architecture-planner.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/25/sourcePackPaths/0",
+          "reference": ".codex/agents/backend-implementer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/26/sourcePackPaths/0",
+          "reference": ".codex/agents/browser-engineer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/27/sourcePackPaths/0",
+          "reference": ".codex/agents/docs-researcher.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/28/sourcePackPaths/0",
+          "reference": ".codex/agents/executor-engineer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/29/sourcePackPaths/0",
+          "reference": ".codex/agents/frontend-implementer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/30/sourcePackPaths/0",
+          "reference": ".codex/agents/governance-reviewer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/31/sourcePackPaths/0",
+          "reference": ".codex/agents/integration-specialist.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/32/sourcePackPaths/0",
+          "reference": ".codex/agents/memory-architect.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/33/sourcePackPaths/0",
+          "reference": ".codex/agents/mobile-implementer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/34/sourcePackPaths/0",
+          "reference": ".codex/agents/release-operator.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/35/sourcePackPaths/0",
+          "reference": ".codex/agents/repo-explorer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/36/sourcePackPaths/0",
+          "reference": ".codex/agents/runtime-prompt-engineer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/37/sourcePackPaths/0",
+          "reference": ".codex/agents/security-reviewer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/38/sourcePackPaths/0",
+          "reference": ".codex/agents/test-evals.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/39/sourcePackPaths/0",
+          "reference": ".codex/agents/voice-engineer.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/84/sourcePackPaths/0",
+          "reference": "docs/ADR/README.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/86/sourcePackPaths/0",
+          "reference": "docs/ADR/TEMPLATE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/88/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-001.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/89/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-002.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/90/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-003.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/91/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-004.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/92/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-005.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/93/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-006.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/94/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-007.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/95/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-008.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/96/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-009.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/97/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-010.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/98/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-011.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/99/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-012.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/100/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-013.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/101/sourcePackPaths/0",
+          "reference": "docs/ADR/proposals/v5/v5-014.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/176/sourcePackPaths/0",
+          "reference": "docs/AGENT_RUNTIME.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/177/sourcePackPaths/0",
+          "reference": "docs/CODEX_SETUP.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/178/sourcePackPaths/0",
+          "reference": "docs/CONTEXT_PACKS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/179/sourcePackPaths/0",
+          "reference": "docs/MULTI_AGENT_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/180/sourcePackPaths/0",
+          "reference": "docs/SELF_REVIEW.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/181/sourcePackPaths/0",
+          "reference": "docs/SESSION_CONTINUITY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/182/sourcePackPaths/0",
+          "reference": "docs/SKILL_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/183/sourcePackPaths/0",
+          "reference": "docs/WORKING_STATE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/184/sourcePackPaths/0",
+          "reference": "docs/ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/185/sourcePackPaths/0",
+          "reference": "docs/ARTIFACT_LIFECYCLE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/187/sourcePackPaths/0",
+          "reference": "docs/BRAIN_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/188/sourcePackPaths/0",
+          "reference": "docs/BROWSER_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/190/sourcePackPaths/0",
+          "reference": "docs/CONTEXT_ASSEMBLY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/191/sourcePackPaths/0",
+          "reference": "docs/CONTROL_LOOP.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/192/sourcePackPaths/0",
+          "reference": "docs/CONVEX_ORCHESTRATION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/193/sourcePackPaths/0",
+          "reference": "docs/CURRENT_IMPLEMENTATION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/194/sourcePackPaths/0",
+          "reference": "docs/DATA_MODEL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/195/sourcePackPaths/0",
+          "reference": "docs/DECISION_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/196/sourcePackPaths/0",
+          "reference": "docs/EVENT_MODEL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/197/sourcePackPaths/0",
+          "reference": "docs/EXECUTOR_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/198/sourcePackPaths/0",
+          "reference": "docs/JOB_LIFECYCLE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/199/sourcePackPaths/0",
+          "reference": "docs/JOURNAL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/200/sourcePackPaths/0",
+          "reference": "docs/LIFE_LEDGER.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/201/sourcePackPaths/0",
+          "reference": "docs/MEMORY_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/202/sourcePackPaths/0",
+          "reference": "docs/MODEL_RUNTIME.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/204/sourcePackPaths/0",
+          "reference": "docs/PROACTIVE_OPERATOR.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/205/sourcePackPaths/0",
+          "reference": "docs/PROMPT_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/208/sourcePackPaths/0",
+          "reference": "docs/REMINDER_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/209/sourcePackPaths/0",
+          "reference": "docs/REPLANNING_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/210/sourcePackPaths/0",
+          "reference": "docs/SCHEMA_EVOLUTION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/211/sourcePackPaths/0",
+          "reference": "docs/VERCEL_AI_GATEWAY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/212/sourcePackPaths/0",
+          "reference": "docs/VERCEL_RUNTIME.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/213/sourcePackPaths/0",
+          "reference": "docs/WORLD_STATE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/214/sourcePackPaths/0",
+          "reference": "docs/ZERO_COST_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/377/sourcePackPaths/0",
+          "reference": "docs/DOC_INDEX.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/381/sourcePackPaths/0",
+          "reference": "prompts/START_V5_IN_CODEX.txt",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/423/sourcePackPaths/0",
+          "reference": "docs/ANDROID_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/426/sourcePackPaths/0",
+          "reference": "docs/SURFACES_AND_CLIENTS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/428/sourcePackPaths/0",
+          "reference": "docs/VOICE_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/460/sourcePackPaths/0",
+          "reference": "docs/DOMAIN_APP_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/461/sourcePackPaths/0",
+          "reference": "docs/DOMAIN_INTEGRATION_CARDS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/462/sourcePackPaths/0",
+          "reference": "docs/EVOLUTION_INTEGRATION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/463/sourcePackPaths/0",
+          "reference": "docs/EVOLUTION_VERSION_GATE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/464/sourcePackPaths/0",
+          "reference": "docs/FIRST_PARTY_SDK.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/465/sourcePackPaths/0",
+          "reference": "docs/INTEGRATIONS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/466/sourcePackPaths/0",
+          "reference": "docs/LOCAL_WHATSAPP_BRIDGE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/467/sourcePackPaths/0",
+          "reference": "docs/MEDIA_PIPELINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/469/sourcePackPaths/0",
+          "reference": "docs/OFFLINE_TRANSPORT.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/470/sourcePackPaths/0",
+          "reference": "docs/OUTBOUND_DELIVERY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/471/sourcePackPaths/0",
+          "reference": "docs/WHATSAPP_ARCHITECTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/472/sourcePackPaths/0",
+          "reference": "docs/WHATSAPP_IDENTITY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/473/sourcePackPaths/0",
+          "reference": "docs/WHATSAPP_RECOVERY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/474/sourcePackPaths/0",
+          "reference": "docs/WHATSAPP_RISK_AND_RECOVERY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/475/sourcePackPaths/0",
+          "reference": "docs/WHATSAPP_SECURITY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/477/sourcePackPaths/0",
+          "reference": "docs/BRAIN_EVALS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/478/sourcePackPaths/0",
+          "reference": "docs/BUILD_PLAN.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/479/sourcePackPaths/0",
+          "reference": "docs/DEPLOYMENT.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/480/sourcePackPaths/0",
+          "reference": "docs/EVALS_AND_ACCEPTANCE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/505/sourcePackPaths/0",
+          "reference": "docs/NEON_STAGING.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/506/sourcePackPaths/0",
+          "reference": "docs/OPERATIONS_HEALTH.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/508/sourcePackPaths/0",
+          "reference": "docs/REPOSITORY_RECONCILIATION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/509/sourcePackPaths/0",
+          "reference": "docs/STAGING_INFRASTRUCTURE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/510/sourcePackPaths/0",
+          "reference": "docs/STAGING_MIGRATION_WORKFLOW.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/511/sourcePackPaths/0",
+          "reference": "docs/STAGING_RUNBOOK.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/514/sourcePackPaths/0",
+          "reference": "docs/progress/README.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/525/sourcePackPaths/0",
+          "reference": "docs/ACCOUNTABILITY_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/526/sourcePackPaths/0",
+          "reference": "docs/BEHAVIOR_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/527/sourcePackPaths/0",
+          "reference": "docs/CONSTITUTION_ENGINE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/529/sourcePackPaths/0",
+          "reference": "docs/PRD.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/530/sourcePackPaths/0",
+          "reference": "docs/MODES.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/531/sourcePackPaths/0",
+          "reference": "docs/NIGHT_MODE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/532/sourcePackPaths/0",
+          "reference": "docs/OPEN_QUESTIONS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/534/sourcePackPaths/0",
+          "reference": "docs/PRODUCT_MAP.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/556/sourcePackPaths/0",
+          "reference": "docs/research/2026-09-external-build-lessons.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/557/sourcePackPaths/0",
+          "reference": "docs/HISTORICAL_RECONSTRUCTION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/558/sourcePackPaths/0",
+          "reference": "docs/RESEARCH_NOTES.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/563/sourcePackPaths/0",
+          "reference": "docs/APPROVAL_MODEL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/564/sourcePackPaths/0",
+          "reference": "docs/AUDIT_MODEL.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/565/sourcePackPaths/0",
+          "reference": "docs/AUTHENTICATION_BOUNDARY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/566/sourcePackPaths/0",
+          "reference": "docs/BUILDER_ISOLATION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/567/sourcePackPaths/0",
+          "reference": "docs/CAPABILITY_AND_AUTHORITY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/568/sourcePackPaths/0",
+          "reference": "docs/COST_AND_MODEL_POLICY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/569/sourcePackPaths/0",
+          "reference": "docs/DISASTER_RECOVERY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/570/sourcePackPaths/0",
+          "reference": "docs/DOCUMENTATION_GOVERNANCE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/571/sourcePackPaths/0",
+          "reference": "docs/ENFORCEMENT_STATUS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/572/sourcePackPaths/0",
+          "reference": "docs/INCIDENT_RESPONSE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/573/sourcePackPaths/0",
+          "reference": "docs/KEY_LIFECYCLE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/574/sourcePackPaths/0",
+          "reference": "docs/KILL_SWITCH_DRILLS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/575/sourcePackPaths/0",
+          "reference": "docs/MISSION_ADMISSION.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/576/sourcePackPaths/0",
+          "reference": "docs/POLICY_MATRIX.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/577/sourcePackPaths/0",
+          "reference": "docs/PRIVACY_TIERS.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/578/sourcePackPaths/0",
+          "reference": "docs/REVIEW_ACCEPTANCE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/580/sourcePackPaths/0",
+          "reference": "docs/SECURITY.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/581/sourcePackPaths/0",
+          "reference": "docs/SUPPLY_CHAIN.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/582/sourcePackPaths/0",
+          "reference": "docs/TRUSTED_TIME.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/583/sourcePackPaths/0",
+          "reference": "docs/TRUST_BOOTSTRAP.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/584/sourcePackPaths/0",
+          "reference": "docs/VERIFICATION_EVIDENCE.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/585/sourcePackPaths/0",
+          "reference": "governance/AGENT_REGISTRY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/586/sourcePackPaths/0",
+          "reference": "governance/ARTIFACT_POLICY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/587/sourcePackPaths/0",
+          "reference": "governance/ARTIFACT_REGISTRY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/588/sourcePackPaths/0",
+          "reference": "governance/CONTEXT_REGISTRY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/589/sourcePackPaths/0",
+          "reference": "governance/CONTROL_MATRIX.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/592/sourcePackPaths/0",
+          "reference": "governance/EVAL_CATALOG.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/593/sourcePackPaths/0",
+          "reference": "governance/EVIDENCE_POLICY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/594/sourcePackPaths/0",
+          "reference": "governance/IMPLEMENTATION_MAP.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/595/sourcePackPaths/0",
+          "reference": "governance/INVARIANTS.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/596/sourcePackPaths/0",
+          "reference": "governance/MISSION_POLICY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/597/sourcePackPaths/0",
+          "reference": "governance/MISSION_TRANSITION.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/598/sourcePackPaths/0",
+          "reference": "governance/OBSERVATIONS.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/599/sourcePackPaths/0",
+          "reference": "governance/OWNER_DECISIONS.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/600/sourcePackPaths/0",
+          "reference": "governance/PRODUCT_SPEC.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/601/sourcePackPaths/0",
+          "reference": "governance/PROMPT_REGISTRY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/602/sourcePackPaths/0",
+          "reference": "governance/RECONCILIATION.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/604/sourcePackPaths/0",
+          "reference": "governance/REQUIREMENT_TRACE.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/605/sourcePackPaths/0",
+          "reference": "governance/RESEARCH_SOURCES.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/606/sourcePackPaths/0",
+          "reference": "governance/RETIREMENTS.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/607/sourcePackPaths/0",
+          "reference": "governance/REVIEW_DISPOSITION.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/608/sourcePackPaths/0",
+          "reference": "governance/ROADMAP.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/609/sourcePackPaths/0",
+          "reference": "governance/SCHEMA_REGISTRY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/610/sourcePackPaths/0",
+          "reference": "governance/SOURCE_ARCHIVE.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/611/sourcePackPaths/0",
+          "reference": "governance/STATE.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/612/sourcePackPaths/0",
+          "reference": "governance/TRUST_POLICY.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/613/sourcePackPaths/0",
+          "reference": "governance/VERSION_TRANSITION.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/614/sourcePackPaths/0",
+          "reference": "integration/codex/config.fragment.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/615/sourcePackPaths/0",
+          "reference": "integration/codex/isolated-config.example.toml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/616/sourcePackPaths/0",
+          "reference": "integration/github/README.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/617/sourcePackPaths/0",
+          "reference": "integration/github/governance-gate.yml",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/618/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/accountability.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/619/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/browser-operator.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/620/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/constitution.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/621/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/core-system.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/622/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/email-triage.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/623/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/fba-ops.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/624/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/finance-observer.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/625/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/health-and-training.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/626/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/historical-reconstruction.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/627/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/memory-extractor.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/628/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/message-writer.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/629/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/mode-edith.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/630/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/mode-friday.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/631/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/mode-mentor.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/632/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/night-mode.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/633/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/planner.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/634/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/proactive-operator.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/635/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/relationship-vault.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/636/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/replanner.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/637/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/security-privacy.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/638/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/skill-curator.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/639/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/source-grounding.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/640/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/tool-policy.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/641/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/uncertainty.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/642/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/voice.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/643/sourcePackPaths/0",
+          "reference": "prompts/runtime/modules/weekly-review.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/644/sourcePackPaths/0",
+          "reference": "schemas/README.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/645/sourcePackPaths/0",
+          "reference": "schemas/drafts/action-intent.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/646/sourcePackPaths/0",
+          "reference": "schemas/drafts/approval-resolution.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/647/sourcePackPaths/0",
+          "reference": "schemas/drafts/authority-lease.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/648/sourcePackPaths/0",
+          "reference": "schemas/drafts/capability.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/649/sourcePackPaths/0",
+          "reference": "schemas/drafts/execution-authorization.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/650/sourcePackPaths/0",
+          "reference": "schemas/drafts/executor-manifest.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/651/sourcePackPaths/0",
+          "reference": "schemas/drafts/first-party-app-event.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/652/sourcePackPaths/0",
+          "reference": "schemas/drafts/first-party-app-manifest.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/653/sourcePackPaths/0",
+          "reference": "schemas/drafts/life-ledger-event.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/654/sourcePackPaths/0",
+          "reference": "schemas/drafts/proactive-brief.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/655/sourcePackPaths/0",
+          "reference": "schemas/drafts/prompt-assembly.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/656/sourcePackPaths/0",
+          "reference": "schemas/drafts/proposed-action.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/657/sourcePackPaths/0",
+          "reference": "schemas/drafts/skill-record.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/658/sourcePackPaths/0",
+          "reference": "schemas/drafts/source-reference.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/659/sourcePackPaths/0",
+          "reference": "schemas/drafts/world-state.schema.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/660/sourcePackPaths/0",
+          "reference": "templates/authority-lease.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/661/sourcePackPaths/0",
+          "reference": "templates/bootstrap-receipt.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/662/sourcePackPaths/0",
+          "reference": "templates/capability-manifest.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/663/sourcePackPaths/0",
+          "reference": "templates/change-impact.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/664/sourcePackPaths/0",
+          "reference": "templates/connector-card-spec.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/665/sourcePackPaths/0",
+          "reference": "templates/executor-manifest.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/666/sourcePackPaths/0",
+          "reference": "templates/first-party-app-manifest.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/667/sourcePackPaths/0",
+          "reference": "templates/health-check.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/668/sourcePackPaths/0",
+          "reference": "templates/incident-record.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/669/sourcePackPaths/0",
+          "reference": "templates/key-state.proposed.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/670/sourcePackPaths/0",
+          "reference": "templates/mission-run.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/671/sourcePackPaths/0",
+          "reference": "templates/policies/authority-expansion.proposed.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/672/sourcePackPaths/0",
+          "reference": "templates/policies/authority.proposed.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/673/sourcePackPaths/0",
+          "reference": "templates/policies/interruptions.proposed.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/674/sourcePackPaths/0",
+          "reference": "templates/policies/runtime-budget.proposed.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/675/sourcePackPaths/0",
+          "reference": "templates/recovery-plan.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/676/sourcePackPaths/0",
+          "reference": "templates/release-record.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/677/sourcePackPaths/0",
+          "reference": "templates/retirement-proposal.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/678/sourcePackPaths/0",
+          "reference": "templates/runbook-template.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/679/sourcePackPaths/0",
+          "reference": "templates/session-handoff.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/680/sourcePackPaths/0",
+          "reference": "templates/skill-template.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/681/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/action-intent.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/682/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/action-intent.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/683/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/approval-resolution.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/684/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/approval-resolution.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/685/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/authority-lease.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/686/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/authority-lease.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/687/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/capability.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/688/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/capability.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/689/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/execution-authorization.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/690/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/execution-authorization.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/691/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/executor-manifest.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/692/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/executor-manifest.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/693/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/first-party-app-event.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/694/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/first-party-app-event.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/695/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/first-party-app-manifest.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/696/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/first-party-app-manifest.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/697/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/life-ledger-event.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/698/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/life-ledger-event.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/699/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/proactive-brief.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/700/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/proactive-brief.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/701/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/prompt-assembly.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/702/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/prompt-assembly.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/703/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/proposed-action.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/704/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/proposed-action.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/705/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/skill-record.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/706/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/skill-record.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/707/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/source-reference.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/708/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/source-reference.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/709/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/world-state.invalid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/710/sourcePackPaths/0",
+          "reference": "tests/contracts/fixtures/world-state.valid.json",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/714/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/README.md",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/715/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/common.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/716/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/compile_prompts.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/717/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/context.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/718/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/env_report.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/719/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/evidence-signing.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/720/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/generate.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/721/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/git_snapshot.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/722/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/github_candidate.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/723/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/impact.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/724/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/index.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/725/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/isolated_worker.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/726/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/isolation_probe.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/727/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/key_lifecycle.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/728/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/mission_gate.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/729/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/mission_runner.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/730/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/overlay_plan.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/731/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/owner-signing.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/732/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/owner_record_signing.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/733/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/prepare_builder.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/734/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/promotion_evidence.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/735/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/reconcile.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/736/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/reference_controls.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/737/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/render.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/738/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/requirements-schema.txt",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/739/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/retirement.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/740/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/review_evidence.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/741/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/schema_tests/test_schemas.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/742/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/signed_records.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/743/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/state.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/744/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/tests/test_pack_tools.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/745/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/tests/test_reference_controls.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/746/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/tests/test_v41_enforcement.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/747/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/tests/test_v5_tools.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/748/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/tests/trust-gate.test.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/749/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/tests/v41-enforcement.test.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/750/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/tests/v5-trust.test.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/751/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/trust-gate.mjs",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/752/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/trusted_time.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/753/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/v5_checks.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/754/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/validate.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/ARTIFACT_REGISTRY.json/artifacts/755/sourcePackPaths/0",
+          "reference": "tools/jarvis-v5/version_gate.py",
+          "reason": "Original V5 source identity verified in preservation input and exact source ZIP"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/0/coveragePatterns/1",
+          "reference": "tools/jarvis-v5/tests/*gate*.mjs",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/1/coveragePatterns/0",
+          "reference": "schemas/drafts/*.json",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/1/coveragePatterns/1",
+          "reference": "tests/contracts/fixtures/*.json",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/1/coveragePatterns/2",
+          "reference": "tools/jarvis-v5/schema_tests/*.py",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/3/coveragePatterns/0",
+          "reference": "tools/jarvis-v5/*.py",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/8/coveragePatterns/0",
+          "reference": "tools/jarvis-v5/*",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/8/coveragePatterns/1",
+          "reference": "tools/jarvis-v5/tests/test_v41*.py",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/8/coveragePatterns/2",
+          "reference": "tools/jarvis-v5/tests/*v41*.mjs",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/EVAL_CATALOG.json/entries/10/coveragePatterns/0",
+          "reference": "tools/jarvis-v5/*.py",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/sourceRoots/3",
+          "reference": "schemas/drafts/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/sourceRoots/4",
+          "reference": "prompts/runtime/modules/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/sourceRoots/5",
+          "reference": "tools/jarvis-v5/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/sourceRoots/6",
+          "reference": "integration/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/sourceRoots/8",
+          "reference": ".codex/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/sourceRoots/9",
+          "reference": ".agents/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/sourceRoots/10",
+          "reference": "governance/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/13/codePatterns/0",
+          "reference": "schemas/drafts/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/13/testPatterns/0",
+          "reference": "tests/contracts/fixtures/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/13/testPatterns/1",
+          "reference": "tools/jarvis-v5/schema_tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/14/codePatterns/0",
+          "reference": "prompts/runtime/modules/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/14/testPatterns/0",
+          "reference": "tools/jarvis-v5/tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/15/codePatterns/0",
+          "reference": "tools/jarvis-v5/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/15/testPatterns/0",
+          "reference": "tools/jarvis-v5/tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/17/codePatterns/0",
+          "reference": "governance/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/17/testPatterns/0",
+          "reference": "tools/jarvis-v5/tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/18/codePatterns/0",
+          "reference": "integration/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/18/codePatterns/2",
+          "reference": ".codex/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/18/codePatterns/3",
+          "reference": ".agents/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/18/testPatterns/0",
+          "reference": "tools/jarvis-v5/tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/19/codePatterns/0",
+          "reference": "docs/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/19/codePatterns/5",
+          "reference": "prompts/codex/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/19/codePatterns/6",
+          "reference": "prompts/START*.txt",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/19/testPatterns/0",
+          "reference": "tools/jarvis-v5/tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/20/testPatterns/0",
+          "reference": "tools/jarvis-v5/tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/21/codePatterns/3",
+          "reference": "tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/21/codePatterns/4",
+          "reference": "templates/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/21/codePatterns/5",
+          "reference": "prompts/runtime/*.md",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/IMPLEMENTATION_MAP.json/areas/21/testPatterns/0",
+          "reference": "tools/jarvis-v5/tests/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/0/originalOverlayPath",
+          "reference": "schemas/v3/authority-lease.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/1/originalOverlayPath",
+          "reference": "schemas/v3/proactive-brief.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/2/originalOverlayPath",
+          "reference": "schemas/v3/capability.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/3/originalOverlayPath",
+          "reference": "schemas/v3/first-party-app-event.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/4/originalOverlayPath",
+          "reference": "schemas/v3/life-ledger-event.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/5/originalOverlayPath",
+          "reference": "schemas/v3/action-intent.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/6/originalOverlayPath",
+          "reference": "schemas/v3/world-state.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/7/originalOverlayPath",
+          "reference": "schemas/v3/skill-record.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/8/originalOverlayPath",
+          "reference": "schemas/v3/source-reference.schema.json",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/9/originalOverlayPath",
+          "reference": "docs/ADR/0019-non-forgeable-approval-resolution.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/10/originalOverlayPath",
+          "reference": "docs/ADR/0021-external-agent-runtimes-as-workers.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/11/originalOverlayPath",
+          "reference": "docs/ADR/0023-cost-aware-model-routing.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/12/originalOverlayPath",
+          "reference": "docs/ADR/0024-research-is-evidence-not-product-authority.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/13/originalOverlayPath",
+          "reference": "docs/ADR/0017-role-separation-surfaces-apps-agents-executors.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/14/originalOverlayPath",
+          "reference": "docs/ADR/0022-browser-as-surface-domain-app-and-executor-boundary.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/15/originalOverlayPath",
+          "reference": "docs/ADR/0016-personal-os-core-and-first-party-apps.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/16/originalOverlayPath",
+          "reference": "docs/ADR/0020-hybrid-privacy-tiers.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/SOURCE_ARCHIVE.json/files/17/originalOverlayPath",
+          "reference": "docs/ADR/0018-procedural-memory-skills.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/TRUST_POLICY.json/operationalExceptions/9",
+          "reference": "governance/changes/*.json",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/TRUST_POLICY.json/operationalExceptions/10",
+          "reference": "governance/runs/*.json",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/TRUST_POLICY.json/operationalExceptions/11",
+          "reference": "governance/incidents/*.json",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/TRUST_POLICY.json/operationalExceptions/12",
+          "reference": "governance/reviews/*.json",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/TRUST_POLICY.json/immutableExistingPatterns/0",
+          "reference": "docs/ADR/[0-9]*",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/TRUST_POLICY.json/immutableExistingPatterns/1",
+          "reference": "docs/progress/**",
+          "reason": "glob/template selector"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/0",
+          "reference": "prompts/START_V4_1_IN_CODEX.txt",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/1",
+          "reference": "prompts/START_V4_IN_CODEX.txt",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/2",
+          "reference": "prompts/codex/00-bootstrap.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/3",
+          "reference": "prompts/codex/01-foundation.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/4",
+          "reference": "prompts/codex/02-brain-memory-and-planning.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/5",
+          "reference": "prompts/codex/03-cloud-orchestration-live-model.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/6",
+          "reference": "prompts/codex/04-whatsapp-vertical-slice.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/7",
+          "reference": "prompts/codex/05-web-control-center.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/8",
+          "reference": "prompts/codex/06-google-connectors.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/9",
+          "reference": "prompts/codex/07-life-ledger-journal.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/10",
+          "reference": "prompts/codex/08-personal-os-sdk.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/11",
+          "reference": "prompts/codex/09-android.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/12",
+          "reference": "prompts/codex/10-realtime-voice.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/13",
+          "reference": "prompts/codex/11-first-party-apps.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/14",
+          "reference": "prompts/codex/12-edith-executor.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/15",
+          "reference": "prompts/codex/13-hardening.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/16",
+          "reference": "prompts/runtime/accountability.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/17",
+          "reference": "prompts/runtime/browser-operator.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/18",
+          "reference": "prompts/runtime/core-system.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/19",
+          "reference": "prompts/runtime/email-triage.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/20",
+          "reference": "prompts/runtime/fba-ops.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/21",
+          "reference": "prompts/runtime/finance-observer.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/22",
+          "reference": "prompts/runtime/health-and-training.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/23",
+          "reference": "prompts/runtime/historical-reconstruction.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/24",
+          "reference": "prompts/runtime/memory-extractor.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/25",
+          "reference": "prompts/runtime/message-writer.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/26",
+          "reference": "prompts/runtime/mode-edith.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/27",
+          "reference": "prompts/runtime/mode-friday.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/28",
+          "reference": "prompts/runtime/mode-karen.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/29",
+          "reference": "prompts/runtime/night-mode.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/30",
+          "reference": "prompts/runtime/planner.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/31",
+          "reference": "prompts/runtime/proactive-operator.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/32",
+          "reference": "prompts/runtime/relationship-vault.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/33",
+          "reference": "prompts/runtime/skill-curator.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/34",
+          "reference": "prompts/runtime/source-grounding.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/35",
+          "reference": "prompts/runtime/tool-policy.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/36",
+          "reference": "prompts/runtime/uncertainty.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/37",
+          "reference": "prompts/runtime/voice.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/removedPackEntryPoints/38",
+          "reference": "prompts/runtime/weekly-review.md",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/relocations/0/from",
+          "reference": "tools/jarvis-v4",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/relocations/1/from",
+          "reference": "prompts/runtime/v4",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/relocations/2/from",
+          "reference": "schemas/v4",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        },
+        {
+          "location": "governance/VERSION_TRANSITION.json/relocations/3/from",
+          "reference": "tests/v4",
+          "reason": "Explicit original-pack historical path; current destinations are separately recorded"
+        }
+      ],
+      "pass": true
+    },
+    "contexts": {
+      "packets": [
+        {
+          "topic": "product",
+          "mission": null,
+          "utf8Bytes": 17972,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "engineering",
+          "mission": null,
+          "utf8Bytes": 23982,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "brain",
+          "mission": null,
+          "utf8Bytes": 29058,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "memory",
+          "mission": null,
+          "utf8Bytes": 28044,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "planning",
+          "mission": null,
+          "utf8Bytes": 26653,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "orchestration",
+          "mission": null,
+          "utf8Bytes": 32829,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "identity",
+          "mission": null,
+          "utf8Bytes": 28305,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "authority",
+          "mission": null,
+          "utf8Bytes": 26989,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "surfaces",
+          "mission": null,
+          "utf8Bytes": 19984,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "voice",
+          "mission": null,
+          "utf8Bytes": 20730,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "android",
+          "mission": null,
+          "utf8Bytes": 16043,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "apps",
+          "mission": null,
+          "utf8Bytes": 26723,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "browser",
+          "mission": null,
+          "utf8Bytes": 18444,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "workers",
+          "mission": null,
+          "utf8Bytes": 18220,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "night",
+          "mission": null,
+          "utf8Bytes": 25729,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "operations",
+          "mission": null,
+          "utf8Bytes": 23877,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "engineering",
+          "mission": "J5-M00",
+          "utf8Bytes": 37157,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "engineering",
+          "mission": "J5-M01",
+          "utf8Bytes": 66701,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "engineering",
+          "mission": "J5-M02",
+          "utf8Bytes": 36469,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "brain",
+          "mission": "J5-M03",
+          "utf8Bytes": 43526,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "orchestration",
+          "mission": "J5-M04",
+          "utf8Bytes": 59695,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "brain",
+          "mission": "J5-M05",
+          "utf8Bytes": 52558,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "operations",
+          "mission": "J5-M06",
+          "utf8Bytes": 32015,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "surfaces",
+          "mission": "J5-M07",
+          "utf8Bytes": 32765,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "identity",
+          "mission": "J5-M08",
+          "utf8Bytes": 52624,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "planning",
+          "mission": "J5-M09",
+          "utf8Bytes": 40509,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "surfaces",
+          "mission": "J5-M10",
+          "utf8Bytes": 34751,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "identity",
+          "mission": "J5-M11",
+          "utf8Bytes": 47454,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "memory",
+          "mission": "J5-M12",
+          "utf8Bytes": 35393,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "apps",
+          "mission": "J5-M13",
+          "utf8Bytes": 35148,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "apps",
+          "mission": "J5-M14",
+          "utf8Bytes": 33585,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "android",
+          "mission": "J5-M15",
+          "utf8Bytes": 26267,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "voice",
+          "mission": "J5-M16",
+          "utf8Bytes": 28241,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "android",
+          "mission": "J5-M17",
+          "utf8Bytes": 26153,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "authority",
+          "mission": "J5-M18",
+          "utf8Bytes": 40578,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "workers",
+          "mission": "J5-M19",
+          "utf8Bytes": 27948,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "night",
+          "mission": "J5-M20",
+          "utf8Bytes": 30077,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "browser",
+          "mission": "J5-M21",
+          "utf8Bytes": 28073,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "operations",
+          "mission": "J5-M22",
+          "utf8Bytes": 31206,
+          "optionalExcluded": 0,
+          "pass": true
+        },
+        {
+          "topic": "operations",
+          "mission": "J5-M23",
+          "utf8Bytes": 45455,
+          "optionalExcluded": 0,
+          "pass": true
+        }
+      ],
+      "packetCount": 40,
+      "failedPackets": 0,
+      "defaultMaxUtf8Bytes": 70000,
+      "noPolicyTruncated": true,
+      "pass": true
+    },
+    "writerGuards": {
+      "legacyGeneratorRefusal": [
+        {
+          "tool": "generate.py",
+          "exitCode": 2,
+          "refusedApplicationRoot": true
+        },
+        {
+          "tool": "index.py",
+          "exitCode": 2,
+          "refusedApplicationRoot": true
+        }
+      ],
+      "navigationBytesUnchanged": true,
+      "pass": true
+    },
+    "adoptedManifest": {
+      "sourceRows": 467,
+      "managedPaths": 756,
+      "uniqueLifecyclePaths": 756,
+      "pendingRows": 0,
+      "failures": [],
+      "pass": true
+    },
+    "adoptionFences": {
+      "registeredAgents": 17,
+      "importedSkillPlaybooks": 22,
+      "totalSkillPlaybooks": 23,
+      "retainedPriorOnlySkills": [
+        "deploy-railway-vercel"
+      ],
+      "disabledPolicyProposals": 4,
+      "trustEnrollmentClaimed": false,
+      "installedWorkflowExample": false,
+      "failures": [],
+      "pass": true
+    }
+  },
+  "standaloneSourceSyntaxAndStructure": {
+    "tool": "standalone Babel parser plus extracted bundled js-yaml; no application source loaded/executed; archive and design-reference examples excluded",
+    "counts": {
+      "yaml": 8,
+      "json": 181,
+      "source": 297,
+      "migrations": 13
+    },
+    "errors": [],
+    "notes": [
+      {
+        "path": "apps/api/test/event-ingress.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/api",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/api/test/evolution-webhook.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/api",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/api/test/health.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/api",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/api/test/staging-runtime-routes.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/api",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/api/test/telegram-bot-routes.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/api",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/api/test/whatsapp-cloud-ingest-routes.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/api",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/worker/test/health.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/worker",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/worker/test/transport-workflows.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/api",
+        "package": "@jarvis/worker",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "apps/worker/test/transport-workflows.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/worker",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/brain/test/evals/phase-two-evals.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/brain",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/config/test/environment.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/config",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/database/test/canonical-job-lifecycle.db.integration.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/orchestration",
+        "package": "@jarvis/database",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/database/test/owner-baseline.db.integration.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/brain",
+        "package": "@jarvis/database",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/database/test/requested-reminder.db.integration.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/brain",
+        "package": "@jarvis/database",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/database/test/requested-reminder.db.integration.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/orchestration",
+        "package": "@jarvis/database",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/domain/test/event-pipeline.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/security",
+        "package": "@jarvis/domain",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      },
+      {
+        "path": "packages/domain/test/event-pipeline.test.ts",
+        "type": "missing_workspace_dependency",
+        "specifier": "@jarvis/testing",
+        "package": "@jarvis/domain",
+        "disposition": "Existing root Vitest aliases resolve test-only workspace imports; package source manifests unchanged."
+      }
+    ],
+    "pass": true
+  },
+  "documentationManager": {
+    "pass": true,
+    "failures": [],
+    "managedFiles": 756,
+    "applicationTestsRun": false,
+    "authorityGranted": false
+  },
+  "maintainedWhitespaceCheck": {
+    "scope": "Maintained candidate content; exact historical archives, design references and dated review reports retain original whitespace.",
+    "pass": true,
+    "exitCode": 0,
+    "diagnostics": ""
+  },
+  "stagedGitBlobAndCrossPlatformPreservation": {
+    "stagedFiles": 1172,
+    "exactWorkingAndGitBlobFiles": 1168,
+    "preExistingApplicationNewlineDifferences": [
+      {
+        "path": "packages/database/drizzle/meta/0011_snapshot.json",
+        "capturedWorkingSha256": "bc9dcfa6dba0bc18423ea732a79ad8e12076c397eebbed63a3b230fed91b3cbc",
+        "unchangedBaselineGitBlobSha256": "7bdaa17de5a91432382038c52565f1c5a5f4589123912429cdbd5ea1029c2db8"
+      },
+      {
+        "path": "packages/database/drizzle/meta/0012_snapshot.json",
+        "capturedWorkingSha256": "e1853d43e661a2381124efe462be00b7eb1de84b5db1a037169e74384103495e",
+        "unchangedBaselineGitBlobSha256": "ecce7659a2d5fb93c1bb35b201a405dfe17cc8b9ea54b47d11baf7225bb503df"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "capturedWorkingSha256": "ae28e585dec13814392fef7532ba03354f761372938a547c53942608c9e583be",
+        "unchangedBaselineGitBlobSha256": "85131f69b211fd4bd920642dab1f19fc626680c4e76b234bf30aee1946d8a839"
+      },
+      {
+        "path": "scripts/run-database-tests.mjs",
+        "capturedWorkingSha256": "017085dd43b74a69d712d8e1be21f208bf9dbe311e1b83339b38fefdfd516060",
+        "unchangedBaselineGitBlobSha256": "aa34fa3e60ae443d474f222e5351750bea81548fc856cb9a19005eb3561d15a3"
+      }
+    ],
+    "allManagedDocumentationAndArchiveBytesExact": true,
+    "failures": [],
+    "pass": true
+  },
+  "documentationBoundaryTests": {
+    "command": "python -B -m unittest discover -s tools/jarvis-docs/tests -v",
+    "tests": 3,
+    "pass": true,
+    "applicationTests": false
+  },
+  "secretPatternScan": {
+    "counts": {
+      "candidateFilesScanned": 1172,
+      "zipMembersScanned": 524,
+      "pdfFlateStreams": 248
+    },
+    "findings": 23,
+    "newUnreviewed": 0,
+    "realCredentialsIdentified": 0,
+    "dispositionsFromUnchangedReviewedBaseline": true,
+    "rawValuesIncluded": false
+  },
+  "repositoryApplicationExecuted": false,
+  "originalPack513TestsRerun": false,
+  "linuxValidationCompleted": false,
+  "deployedOrTransferred": false,
+  "pushed": false,
+  "trustedMissionCompletionIssued": false,
+  "exactFinalCommitResolution": "Outside V5_COMPLETION_RECORD.json and Git; no self-referential claimed HEAD hash.",
+  "pass": true
+}

@@ -1,0 +1,894 @@
+{
+  "traceVersion": 1,
+  "source": "governance/PRODUCT_SPEC.json",
+  "entries": [
+    {
+      "requirementId": "REQ-CORE-01",
+      "section": "product",
+      "missions": [
+        "J5-M02"
+      ],
+      "acceptance": "Continue a research task from browser to chat without a second identity, separate memory reset or duplicate commitment.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CORE-02",
+      "section": "product",
+      "missions": [
+        "J5-M02"
+      ],
+      "acceptance": "An Evolution or voice transport adapter neither calls an unmediated executor nor owns constitution state.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CORE-03",
+      "section": "product",
+      "missions": [
+        "J5-M02"
+      ],
+      "acceptance": "A second identity cannot gain owner access by changing a sender parser, app parameter or connector account.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CORE-04",
+      "section": "product",
+      "missions": [
+        "J5-M02"
+      ],
+      "acceptance": "Product flows preserve the stated boundaries and refuse escalation through another model or surface.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-01",
+      "section": "continuity",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A speculative browser idea becomes an open idea, not an active engineering task or a purchase authorization.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-02",
+      "section": "continuity",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "Ambiguous dates or names remain flagged and unresolved ambiguity blocks consequential actions.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-03",
+      "section": "continuity",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "Replaying an import produces no duplicate idea and a merged view still links both source conversations.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CAPTURE-04",
+      "section": "continuity",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "The idea vault answers what was discussed and not pursued, with evidence and explicit coverage gaps.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-01",
+      "section": "constitution",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A week of missed workouts does not rewrite the training goal or deactivate it.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-02",
+      "section": "constitution",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "The owner sees which goal version informed a past plan and why the current version differs.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-03",
+      "section": "constitution",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A one-day exception expires without weakening the next day or expanding tool permissions.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-CONST-04",
+      "section": "constitution",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A reset removes learned delivery preferences without erasing legitimate commitments or security records.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-01",
+      "section": "memory",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A restricted known record is withheld without changing its epistemic state into missing or inferred.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-02",
+      "section": "memory",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "Untrusted website instructions never become an owner preference or standing permission.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-03",
+      "section": "memory",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A changed address supersedes the applicable old record and does not delete unrelated historical addresses.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-04",
+      "section": "memory",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "Deleting a source marks or removes dependent summaries and search indexes according to the retention policy.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-MEM-05",
+      "section": "memory",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A successful shipment workflow creates a procedure candidate but cannot teach itself a new credential or authority scope.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-01",
+      "section": "planning",
+      "missions": [
+        "J5-M09"
+      ],
+      "acceptance": "A late wake-up reflows flexible work and buffers while preserving an unchanged appointment.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-02",
+      "section": "planning",
+      "missions": [
+        "J5-M09"
+      ],
+      "acceptance": "Read receipts, ignored reminders, task expiry and phone inactivity do not complete a task.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-03",
+      "section": "planning",
+      "missions": [
+        "J5-M09"
+      ],
+      "acceptance": "Repeated misses create a minimum viable action or recovery plan, not punitive actions or automatic goal deletion.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-04",
+      "section": "planning",
+      "missions": [
+        "J5-M09"
+      ],
+      "acceptance": "DST and travel changes do not duplicate reminders or turn a historic bedtime into a permanent anchor.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-PLAN-05",
+      "section": "planning",
+      "missions": [
+        "J5-M09"
+      ],
+      "acceptance": "No useful items means zero unsolicited interruptions. Grouping and quiet periods preserve open commitments.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-01",
+      "section": "history",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A disconnected phone does not remain driving indefinitely or authorize actions using yesterday's location.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-02",
+      "section": "history",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "Re-importing meals, photos or app events produces one logical history with explicit revised derivations.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-03",
+      "section": "history",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "The system never invents feelings from low recovery, slow replies or a calendar event.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-04",
+      "section": "history",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "A question about a month with only one week of tracking receives a coverage-qualified answer.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-HIST-05",
+      "section": "history",
+      "missions": [
+        "J5-M12"
+      ],
+      "acceptance": "Search, summaries and caches stop revealing a revoked private source after its deletion workflow completes.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-01",
+      "section": "brain",
+      "missions": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "acceptance": "A cross-owner record is rejected and missing essential evidence produces a clarification rather than fabricated confidence.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-02",
+      "section": "brain",
+      "missions": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "acceptance": "Editing one byte without changing the version changes the assembly digest or fails the build.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-03",
+      "section": "brain",
+      "missions": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "acceptance": "A large owner message or metadata expansion is measured and denied or reduced through an explicit policy before inference.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-04",
+      "section": "brain",
+      "missions": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "acceptance": "An invented evidence ID or model-supplied approval field is rejected.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-05",
+      "section": "brain",
+      "missions": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "acceptance": "A crash after request creation does not become permanent silent duplicate success, and unknown model dispatch is reconciled.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BRAIN-06",
+      "section": "brain",
+      "missions": [
+        "J5-M03",
+        "J5-M05"
+      ],
+      "acceptance": "Provider outage never activates an unapproved paid or less-private fallback.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-01",
+      "section": "actions",
+      "missions": [
+        "J5-M18"
+      ],
+      "acceptance": "The model cannot nominate another owner, claim approved=true, or manufacture a trusted resolver reference.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-02",
+      "section": "actions",
+      "missions": [
+        "J5-M18"
+      ],
+      "acceptance": "An incomplete or unknown executor is not admitted simply because it has an MCP tool name.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-03",
+      "section": "actions",
+      "missions": [
+        "J5-M18"
+      ],
+      "acceptance": "A WhatsApp message saying yes cannot approve a changed or expired high-impact snapshot.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-04",
+      "section": "actions",
+      "missions": [
+        "J5-M18"
+      ],
+      "acceptance": "Concurrent attempts cannot overspend a use count, wildcard targets fail, and HIGH_IMPACT operations cannot run under standing leases.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-05",
+      "section": "actions",
+      "missions": [
+        "J5-M18"
+      ],
+      "acceptance": "A queued action approved before revocation is denied when dispatch begins afterward.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-06",
+      "section": "actions",
+      "missions": [
+        "J5-M18"
+      ],
+      "acceptance": "New names or model routes cannot bypass the prohibition, and documentation generation never enables payment tools.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-AUTH-07",
+      "section": "actions",
+      "missions": [
+        "J5-M18"
+      ],
+      "acceptance": "A fatigue signal proposes lower interruption load or review, not automatic authority expansion.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-01",
+      "section": "delivery",
+      "missions": [
+        "J5-M04"
+      ],
+      "acceptance": "Crash after acknowledgement leaves recoverable canonical work, not a lost message.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-02",
+      "section": "delivery",
+      "missions": [
+        "J5-M04"
+      ],
+      "acceptance": "Rescheduling invalidates an old callback without confusing a job deadline with a commitment deadline.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-03",
+      "section": "delivery",
+      "missions": [
+        "J5-M04"
+      ],
+      "acceptance": "A send timeout becomes reconciliation-required, not sent or automatically retried under a fresh operation key.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-04",
+      "section": "delivery",
+      "missions": [
+        "J5-M04"
+      ],
+      "acceptance": "Voice interruption stops speech but does not erase a previously sent email or claim it was canceled.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-JOB-05",
+      "section": "delivery",
+      "missions": [
+        "J5-M04"
+      ],
+      "acceptance": "Restoring a backup does not resend previously accepted external effects.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-01",
+      "section": "identity",
+      "missions": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "acceptance": "Spoofed request owner fields and unenrolled WhatsApp LIDs fail before Brain invocation.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-02",
+      "section": "identity",
+      "missions": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "acceptance": "A revoked device loses access and cannot use an old session or challenge to reenroll itself.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-03",
+      "section": "identity",
+      "missions": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "acceptance": "A camera permission does not permit background upload or inclusion of intimate images in routine prompts.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-04",
+      "section": "identity",
+      "missions": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "acceptance": "No model transcript or stored credential substitutes for recording consent.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ID-05",
+      "section": "identity",
+      "missions": [
+        "J5-M08",
+        "J5-M11"
+      ],
+      "acceptance": "An owner sees which sensors and sources are active and can stop collection without disabling audit inspection.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-01",
+      "section": "surfaces",
+      "missions": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "acceptance": "A disabled Evolution connection does not block basic owner access to JARVIS.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-02",
+      "section": "surfaces",
+      "missions": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "acceptance": "Unknown senders, history-sync traffic, group messages and unenrolled aliases do not become owner commands.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-03",
+      "section": "surfaces",
+      "missions": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "acceptance": "FRIDAY shortens delivery, mentor changes explanation, and EDITH selection alone does not enable a writer.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-SURF-04",
+      "section": "surfaces",
+      "missions": [
+        "J5-M07",
+        "J5-M10"
+      ],
+      "acceptance": "A phone and desktop show the same canonical task and the exact action requiring approval.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-01",
+      "section": "voice",
+      "missions": [
+        "J5-M16"
+      ],
+      "acceptance": "A network reconnect resumes the pending outcome rather than starting a new send.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-02",
+      "section": "voice",
+      "missions": [
+        "J5-M16"
+      ],
+      "acceptance": "Barge-in after dispatch leaves an observable pending or uncertain external outcome.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-03",
+      "section": "voice",
+      "missions": [
+        "J5-M16"
+      ],
+      "acceptance": "Bad transcription of a recipient requires clarification and a cost or privacy failure never silently switches providers.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-VOICE-04",
+      "section": "voice",
+      "missions": [
+        "J5-M16"
+      ],
+      "acceptance": "Recorded or synthesized speech cannot resolve a protected approval.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-01",
+      "section": "android",
+      "missions": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "acceptance": "Revoked devices fail ingress and stale local queues cannot overwrite newer canonical state.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-02",
+      "section": "android",
+      "missions": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "acceptance": "A denied capability remains unavailable without screenshot or accessibility workarounds to evade the denial.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-03",
+      "section": "android",
+      "missions": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "acceptance": "An expired bedtime rule cannot keep an app blocked indefinitely and essential emergency access remains available.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ANDROID-04",
+      "section": "android",
+      "missions": [
+        "J5-M15",
+        "J5-M17"
+      ],
+      "acceptance": "Test reports name device, OS, permissions and measured outcomes rather than extrapolating from a demo.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-01",
+      "section": "apps",
+      "missions": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "acceptance": "A manifest missing authentication or retention fails admission.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-02",
+      "section": "apps",
+      "missions": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "acceptance": "Offline replay and edits do not double-count meals, work hours, workouts or income observations.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-03",
+      "section": "apps",
+      "missions": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "acceptance": "A training recommendation cites current source data without becoming a diagnosis or changing the owner program silently.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-04",
+      "section": "apps",
+      "missions": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "acceptance": "A warehouse discrepancy yields linked records and a proposed procedure, not unreviewed Seller Central mutations.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-05",
+      "section": "apps",
+      "missions": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "acceptance": "A shared view never implicitly makes another person a JARVIS owner or exposes unrelated private data.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-APP-06",
+      "section": "apps",
+      "missions": [
+        "J5-M13",
+        "J5-M14"
+      ],
+      "acceptance": "A trip or timesheet summary distinguishes manual estimates from measured events and media logs store licensed metadata, not audio copies.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-01",
+      "section": "browser",
+      "missions": [
+        "J5-M21"
+      ],
+      "acceptance": "A later WhatsApp question continues a research thread without fabricated source recall.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-02",
+      "section": "browser",
+      "missions": [
+        "J5-M21"
+      ],
+      "acceptance": "A website instruction cannot order submission, upload private files or activate a payment workflow.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-03",
+      "section": "browser",
+      "missions": [
+        "J5-M21"
+      ],
+      "acceptance": "Compatibility reports distinguish tested platforms, constrained platforms and unimplemented targets.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-BROWSER-04",
+      "section": "browser",
+      "missions": [
+        "J5-M21"
+      ],
+      "acceptance": "Research never expands worker credentials or overwrites the protected engineering instructions.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-01",
+      "section": "workers",
+      "missions": [
+        "J5-M19"
+      ],
+      "acceptance": "Repeated no-progress steps stop even while a global budget has funds.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-02",
+      "section": "workers",
+      "missions": [
+        "J5-M19"
+      ],
+      "acceptance": "A delegated agent cannot bypass a denied parent action by using another connector.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-03",
+      "section": "workers",
+      "missions": [
+        "J5-M19"
+      ],
+      "acceptance": "A canceled worker preserves pending effect reconciliation and cannot mark its own objective complete without evidence.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-WORK-04",
+      "section": "workers",
+      "missions": [
+        "J5-M19"
+      ],
+      "acceptance": "A new skill cannot introduce credential reads, unrestricted commands or new contact scopes.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-01",
+      "section": "night",
+      "missions": [
+        "J5-M20"
+      ],
+      "acceptance": "A temporary night rule cannot become standing permission through repeated use.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-02",
+      "section": "night",
+      "missions": [
+        "J5-M20"
+      ],
+      "acceptance": "An urgent-looking message cannot trigger money movement, sensitive disclosure or self-approved external communication.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-03",
+      "section": "night",
+      "missions": [
+        "J5-M20"
+      ],
+      "acceptance": "The brief never summarizes queued work as completed.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-NIGHT-04",
+      "section": "night",
+      "missions": [
+        "J5-M20"
+      ],
+      "acceptance": "A week without interaction preserves data and parks sensitive actions instead of granting emergency powers.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-01",
+      "section": "operations",
+      "missions": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "acceptance": "A restore drill proves canonical relationships and prohibits automatic replay of pending external writes.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-02",
+      "section": "operations",
+      "missions": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "acceptance": "A writer fails its release gate if stop propagation, credential independence or recovery behavior is unproven.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-03",
+      "section": "operations",
+      "missions": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "acceptance": "An unauthorized-send incident preserves the exact revision and unknown outcomes before any replay or cleanup.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-04",
+      "section": "operations",
+      "missions": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "acceptance": "A stale phone clock or long lock wait cannot extend a lease beyond the trusted deadline.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-05",
+      "section": "operations",
+      "missions": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "acceptance": "A healthy HTTP endpoint with an unprocessed outbox is reported as degraded, not fully healthy.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-OPS-06",
+      "section": "operations",
+      "missions": [
+        "J5-M06",
+        "J5-M22",
+        "J5-M23"
+      ],
+      "acceptance": "Credential-bearing verification never runs arbitrary candidate install hooks or tests.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-01",
+      "section": "engineering",
+      "missions": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "acceptance": "The planner lists collisions and excluded machine configs rather than overwriting them.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-02",
+      "section": "engineering",
+      "missions": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "acceptance": "A memory task gets its own requirements and does not load the entire PRD or privileged connector data.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-03",
+      "section": "engineering",
+      "missions": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "acceptance": "A new session identifies the next authorized mission without reconstructing history from chat.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-04",
+      "section": "engineering",
+      "missions": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "acceptance": "A forged completed flag in ROADMAP or STATE cannot admit a later mission.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-05",
+      "section": "engineering",
+      "missions": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "acceptance": "Dummy drills reject a revoked key, a repeated recovery nonce and an old trust epoch.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-06",
+      "section": "engineering",
+      "missions": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "acceptance": "A draft cannot become active by changing its filename, and an active consumer blocks retirement.",
+      "runtimeProof": null
+    },
+    {
+      "requirementId": "REQ-ENG-07",
+      "section": "engineering",
+      "missions": [
+        "J5-M00",
+        "J5-M01",
+        "J5-M02"
+      ],
+      "acceptance": "A passing pack test does not certify deployment, isolation or real application concurrency.",
+      "runtimeProof": null
+    }
+  ]
+}

@@ -1,4 +1,46 @@
 ---
+title: "Integrate an external provider through normalized Core contracts."
+document_id: ".agents::skills::connector-integration::SKILL"
+status: "active"
+authority_class: "engineering_skill"
+owner_role: "integration_specialist"
+created_at: "2026-09-25"
+reviewed_at: null
+review_evidence: null
+review_triggers: ["scope_change", "contract_change"]
+pack_version: "5.0.0"
+name: "connector-integration"
+description: "Integrate an external provider through normalized Core contracts."
+version: "5.0.0"
+---
+
+# Purpose
+
+Integrate an external provider through normalized Core contracts.
+
+## Scope and handoff
+
+Primary role: `integration_specialist`. Follow AGENTS.md. Another role may consume this playbook but must not silently take promotion authority.
+
+## Workflow
+1. Document source ownership, scopes, coverage and credential boundary.
+2. Verify signatures, replay limits, schema normalization and alias identity.
+3. Persist and acknowledge before expensive work.
+4. Test reconcile, disconnect, revoke, duplicates and stale coverage.
+
+## Read
+- `docs/integrations/INTEGRATIONS.md`
+- `docs/security/AUTHENTICATION_BOUNDARY.md`
+
+## Evidence and stop
+
+Use synthetic data and exact current source paths. Report unknowns, omitted tests and observed versions. Write the session handoff to governance/STATE.json. Stop on a protected-rule conflict or missing external authority. Do not change the judge to make the feature pass.
+
+## Retained detailed engineering guidance
+
+Follow the current root authority and relevant V5 requirements when older wording differs.
+
+---
 name: connector-integration
 description: Use for OAuth, API, webhook, polling, reconciliation, connector admin pages, token storage, sync status, and disconnect flows for Google, Plaid, WHOOP, Telegram, Iron & Intervals, nutrition, and future providers.
 ---

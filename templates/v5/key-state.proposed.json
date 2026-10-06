@@ -1,0 +1,9 @@
+{
+  "repository": "naimozduman/jarvis",
+  "epoch": 1,
+  "operationalKeys": [],
+  "recoveryKeys": [],
+  "recoveryThreshold": null,
+  "usedNonces": [],
+  "previousStateDigest": null
+}

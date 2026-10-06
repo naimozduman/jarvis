@@ -1,0 +1,105 @@
+{
+  "reconciliationVersion": 1,
+  "repository": "naimozduman/jarvis",
+  "checkpoint": "481b262817095fdc070871c22c7897d21b4f3fcf",
+  "status": "seeded_static_review_not_local_audit",
+  "sourceScope": "Six focused source files plus branch/package metadata. Not a full application review. Local dirty tree and deployments were not inspected.",
+  "observations": [
+    {
+      "id": "OBS-PROMPT",
+      "path": "packages/brain/src/prompts/assembler.ts",
+      "gitBlobSha": "21ff84c3499bf24385d40520673cab8a04465f32",
+      "checkpoint": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "sourceUrl": "https://github.com/naimozduman/jarvis/blob/481b262817095fdc070871c22c7897d21b4f3fcf/packages/brain/src/prompts/assembler.ts",
+      "observedAt": "2026-09-26",
+      "evidenceLevel": "focused_static_source_read",
+      "statement": "Prompt fingerprint hashes module IDs and versions with a 32-bit function. Prompt body bytes do not participate.",
+      "proposedDisposition": "repair",
+      "requiredProof": "Reproduce same-version content edits and add exact ordered content provenance while preserving the port.",
+      "runtimeVerified": false
+    },
+    {
+      "id": "OBS-CONTEXT",
+      "path": "packages/brain/src/context/assembler.ts",
+      "gitBlobSha": "64d96368670853b34739492d16815487efb85d64",
+      "checkpoint": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "sourceUrl": "https://github.com/naimozduman/jarvis/blob/481b262817095fdc070871c22c7897d21b4f3fcf/packages/brain/src/context/assembler.ts",
+      "observedAt": "2026-09-26",
+      "evidenceLevel": "focused_static_source_read",
+      "statement": "Owner filtering, deterministic ranking, restricted redaction and record caps exist. Token estimate sums selected content.length / 3.5 rather than the final serialized request.",
+      "proposedDisposition": "repair",
+      "requiredProof": "Measure full system/owner/context/tool payload including multilingual cases and preserve required-context failure semantics.",
+      "runtimeVerified": false
+    },
+    {
+      "id": "OBS-TURN",
+      "path": "packages/brain/src/conversation/conversation-turn-service.ts",
+      "gitBlobSha": "c187d60000cd3fba7a632f665fd110117b348936",
+      "checkpoint": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "sourceUrl": "https://github.com/naimozduman/jarvis/blob/481b262817095fdc070871c22c7897d21b4f3fcf/packages/brain/src/conversation/conversation-turn-service.ts",
+      "observedAt": "2026-09-26",
+      "evidenceLevel": "focused_static_source_read",
+      "statement": "Duplicate requests return rehydrated decision/response references even when these are absent. The budget guard dependency is optional and usage values default to zero at this call site.",
+      "proposedDisposition": "repair",
+      "requiredProof": "Fault-inject crashes after every persistence boundary. Trace actual composition/usage sources before declaring a deployed defect; prove guarded metered paths and resumable incomplete work.",
+      "runtimeVerified": false
+    },
+    {
+      "id": "OBS-BUDGET",
+      "path": "packages/brain/src/model/budget-guard.ts",
+      "gitBlobSha": "909ec25b1710c137587d8e029f156ede6a64acb3",
+      "checkpoint": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "sourceUrl": "https://github.com/naimozduman/jarvis/blob/481b262817095fdc070871c22c7897d21b4f3fcf/packages/brain/src/model/budget-guard.ts",
+      "observedAt": "2026-09-26",
+      "evidenceLevel": "focused_static_source_read",
+      "statement": "A real pre-call guard enforces cycle, deep-call, daily estimate and zero-cost monthly accounting. This class does not atomically reserve concurrent requests.",
+      "proposedDisposition": "repair",
+      "requiredProof": "Preserve existing limits. Verify caller accounting, full input estimate, unknown cost and atomic reservations in real database tests.",
+      "runtimeVerified": false
+    },
+    {
+      "id": "OBS-POLICY",
+      "path": "packages/security/src/policy.ts",
+      "gitBlobSha": "9abb0a9a65019bd60231c468b62edb09d14e32c0",
+      "checkpoint": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "sourceUrl": "https://github.com/naimozduman/jarvis/blob/481b262817095fdc070871c22c7897d21b4f3fcf/packages/security/src/policy.ts",
+      "observedAt": "2026-09-26",
+      "evidenceLevel": "focused_static_source_read",
+      "statement": "Policy denies unknown actions, owner failures, mismatched risks and finance.*. A generic killSwitchActive condition exists. Controlled/high-impact actions require approval.",
+      "proposedDisposition": "keep",
+      "requiredProof": "Retain baseline behavior and negative tests. Trace every actual dispatch call site and independent stop integration before certifying coverage.",
+      "runtimeVerified": false
+    },
+    {
+      "id": "OBS-CI",
+      "path": ".github/workflows/ci.yml",
+      "gitBlobSha": "7d355edde3f33592c1612ce08855a38930588b97",
+      "checkpoint": "481b262817095fdc070871c22c7897d21b4f3fcf",
+      "sourceUrl": "https://github.com/naimozduman/jarvis/blob/481b262817095fdc070871c22c7897d21b4f3fcf/.github/workflows/ci.yml",
+      "observedAt": "2026-09-26",
+      "evidenceLevel": "focused_static_source_read",
+      "statement": "Existing CI explicitly invokes brain, transport, orchestration and bridge evaluations after pnpm ci.",
+      "proposedDisposition": "keep",
+      "requiredProof": "Preserve existing workflow and frozen toolchain. Install trusted governance/evidence separately without removing these checks.",
+      "runtimeVerified": false
+    }
+  ],
+  "unknownSubsystems": [
+    "actual local worktree",
+    "applied database migrations and runtime roles",
+    "current deployments and provider authorization",
+    "all executor call sites",
+    "actual data recovery and distributed concurrency"
+  ],
+  "dispositions": [
+    "keep",
+    "repair",
+    "migrate",
+    "replace",
+    "retire",
+    "unresolved"
+  ],
+  "ownerApprovalRef": null,
+  "currentAssessmentRef": "governance/CURRENT_IMPLEMENTATION_MAP.json",
+  "historicalScopeNotice": "September 26 six-file static observations remain dated; current source reassessment supersedes blanket absence claims. No live observations were collected."
+}

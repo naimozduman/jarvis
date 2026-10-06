@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/life-ledger-event/1.0.0-draft",
+  "title": "Derived Life Ledger Event",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.life-ledger-event",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "ledgerEventId",
+    "ownerId",
+    "kind",
+    "derivationKey",
+    "derivationVersion",
+    "revision",
+    "startedAt",
+    "endedAt",
+    "sourceRefs",
+    "summary",
+    "informationState",
+    "sensitivity",
+    "supersedesId"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "ledgerEventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "derivationKey": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "derivationVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000000000
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "endedAt": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sourceRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "https://jarvis.invalid/contracts/source-reference/1.0.0-draft"
+      },
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "informationState": {
+      "type": "string",
+      "enum": [
+        "known",
+        "inferred",
+        "stale",
+        "conflicting",
+        "missing",
+        "not_connected"
+      ]
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "private",
+        "sensitive",
+        "restricted"
+      ]
+    },
+    "supersedesId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

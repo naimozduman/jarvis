@@ -1,0 +1,781 @@
+TAP version 13
+# Subtest: ordinary code now requires exact owner approval
+ok 1 - ordinary code now requires exact owner approval
+  ---
+  duration_ms: 81.832112
+  type: 'test'
+  ...
+# Subtest: protected diff denied unsigned
+ok 2 - protected diff denied unsigned
+  ---
+  duration_ms: 41.547454
+  type: 'test'
+  ...
+# Subtest: exact owner signature admits protected diff
+ok 3 - exact owner signature admits protected diff
+  ---
+  duration_ms: 55.209702
+  type: 'test'
+  ...
+# Subtest: changed head invalidates approval
+ok 4 - changed head invalidates approval
+  ---
+  duration_ms: 60.154609
+  type: 'test'
+  ...
+# Subtest: tampered envelope rejected
+ok 5 - tampered envelope rejected
+  ---
+  duration_ms: 58.712759
+  type: 'test'
+  ...
+# Subtest: expired approval rejected
+ok 6 - expired approval rejected
+  ---
+  duration_ms: 59.325215
+  type: 'test'
+  ...
+# Subtest: unregistered key rejected
+ok 7 - unregistered key rejected
+  ---
+  duration_ms: 47.573214
+  type: 'test'
+  ...
+# Subtest: wrong signature rejected
+ok 8 - wrong signature rejected
+  ---
+  duration_ms: 51.23048
+  type: 'test'
+  ...
+# Subtest: immutable history denied even signed
+ok 9 - immutable history denied even signed
+  ---
+  duration_ms: 52.673846
+  type: 'test'
+  ...
+# Subtest: new history is an authorized append, not an unsigned policy change
+ok 10 - new history is an authorized append, not an unsigned policy change
+  ---
+  duration_ms: 62.976646
+  type: 'test'
+  ...
+# Subtest: candidate checker never executed
+ok 11 - candidate checker never executed
+  ---
+  duration_ms: 37.828624
+  type: 'test'
+  ...
+# Subtest: candidate trust policy cannot change supplied baseline
+ok 12 - candidate trust policy cannot change supplied baseline
+  ---
+  duration_ms: 40.296822
+  type: 'test'
+  ...
+# Subtest: same signature cannot promote another repository identity
+ok 13 - same signature cannot promote another repository identity
+  ---
+  duration_ms: 50.071968
+  type: 'test'
+  ...
+# Subtest: full SHA required, branch name is not accepted
+ok 14 - full SHA required, branch name is not accepted
+  ---
+  duration_ms: 24.28777
+  type: 'test'
+  ...
+# Subtest: glob boundaries and history prefixes
+ok 15 - glob boundaries and history prefixes
+  ---
+  duration_ms: 0.191259
+  type: 'test'
+  ...
+# Subtest: canonical payload refuses noninteger floats
+ok 16 - canonical payload refuses noninteger floats
+  ---
+  duration_ms: 0.135375
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/api/src/runtime.ts
+ok 17 - protected by default: apps/api/src/runtime.ts
+  ---
+  duration_ms: 82.324451
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/database/src/brain-repository.ts
+ok 18 - protected by default: packages/database/src/brain-repository.ts
+  ---
+  duration_ms: 64.541994
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/config/src/index.ts
+ok 19 - protected by default: packages/config/src/index.ts
+  ---
+  duration_ms: 72.788673
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/executors/src/dispatch.ts
+ok 20 - protected by default: packages/executors/src/dispatch.ts
+  ---
+  duration_ms: 65.998406
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/web/src/approval-view.tsx
+ok 21 - protected by default: apps/web/src/approval-view.tsx
+  ---
+  duration_ms: 75.551981
+  type: 'test'
+  ...
+# Subtest: protected by default: packages/integrations-mail/src/send.ts
+ok 22 - protected by default: packages/integrations-mail/src/send.ts
+  ---
+  duration_ms: 66.471946
+  type: 'test'
+  ...
+# Subtest: protected by default: apps/whatsapp-bridge/src/send.ts
+ok 23 - protected by default: apps/whatsapp-bridge/src/send.ts
+  ---
+  duration_ms: 58.215697
+  type: 'test'
+  ...
+# Subtest: protected by default: convex/new-dispatch.ts
+ok 24 - protected by default: convex/new-dispatch.ts
+  ---
+  duration_ms: 55.440746
+  type: 'test'
+  ...
+# Subtest: protected by default: unknown-new-directory/handler.js
+ok 25 - protected by default: unknown-new-directory/handler.js
+  ---
+  duration_ms: 55.938282
+  type: 'test'
+  ...
+# Subtest: protected by default: Dockerfile
+ok 26 - protected by default: Dockerfile
+  ---
+  duration_ms: 58.117283
+  type: 'test'
+  ...
+# Subtest: protected by default: pnpm-lock.yaml
+ok 27 - protected by default: pnpm-lock.yaml
+  ---
+  duration_ms: 60.564488
+  type: 'test'
+  ...
+# Subtest: protected by default: governance/runs/payload.mjs
+ok 28 - protected by default: governance/runs/payload.mjs
+  ---
+  duration_ms: 55.407956
+  type: 'test'
+  ...
+# Subtest: unsigned removal of dispatch authorization is rejected with policy module untouched
+ok 29 - unsigned removal of dispatch authorization is rejected with policy module untouched
+  ---
+  duration_ms: 46.628866
+  type: 'test'
+  ...
+# Subtest: benign operational JSON does not require a code promotion signature after enrollment
+ok 30 - benign operational JSON does not require a code promotion signature after enrollment
+  ---
+  duration_ms: 36.855358
+  type: 'test'
+  ...
+# Subtest: executable bit removes operational exemption
+ok 31 - executable bit removes operational exemption
+  ---
+  duration_ms: 37.039276
+  type: 'test'
+  ...
+# Subtest: rename out of an operational location still protects destination
+ok 32 - rename out of an operational location still protects destination
+  ---
+  duration_ms: 42.539493
+  type: 'test'
+  ...
+# Subtest: unenrolled policy permits inspection but denies operational promotion
+ok 33 - unenrolled policy permits inspection but denies operational promotion
+  ---
+  duration_ms: 38.105758
+  type: 'test'
+  ...
+# Subtest: version-one/default-allow policy is refused by V4.1
+ok 34 - version-one/default-allow policy is refused by V4.1
+  ---
+  duration_ms: 16.23543
+  type: 'test'
+  ...
+# Subtest: candidate operational exception expansion is not used
+ok 35 - candidate operational exception expansion is not used
+  ---
+  duration_ms: 33.152095
+  type: 'test'
+  ...
+# Subtest: changed-blob limit is enforced
+ok 36 - changed-blob limit is enforced
+  ---
+  duration_ms: 29.584689
+  type: 'test'
+  ...
+# Subtest: symlink under operational folder is rejected
+ok 37 - symlink under operational folder is rejected
+  ---
+  duration_ms: 32.414664
+  type: 'test'
+  ...
+# Subtest: correct independent evidence signature verifies
+ok 38 - correct independent evidence signature verifies
+  ---
+  duration_ms: 2.000646
+  type: 'test'
+  ...
+# Subtest: candidate cannot activate unenrolled evidence trust
+ok 39 - candidate cannot activate unenrolled evidence trust
+  ---
+  duration_ms: 1.066022
+  type: 'test'
+  ...
+# Subtest: wrong-purpose signer rejected
+ok 40 - wrong-purpose signer rejected
+  ---
+  duration_ms: 0.93943
+  type: 'test'
+  ...
+# Subtest: tampered evidence head rejected
+ok 41 - tampered evidence head rejected
+  ---
+  duration_ms: 1.277272
+  type: 'test'
+  ...
+# Subtest: expired evidence rejected
+ok 42 - expired evidence rejected
+  ---
+  duration_ms: 1.074295
+  type: 'test'
+  ...
+# Subtest: future evidence rejected
+ok 43 - future evidence rejected
+  ---
+  duration_ms: 1.041785
+  type: 'test'
+  ...
+# Subtest: governance signature cannot be replayed as evidence
+ok 44 - governance signature cannot be replayed as evidence
+  ---
+  duration_ms: 1.641972
+  type: 'test'
+  ...
+# Subtest: altered signer public key rejected
+ok 45 - altered signer public key rejected
+  ---
+  duration_ms: 1.242468
+  type: 'test'
+  ...
+# Subtest: signed validity window still obeys trusted maximum
+ok 46 - signed validity window still obeys trusted maximum
+  ---
+  duration_ms: 1.722995
+  type: 'test'
+  ...
+# Subtest: record: valid purpose-separated Ed25519 envelope
+not ok 47 - record: valid purpose-separated Ed25519 envelope
+  ---
+  duration_ms: 4.08744
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:19:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:19:119)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: record: same signature rejected for another purpose
+ok 48 - record: same signature rejected for another purpose
+  ---
+  duration_ms: 0.835173
+  type: 'test'
+  ...
+# Subtest: record: tampered payload rejected
+not ok 49 - record: tampered payload rejected
+  ---
+  duration_ms: 0.901573
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:21:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:21:63)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  ...
+# Subtest: record: revoked signer rejected
+ok 50 - record: revoked signer rejected
+  ---
+  duration_ms: 0.920432
+  type: 'test'
+  ...
+# Subtest: record: uninstalled policy rejected
+ok 51 - record: uninstalled policy rejected
+  ---
+  duration_ms: 0.819109
+  type: 'test'
+  ...
+# Subtest: record: wrong trust epoch rejected
+ok 52 - record: wrong trust epoch rejected
+  ---
+  duration_ms: 0.577974
+  type: 'test'
+  ...
+# Subtest: record: wrong repository rejected
+ok 53 - record: wrong repository rejected
+  ---
+  duration_ms: 0.783755
+  type: 'test'
+  ...
+# Subtest: record: invalid verifier clock fails closed
+ok 54 - record: invalid verifier clock fails closed
+  ---
+  duration_ms: 0.855674
+  type: 'test'
+  ...
+# Subtest: record: expiry equality rejected
+ok 55 - record: expiry equality rejected
+  ---
+  duration_ms: 2.641855
+  type: 'test'
+  ...
+# Subtest: record: future issued-at rejected
+ok 56 - record: future issued-at rejected
+  ---
+  duration_ms: 1.140465
+  type: 'test'
+  ...
+# Subtest: record: overlong validity rejected
+ok 57 - record: overlong validity rejected
+  ---
+  duration_ms: 0.895825
+  type: 'test'
+  ...
+# Subtest: record: mismatched private key fails signing
+ok 58 - record: mismatched private key fails signing
+  ---
+  duration_ms: 1.225453
+  type: 'test'
+  ...
+# Subtest: JSON: escaped duplicate keys rejected
+ok 59 - JSON: escaped duplicate keys rejected
+  ---
+  duration_ms: 0.427997
+  type: 'test'
+  ...
+# Subtest: JSON: nested duplicate keys rejected
+ok 60 - JSON: nested duplicate keys rejected
+  ---
+  duration_ms: 0.212642
+  type: 'test'
+  ...
+# Subtest: JSON: unsafe integer rejected
+ok 61 - JSON: unsafe integer rejected
+  ---
+  duration_ms: 1.623394
+  type: 'test'
+  ...
+# Subtest: JSON: trailing text rejected
+ok 62 - JSON: trailing text rejected
+  ---
+  duration_ms: 0.113252
+  type: 'test'
+  ...
+# Subtest: JSON: excessive nesting rejected
+ok 63 - JSON: excessive nesting rejected
+  ---
+  duration_ms: 0.095725
+  type: 'test'
+  ...
+# Subtest: JSON: valid nested input survives
+ok 64 - JSON: valid nested input survives
+  ---
+  duration_ms: 0.771036
+  type: 'test'
+  ...
+# Subtest: time: normalized impossible day rejected
+ok 65 - time: normalized impossible day rejected
+  ---
+  duration_ms: 0.166882
+  type: 'test'
+  ...
+# Subtest: time: naive local date rejected
+ok 66 - time: naive local date rejected
+  ---
+  duration_ms: 0.105289
+  type: 'test'
+  ...
+# Subtest: mission: transitive prerequisites admit exact definition
+not ok 67 - mission: transitive prerequisites admit exact definition
+  ---
+  duration_ms: 3.464428
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:50:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    Object.run (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:47:130)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:50:105)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+  ...
+# Subtest: mission: fresh completed text cannot replace signed receipts
+ok 68 - mission: fresh completed text cannot replace signed receipts
+  ---
+  duration_ms: 2.519219
+  type: 'test'
+  ...
+# Subtest: mission: unrelated receipt does not satisfy missing dependency
+ok 69 - mission: unrelated receipt does not satisfy missing dependency
+  ---
+  duration_ms: 1.817298
+  type: 'test'
+  ...
+# Subtest: mission: audit is narrow even before enrollment
+not ok 70 - mission: audit is narrow even before enrollment
+  ---
+  duration_ms: 2.086966
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:53:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    Object.run (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:47:130)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:53:116)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+  ...
+# Subtest: mission: bootstrap preparation is not implementation approval
+not ok 71 - mission: bootstrap preparation is not implementation approval
+  ---
+  duration_ms: 1.585968
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:54:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    Object.run (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:47:130)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:54:135)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+  ...
+# Subtest: mission: later mission cannot request audit mode
+ok 72 - mission: later mission cannot request audit mode
+  ---
+  duration_ms: 1.481971
+  type: 'test'
+  ...
+# Subtest: mission: unenrolled trust rejects implementation
+ok 73 - mission: unenrolled trust rejects implementation
+  ---
+  duration_ms: 1.597115
+  type: 'test'
+  ...
+# Subtest: mission: unrelated checkpoint rejected
+ok 74 - mission: unrelated checkpoint rejected
+  ---
+  duration_ms: 1.817739
+  type: 'test'
+  ...
+# Subtest: mission: short checkpoint denied despite permissive ancestry callback
+ok 75 - mission: short checkpoint denied despite permissive ancestry callback
+  ---
+  duration_ms: 1.632218
+  type: 'test'
+  ...
+# Subtest: mission: source text edit invalidates old completion
+not ok 76 - mission: source text edit invalidates old completion
+  ---
+  duration_ms: 1.664447
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:59:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    Object.receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:59:96)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+  ...
+# Subtest: mission: requirement edit invalidates old completion
+not ok 77 - mission: requirement edit invalidates old completion
+  ---
+  duration_ms: 1.555973
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:60:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    Object.receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:60:96)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+  ...
+# Subtest: mission: status-only edit does not alter definition hash
+ok 78 - mission: status-only edit does not alter definition hash
+  ---
+  duration_ms: 1.479347
+  type: 'test'
+  ...
+# Subtest: mission: incomplete bootstrap controls rejected
+not ok 79 - mission: incomplete bootstrap controls rejected
+  ---
+  duration_ms: 1.622634
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:62:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    Object.receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:62:91)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+  ...
+# Subtest: mission: forged bootstrap controls rejected
+not ok 80 - mission: forged bootstrap controls rejected
+  ---
+  duration_ms: 1.236801
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:63:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    Object.receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:63:87)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+  ...
+# Subtest: mission: circular prerequisites rejected
+ok 81 - mission: circular prerequisites rejected
+  ---
+  duration_ms: 2.564618
+  type: 'test'
+  ...
+# Subtest: mission: source symlink rejected
+ok 82 - mission: source symlink rejected
+  ---
+  duration_ms: 1.565668
+  type: 'test'
+  ...
+# Subtest: mission: parent path rejected
+ok 83 - mission: parent path rejected
+  ---
+  duration_ms: 1.359235
+  type: 'test'
+  ...
+# Subtest: mission CLI: real Git ancestry and signed fixtures
+not ok 84 - mission CLI: real Git ancestry and signed fixtures
+  ---
+  duration_ms: 41.435149
+  type: 'test'
+  location: '/mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:67:1'
+  failureType: 'testCodeFailure'
+  error: 'The "key" argument must be of type string or an instance of ArrayBuffer, Buffer, TypedArray, or DataView. Received an instance of PrivateKeyObject'
+  code: 'ERR_INVALID_ARG_TYPE'
+  name: 'TypeError'
+  stack: |-
+    getKeyObjectHandle (node:internal/crypto/keys:475:11)
+    prepareAsymmetricKey (node:internal/crypto/keys:625:20)
+    createPrivateKey (node:internal/crypto/keys:719:5)
+    signRecord (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/signed_records.mjs:25:10)
+    file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:355
+    Array.map (<anonymous>)
+    Object.receipts (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:46:68)
+    TestContext.<anonymous> (file:///mnt/data/jarvis-v5-codex/tools/jarvis-v5/tests/v5-trust.test.mjs:72:34)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+  ...
+# Subtest: keys: normal rotation requires old owner and replacement possession
+ok 85 - keys: normal rotation requires old owner and replacement possession
+  ---
+  duration_ms: 4.461296
+  type: 'test'
+  ...
+# Subtest: keys: loss recovery works without missing operational key
+ok 86 - keys: loss recovery works without missing operational key
+  ---
+  duration_ms: 3.084424
+  type: 'test'
+  ...
+# Subtest: keys: compromise recovery does not trust compromised owner signature
+ok 87 - keys: compromise recovery does not trust compromised owner signature
+  ---
+  duration_ms: 3.135982
+  type: 'test'
+  ...
+# Subtest: keys: emergency revocation works without replacement
+ok 88 - keys: emergency revocation works without replacement
+  ---
+  duration_ms: 2.097742
+  type: 'test'
+  ...
+# Subtest: keys: revocation cannot smuggle a replacement
+ok 89 - keys: revocation cannot smuggle a replacement
+  ---
+  duration_ms: 2.144142
+  type: 'test'
+  ...
+# Subtest: keys: missing replacement possession rejected
+ok 90 - keys: missing replacement possession rejected
+  ---
+  duration_ms: 2.247239
+  type: 'test'
+  ...
+# Subtest: keys: missing normal rotation owner proof rejected
+ok 91 - keys: missing normal rotation owner proof rejected
+  ---
+  duration_ms: 2.254168
+  type: 'test'
+  ...
+# Subtest: keys: changed state invalidates signed transition
+ok 92 - keys: changed state invalidates signed transition
+  ---
+  duration_ms: 2.517987
+  type: 'test'
+  ...
+# Subtest: keys: repeated transition rejected
+ok 93 - keys: repeated transition rejected
+  ---
+  duration_ms: 3.04226
+  type: 'test'
+  ...
+# Subtest: keys: duplicate signature does not satisfy threshold
+ok 94 - keys: duplicate signature does not satisfy threshold
+  ---
+  duration_ms: 1.899362
+  type: 'test'
+  ...
+# Subtest: keys: tampered replacement rejected
+ok 95 - keys: tampered replacement rejected
+  ---
+  duration_ms: 2.609887
+  type: 'test'
+  ...
+# Subtest: keys: recovery role cannot be reused as operational key
+ok 96 - keys: recovery role cannot be reused as operational key
+  ---
+  duration_ms: 2.270714
+  type: 'test'
+  ...
+# Subtest: keys: unsupported recovery-root change rejected
+ok 97 - keys: unsupported recovery-root change rejected
+  ---
+  duration_ms: 2.27517
+  type: 'test'
+  ...
+# Subtest: keys: revoked signer rejected
+ok 98 - keys: revoked signer rejected
+  ---
+  duration_ms: 2.017972
+  type: 'test'
+  ...
+# Subtest: keys: exhausted epoch denied
+ok 99 - keys: exhausted epoch denied
+  ---
+  duration_ms: 1.463563
+  type: 'test'
+  ...
+# Subtest: keys: invalid clock denied
+ok 100 - keys: invalid clock denied
+  ---
+  duration_ms: 1.806071
+  type: 'test'
+  ...
+# Subtest: keys: expired request denied
+ok 101 - keys: expired request denied
+  ---
+  duration_ms: 1.702124
+  type: 'test'
+  ...
+# Subtest: keys: two independently held recovery keys enforce threshold
+ok 102 - keys: two independently held recovery keys enforce threshold
+  ---
+  duration_ms: 4.746397
+  type: 'test'
+  ...
+1..102
+# tests 102
+# suites 0
+# pass 92
+# fail 10
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1172.111775

@@ -1,4 +1,47 @@
 ---
+title: "Preserve canonical transactions, migrations and durable work."
+document_id: ".agents::skills::database-and-jobs::SKILL"
+status: "active"
+authority_class: "engineering_skill"
+owner_role: "backend_implementer"
+created_at: "2026-09-25"
+reviewed_at: null
+review_evidence: null
+review_triggers: ["scope_change", "contract_change"]
+pack_version: "5.0.0"
+name: "database-and-jobs"
+description: "Preserve canonical transactions, migrations and durable work."
+version: "5.0.0"
+---
+
+# Purpose
+
+Preserve canonical transactions, migrations and durable work.
+
+## Scope and handoff
+
+Primary role: `backend_implementer`. Follow AGENTS.md. Another role may consume this playbook but must not silently take promotion authority.
+
+## Workflow
+1. Lead schema/migration correctness. Deployment skill owns rollout, not SQL meaning.
+2. Inspect applied journals and preserve historical migrations.
+3. Prove generation, lease, idempotency and partial-result transactions.
+4. Test concurrent workers, deadline boundaries and late callbacks.
+
+## Read
+- `docs/architecture/DATA_MODEL.md`
+- `docs/architecture/JOB_LIFECYCLE.md`
+- `docs/missions/STAGING_MIGRATION_WORKFLOW.md`
+
+## Evidence and stop
+
+Use synthetic data and exact current source paths. Report unknowns, omitted tests and observed versions. Write the session handoff to governance/STATE.json. Stop on a protected-rule conflict or missing external authority. Do not change the judge to make the feature pass.
+
+## Retained detailed engineering guidance
+
+Follow the current root authority and relevant V5 requirements when older wording differs.
+
+---
 name: database-and-jobs
 description: Use for Neon/Postgres schemas, Drizzle migrations, pgvector, full-text search, pg-boss jobs, idempotency, event storage, audit records, backups, or recovery.
 ---

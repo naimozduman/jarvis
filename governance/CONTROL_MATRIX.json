@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "runtimeImplementationNotImplied": true,
+  "controls": [
+    {
+      "id": "GOV-01",
+      "name": "protected_gate",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/trust-gate.mjs",
+      "testedOrSpecified": "Policy v2 protected-by-default exact Git tree classification, narrow mode-aware evidence exceptions and owner signature",
+      "remaining": "Owner key custody/enrollment, trusted runner, required check origin and current-head final promotion",
+      "beforeMission": "J5-M01"
+    },
+    {
+      "id": "GOV-02",
+      "name": "artifact_checks",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/validate.py",
+      "testedOrSpecified": "Metadata, hashes, links, schemas, registry and prompt assembly structure",
+      "remaining": "Actual-repository managed-file adoption and semantic review",
+      "beforeMission": "J5-M01"
+    },
+    {
+      "id": "GOV-03",
+      "name": "impact_check",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/promotion_evidence.py",
+      "testedOrSpecified": "Signed purpose-scoped receipts plus workflow/source/run/attempt/job/artifact/report corroboration; impact declarations remain non-authoritative",
+      "remaining": "Independently installed verifier/recorder, enrolled signer/workflow profiles and live GitHub smoke test",
+      "beforeMission": "J5-M01"
+    },
+    {
+      "id": "GOV-04",
+      "name": "session_mission",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/mission_gate.mjs",
+      "testedOrSpecified": "Purpose-separated, epoch/definition/checkpoint-bound receipt eligibility with transitive prerequisites",
+      "remaining": "Trusted runner integration, enrolled verifier and authentic application completion evidence",
+      "beforeMission": "J5-M02"
+    },
+    {
+      "id": "AUTH-01",
+      "name": "exact_approval",
+      "status": "reference_only",
+      "artifact": "tools/jarvis-v5/reference_controls.py",
+      "testedOrSpecified": "Synthetic exact action, owner, epoch, expiry and step-up assertions",
+      "remaining": "Real trusted UI, auth verifier, transaction binding and persistent executor guard",
+      "beforeMission": "J5-M18"
+    },
+    {
+      "id": "AUTH-02",
+      "name": "finite_leases",
+      "status": "reference_only",
+      "artifact": "schemas/drafts/authority-lease.schema.json",
+      "testedOrSpecified": "Typed scope and finite expiry plus temporal reference checks",
+      "remaining": "Atomic use counts, revocation, concurrent authorization and actual runtime integration",
+      "beforeMission": "J5-M18"
+    },
+    {
+      "id": "COST-01",
+      "name": "reservations",
+      "status": "reference_only",
+      "artifact": "tools/jarvis-v5/reference_controls.py",
+      "testedOrSpecified": "Settled-plus-reserved admission arithmetic and stuck/unknown denials",
+      "remaining": "Atomic PostgreSQL reservation transactions, all billable adapters, owner profile",
+      "beforeMission": "J5-M05"
+    },
+    {
+      "id": "PROMPT-01",
+      "name": "composition",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/compile_prompts.py",
+      "testedOrSpecified": "Byte ceilings, exact content hashes and invariant injection",
+      "remaining": "Real loader adoption, model tokenizer accounting and behavioral evals",
+      "beforeMission": "J5-M05"
+    },
+    {
+      "id": "SCHEMA-01",
+      "name": "draft_registry",
+      "status": "implemented_pack",
+      "artifact": "governance/SCHEMA_REGISTRY.json",
+      "testedOrSpecified": "Draft identity and local reference/fixture consistency",
+      "remaining": "Producer-consumer migration, generated types and active import mapping",
+      "beforeMission": "J5-M13"
+    },
+    {
+      "id": "KILL-01",
+      "name": "independent_stops",
+      "status": "specified_not_implemented",
+      "artifact": "docs/security/KILL_SWITCH_DRILLS.md",
+      "testedOrSpecified": "Drill requirements only",
+      "remaining": "Real cloud/local stop paths, stale epoch guards and deployed drills",
+      "beforeMission": "J5-M18"
+    },
+    {
+      "id": "EVAL-01",
+      "name": "freshness",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/promotion_evidence.py",
+      "testedOrSpecified": "Trusted affected-area selection with missing/stale signed coverage review blocking; unrelated planned suites excluded",
+      "remaining": "Real application suite mapping and independent review records; runtime activation and semantic adequacy",
+      "beforeMission": "J5-M01"
+    },
+    {
+      "id": "OBS-01",
+      "name": "observations",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/review_evidence.py",
+      "testedOrSpecified": "Unknown/stale observation reporting before dependent operations",
+      "remaining": "Authorized live provider reads tied to deployment and source SHA",
+      "beforeMission": "J5-M00"
+    },
+    {
+      "id": "IDENTITY-01",
+      "name": "enrollment",
+      "status": "specified_not_implemented",
+      "artifact": "docs/security/AUTHENTICATION_BOUNDARY.md",
+      "testedOrSpecified": "Enrollment and recovery ceremony specification",
+      "remaining": "Owner-authenticated device binding, passkeys and recovery enrollment",
+      "beforeMission": "J5-M07"
+    },
+    {
+      "id": "APPROVAL-UX",
+      "name": "attention",
+      "status": "specified_not_implemented",
+      "artifact": "docs/security/APPROVAL_MODEL.md",
+      "testedOrSpecified": "No model-authored approval controls and attention metrics",
+      "remaining": "Trusted canonical renderer and real traffic instrumentation",
+      "beforeMission": "J5-M18"
+    },
+    {
+      "id": "BUILD-01",
+      "name": "isolated_worker",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/isolated_worker.py",
+      "testedOrSpecified": "Operator committed-source preparation, rootless offline launcher, fixed probe, configuration/denial tests; no real Docker execution in this environment",
+      "remaining": "Credential-free networked Codex host, reviewed image/rootless daemon, actual negative probe and remote-tool permission inventory",
+      "beforeMission": "J5-M01"
+    },
+    {
+      "id": "KEY-01",
+      "name": "key_transition",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/key_lifecycle.mjs",
+      "testedOrSpecified": "Dummy-key rotation/recovery/revocation transition verifier",
+      "remaining": "Real custody, external monotonic state CAS, platform recovery and owner ceremony",
+      "beforeMission": "J5-M01"
+    },
+    {
+      "id": "CTX-01",
+      "name": "builder_context",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/context.py",
+      "testedOrSpecified": "Bounded deterministic topic/mission/requirement context with hashes",
+      "remaining": "Actual source selection and promoted-context use",
+      "beforeMission": "J5-M00"
+    },
+    {
+      "id": "STATE-01",
+      "name": "handoff_compare_and_swap",
+      "status": "implemented_pack",
+      "artifact": "tools/jarvis-v5/state.py",
+      "testedOrSpecified": "Local cooperating-process lock, expected hash and atomic file replacement",
+      "remaining": "Repository convention adoption; not distributed consensus or authority",
+      "beforeMission": "J5-M02"
+    },
+    {
+      "id": "TIME-01",
+      "name": "trusted_time",
+      "status": "reference_only",
+      "artifact": "tools/jarvis-v5/trusted_time.py",
+      "testedOrSpecified": "Strict timestamp, expiry, epoch and uncertainty examples",
+      "remaining": "Database-after-lock integration and real clock-health monitoring",
+      "beforeMission": "J5-M18"
+    },
+    {
+      "id": "DR-01",
+      "name": "restore_without_replay",
+      "status": "specified_not_implemented",
+      "artifact": "docs/security/DISASTER_RECOVERY.md",
+      "testedOrSpecified": "Restore/incident procedure and acceptance cases",
+      "remaining": "Actual synthetic then authorized restore drills and source deletion reconciliation",
+      "beforeMission": "J5-M06"
+    }
+  ]
+}

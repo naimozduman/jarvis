@@ -17,6 +17,8 @@ export default tseslint.config(
       'prompts/**',
       'schemas/**',
       'templates/**',
+      // Standalone reference toolkit has its own tests; application rules remain unchanged.
+      'tools/jarvis-v5/**',
     ],
   },
   js.configs.recommended,

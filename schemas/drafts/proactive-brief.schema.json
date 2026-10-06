@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/proactive-brief/1.0.0-draft",
+  "title": "Proactive Brief",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.proactive-brief",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "briefId",
+    "ownerId",
+    "periodStart",
+    "periodEnd",
+    "generatedAt",
+    "interruptionClass",
+    "items"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "briefId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "periodStart": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "periodEnd": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "interruptionClass": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "owner_requested",
+        "critical"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "summary",
+          "sourceRefs"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "info",
+              "needs_attention",
+              "drafted",
+              "waiting_approval",
+              "running",
+              "verified",
+              "failed",
+              "partial",
+              "reconciliation_required"
+            ]
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "sourceRefs": {
+            "type": "array",
+            "items": {
+              "$ref": "https://jarvis.invalid/contracts/source-reference/1.0.0-draft"
+            },
+            "minItems": 1,
+            "maxItems": 20,
+            "uniqueItems": true
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 50,
+      "uniqueItems": true
+    }
+  }
+}

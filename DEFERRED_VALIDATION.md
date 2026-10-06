@@ -1,14 +1,17 @@
-# Deferred executable validation — 2026-10-05
+# Deferred Linux executable validation — canonical candidate
 
-This is a reviewable source candidate. Windows did not provide the required isolated executable
-environment, so this phase installed no dependencies and ran no repository application, test,
-build, lint, typecheck, code generator, migration, provider call or deployment. Host security was
-not weakened. Standalone trusted parsers read source as data; they did not import repository code.
+The October 5, 2026 source/docs candidate includes V5 absorption. Windows performed input/archive/hash/link/registry/syntax audits and the new data-only documentation writer regressions. It did not install application dependencies or execute application builds, lint/type checks, application/database/provider suites, migrations, deployment or AWS operations. Original V5's 513 pack tests are historical evidence, not rerun results.
 
-The next separately scoped Ubuntu Lightsail validation task should use a disposable isolated
-checkout of the final `reconciliation/2026-10-05` SHA, the repository-pinned Node 24.19.0 and
-pnpm 11.23.0, synthetic fixtures and disposable local/container databases. No transfer, instance
-access or infrastructure operation was performed by this phase.
+Use the exact final candidate SHA in an isolated Ubuntu checkout, repository-pinned Node 24.19.0 and pnpm 11.23.0, synthetic fixtures, disposable databases and no production credentials. Review lifecycle scripts before frozen installation. No transfer/instance access is performed by this documentation task.
+
+## Added V5 documentation gates
+
+- Run python tools/jarvis-docs/manage.py check and the three documentation writer boundary regressions.
+- Resolve bounded topic/mission packets with the relocated CONTEXT_REGISTRY/ROADMAP. Required overflow must fail rather than truncate policy. Source context is not mission admission.
+- Extract the exact original 467-member V5 source archive only into fresh scratch for original standalone pack validation/test reproduction. Original validate.py/v5_checks.py do not validate the reorganized application root.
+- Verify the legacy generate.py/render.py/index.py application-root refusal, including managed mode, and unchanged compatibility pointers. No trust/key/worker operation is required.
+- Confirm staged schemas/modules/templates and workflow examples have no active runtime consumers; preserve all existing application CI and active contracts/prompts.
+- Check exact immutable ADR/migration/source preservation, all 93 original requirement/acceptance texts, archive hashes, current document index and zero missing file dispositions.
 
 ## Required validation
 
@@ -37,12 +40,6 @@ phase neither provisioned that endpoint nor authenticated to it.
 
 ## Remaining release limits
 
-Safe static results do not certify migration execution, type correctness, runtime behavior,
-provider availability, current deployment enablement, owner baseline population, delivery/read
-proof or longitudinal natural use. Existing product questions in `docs/JARVIS/OPEN_QUESTIONS.md`
-remain scoped product questions. Historical fixed C7 release/recovery workflows are provenance,
-not a release mechanism for this candidate's newer migrations.
+Static source and documentation checks do not certify strict compilation, dependency installation, migrations/catalog behavior, runtime concurrency, provider readiness, current deployment/owner enrollment, actual baseline data or longitudinal usefulness. Stronger V5 first-party/approval/kill/atomic-budget/recovery controls remain separately implemented/proven requirements.
 
-The branch is ready to become the input to isolated Linux validation. It is not a validated
-release. V5 integration, Jarvis Zero development, AWS transfer and deployment remain outside this
-phase.
+The canonical candidate is the input to Linux validation. Odysseus/controller integration, trust enrollment, paid/provider activation, AWS transfer and deployment are separate later work. Earlier fixed C7 workflows remain historical operational mechanisms, not a release plan for the newer migration chain.

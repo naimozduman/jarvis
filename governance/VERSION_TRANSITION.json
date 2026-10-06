@@ -1,0 +1,68 @@
+{
+  "from": "4.1.0",
+  "to": "5.0.0",
+  "sourceZipSha256": "f48b2d374b10a13b48bcb4fd0ef88f71aadb942ee018573f4f4b943d7bafc0fc",
+  "removedPackEntryPoints": [
+    "prompts/START_V4_1_IN_CODEX.txt",
+    "prompts/START_V4_IN_CODEX.txt",
+    "prompts/codex/00-bootstrap.md",
+    "prompts/codex/01-foundation.md",
+    "prompts/codex/02-brain-memory-and-planning.md",
+    "prompts/codex/03-cloud-orchestration-live-model.md",
+    "prompts/codex/04-whatsapp-vertical-slice.md",
+    "prompts/codex/05-web-control-center.md",
+    "prompts/codex/06-google-connectors.md",
+    "prompts/codex/07-life-ledger-journal.md",
+    "prompts/codex/08-personal-os-sdk.md",
+    "prompts/codex/09-android.md",
+    "prompts/codex/10-realtime-voice.md",
+    "prompts/codex/11-first-party-apps.md",
+    "prompts/codex/12-edith-executor.md",
+    "prompts/codex/13-hardening.md",
+    "prompts/runtime/accountability.md",
+    "prompts/runtime/browser-operator.md",
+    "prompts/runtime/core-system.md",
+    "prompts/runtime/email-triage.md",
+    "prompts/runtime/fba-ops.md",
+    "prompts/runtime/finance-observer.md",
+    "prompts/runtime/health-and-training.md",
+    "prompts/runtime/historical-reconstruction.md",
+    "prompts/runtime/memory-extractor.md",
+    "prompts/runtime/message-writer.md",
+    "prompts/runtime/mode-edith.md",
+    "prompts/runtime/mode-friday.md",
+    "prompts/runtime/mode-karen.md",
+    "prompts/runtime/night-mode.md",
+    "prompts/runtime/planner.md",
+    "prompts/runtime/proactive-operator.md",
+    "prompts/runtime/relationship-vault.md",
+    "prompts/runtime/skill-curator.md",
+    "prompts/runtime/source-grounding.md",
+    "prompts/runtime/tool-policy.md",
+    "prompts/runtime/uncertainty.md",
+    "prompts/runtime/voice.md",
+    "prompts/runtime/weekly-review.md"
+  ],
+  "relocations": [
+    {
+      "from": "tools/jarvis-v4",
+      "to": "tools/jarvis-v5"
+    },
+    {
+      "from": "prompts/runtime/v4",
+      "to": "prompts/runtime/modules"
+    },
+    {
+      "from": "schemas/v4",
+      "to": "schemas/drafts"
+    },
+    {
+      "from": "tests/v4",
+      "to": "tests/contracts"
+    }
+  ],
+  "activeApplicationFilesDeleted": false,
+  "runtimeWireVersionsUnchanged": true,
+  "currentScope": "Retained original-pack history with relocated current destinations; originalOverlayPath/removedPackEntryPoints/from are historical identities, not current required files or deletion instructions.",
+  "applicationRuntimeAdoptionImplied": false
+}

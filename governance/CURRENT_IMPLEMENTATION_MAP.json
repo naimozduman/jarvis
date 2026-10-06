@@ -1,0 +1,125 @@
+{
+  "mapVersion": 1,
+  "sourceCheckpoint": "0b05116598a7bed142c294326e15471ed03e0b26",
+  "observedAt": "2026-10-05",
+  "scope": "Selected static source and preservation, no runtime/deployment verification",
+  "subsystems": [
+    {
+      "id": "api_provider",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "apps/api/src/http-app.ts",
+        "apps/api/src/vercel-runtime.ts",
+        "packages/brain/src/model"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "planning_actions",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "packages/contracts/src/plan-delta.ts",
+        "packages/brain/src/conversation/action-mapper.ts",
+        "packages/brain/src/planning"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "jobs_delivery",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "packages/database/src/job-lifecycle.ts",
+        "packages/orchestration/src/canonical-job-executor.ts",
+        "convex"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "reminders",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "packages/database/src/requested-reminder-target.ts",
+        "packages/database/src/requested-reminder-fire.ts",
+        "packages/database/src/telegram-final-send.ts"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "telegram",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "apps/api/src/telegram-bot-routes.ts",
+        "packages/orchestration/src/telegram-bot-processors.ts"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "official_cloud",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "apps/api/src/whatsapp-cloud-ingest-routes.ts",
+        "packages/orchestration/src/whatsapp-cloud-owner-conversation-processor.ts"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "legacy_evolution",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "packages/integrations-evolution",
+        "apps/whatsapp-bridge"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "owner_context",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "packages/brain/src/conversation/conversation-turn-service.ts",
+        "packages/database/src/owner-baseline-context.ts"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "personal_apps",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "apps/api/src/personal-system-routes.ts",
+        "packages/integrations/src/personal-apps.ts"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "active_prompts",
+      "disposition": "keep_reconciled_implementation",
+      "sourcePaths": [
+        "packages/brain/src/prompts",
+        "prompts/runtime/core-system.md"
+      ],
+      "runtimeProof": null
+    },
+    {
+      "id": "draft_v5",
+      "disposition": "staged_not_adopted",
+      "sourcePaths": [
+        "schemas/drafts",
+        "prompts/runtime/modules",
+        "tools/jarvis-v5",
+        "templates/v5"
+      ],
+      "runtimeProof": null
+    }
+  ],
+  "remainingGaps": [
+    "active prompt byte/order provenance",
+    "generic incomplete model-request recovery",
+    "durable atomic aggregate spend reservations and accurate period inputs",
+    "first-party independent access/stop and trusted step-up approval",
+    "kill epoch/external drills",
+    "offline/deletion/backup reconciliation",
+    "trusted governance installation",
+    "Linux executable validation"
+  ],
+  "historicalSeedRef": "governance/RECONCILIATION.json",
+  "owningDocument": "docs/architecture/CURRENT_IMPLEMENTATION.md"
+}

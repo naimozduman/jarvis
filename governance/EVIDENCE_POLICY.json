@@ -1,0 +1,50 @@
+{
+  "evidencePolicyVersion": 1,
+  "repository": "naimozduman/jarvis",
+  "enabled": false,
+  "bootstrapStatus": "verifier_and_review_keys_not_enrolled",
+  "signers": [],
+  "workflows": [],
+  "maxValiditySeconds": {
+    "test-verification": 86400,
+    "eval-review": 7776000
+  },
+  "maxArtifactBytes": 20000000,
+  "maxReportBytes": 2000000,
+  "maxEvidenceRecords": 200,
+  "activationRequirements": {
+    "AUTH-01": [
+      "E-REAL-ENROLL",
+      "E-EXTERNAL-KILL"
+    ],
+    "AUTH-02": [
+      "E-REAL-ENROLL",
+      "E-EXTERNAL-KILL"
+    ],
+    "COST-01": [
+      "E-CONCURRENT-SPEND"
+    ],
+    "KILL-01": [
+      "E-EXTERNAL-KILL"
+    ],
+    "IDENTITY-01": [
+      "E-REAL-ENROLL"
+    ],
+    "APPROVAL-UX": [
+      "E-REAL-ENROLL"
+    ],
+    "PROMPT-01": [
+      "E-LIVE-JUDGMENT"
+    ],
+    "SCHEMA-01": [
+      "E-SCHEMA",
+      "E-APP-REGRESSION"
+    ]
+  },
+  "activeControlStates": [
+    "implemented_runtime",
+    "active",
+    "enabled"
+  ],
+  "notes": "Enrollment is an owner-controlled M01 action. Empty keys/workflows fail closed for promotion evidence, not for M00 static audit. These are verification freshness limits, not runtime budgets or owner-spending consent. Test-verification requires both signature and authenticated GitHub run/job/artifact checks. Eval review is separately signed and binds exact head and coverage. Candidate fields never grant trust."
+}

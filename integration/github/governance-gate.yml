@@ -1,0 +1,84 @@
+# Integration example, NOT installed. Keep this file and its BASE tools owner-controlled.
+# Requires an externally controlled verifier workflow and enrolled evidence keys.
+# Never execute candidate code in this job. A final admission check must be repeated
+# by the protected merge/deploy controller because green GitHub checks do not self-expire.
+name: JARVIS trusted governance
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+  issue_comment:
+    types: [created, edited]
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+  actions: read
+jobs:
+  governance:
+    if: github.event_name != 'issue_comment' || github.event.issue.pull_request
+    name: Trusted V5 governance gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out accepted BASE, never candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
+          path: trusted
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Confirm trusted tool versions
+        run: |
+          node -e "if (Number(process.versions.node.split('.')[0]) < 22) process.exit(2)"
+          python3 -c "import sys; assert sys.version_info >= (3, 11)"
+      - name: Collect immutable PR objects and detached receipts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 trusted/tools/jarvis-v5/github_candidate.py \
+            --repo trusted --event "$GITHUB_EVENT_PATH" --out "$RUNNER_TEMP/jarvis-receipts"
+      - name: Verify exact diff, structure and impact using BASE tools
+        env:
+          RECEIPTS: ${{ runner.temp }}/jarvis-receipts
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          receipts=Path(os.environ['RECEIPTS'])
+          c=json.loads((receipts/'candidate.json').read_text())
+          tools=Path('trusted/tools/jarvis-v5')
+          subprocess.run(['node',str(tools/'trust-gate.mjs'),'--repo','trusted',
+            '--base',c['base'],'--head',c['head'],'--policy','trusted/governance/TRUST_POLICY.json',
+            '--public-key','trusted/governance/owner-public.pem',
+            '--approvals-file',str(receipts/'approvals.json')],check=True)
+          candidate=receipts/'candidate-data'
+          subprocess.run(['python3',str(tools/'git_snapshot.py'),'--repo','trusted',
+            '--commit',c['head'],'--out',str(candidate)],check=True)
+          subprocess.run(['python3',str(tools/'validate.py'),'--root',str(candidate),
+            '--mode','repository'],check=True)
+          subprocess.run(['python3',str(tools/'version_gate.py'),'--base-root','trusted',
+            '--head-root',str(candidate)],check=True)
+          subprocess.run(['python3',str(tools/'impact.py'),'--repo','trusted','--base',c['base'],
+            '--head',c['head'],'--map','trusted/governance/IMPLEMENTATION_MAP.json',
+            '--record',str(receipts/'impact.json'),'--policy','trusted/governance/TRUST_POLICY.json'],check=True)
+          PY
+      - name: Authenticate verifier results and require relevant fresh eval reviews
+        env:
+          RECEIPTS: ${{ runner.temp }}/jarvis-receipts
+          # Optional cross-repository credential: Actions read + Contents read for the
+          # enrolled verifier repository only. This step executes trusted code only.
+          GH_TOKEN: ${{ secrets.JARVIS_VERIFIER_READ_TOKEN || github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,os,subprocess
+          from pathlib import Path
+          receipts=Path(os.environ['RECEIPTS'])
+          c=json.loads((receipts/'candidate.json').read_text())
+          subprocess.run(['python3','trusted/tools/jarvis-v5/promotion_evidence.py',
+            '--trusted-root','trusted','--candidate-root',str(receipts/'candidate-data'),
+            '--repo','trusted','--base',c['base'],'--head',c['head'],
+            '--evidence',str(receipts/'evidence.json')],check=True)
+          PY
+# Keep candidate application tests unprivileged and separate. Do not give them the
+# verification signer, provider credentials, migration role or this job's token.
+# Required-check origin/bypass permissions and external recorder isolation are M01 gates.

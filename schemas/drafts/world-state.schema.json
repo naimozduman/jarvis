@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jarvis.invalid/contracts/world-state/1.0.0-draft",
+  "title": "Expiring World State",
+  "description": "V4 candidate contract. Not active in the JARVIS runtime. Promotion requires SCHEMA_EVOLUTION and registry evidence.",
+  "x-contract-id": "jarvis.world-state",
+  "x-contract-version": "1.0.0-draft",
+  "x-lifecycle": "draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "ownerId",
+    "kind",
+    "observedAt",
+    "expiresAt",
+    "sourceRef",
+    "valueSchemaId",
+    "value",
+    "informationState",
+    "sensitivity"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "kind": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{2,159}$"
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceRef": {
+      "$ref": "https://jarvis.invalid/contracts/source-reference/1.0.0-draft"
+    },
+    "valueSchemaId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "value": {
+      "type": "object",
+      "maxProperties": 64,
+      "description": "Must also pass the capability-specific input schema. Never an authority grant."
+    },
+    "informationState": {
+      "type": "string",
+      "enum": [
+        "known",
+        "inferred",
+        "stale",
+        "conflicting",
+        "missing",
+        "not_connected"
+      ]
+    },
+    "sensitivity": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "private",
+        "sensitive",
+        "restricted"
+      ]
+    }
+  }
+}

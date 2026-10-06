@@ -1,4 +1,47 @@
 ---
+title: "Review threat boundaries, egress, authentication and authority."
+document_id: ".agents::skills::security-and-privacy::SKILL"
+status: "active"
+authority_class: "engineering_skill"
+owner_role: "security_reviewer"
+created_at: "2026-09-25"
+reviewed_at: null
+review_evidence: null
+review_triggers: ["scope_change", "contract_change"]
+pack_version: "5.0.0"
+name: "security-and-privacy"
+description: "Review threat boundaries, egress, authentication and authority."
+version: "5.0.0"
+---
+
+# Purpose
+
+Review threat boundaries, egress, authentication and authority.
+
+## Scope and handoff
+
+Primary role: `security_reviewer`. Follow AGENTS.md. Another role may consume this playbook but must not silently take promotion authority.
+
+## Workflow
+1. Own security findings; product-rules owns product intent.
+2. Review exact owner/action/payload/policy/approval binding.
+3. Inspect raw-data minimization, secret handling and confused deputies.
+4. Require negative tests and actual stop/reauth/revocation evidence before enablement.
+
+## Read
+- `docs/security/SECURITY.md`
+- `docs/security/APPROVAL_MODEL.md`
+- `docs/security/CAPABILITY_AND_AUTHORITY.md`
+
+## Evidence and stop
+
+Use synthetic data and exact current source paths. Report unknowns, omitted tests and observed versions. Write the session handoff to governance/STATE.json. Stop on a protected-rule conflict or missing external authority. Do not change the judge to make the feature pass.
+
+## Retained detailed engineering guidance
+
+Follow the current root authority and relevant V5 requirements when older wording differs.
+
+---
 name: security-and-privacy
 description: Use before or during work involving authentication, OAuth tokens, webhooks, secrets, finance, health, email, location, relationships, model tools, approvals, deletion, logs, backups, or production access.
 ---
